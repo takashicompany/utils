@@ -247,6 +247,43 @@
 		}
 #endregion
 
+#region リストをランダムで処理する
+		public static int GetRandomIndex<T>(this IList<T> self)
+		{
+			return Random.Range(0, self.Count);
+		}
+
+		public static T GetRandom<T>(this IList<T> self)
+		{
+			return self[self.GetRandomIndex()];
+		}
+
+		public static T RemoveRandom<T>(this IList<T> self)
+		{
+			var index = self.GetRandomIndex();
+
+			var item = self[index];
+
+			self.RemoveAt(index);
+
+			return item;
+		}
+
+		public static List<T> GetRandomSorted<T>(this IList<T> self)
+		{
+			var myList = new List<T>(self);
+
+			var list = new List<T>();
+
+			while(myList.Count > 0)
+			{
+				list.Add(myList.RemoveRandom());
+			}
+
+			return list;
+		}
+#endregion
+
 	}
 
 }
