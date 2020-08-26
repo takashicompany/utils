@@ -2,6 +2,7 @@
 {
 	using System.Collections.Generic;
 	using UnityEngine;
+	using UnityEngine.UI;
 
 	public static class Utils
 	{
@@ -283,6 +284,99 @@
 			return list;
 		}
 #endregion
+
+			public static void ToX(this Transform self, float x)
+			{
+				var p = self.position;
+				p.x = x;
+				self.position = p;
+			}
+
+			public static void ToY(this Transform self, float y)
+			{
+				var p = self.position;
+				p.y = y;
+				self.position = p;
+			}
+
+			public static void ToZ(this Transform self, float z)
+			{
+				var p = self.position;
+				p.z = z;
+				self.position = p;
+			}
+
+			public static void ToLocalX(this Transform self, float x)
+			{
+				var p = self.localPosition;
+				p.x = x;
+				self.localPosition = p;
+			}
+
+			public static void ToLocalY(this Transform self, float y)
+			{
+				var p = self.localPosition;
+				p.y = y;
+				self.localPosition = p;
+			}
+
+			public static void ToLocalZ(this Transform self, float z)
+			{
+				var p = self.localPosition;
+				p.z = z;
+				self.localPosition = p;
+			}
+
+			public static List<T> GetComponentsSelfAndChildren<T>(this Component self) where T : Component
+			{
+				var list = new List<T>();
+
+				list.AddRange(self.GetComponents<T>());
+				list.AddRange(self.GetComponentsInChildren<T>(true));
+
+				return list;
+			}
+
+			public static List<T> GetComponentsSelfAndChildren<T>(this GameObject self) where T : Component
+			{
+				var list = new List<T>();
+
+				list.AddRange(self.GetComponents<T>());
+				list.AddRange(self.GetComponentsInChildren<T>(true));
+
+				return list;
+			}
+
+			public static void ChangeLayerWithChildren(this GameObject self, int layer)
+			{
+				self.layer = layer;
+				
+				foreach (Transform n in self.transform)
+				{
+					ChangeLayerWithChildren(n.gameObject, layer);
+				}
+			}
+
+			public static void SetAlpha(this MaskableGraphic self, float alpha)
+			{
+				var c = self.color;
+				c.a = alpha;
+				self.color = c;
+			}
+
+			public static void SetAlpha(this SpriteRenderer self, float alpha)
+			{
+				var c = self.color;
+				c.a = alpha;
+				self.color = c;
+			}
+
+			public static void SetAlpha(this Material self, float alpha)
+			{
+				var c = self.color;
+				c.a = alpha;
+				self.color = c;
+			}
 
 	}
 
