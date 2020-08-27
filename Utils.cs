@@ -11,6 +11,15 @@
 			return Application.identifier.Contains("dev");
 		}
 
+		public static bool IsDevelopmentBuildOrEditor()
+		{
+#if UNITY_EDITOR
+			return true;
+#else
+			return IsDevelopmentBuild();
+#endif
+		}
+
 		public static float GetAngleXZ(Vector3 start, Vector3 target)
 		{
 			return GetAngle(new Vector2(start.x, start.z), new Vector2(target.x, target.z));
