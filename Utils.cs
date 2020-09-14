@@ -247,6 +247,13 @@
 		}
 #endregion
 
+		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 size)
+		{
+			var start = (Vector3)gridSize / -2 + size / 2;
+			
+			return start + new Vector3(size.x * gridPosition.x, size.y * gridPosition.y, size.z * gridPosition.z);
+		}
+
 	}
 
 }
