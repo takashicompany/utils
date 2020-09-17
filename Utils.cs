@@ -254,6 +254,17 @@
 			return start + new Vector3(size.x * gridPosition.x, size.y * gridPosition.y, size.z * gridPosition.z);
 		}
 
+		public static Color SetAlpha(this Color self, float alpha)
+		{
+			self.a = alpha;
+			return self;
+		}
+
+		public static void SetAlpha(this Material self, float alpha)
+		{
+			self.color = self.color.SetAlpha(alpha);
+		}
+
 	}
 
 }
