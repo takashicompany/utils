@@ -2,12 +2,22 @@
 {
 	using System.Collections.Generic;
 	using UnityEngine;
+	using UnityEngine.UI;
 
 	public static class Utils
 	{
 		public static bool IsDevelopmentBuild()
 		{
 			return Application.identifier.Contains("dev");
+		}
+
+		public static bool IsDevelopmentBuildOrEditor()
+		{
+#if UNITY_EDITOR
+			return true;
+#else
+			return IsDevelopmentBuild();
+#endif
 		}
 
 		public static float GetAngleXZ(Vector3 start, Vector3 target)
@@ -253,6 +263,115 @@
 			
 			return start + new Vector3(size.x * gridPosition.x, size.y * gridPosition.y, size.z * gridPosition.z);
 		}
+		
+#region リストをランダムで処理する
+		public static int GetRandomIndex<T>(this IList<T> self)
+		{
+			return Random.Range(0, self.Count);
+		}
+
+		public static T GetRandom<T>(this IList<T> self)
+		{
+			return self[self.GetRandomIndex()];
+		}
+
+		public static T RemoveRandom<T>(this IList<T> self)
+		{
+			var index = self.GetRandomIndex();
+
+			var item = self[index];
+
+			self.RemoveAt(index);
+
+			return item;
+		}
+
+		public static List<T> GetRandomSorted<T>(this IList<T> self)
+		{
+			var myList = new List<T>(self);
+
+			var list = new List<T>();
+
+			while(myList.Count > 0)
+			{
+				list.Add(myList.RemoveRandom());
+			}
+
+			return list;
+		}
+#endregion
+
+		public static void ToX(this Transform self, float x)
+		{
+			var p = self.position;
+			p.x = x;
+			self.position = p;
+		}
+
+		public static void ToY(this Transform self, float y)
+		{
+			var p = self.position;
+			p.y = y;
+			self.position = p;
+		}
+
+		public static void ToZ(this Transform self, float z)
+		{
+			var p = self.position;
+			p.z = z;
+			self.position = p;
+		}
+
+		public static void ToLocalX(this Transform self, float x)
+		{
+			var p = self.localPosition;
+			p.x = x;
+			self.localPosition = p;
+		}
+
+		public static void ToLocalY(this Transform self, float y)
+		{
+			var p = self.localPosition;
+			p.y = y;
+			self.localPosition = p;
+		}
+
+		public static void ToLocalZ(this Transform self, float z)
+		{
+			var p = self.localPosition;
+			p.z = z;
+			self.localPosition = p;
+		}
+
+		public static List<T> GetComponentsSelfAndChildren<T>(this Component self) where T : Component
+		{
+			var list = new List<T>();
+
+			list.AddRange(self.GetComponents<T>());
+			list.AddRange(self.GetComponentsInChildren<T>(true));
+
+			return list;
+		}
+
+		public static List<T> GetComponentsSelfAndChildren<T>(this GameObject self) where T : Component
+		{
+			var list = new List<T>();
+
+			list.AddRange(self.GetComponents<T>());
+			list.AddRange(self.GetComponentsInChildren<T>(true));
+
+			return list;
+		}
+
+		public static void ChangeLayerWithChildren(this GameObject self, int layer)
+		{
+			self.layer = layer;
+			
+			foreach (Transform n in self.transform)
+			{
+				ChangeLayerWithChildren(n.gameObject, layer);
+			}
+		}
 
 		public static Color SetAlpha(this Color self, float alpha)
 		{
@@ -260,9 +379,33 @@
 			return self;
 		}
 
+		public static void SetAlpha(this MaskableGraphic self, float alpha)
+		{
+			var c = self.color;
+			c.a = alpha;
+			self.color = c;
+		}
+
+		public static void SetAlpha(this SpriteRenderer self, float alpha)
+		{
+			var c = self.color;
+			c.a = alpha;
+			self.color = c;
+		}
+
 		public static void SetAlpha(this Material self, float alpha)
 		{
 			self.color = self.color.SetAlpha(alpha);
+			var c = self.color;
+			c.a = alpha;
+			self.color = c;
+		}
+
+		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 size)
+		{
+			var start = (Vector3)gridSize / -2 + size / 2;
+			
+			return start + new Vector3(size.x * gridPosition.x, size.y * gridPosition.y, size.z * gridPosition.z);
 		}
 
 	}
