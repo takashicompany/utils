@@ -3,6 +3,7 @@
 	using System.Collections.Generic;
 	using UnityEngine;
 	using UnityEngine.UI;
+	using UnityEngine.EventSystems;
 
 	public static class Utils
 	{
@@ -399,6 +400,21 @@
 			var c = self.color;
 			c.a = alpha;
 			self.color = c;
+		}
+
+		public static Vector2 CalcNormalizedPosition(this PointerEventData self)
+		{
+			return self.position / new Vector2(Screen.width, Screen.height);
+		}
+
+		public static Vector2 CalcPressNormalizedPosition(this PointerEventData self)
+		{
+			return self.pressPosition / new Vector2(Screen.width, Screen.height);
+		}
+
+		public static Vector2 CalcDeltaNormalized(this PointerEventData self)
+		{
+			return self.delta / new Vector2(Screen.width, Screen.height);
 		}
 	}
 
