@@ -343,6 +343,23 @@
 			self.localPosition = p;
 		}
 
+		public static T GetComponentSelfOrInParent<T>(this Component self) where T : Component
+		{
+			return self.gameObject.GetComponentSelfOrInParent<T>();
+		}
+
+		public static T GetComponentSelfOrInParent<T>(this GameObject self) where T : Component
+		{
+			var result = self.GetComponent<T>();
+
+			if (result != null)
+			{
+				return result;
+			}
+
+			return self.GetComponentInParent<T>();
+		}
+
 		public static List<T> GetComponentsSelfAndChildren<T>(this Component self) where T : Component
 		{
 			var list = new List<T>();
