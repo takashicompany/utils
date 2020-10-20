@@ -479,6 +479,25 @@
 				self.forward = current;
 			});
 		}
+
+		/// <summary>
+		/// Dictionary<K, V>からDictionay<V, K>を生成する。
+		/// Valueがnullだったり値が被る場合は除外
+		/// </summary>
+		public static Dictionary<V, K> BuildReverse<K, V>(this Dictionary<K, V> self)
+		{
+			var dict = new Dictionary<V, K>();
+
+			foreach (var kvp in self)
+			{
+				if (kvp.Value != null && !dict.ContainsKey(kvp.Value))
+				{
+					dict.Add(kvp.Value, kvp.Key);
+				}
+			}
+
+			return dict;
+		}
 	}
 	
 
