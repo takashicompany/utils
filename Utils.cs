@@ -469,6 +469,16 @@
 		{
 			self.SetColor("_EmissionColor", color);
 		}
+
+		public static Tweener DOForward(this Transform self, Vector3 forward, float duration)
+		{
+			var current = self.forward;
+
+			return DOTween.To(() => current, v => current = v.normalized, forward, duration).OnUpdate(() =>
+			{
+				self.forward = current;
+			});
+		}
 	}
 	
 
