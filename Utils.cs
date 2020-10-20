@@ -3,6 +3,7 @@
 	using System.Collections.Generic;
 	using UnityEngine;
 	using UnityEngine.UI;
+	using DG.Tweening;
 
 	public static class Utils
 	{
@@ -417,6 +418,58 @@
 			c.a = alpha;
 			self.color = c;
 		}
+
+		public static void Kill(ref Tweener tweener)
+		{
+			if (tweener != null && tweener.IsPlaying())
+			{
+				tweener.Kill();
+			}
+
+			tweener = null;
+		}
+
+		public static void Kill(ref Sequence seq)
+		{
+			if (seq != null && seq.IsPlaying())
+			{
+				seq.Kill();
+			}
+
+			seq = null;
+		}
+
+		public static Sequence KillAndNew(ref Sequence seq)
+		{
+			if (seq != null && seq.IsPlaying())
+			{
+				seq.Kill();
+			}
+
+			seq = DOTween.Sequence();
+
+			return seq;
+		}
+
+		public static Tweener DOEmmison(this Material self, Color color, float duration)
+		{
+			var c = self.GetEmmisionColor();
+			return DOTween.To(() => c, v => c = v, color, duration).OnUpdate(() =>
+			{
+				self.SetEmmisionColor(c);
+			});
+		}
+
+		public static Color GetEmmisionColor(this Material self)
+		{
+			return self.GetColor("_EmissionColor");
+		}
+
+		public static void SetEmmisionColor(this Material self, Color color)
+		{
+			self.SetColor("_EmissionColor", color);
+		}
 	}
+	
 
 }
