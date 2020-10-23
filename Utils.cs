@@ -4,6 +4,7 @@
 	using UnityEngine;
 	using UnityEngine.UI;
 	using UnityEngine.EventSystems;
+	using DG.Tweening;
 
 	public static class Utils
 	{
@@ -344,6 +345,23 @@
 			self.localPosition = p;
 		}
 
+		public static T GetComponentSelfOrInParent<T>(this Component self) where T : Component
+		{
+			return self.gameObject.GetComponentSelfOrInParent<T>();
+		}
+
+		public static T GetComponentSelfOrInParent<T>(this GameObject self) where T : Component
+		{
+			var result = self.GetComponent<T>();
+
+			if (result != null)
+			{
+				return result;
+			}
+
+			return self.GetComponentInParent<T>();
+		}
+
 		public static List<T> GetComponentsSelfAndChildren<T>(this Component self) where T : Component
 		{
 			var list = new List<T>();
@@ -416,6 +434,87 @@
 		{
 			return self.delta / new Vector2(Screen.width, Screen.height);
 		}
+
+		public static void Kill(ref Tweener tweener)
+		{
+			if (tweener != null && tweener.IsPlaying())
+			{
+				tweener.Kill();
+			}
+
+			tweener = null;
+		}
+
+		public static void Kill(ref Sequence seq)
+		{
+			if (seq != null && seq.IsPlaying())
+			{
+				seq.Kill();
+			}
+
+			seq = null;
+		}
+
+		public static Sequence KillAndNew(ref Sequence seq)
+		{
+			if (seq != null && seq.IsPlaying())
+			{
+				seq.Kill();
+			}
+
+			seq = DOTween.Sequence();
+
+			return seq;
+		}
+
+		public static Tweener DOEmmison(this Material self, Color color, float duration)
+		{
+			var c = self.GetEmmisionColor();
+			return DOTween.To(() => c, v => c = v, color, duration).OnUpdate(() =>
+			{
+				self.SetEmmisionColor(c);
+			});
+		}
+
+		public static Color GetEmmisionColor(this Material self)
+		{
+			return self.GetColor("_EmissionColor");
+		}
+
+		public static void SetEmmisionColor(this Material self, Color color)
+		{
+			self.SetColor("_EmissionColor", color);
+		}
+
+		public static Tweener DOForward(this Transform self, Vector3 forward, float duration)
+		{
+			var current = self.forward;
+
+			return DOTween.To(() => current, v => current = v.normalized, forward, duration).OnUpdate(() =>
+			{
+				self.forward = current;
+			});
+		}
+
+		/// <summary>
+		/// Dictionary<K, V>からDictionay<V, K>を生成する。
+		/// Valueがnullだったり値が被る場合は除外
+		/// </summary>
+		public static Dictionary<V, K> BuildReverse<K, V>(this Dictionary<K, V> self)
+		{
+			var dict = new Dictionary<V, K>();
+
+			foreach (var kvp in self)
+			{
+				if (kvp.Value != null && !dict.ContainsKey(kvp.Value))
+				{
+					dict.Add(kvp.Value, kvp.Key);
+				}
+			}
+
+			return dict;
+		}
 	}
+	
 
 }
