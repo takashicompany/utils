@@ -265,6 +265,13 @@
 			
 			return start + new Vector3(size.x * gridPosition.x, size.y * gridPosition.y, size.z * gridPosition.z);
 		}
+
+		public static Vector3Int GetGridPosition(Vector3Int gridSize, Vector3 size, Vector3 position)
+		{
+			var origin = new Vector3(gridSize.x * size.x, gridSize.y * size.y, gridSize.z * size.z) / 2;
+			var p = position + origin;
+			return new Vector3Int((int)Mathf.Floor(p.x), (int)Mathf.Floor(p.y), (int)Mathf.Floor(p.z));
+		}
 		
 #region リストをランダムで処理する
 		public static int GetRandomIndex<T>(this IList<T> self)
