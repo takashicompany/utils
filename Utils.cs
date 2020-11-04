@@ -531,6 +531,14 @@
 		{
 			return Physics.OverlapBox(self.transform.position, self.size / 2, self.transform.rotation, layerMask, queryTriggerInteraction);
 		}
+
+		public static Bounds Transform(this Bounds self, Transform transform)
+		{
+			var center = transform.TransformPoint(self.center);
+			var size = transform.TransformVector(self.size);
+
+			return new Bounds(center, size);
+		}
 	}
 	
 
