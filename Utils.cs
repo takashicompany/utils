@@ -259,16 +259,16 @@
 		}
 #endregion
 
-		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 size)
+		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 unitPerGrid)
 		{
-			var start = (Vector3)gridSize / -2 + size / 2;
+			var start = (Vector3)gridSize / -2 + unitPerGrid / 2;
 			
-			return start + new Vector3(size.x * gridPosition.x, size.y * gridPosition.y, size.z * gridPosition.z);
+			return start + new Vector3(unitPerGrid.x * gridPosition.x, unitPerGrid.y * gridPosition.y, unitPerGrid.z * gridPosition.z);
 		}
 
-		public static Vector3Int GetGridPosition(Vector3Int gridSize, Vector3 size, Vector3 position)
+		public static Vector3Int GetGridPosition(Vector3Int gridSize, Vector3 unitPerGrid, Vector3 position)
 		{
-			var origin = new Vector3(gridSize.x * size.x, gridSize.y * size.y, gridSize.z * size.z) / 2;
+			var origin = new Vector3(gridSize.x * unitPerGrid.x, gridSize.y * unitPerGrid.y, gridSize.z * unitPerGrid.z) / 2;
 			var p = position + origin;
 			return new Vector3Int((int)Mathf.Floor(p.x), (int)Mathf.Floor(p.y), (int)Mathf.Floor(p.z));
 		}
