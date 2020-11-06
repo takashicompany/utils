@@ -1,4 +1,4 @@
-﻿namespace TakashiCompany
+﻿namespace TakashiCompany.Unity
 {
 	using System.Collections.Generic;
 	using UnityEngine;
