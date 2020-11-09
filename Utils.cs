@@ -539,7 +539,20 @@
 
 			return new Bounds(center, size);
 		}
-	}
-	
 
+		public static class Debug
+		{
+			public static void DrawLines(Color color, float duration, params Vector3[] points)
+			{
+				for (int i = 0; i < points.Length; i++)
+				{
+					var start = points[i];
+
+					var end = i + 1 >= points.Length ? points[0] : points[i + 1];
+
+					UnityEngine.Debug.DrawLine(start, end, color, duration);
+				}
+			}
+		}
+	}
 }
