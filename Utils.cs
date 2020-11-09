@@ -272,6 +272,32 @@
 			var p = position + origin;
 			return new Vector3Int((int)Mathf.Floor(p.x), (int)Mathf.Floor(p.y), (int)Mathf.Floor(p.z));
 		}
+
+		/// <summary>
+		/// 円周上の位置を返す関数
+		/// </summary>
+		/// <param name="pointCount">取得したい円周上の座標の数</param>
+		/// <param name="start">始点のOffset。0~1</param>
+		/// <param name="cycle">周期</param>
+		/// <returns></returns>
+		public static Vector2[] GetPositionOnCircle(int pointCount, float start = 0, float cycle = 1f)
+		{
+			var points = new List<Vector2>();
+
+			var rad2 = Mathf.PI * 2;
+
+			var perAngle = rad2 * cycle / (pointCount - 1);		// -1することで最後の点が始点と重なるようにしている
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				var x = Mathf.Cos(rad2 * start + perAngle * i);
+				var y = -Mathf.Sin(rad2 * start + perAngle * i);
+
+				points.Add(new Vector2(x, y));
+			}
+
+			return points.ToArray();
+		}
 		
 #region リストをランダムで処理する
 		public static int GetRandomIndex<T>(this IList<T> self)
