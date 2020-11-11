@@ -261,7 +261,13 @@
 
 		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 unitPerGrid)
 		{
-			var start = (Vector3)gridSize / -2 + unitPerGrid / 2;
+			var half = unitPerGrid / 2;
+
+			var start = new Vector3(
+				-half.x * Mathf.Max(gridSize.x - 1, 0),
+				-half.y * Mathf.Max(gridSize.y - 1, 0),
+				-half.z * Mathf.Max(gridSize.z - 1, 0)
+			);
 			
 			return start + new Vector3(unitPerGrid.x * gridPosition.x, unitPerGrid.y * gridPosition.y, unitPerGrid.z * gridPosition.z);
 		}
