@@ -587,4 +587,27 @@
 			}
 		}
 	}
+
+	public class IMGrid
+	{
+		private int _width;
+		private int _height;
+
+		private float _gridWidth => (float)Screen.width / (float)_width;
+		private float _gridHeight => (float)Screen.height / (float)_height;
+
+		public IMGrid(int width, int height)
+		{
+			_width = width;
+			_height = height;
+		}
+
+		public void Button(int x, int y, string label, System.Action onClick = null)
+		{
+			if (GUI.Button(new Rect(_gridWidth * x, _gridHeight * y, _gridWidth, _gridHeight), label))
+			{
+				onClick?.Invoke();
+			}
+		}
+	}
 }
