@@ -567,9 +567,21 @@
 		public static Bounds Transform(this Bounds self, Transform transform)
 		{
 			var center = transform.TransformPoint(self.center);
-			var size = transform.TransformVector(self.size);
+			var size = new Vector3( // transform.TransformVector(self.size); 回転した時にサイズが変わるので自分で計算する
+						self.size.x * transform.lossyScale.x,
+						self.size.y * transform.lossyScale.y,
+						self.size.z * transform.lossyScale.z
+			);
 
 			return new Bounds(center, size);
+		}
+
+		public static void DrawGizmosWireCubeWithRotate(Vector3 center, Quaternion rotation, Vector3 size)
+		{
+			var matrix = Gizmos.matrix;
+			Gizmos.matrix = Matrix4x4.TRS(center, rotation, size);
+			Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
+			Gizmos.matrix = matrix;
 		}
 
 		public static class Debug
