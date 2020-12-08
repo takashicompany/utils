@@ -589,6 +589,7 @@
 		/// </summary>
 		/// <param name="self"></param>
 		/// <param name="humanName">https://docs.unity3d.com/ja/current/ScriptReference/HumanBone.html に書いてある</param>
+		[System.Obsolete("Animator.GetBoneTransformに同じ機能の関数があったよ")]
 		public static Transform GetHumanTransform(this Animator self, string humanName)
 		{
 			foreach (var h in self.avatar.humanDescription.human)
