@@ -584,6 +584,32 @@
 			Gizmos.matrix = matrix;
 		}
 
+		/// <summary>
+		/// AnimatorのHumanoidから名前で対応したTransformを取得する
+		/// </summary>
+		/// <param name="self"></param>
+		/// <param name="humanName">https://docs.unity3d.com/ja/current/ScriptReference/HumanBone.html に書いてある</param>
+		public static Transform GetHumanTransform(this Animator self, string humanName)
+		{
+			foreach (var h in self.avatar.humanDescription.human)
+			{
+				if (h.humanName == humanName)
+				{
+					var transforms = self.GetComponentsInChildren<Transform>(true);
+					
+					foreach (var t in transforms)
+					{
+						if (t.name == h.boneName)
+						{
+							return t;
+						}
+					}
+				}
+			}
+
+			return null;
+		}
+
 		public static class Debug
 		{
 			public static void DrawLines(Color color, float duration, params Vector3[] points)
