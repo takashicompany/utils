@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 	using UnityEngine;
 
-	public class ParticleSystemAngleController : MonoBehaviour
+	public class ParticleSystemRotator : MonoBehaviour
 	{
 		[SerializeField]
 		private ParticleSystem[] _targets;
