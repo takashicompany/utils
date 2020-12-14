@@ -530,6 +530,25 @@
 			self.SetColor("_EmissionColor", color);
 		}
 
+		public static Tweener DOBaseColor(this Material self, Color color, float duration)
+		{
+			var c = self.GetBaseColor();
+			return DOTween.To(() => c, v => c = v, color, duration).OnUpdate(() =>
+			{
+				self.SetBaseColor(c);
+			});
+		}
+
+		public static Color GetBaseColor(this Material self)
+		{
+			return self.GetColor("_BaseColor");
+		}
+
+		public static void SetBaseColor(this Material self, Color color)
+		{
+			self.SetColor("_BaseColor", color);
+		}
+
 		public static Tweener DOForward(this Transform self, Vector3 forward, float duration)
 		{
 			var current = self.forward;
