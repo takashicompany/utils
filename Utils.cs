@@ -342,6 +342,18 @@
 		}
 #endregion
 
+		public static T[] ToArray<T>() where T : System.Enum
+		{
+			var result = new List<T>();
+
+			foreach (T t in System.Enum.GetValues(typeof(T)))
+			{
+				result.Add(t);
+			}
+
+			return result.ToArray();
+		}
+		
 		public static void ToX(this Transform self, float x)
 		{
 			var p = self.position;
