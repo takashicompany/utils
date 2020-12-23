@@ -1,6 +1,7 @@
 ﻿namespace TakashiCompany.Unity
 {
 	using System.Collections.Generic;
+	using System.Linq;
 	using UnityEngine;
 	using UnityEngine.UI;
 	using UnityEngine.EventSystems;
@@ -342,16 +343,30 @@
 		}
 #endregion
 
+		public static IEnumerable<T> ToEnumerable<T>() where T : System.Enum
+		{
+			// 実装的に同じらしい
+			// foreach (T t in System.Enum.GetValues(typeof(T)))
+			// {
+			// 	yield return t;
+			// }
+
+			return from T t in System.Enum.GetValues(typeof(T)) select t;
+		}
+
 		public static T[] ToArray<T>() where T : System.Enum
 		{
-			var result = new List<T>();
+			// https://kaz-dora.com/2020/07/20/line-and-enum/ を参考にした
+			return System.Enum.GetValues(typeof(T)).OfType<T>().ToArray();
 
-			foreach (T t in System.Enum.GetValues(typeof(T)))
-			{
-				result.Add(t);
-			}
+			// var result = new List<T>();
 
-			return result.ToArray();
+			// foreach (T t in System.Enum.GetValues(typeof(T)))
+			// {
+			// 	result.Add(t);
+			// }
+
+			// return result.ToArray();
 		}
 
 		public static T[] PickRandom<T>(int count) where T : System.Enum
