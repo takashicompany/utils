@@ -430,6 +430,19 @@
 			self.localPosition = p;
 		}
 
+		/// <summary>
+		/// アンカー側のマージンを基準にサイズを0 ~ 1で変化させる。左右で異なるマージンを設定する使い方はできない
+		/// pivot.xは0じゃないと正しく動かないです。つまり左側ゲージのみ
+		/// </summary>
+		public static void SimpleHorizontalGauge(this RectTransform self, float normalizedX)
+		{
+			var parent = self.parent as RectTransform;
+			
+			var width = parent.rect.width - Mathf.Lerp(self.offsetMin.x, self.offsetMax.x, self.pivot.x) * 2;
+
+			self.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width * normalizedX);
+		}
+
 		public static T GetComponentSelfOrInParent<T>(this Component self) where T : Component
 		{
 			return self.gameObject.GetComponentSelfOrInParent<T>();
