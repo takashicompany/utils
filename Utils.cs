@@ -353,6 +353,25 @@
 
 			return result.ToArray();
 		}
+
+		public static T[] PickRandom<T>(int count) where T : System.Enum
+		{
+			var list = new List<T>();
+
+			foreach (T t in System.Enum.GetValues(typeof(T)))
+			{
+				list.Add(t);
+			}
+
+			var result = new T[count];
+
+			for (int i = 0; i < count; i++)
+			{
+				result[i] = list.GetRandom();
+			}
+
+			return result;
+		}
 		
 		public static void ToX(this Transform self, float x)
 		{
