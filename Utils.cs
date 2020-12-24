@@ -23,6 +23,16 @@
 #endif
 		}
 
+		/// <summary>
+		/// CamelCase => camel_case
+		/// </summary>
+		/// <returns></returns>
+		public static string ToSnakeCase(this string str)
+		{
+			var regex = new System.Text.RegularExpressions.Regex("[a-z][A-Z]");
+			return regex.Replace(str, s => $"{s.Groups[0].Value[0]}_{s.Groups[0].Value[1]}").ToLower();
+		}
+
 		public static float GetAngleXZ(Vector3 start, Vector3 target)
 		{
 			return GetAngle(new Vector2(start.x, start.z), new Vector2(target.x, target.z));
