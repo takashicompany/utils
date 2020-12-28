@@ -351,6 +351,18 @@
 
 			return list;
 		}
+
+		public static T[] PickRandom<T>(this IList<T> self, int count)
+		{
+			var result = new T[count];
+			
+			for (int i = 0; i < count; i++)
+			{
+				result[i] = self.GetRandom();
+			}
+
+			return result;
+		}
 #endregion
 
 		public static IEnumerable<T> ToEnumerable<T>() where T : System.Enum
