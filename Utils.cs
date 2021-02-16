@@ -685,6 +685,17 @@
 			Gizmos.matrix = matrix;
 		}
 
+		public static void DrawWireFrame(this Vector3[] points)
+		{
+			for (int i = 0; i < points.Length; i++)
+			{
+				var current = points[i];
+				var next = i == points.Length - 1 ? points[0] : points[i + 1];
+
+				Gizmos.DrawLine(current, next);
+			}
+		}
+
 		/// <summary>
 		/// AnimatorのHumanoidから名前で対応したTransformを取得する
 		/// </summary>
