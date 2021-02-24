@@ -723,6 +723,11 @@
 			return null;
 		}
 
+		public static Vector3Int ToV3IntXZ(this Vector2Int self)
+		{
+			return new Vector3Int(self.x, 0, self.y);
+		}
+
 		public static class Debug
 		{
 			public static void DrawLines(Color color, float duration, params Vector3[] points)
