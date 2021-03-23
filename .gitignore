@@ -43,3 +43,5 @@ sysinfo.txt
 
 Assets/HcAd/SecretConfig*
 ss/
+
+*.keystore
