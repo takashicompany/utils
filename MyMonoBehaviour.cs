@@ -7,7 +7,7 @@ namespace TakashiCompany.Unity
 	/// <summary>
 	/// よく使う機能を入れたMonoBehaviour
 	/// </summary>
-	public abstract class MonoBehaviour : UnityEngine.MonoBehaviour	// TODO クラス名を変えたほうがよいかもしれない
+	public abstract class MyMonoBehaviour : UnityEngine.MonoBehaviour
 	{
 		private Collider _colliderInternal;
 
