@@ -15,7 +15,7 @@ namespace TakashiCompany.Unity
 
 		private Rigidbody _rigidbodyInternal;
 
-		private Rigidbody _rigidbody => GetOrFetchComponent(ref _rigidbodyInternal);
+		protected Rigidbody _rigidbody => GetOrFetchComponent(ref _rigidbodyInternal);
 		
 		private T GetOrFetchComponent<T>(ref T component)
 		{
