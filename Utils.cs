@@ -677,6 +677,16 @@
 			return new Bounds(center, size);
 		}
 
+		public static Vector3 RandomVector3(float min, float max)
+		{
+			return new Vector3(Random.Range(min, max), Random.Range(min, max), Random.Range(min, max));
+		}
+
+		public static Quaternion RandomRotation()
+		{
+			return Quaternion.Euler(RandomVector3(0, 360));
+		}
+
 		public static void DrawGizmosWireCubeWithRotate(Vector3 center, Quaternion rotation, Vector3 size)
 		{
 			var matrix = Gizmos.matrix;
