@@ -6,7 +6,7 @@ namespace TakashiCompany.Unity
 
 	public static class PowerOf2
 	{
-		public static string[] siPrefix = new string[]
+		public static readonly string[] suffix = new string[]
 		{
 			"",
 			"k",
@@ -26,9 +26,9 @@ namespace TakashiCompany.Unity
 			
 			var comma = str.Length > 3 ? (str.Length - 1) / 3 : 0;	// str.Lengthが1の時、0除算のエラーが出ちゃうからちょっと力技で。
 
-			var sub = str.Substring(str.Length -  3 * comma, 3 * comma);
+			var result = str.Length > 3 && num > 2048 ? str.Substring(0, str.Length -  3 * comma) + suffix[comma] : str;
 
-			return sub + siPrefix[comma];
+			return result;
 		}
 	}
 }
