@@ -1,4 +1,4 @@
-namespace TakashiCompany.Unity.Utils
+namespace TakashiCompany.Unity
 {
 	using System.Collections;
 	using System.Collections.Generic;
