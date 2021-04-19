@@ -21,14 +21,19 @@ namespace TakashiCompany.Unity
 
 		private void UpdateLabelBySendMessage(int count)
 		{
-			ulong n = 2;
+			ulong n = 1;
 
 			for (int i = 0; i < count; i++)
 			{
 				n *= 2;
 			}
 			var str = n.ToPowerOf2Str();
+
+			_spriteLabel.name = str;
+
 			_spriteLabel.UpdateImages(str);
+
+
 		}
 	}
 }
