@@ -22,6 +22,9 @@ namespace TakashiCompany.Unity
 		[SerializeField]
 		private string _text;
 
+		[SerializeField]
+		private Vector2 _offsetSizeRatio = Vector2.one;
+
 		private Dictionary<char, Sprite> _dictInternal;
 
 		private Dictionary<char, Sprite> _dict => _dictInternal ?? (_dictInternal = _bundle.BuildDictionary());
@@ -45,10 +48,9 @@ namespace TakashiCompany.Unity
 					var image = GetOrGenerateImage();
 					image.sprite = sprite;
 					image.SetNativeSize();
+					image.rectTransform.sizeDelta *= _offsetSizeRatio;
 					image.transform.SetAsLastSibling();
 				}
-
-				Debug.Log(key);
 			}
 		}
 
