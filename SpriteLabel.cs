@@ -5,7 +5,7 @@ namespace TakashiCompany.Unity
 	using UnityEngine;
 	using UnityEngine.UI;
 
-	public class ImageNumber : MonoBehaviour
+	public class SpriteLabel : MonoBehaviour
 	{
 		[SerializeField]
 		private CharSpriteBundle _bundle;
