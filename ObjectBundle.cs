@@ -5,23 +5,23 @@ namespace TakashiCompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
-	[CreateAssetMenu(fileName = "ObjectBundle", menuName = "Object Bundle")]
-	public class ObjectBundle : ScriptableObject
+	
+	public abstract class ObjectBundle<K, V> : ScriptableObject where V : Object
 	{
 		[System.Serializable]
 		protected class Param
 		{
 			[SerializeField]
-			private string _key = "";
+			private K _key;
 
-			public string key => _key;
+			public K key => _key;
 
 			[SerializeField]
-			private Object _obj;
+			private V _obj;
 
-			public Object obj => _obj;
+			public V obj => _obj;
 
-			public Param(string key, Object obj)
+			public Param(K key, V obj)
 			{
 				_key = key;
 				_obj = obj;
@@ -30,98 +30,22 @@ namespace TakashiCompany.Unity
 		}
 
 		[SerializeField]
-		private Param[] _paramList;
+		protected Param[] _paramList;
 
-
-		[ContextMenu("Setup Number Bundle")]
-		private void NumberBundle()
+		public Dictionary<K, V> BuildDictionary()
 		{
-			var suffix = PowerOf2.suffix.Where(s => !string.IsNullOrEmpty(s)).ToArray();
-			_paramList = new Param[10 + suffix.Length];
-
-			for (int i = 0; i < 10; i++)
-			{
-				var p = new Param(i.ToString(), null);
-
-				_paramList[i] = p;
-			}
-
-			for (int i = 0; i < suffix.Length; i++)
-			{
-				var p = new Param(suffix[i], null);
-				_paramList[i + 10] = p;
-			}
-		}
-
-		public Dictionary<string, T> BuildDictionary<T>() where T : Object
-		{
-			var dict = new Dictionary<string, T>();
-
-			Debug.Log(typeof(T));
+			var dict = new Dictionary<K, V>();
 
 			foreach (var p in _paramList)
 			{
-				// if (p.obj is T obj)
-				// {
-				// 	dict.Add(p.key, obj);
-				// }
-
-				// var obj = p.obj as T;
-
-				// Debug.Log(obj != null);
-
-				// if (obj != null)
-				// {
-				// 	dict.Add(p.key, obj);
-				// }
-
-				dict.Add(p.key, (T)p.obj);
+				dict.Add(p.key, p.obj);
 			}
 
 			return dict;
 		}
-
-		public Dictionary<string, Sprite> BuildDictionary()
-		{
-			var dict = new Dictionary<string, Sprite>();
-
-			foreach (var p in _paramList)
-			{
-				// if (p.obj is T obj)
-				// {
-				// 	dict.Add(p.key, obj);
-				// }
-
-				// var obj = p.obj as T;
-
-				// Debug.Log(obj != null);
-
-				// if (obj != null)
-				// {
-				// 	dict.Add(p.key, obj);
-				// }
-
-				dict.Add(p.key, (Sprite)p.obj);
-			}
-
-			return dict;
-		}
-
-		// public Object[] GetObjects(string character)
-		// {
-			
-		// }
-
-		// public Object[] GetObjects(string[] characters)
-		// {
-		// 	var list = new List<Object>();
-
-		// 	foreach (var c in characters)
-		// 	{
-				
-		// 	}
-		// }
 	}
+
+	
 
 	
 }
