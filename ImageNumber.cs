@@ -26,16 +26,16 @@ namespace TakashiCompany.Unity
 
 		private Dictionary<char, Sprite> _dict => _dictInternal ?? (_dictInternal = _bundle.BuildDictionary());
 
-		
 		public void UpdateImages(string text)
 		{
 			_text = text;
+			UpdateImages();
 		}
 
 		[ContextMenu("Update Image")]
 		public void UpdateImages()
 		{
-			Debug.Log(_dict.Count);
+			CollectAll();
 			for (int i = 0; i < _text.Length; i++)
 			{
 				var key = _text[i];
@@ -46,8 +46,6 @@ namespace TakashiCompany.Unity
 					image.sprite = sprite;
 					image.SetNativeSize();
 					image.transform.SetAsLastSibling();
-
-					Debug.Log("gl");
 				}
 
 				Debug.Log(key);
@@ -61,16 +59,17 @@ namespace TakashiCompany.Unity
 			if (image == null)
 			{
 				image = Instantiate(_prefab, _root);
-
 				_images.Add(image);
 			}
+
+			image.gameObject.SetActive(true);
 
 			return image;
 		}
 
 		private Image GetUnusedImage()
 		{
-			return _images.Find(m => m.gameObject.activeSelf);
+			return _images.Find(m => !m.gameObject.activeSelf);
 		}
 
 		private void CollectAll()
