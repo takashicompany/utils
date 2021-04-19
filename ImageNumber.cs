@@ -8,6 +8,9 @@ namespace TakashiCompany.Unity
 	public class ImageNumber : MonoBehaviour
 	{
 		[SerializeField]
+		private ObjectBundle _bundle;
+
+		[SerializeField]
 		private RectTransform _root;
 
 		[SerializeField]
@@ -18,17 +21,36 @@ namespace TakashiCompany.Unity
 		
 		[SerializeField]
 		private string _text;
+
+		private Dictionary<string, Sprite> _dictInternal;
+
+		private Dictionary<string, Sprite> _dict => _dictInternal ?? (_dictInternal = _bundle.BuildDictionary());
+
 		
 		public void UpdateImages(string text)
 		{
 			_text = text;
 		}
 
+		[ContextMenu("Update Image")]
 		public void UpdateImages()
 		{
+			Debug.Log(_dict.Count);
 			for (int i = 0; i < _text.Length; i++)
 			{
-				
+				var key = _text[i].ToString();
+
+				if (_dict.TryGetValue(key, out var sprite))
+				{
+					var image = GetOrGenerateImage();
+					image.sprite = sprite;
+					image.SetNativeSize();
+					image.transform.SetAsLastSibling();
+
+					Debug.Log("gl");
+				}
+
+				Debug.Log(key);
 			}
 		}
 
