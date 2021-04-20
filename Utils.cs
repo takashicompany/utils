@@ -687,6 +687,23 @@
 			return Quaternion.Euler(RandomVector3(0, 360));
 		}
 
+		public static string ToArrayStr<T>(this IList<T> list)
+		{
+			var str = "";
+
+			for (int i = 0; i < list.Count; i++)
+			{
+				str += list[i].ToString();
+				
+				if (i - 1 < list.Count)
+				{
+					str += "\n";
+				}
+			}
+
+			return str;
+		}
+
 		public static void DrawGizmosWireCubeWithRotate(Vector3 center, Quaternion rotation, Vector3 size)
 		{
 			var matrix = Gizmos.matrix;
