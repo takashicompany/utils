@@ -37,8 +37,6 @@ namespace TakashiCompany.Unity
 			}
 
 			pow2s = p2s;
-
-			Debug.Log(pow2s.ToArrayStr());
 		}
 
 		public static ulong[] pow2s { get; private set; }
