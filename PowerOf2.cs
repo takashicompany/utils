@@ -64,5 +64,40 @@ namespace TakashiCompany.Unity
 
 			return result;
 		}
+
+		/// <summary>
+		/// 2048系のゲームで使われる色を列挙
+		/// </summary>
+		public static readonly Color[] colors = new Color[]
+		{
+			new Color32(255, 232, 18, 255),
+			new Color32(15, 184, 217, 255),
+			new Color32(159, 202, 0, 255),
+			new Color32(200, 14, 104, 255),
+			new Color32(38, 96, 172, 255),
+			new Color32(234, 84, 25, 255),
+			new Color32(0, 132, 66, 255),
+			new Color32(240, 138, 55, 255),
+			new Color32(0, 145, 248, 255),
+			new Color32(103, 0, 204, 255)
+		};
+
+		public static Color GetColor(int pow)
+		{
+			return colors[(pow + colors.Length - 1) % colors.Length];
+		}
+
+		/// <summary>
+		/// そのまま色を入れるとくすむケースがあるらしいので、エミッションを設定すると良いらしい
+		/// </summary>
+		public static Color GetEmmisionColor(int pow)
+		{
+			var color = GetColor(pow);
+
+			Vector3 HSV = Vector3.zero;
+			Color.RGBToHSV(color, out HSV.x, out HSV.y, out HSV.z);
+			return Color.HSVToRGB(HSV.x, HSV.y, 1, false);
+		}
+		
 	}
 }

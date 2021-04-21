@@ -608,7 +608,7 @@
 
 		public static void SetEmmisionColor(this Material self, Color color)
 		{
-			// self.EnableKeyword("_EMISSION");
+			self.EnableKeyword("_EMISSION");
 			self.SetColor("_EmissionColor", color);
 		}
 
