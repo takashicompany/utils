@@ -270,6 +270,94 @@
 		}
 #endregion
 
+		public static bool Include(this Vector3Int self, Vector3Int target)
+		{
+			return 0 <= target.x && target.x < self.x && 0 <= target.y && target.y < self.y && 0 <= target.z && target.z < self.z;
+		}
+
+		public static void Foreach(this Vector3Int self, System.Action<int, int, int> function)
+		{
+			for (var x = 0; x < self.x; x++)
+			{
+				for (var y = 0; y < self.y; y++)
+				{
+					for (var z = 0; z < self.z; z++)
+					{
+						function(x, y, z);
+					}
+				}
+			}
+		}
+
+		public static void Foreach(this Vector3Int self, System.Action<Vector3Int> function)
+		{
+			self.Foreach((x, y, z) => function(new Vector3Int(x, y, z)));
+		}
+
+		public static void Foreach(this Vector2Int self, System.Action<int, int> function)
+		{
+			for (var x = 0; x < self.x; x++)
+			{
+				for (var y = 0; y < self.y; y++)
+				{
+					function(x, y);
+				}
+			}
+		}
+
+		// public static void GetPositionOnGrids(Vector3Int gridSize, Vector3 unitPerGrid, out Vector3[,,] centerPositions, out Vector3[,,] crossPositions)
+		// {
+		// 	var crossGridSize = new Vector3Int(gridSize.x + 1, gridSize.y + 1, gridSize.z + 1);
+		// 	var centers = new Vector3[gridSize.x, gridSize.y, gridSize.z];
+		// 	var crosses = new Vector3[crossGridSize.x, crossGridSize.y, crossGridSize.z];
+			
+
+		// 	var endX = gridSize.x - 1;
+		// 	var endY = gridSize.y - 1;
+		// 	var endZ = gridSize.z - 1;
+
+		// 	gridSize.Foreach(v3int => 
+		// 	{
+		// 		var center = GetPositionOnGrid(gridSize, v3int, unitPerGrid);
+
+		// 		centers[v3int.x, v3int.y, v3int.z] = center;
+
+		// 		(Vector3Int.one * 2).Foreach((x, y, z) =>
+		// 		{
+		// 			var myX = x == 0 ? -1 : 1;
+		// 			var myY = y == 0 ? -1 : 1;
+		// 			var myZ = z == 0 ? -1 : 1;
+
+		// 			var c = new Vector3Int(v3int.x + x, v3int.y + y, v3int.z + z);
+
+		// 			if (crossGridSize.Include(c))
+		// 			{
+		// 				crosses[x, y, 
+		// 			}
+		// 		});
+
+		// 		crosses[v3int.x, v3int.y, v3int.z] = center - unitPerGrid / 2;
+				
+
+		// 		var isEndX = v3int.x == endX;
+		// 		var isEndY = v3int.y == endY;
+		// 		var isEndZ = v3int.z == endZ;
+
+		// 		if (isEndX || isEndY|| isEndZ)
+		// 		{
+		// 			var nextX = isEndX ? gridSize.x : v3int.x;
+		// 			var nextY = isEndY ? gridSize.y : v3int.y;
+		// 			var nextZ = isEndZ ? gridSize.z : v3int.z;
+
+		// 			var offsetX = isEndX ? unitPerGrid.x / 2 : 0;
+		// 			var offsetY = isEndY ? unitPerGrid.y / 2 : 0;
+		// 			var offsetZ = isEndZ ? unitPerGrid.z / 2 : 0;
+
+		// 			crosses[nextX, nextY, nextZ] = center + 
+		// 		}
+		// 	});
+		// }
+
 		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 unitPerGrid)
 		{
 			var half = unitPerGrid / 2;
