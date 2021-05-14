@@ -775,6 +775,20 @@
 			return Quaternion.Euler(RandomVector3(0, 360));
 		}
 
+		public static Vector3 RandomPoint(this Bounds bounds)
+		{
+			return bounds.RandomPoint(Vector3.zero);
+		}
+
+		public static Vector3 RandomPoint(this Bounds bounds, Vector3 excludeFromEdge)
+		{
+			var x = Random.Range(bounds.min.x + excludeFromEdge.x, bounds.max.x - excludeFromEdge.x);
+			var y = Random.Range(bounds.min.y + excludeFromEdge.y, bounds.max.y - excludeFromEdge.y);
+			var z = Random.Range(bounds.min.z + excludeFromEdge.z, bounds.max.z - excludeFromEdge.z);
+
+			return new Vector3(x, y, z);
+		}
+
 		public static string ToArrayStr<T>(this IList<T> list)
 		{
 			var str = "";
