@@ -875,6 +875,8 @@
 
 	public class IMGrid
 	{
+		public delegate void ForeachDelegate(int x, int y);
+
 		private int _width;
 		private int _height;
 
@@ -885,6 +887,17 @@
 		{
 			_width = width;
 			_height = height;
+		}
+
+		public void Foreach(ForeachDelegate callback)
+		{
+			for (var x = 0; x < _width; x++)
+			{
+				for (var y = 0; y < _height; y++)
+				{
+					callback.Invoke(x, y);
+				}
+			}
 		}
 
 		public void Button(int x, int y, string label, System.Action onClick = null)
