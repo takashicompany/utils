@@ -877,6 +877,11 @@
 			return new Vector3(self.x, 0, self.y);
 		}
 
+		public static Vector3 ToV3XZ(this Vector2 self)
+		{
+			return new Vector3(self.x, 0, self.y);
+		}
+
 		public static class Debug
 		{
 			public static void DrawLines(Color color, float duration, params Vector3[] points)
