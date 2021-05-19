@@ -872,6 +872,11 @@
 			return new Vector3Int(self.x, self.y, 0);
 		}
 
+		public static Vector2Int XZtoV2Int(this Vector3Int self)
+		{
+			return new Vector2Int(self.x, self.z);
+		}
+
 		public static Vector3 ToXZ(this Vector3 self)
 		{
 			return new Vector3(self.x, 0, self.y);
@@ -880,6 +885,22 @@
 		public static Vector3 ToV3XZ(this Vector2 self)
 		{
 			return new Vector3(self.x, 0, self.y);
+		}
+
+		public static void Foreach<T>(this T[,] self, System.Action<int, int, T> callback)
+		{
+			for (var x = 0; x < self.GetLength(0); x++)
+			{
+				for (var y = 0; y < self.GetLength(1); y++)
+				{
+					callback(x, y, self[x, y]);
+				}
+			}
+		}
+
+		public static void Foreach<T>(this T[,] self, System.Action<Vector2Int, T> callback)
+		{
+			self.Foreach((x, y, item) => callback(new Vector2Int(x, y), item));
 		}
 
 		public static class Debug
