@@ -305,6 +305,11 @@
 			}
 		}
 
+		public static void Foreach(this Vector2Int self, System.Action<Vector2Int> function)
+		{
+			self.Foreach((x, y) => function(new Vector2Int(x, y)));
+		}
+
 		// public static void GetPositionOnGrids(Vector3Int gridSize, Vector3 unitPerGrid, out Vector3[,,] centerPositions, out Vector3[,,] crossPositions)
 		// {
 		// 	var crossGridSize = new Vector3Int(gridSize.x + 1, gridSize.y + 1, gridSize.z + 1);
@@ -357,6 +362,11 @@
 		// 		}
 		// 	});
 		// }
+
+		public static Vector2 GetPositionOnGrid(Vector2Int gridSize, Vector2Int gridPosition, Vector2 unitPerGrid)
+		{
+			return GetPositionOnGrid(
+		}
 
 		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 unitPerGrid)
 		{
@@ -855,6 +865,16 @@
 		public static Vector3Int ToV3IntXZ(this Vector2Int self)
 		{
 			return new Vector3Int(self.x, 0, self.y);
+		}
+
+		public static Vector3Int ToV3Int(this Vector2Int self)
+		{
+			return new Vector3Int(self.x, self.y, 0);
+		}
+
+		public static Vector3 ToXZ(this Vector3 self)
+		{
+			return new Vector3(self.x, 0, self.y);
 		}
 
 		public static class Debug
