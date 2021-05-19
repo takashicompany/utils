@@ -365,7 +365,7 @@
 
 		public static Vector2 GetPositionOnGrid(Vector2Int gridSize, Vector2Int gridPosition, Vector2 unitPerGrid)
 		{
-			return GetPositionOnGrid(
+			return GetPositionOnGrid(gridSize.ToV3Int(), gridPosition.ToV3Int(), unitPerGrid);
 		}
 
 		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 unitPerGrid)
