@@ -383,9 +383,16 @@
 
 		public static Vector3Int GetGridPosition(Vector3Int gridSize, Vector3 unitPerGrid, Vector3 position)
 		{
-			var origin = new Vector3(gridSize.x * unitPerGrid.x, gridSize.y * unitPerGrid.y, gridSize.z * unitPerGrid.z) / 2;
-			var p = position + origin;
-			return new Vector3Int((int)Mathf.Floor(p.x), (int)Mathf.Floor(p.y), (int)Mathf.Floor(p.z));
+			// マスあたりのサイズ x マス数で大きさを出す
+			var size = new Vector3(unitPerGrid.x * gridSize.x, unitPerGrid.y * gridSize.y, unitPerGrid.z * gridSize.z);
+
+			// 原点の座標を出す
+			var origin = size / -2;
+
+			// 原点から見た時の距離
+			var p = position - origin;
+			
+			 return new Vector3Int((int)Mathf.Floor(p.x / unitPerGrid.x), (int)Mathf.Floor(p.y / unitPerGrid.y), (int)Mathf.Floor(p.z / unitPerGrid.z));
 		}
 
 		/// <summary>
