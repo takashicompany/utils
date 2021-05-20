@@ -135,6 +135,8 @@
 
 					return Vector3.Lerp(head, tail, myProgress);
 				}
+
+				currentLength += distance;
 			}
 
 			return path[path.Count - 1];
@@ -391,7 +393,7 @@
 
 			// 原点から見た時の距離
 			var p = position - origin;
-			
+
 			 return new Vector3Int((int)Mathf.Floor(p.x / unitPerGrid.x), (int)Mathf.Floor(p.y / unitPerGrid.y), (int)Mathf.Floor(p.z / unitPerGrid.z));
 		}
 
