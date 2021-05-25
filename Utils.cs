@@ -844,6 +844,14 @@
 			}
 		}
 
+		public static void DrawGizmosCross(Bounds bounds)
+		{
+			Gizmos.DrawLine(bounds.min, bounds.max);
+			var a = new Vector3(bounds.min.x, bounds.max.y,bounds.min.z);
+			var b = new Vector3(bounds.max.x, bounds.min.y, bounds.max.z);
+			Gizmos.DrawCube(a, b);
+		}
+
 		/// <summary>
 		/// AnimatorのHumanoidから名前で対応したTransformを取得する
 		/// </summary>
