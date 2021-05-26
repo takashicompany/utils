@@ -4,6 +4,7 @@ namespace TakashiCompany.Unity
 	using System.Collections.Generic;
 	using UnityEngine;
 
+	[System.Serializable]
 	public class BundleParticleManager<T> : ParticleManager<T> where T : System.Enum
 	{
 		[System.Serializable]
@@ -27,8 +28,17 @@ namespace TakashiCompany.Unity
 
 		private Dictionary<T, Queue<PRS>> _queues = new Dictionary<T, Queue<PRS>>();
 
-		private void Awake()
+		private bool _isInit;
+
+
+
+		public void Init()
 		{
+			if (_isInit)
+			{
+				return;
+			}
+			
 			foreach (var b in _bundles)
 			{
 				if (b == null || b.particle == null)
@@ -41,9 +51,14 @@ namespace TakashiCompany.Unity
 
 				_queues.Add(b.particleType, new Queue<PRS>());
 			}
+
+			_isInit = true;
 		}
 
-		private void LateUpdate()	// LateUpdateじゃない方法でParticleを再生する方法があればMonoBehaviour使わなくて良くなる
+		/// <summary>
+		/// 毎フレーム呼び出しが推奨z
+		/// </summary>
+		public void ProcessQueues()
 		{
 			foreach (var kvp in _queues)
 			{
