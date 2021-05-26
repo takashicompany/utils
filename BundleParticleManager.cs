@@ -43,7 +43,7 @@ namespace TakashiCompany.Unity
 			}
 		}
 
-		private void LateUpdate()
+		private void LateUpdate()	// LateUpdateじゃない方法でParticleを再生する方法があればMonoBehaviour使わなくて良くなる
 		{
 			foreach (var kvp in _queues)
 			{
