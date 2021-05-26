@@ -25,7 +25,7 @@ namespace TakashiCompany.Unity
 
 		private Dictionary<T, Bundle> _dict = new Dictionary<T, Bundle>();
 
-		private Dictionary<T, Queue<Vector3>> _queues = new Dictionary<T, Queue<Vector3>>();
+		private Dictionary<T, Queue<PRS>> _queues = new Dictionary<T, Queue<PRS>>();
 
 		private void Awake()
 		{
@@ -39,7 +39,7 @@ namespace TakashiCompany.Unity
 
 				_dict.Add(b.particleType, b);
 
-				_queues.Add(b.particleType, new Queue<Vector3>());
+				_queues.Add(b.particleType, new Queue<PRS>());
 			}
 		}
 
@@ -68,14 +68,37 @@ namespace TakashiCompany.Unity
 				return;
 			}
 
-			_queues[particleType].Enqueue(position);
+			_queues[particleType].Enqueue(new PRS(position));
 		}
 
-		private void PlayInternal(T particleType, Vector3 position)
+		public void Play(T particleType, Vector3 position, Quaternion rotation)
+		{
+			if (!_dict.ContainsKey(particleType))
+			{
+				Debug.LogError("設定されていないParticleTypeです:" + particleType);
+				return;
+			}
+
+			_queues[particleType].Enqueue(new PRS(position, rotation));
+		}
+
+		public void Play(T particleType, Vector3 position, Quaternion rotation, Vector3 scale)
+		{
+			if (!_dict.ContainsKey(particleType))
+			{
+				Debug.LogError("設定されていないParticleTypeです:" + particleType);
+				return;
+			}
+
+			_queues[particleType].Enqueue(new PRS(position, rotation, scale));
+		}
+
+		private void PlayInternal(T particleType, PRS param)
 		{
 			var particle = _dict[particleType].particle;
 
-			particle.transform.position = position;
+			param.Set(particle.transform);
+			
 			particle.Play(true);
 		}
 

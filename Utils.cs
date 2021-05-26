@@ -920,6 +920,12 @@
 			self.Foreach((x, y, item) => callback(new Vector2Int(x, y), item));
 		}
 
+		public static bool TryGet<T>(this T? self, out T result) where T : struct
+		{
+			result = self.GetValueOrDefault();
+			return self.HasValue;
+		}
+
 		public static class Debug
 		{
 			public static void DrawLines(Color color, float duration, params Vector3[] points)
