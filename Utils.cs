@@ -899,6 +899,11 @@
 			return new Vector3(self.x, 0, self.y);
 		}
 
+		public static Vector2 XZtoV2(this Vector3 self)
+		{
+			return new Vector2(self.x, self.z);
+		}
+
 		public static Vector3 ToV3XZ(this Vector2 self)
 		{
 			return new Vector3(self.x, 0, self.y);
