@@ -12,39 +12,33 @@ namespace TakashiCompany.Unity
 	public class AnimationEventReceiver : MonoBehaviour
 	{
 		[SerializeField]
-		private UnityEvent<float?, int?, string, Object> _callback;
+		private UnityEvent _callback;
 
-		public event System.Action<float?, int?, string, Object> onEvent;
+		public event System.Action onEvent;
 
 		private void OnEvent()
 		{
-			CallEvent();
+			_callback.Invoke();
+			onEvent?.Invoke();
 		}
+	}
 
-		private void OnEvent(float v)
-		{
-			CallEvent(f: v);
-		}
+	/// <summary>
+	/// パラメーター付きのAnimationEventを他のオブジェクトに伝達するコンポーネント
+	/// どうもオーバーロードした関数を用意すると、引数なしの関数が優先されるみたいなので、個別で作る感じにする
+	/// </summary>
+	[RequireComponent(typeof(Animator))]
+	public abstract class AnimationEventReceiver<T> : MonoBehaviour
+	{
+		[SerializeField]
+		private UnityEvent<T> _callback;
 
-		private void OnEvent(int v)
-		{
-			CallEvent(i: v);
-		}
+		public event System.Action<T> onEvent;
 
-		private void OnEvent(string str)
+		private void OnEvent(T arg)
 		{
-			CallEvent(str: str);
-		}
-
-		private void OnEvent(Object obj)
-		{
-			CallEvent(obj: obj);
-		}
-
-		private void CallEvent(float? f = null, int? i = null, string str = null, Object obj = null)
-		{
-			_callback?.Invoke(f, i, str, obj);
-			onEvent?.Invoke(f, i, str, obj);
+			_callback?.Invoke(arg);
+			onEvent?.Invoke(arg);
 		}
 	}
 }
