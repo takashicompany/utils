@@ -191,6 +191,24 @@
 
 			return result;
 		}
+		
+		public static Vector3 ToX(this Vector3 self, float x)
+		{
+			self.x = x;
+			return self;
+		}
+
+		public static Vector3 ToY(this Vector3 self, float y)
+		{
+			self.y = y;
+			return self;
+		}
+
+		public static Vector3 ToZ(this Vector3 self, float z)
+		{
+			self.z = z;
+			return self;
+		}
 
 #region TrajectoryCalculate
 		
