@@ -861,6 +861,14 @@
 			return str;
 		}
 
+		/// <summary>
+		/// クラス名でResources.Loadをする
+		/// </summary>
+		public static T LoadPrefab<T>() where T : Object
+		{
+			return Resources.Load<T>(typeof(T).Name);
+		}
+
 		public static void DrawGizmosWireCubeWithRotate(Vector3 center, Quaternion rotation, Vector3 size)
 		{
 			var matrix = Gizmos.matrix;
