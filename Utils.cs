@@ -1,5 +1,6 @@
 ﻿namespace TakashiCompany.Unity
 {
+	using System.Collections;
 	using System.Collections.Generic;
 	using System.Linq;
 	using UnityEngine;
@@ -447,6 +448,16 @@
 			return Random.Range(0, self.Count);
 		}
 
+		public static int GetRandomIndex(this IList self)
+		{
+			return Random.Range(0, self.Count);
+		}
+
+		public static T GetRandom<T>(this IList self)
+		{
+			return (T)(self[self.GetRandomIndex()]);
+		}
+
 		public static T GetRandom<T>(this IList<T> self)
 		{
 			return self[self.GetRandomIndex()];
@@ -514,6 +525,13 @@
 			// }
 
 			// return result.ToArray();
+		}
+
+		public static T PickRandom<T>() where T : System.Enum
+		{
+			var array = System.Enum.GetValues(typeof(T));
+
+			return array.GetRandom<T>();
 		}
 
 		public static T[] PickRandom<T>(int count) where T : System.Enum
