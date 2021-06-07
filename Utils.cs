@@ -975,6 +975,89 @@
 			return self.HasValue;
 		}
 
+		/*
+		var _polygon = function(){
+        this.v = new Array();
+    };
+    var polygon = new _polygon();
+    var v = function(x, y){
+        this.x = x;
+        this.y = y;
+    };
+    function init_polygon(){
+        polygon.v.push(new v(100,100));
+        polygon.v.push(new v(200,500));
+        polygon.v.push(new v(600,500));
+        polygon.v.push(new v(700,100));
+        polygon.v.push(new v(400,300));
+        polygon.v.push(new v(100,100));
+    }
+    var _point = function(x, y){
+        this.x = x;
+        this.y = y;
+    }
+    var point = new _point(300, 400);
+    function wn(){
+        wn = 0;
+        for(i = 0; i < poly.v.length - 1; i++){
+            // 上向きの辺、下向きの辺によって処理が分かれる。
+            // 上向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、終点は含まない。(ルール1)
+            if ( (polygon.v[i].y <= point.y) && (polygon.v[i+1].y > point.y) ) {
+                // 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
+                // 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
+                vt = (point.y - polygon.v[i].y) / (polygon.v[i+1].y - polygon.v[i].y);
+                if(point.x < (polygon.v[i].x + (vt * (polygon.v[i+1].x - polygon.v[i].x)))){
+                    ++wn;  //ここが重要。上向きの辺と交差した場合は+1
+                }
+            } 
+            // 下向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、始点は含まない。(ルール2)
+            else if ( (polygon.v[i].y > point.y) && (polygon.v[i+1].y <= point.y) ) {
+                // 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
+                // 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
+                vt = (point.y - polygon.v[i].y) / (polygon.v[i+1].y - polygon.v[i].y);
+                if(point.x < (polygon.v[i].x + (vt * (polygon.v[i+1].x - polygon.v[i].x)))){
+                    --wn;  //ここが重要。下向きの辺と交差した場合は-1
+                }
+            }
+            // ルール1,ルール2を確認することで、ルール3も確認できている。
+        }
+    }
+		*/
+
+		public static int Contains(this IList<Vector2> points, Vector2 point)
+		{
+			// https://www.nttpc.co.jp/technology/number_algorithm.html
+			// Winding Number Algorithm 
+
+			var wn = 0;
+
+			for(var i = 0; i < points.Count - 1; i++)
+			{
+				// 上向きの辺、下向きの辺によって処理が分かれる。
+				// 上向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、終点は含まない。(ルール1)
+				if ( (points[i].y <= point.y) && (points[i+1].y > point.y) ) {
+					// 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
+					// 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
+					var vt = (point.y - points[i].y) / (points[i+1].y - points[i].y);
+					if(point.x < (points[i].x + (vt * (points[i+1].x - points[i].x)))){
+						++wn;  //ここが重要。上向きの辺と交差した場合は+1
+					}
+				} 
+				// 下向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、始点は含まない。(ルール2)
+				else if ( (points[i].y > point.y) && (points[i+1].y <= point.y) ) {
+					// 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
+					// 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
+					var vt = (point.y - points[i].y) / (points[i+1].y - points[i].y);
+					if(point.x < (points[i].x + (vt * (points[i+1].x - points[i].x)))){
+						--wn;  //ここが重要。下向きの辺と交差した場合は-1
+					}	
+				}
+				// ルール1,ルール2を確認することで、ルール3も確認できている。
+			}
+
+			return wn;
+		}
+
 		public static class Debug
 		{
 			public static void DrawLines(Color color, float duration, params Vector3[] points)
