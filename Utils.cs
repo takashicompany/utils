@@ -1,5 +1,6 @@
 ﻿namespace TakashiCompany.Unity
 {
+	using System.Collections;
 	using System.Collections.Generic;
 	using System.Linq;
 	using UnityEngine;
@@ -135,6 +136,8 @@
 
 					return Vector3.Lerp(head, tail, myProgress);
 				}
+
+				currentLength += distance;
 			}
 
 			return path[path.Count - 1];
@@ -188,6 +191,24 @@
 			// Debug.Log("ratio:" + ratio + " d:" + distanceByStart + " tl:" + totalLength);
 
 			return result;
+		}
+		
+		public static Vector3 ToX(this Vector3 self, float x)
+		{
+			self.x = x;
+			return self;
+		}
+
+		public static Vector3 ToY(this Vector3 self, float y)
+		{
+			self.y = y;
+			return self;
+		}
+
+		public static Vector3 ToZ(this Vector3 self, float z)
+		{
+			self.z = z;
+			return self;
 		}
 
 #region TrajectoryCalculate
@@ -270,6 +291,104 @@
 		}
 #endregion
 
+		public static bool Include(this Vector3Int self, Vector3Int target)
+		{
+			return 0 <= target.x && target.x < self.x && 0 <= target.y && target.y < self.y && 0 <= target.z && target.z < self.z;
+		}
+
+		public static void Foreach(this Vector3Int self, System.Action<int, int, int> function)
+		{
+			for (var x = 0; x < self.x; x++)
+			{
+				for (var y = 0; y < self.y; y++)
+				{
+					for (var z = 0; z < self.z; z++)
+					{
+						function(x, y, z);
+					}
+				}
+			}
+		}
+
+		public static void Foreach(this Vector3Int self, System.Action<Vector3Int> function)
+		{
+			self.Foreach((x, y, z) => function(new Vector3Int(x, y, z)));
+		}
+
+		public static void Foreach(this Vector2Int self, System.Action<int, int> function)
+		{
+			for (var x = 0; x < self.x; x++)
+			{
+				for (var y = 0; y < self.y; y++)
+				{
+					function(x, y);
+				}
+			}
+		}
+
+		public static void Foreach(this Vector2Int self, System.Action<Vector2Int> function)
+		{
+			self.Foreach((x, y) => function(new Vector2Int(x, y)));
+		}
+
+		// public static void GetPositionOnGrids(Vector3Int gridSize, Vector3 unitPerGrid, out Vector3[,,] centerPositions, out Vector3[,,] crossPositions)
+		// {
+		// 	var crossGridSize = new Vector3Int(gridSize.x + 1, gridSize.y + 1, gridSize.z + 1);
+		// 	var centers = new Vector3[gridSize.x, gridSize.y, gridSize.z];
+		// 	var crosses = new Vector3[crossGridSize.x, crossGridSize.y, crossGridSize.z];
+			
+
+		// 	var endX = gridSize.x - 1;
+		// 	var endY = gridSize.y - 1;
+		// 	var endZ = gridSize.z - 1;
+
+		// 	gridSize.Foreach(v3int => 
+		// 	{
+		// 		var center = GetPositionOnGrid(gridSize, v3int, unitPerGrid);
+
+		// 		centers[v3int.x, v3int.y, v3int.z] = center;
+
+		// 		(Vector3Int.one * 2).Foreach((x, y, z) =>
+		// 		{
+		// 			var myX = x == 0 ? -1 : 1;
+		// 			var myY = y == 0 ? -1 : 1;
+		// 			var myZ = z == 0 ? -1 : 1;
+
+		// 			var c = new Vector3Int(v3int.x + x, v3int.y + y, v3int.z + z);
+
+		// 			if (crossGridSize.Include(c))
+		// 			{
+		// 				crosses[x, y, 
+		// 			}
+		// 		});
+
+		// 		crosses[v3int.x, v3int.y, v3int.z] = center - unitPerGrid / 2;
+				
+
+		// 		var isEndX = v3int.x == endX;
+		// 		var isEndY = v3int.y == endY;
+		// 		var isEndZ = v3int.z == endZ;
+
+		// 		if (isEndX || isEndY|| isEndZ)
+		// 		{
+		// 			var nextX = isEndX ? gridSize.x : v3int.x;
+		// 			var nextY = isEndY ? gridSize.y : v3int.y;
+		// 			var nextZ = isEndZ ? gridSize.z : v3int.z;
+
+		// 			var offsetX = isEndX ? unitPerGrid.x / 2 : 0;
+		// 			var offsetY = isEndY ? unitPerGrid.y / 2 : 0;
+		// 			var offsetZ = isEndZ ? unitPerGrid.z / 2 : 0;
+
+		// 			crosses[nextX, nextY, nextZ] = center + 
+		// 		}
+		// 	});
+		// }
+
+		public static Vector2 GetPositionOnGrid(Vector2Int gridSize, Vector2Int gridPosition, Vector2 unitPerGrid)
+		{
+			return GetPositionOnGrid(gridSize.ToV3Int(), gridPosition.ToV3Int(), unitPerGrid);
+		}
+
 		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 unitPerGrid)
 		{
 			var half = unitPerGrid / 2;
@@ -285,9 +404,16 @@
 
 		public static Vector3Int GetGridPosition(Vector3Int gridSize, Vector3 unitPerGrid, Vector3 position)
 		{
-			var origin = new Vector3(gridSize.x * unitPerGrid.x, gridSize.y * unitPerGrid.y, gridSize.z * unitPerGrid.z) / 2;
-			var p = position + origin;
-			return new Vector3Int((int)Mathf.Floor(p.x), (int)Mathf.Floor(p.y), (int)Mathf.Floor(p.z));
+			// マスあたりのサイズ x マス数で大きさを出す
+			var size = new Vector3(unitPerGrid.x * gridSize.x, unitPerGrid.y * gridSize.y, unitPerGrid.z * gridSize.z);
+
+			// 原点の座標を出す
+			var origin = size / -2;
+
+			// 原点から見た時の距離
+			var p = position - origin;
+
+			 return new Vector3Int((int)Mathf.Floor(p.x / unitPerGrid.x), (int)Mathf.Floor(p.y / unitPerGrid.y), (int)Mathf.Floor(p.z / unitPerGrid.z));
 		}
 
 		/// <summary>
@@ -320,6 +446,16 @@
 		public static int GetRandomIndex<T>(this IList<T> self)
 		{
 			return Random.Range(0, self.Count);
+		}
+
+		public static int GetRandomIndex(this IList self)
+		{
+			return Random.Range(0, self.Count);
+		}
+
+		public static T GetRandom<T>(this IList self)
+		{
+			return (T)(self[self.GetRandomIndex()]);
 		}
 
 		public static T GetRandom<T>(this IList<T> self)
@@ -389,6 +525,13 @@
 			// }
 
 			// return result.ToArray();
+		}
+
+		public static T PickRandom<T>() where T : System.Enum
+		{
+			var array = System.Enum.GetValues(typeof(T));
+
+			return array.GetRandom<T>();
 		}
 
 		public static T[] PickRandom<T>(int count) where T : System.Enum
@@ -687,6 +830,21 @@
 			return Quaternion.Euler(RandomVector3(0, 360));
 		}
 
+
+		public static Vector3 RandomPoint(this Bounds bounds)
+		{
+			return bounds.RandomPoint(Vector3.zero);
+		}
+
+		public static Vector3 RandomPoint(this Bounds bounds, Vector3 excludeFromEdge)
+		{
+			var x = Random.Range(bounds.min.x + excludeFromEdge.x, bounds.max.x - excludeFromEdge.x);
+			var y = Random.Range(bounds.min.y + excludeFromEdge.y, bounds.max.y - excludeFromEdge.y);
+			var z = Random.Range(bounds.min.z + excludeFromEdge.z, bounds.max.z - excludeFromEdge.z);
+
+			return new Vector3(x, y, z);
+		}
+
 		public static string ToArrayStr<T>(this IList<T> list)
 		{
 			var str = "";
@@ -702,6 +860,14 @@
 			}
 
 			return str;
+		}
+
+		/// <summary>
+		/// クラス名でResources.Loadをする
+		/// </summary>
+		public static T LoadPrefab<T>() where T : Object
+		{
+			return Resources.Load<T>(typeof(T).Name);
 		}
 
 		public static void DrawGizmosWireCubeWithRotate(Vector3 center, Quaternion rotation, Vector3 size)
@@ -721,6 +887,14 @@
 
 				Gizmos.DrawLine(current, next);
 			}
+		}
+
+		public static void DrawGizmosCross(Bounds bounds)
+		{
+			Gizmos.DrawLine(bounds.min, bounds.max);
+			var a = new Vector3(bounds.min.x, bounds.max.y,bounds.min.z);
+			var b = new Vector3(bounds.max.x, bounds.min.y, bounds.max.z);
+			Gizmos.DrawCube(a, b);
 		}
 
 		/// <summary>
@@ -755,6 +929,89 @@
 			return new Vector3Int(self.x, 0, self.y);
 		}
 
+		public static Vector3Int ToV3Int(this Vector2Int self)
+		{
+			return new Vector3Int(self.x, self.y, 0);
+		}
+
+		public static Vector2Int XZtoV2Int(this Vector3Int self)
+		{
+			return new Vector2Int(self.x, self.z);
+		}
+
+		public static Vector3 ToXZ(this Vector3 self)
+		{
+			return new Vector3(self.x, 0, self.y);
+		}
+
+		public static Vector2 XZtoV2(this Vector3 self)
+		{
+			return new Vector2(self.x, self.z);
+		}
+
+		public static Vector3 ToV3XZ(this Vector2 self)
+		{
+			return new Vector3(self.x, 0, self.y);
+		}
+
+		public static void Foreach<T>(this T[,] self, System.Action<int, int, T> callback)
+		{
+			for (var x = 0; x < self.GetLength(0); x++)
+			{
+				for (var y = 0; y < self.GetLength(1); y++)
+				{
+					callback(x, y, self[x, y]);
+				}
+			}
+		}
+
+		public static void Foreach<T>(this T[,] self, System.Action<Vector2Int, T> callback)
+		{
+			self.Foreach((x, y, item) => callback(new Vector2Int(x, y), item));
+		}
+
+		public static bool TryGet<T>(this T? self, out T result) where T : struct
+		{
+			result = self.GetValueOrDefault();
+			return self.HasValue;
+		}
+
+		/// <summary>
+		/// 2次元上の多角形が対象の点を内包しているか(囲んでいるか)を確認する関数
+		/// </summary>
+		public static bool IsSurrounding(this IList<Vector2> points, Vector2 target)
+		{
+			// https://www.nttpc.co.jp/technology/number_algorithm.html を参考に実装
+			
+			var wn = 0;
+
+			for(var i = 0; i < points.Count - 1; i++)
+			{
+				// 上向きの辺、下向きの辺によって処理が分かれる。
+				// 上向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、終点は含まない。(ルール1)
+				if ( (points[i].y <= target.y) && (points[i+1].y > target.y) ) {
+					// 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
+					// 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
+					var vt = (target.y - points[i].y) / (points[i+1].y - points[i].y);
+					if(target.x < (points[i].x + (vt * (points[i+1].x - points[i].x)))){
+						++wn;  //ここが重要。上向きの辺と交差した場合は+1
+					}
+				} 
+				// 下向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、始点は含まない。(ルール2)
+				else if ( (points[i].y > target.y) && (points[i+1].y <= target.y) ) {
+					// 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
+					// 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
+					var vt = (target.y - points[i].y) / (points[i+1].y - points[i].y);
+					if(target.x < (points[i].x + (vt * (points[i+1].x - points[i].x)))){
+						--wn;  //ここが重要。下向きの辺と交差した場合は-1
+					}	
+				}
+				// ルール1,ルール2を確認することで、ルール3も確認できている。
+			}
+
+			return wn != 0;
+		}
+
 		public static class Debug
 		{
 			public static void DrawLines(Color color, float duration, params Vector3[] points)
@@ -773,6 +1030,8 @@
 
 	public class IMGrid
 	{
+		public delegate void ForeachDelegate(int x, int y);
+
 		private int _width;
 		private int _height;
 
@@ -783,6 +1042,17 @@
 		{
 			_width = width;
 			_height = height;
+		}
+
+		public void Foreach(ForeachDelegate callback)
+		{
+			for (var x = 0; x < _width; x++)
+			{
+				for (var y = 0; y < _height; y++)
+				{
+					callback.Invoke(x, y);
+				}
+			}
 		}
 
 		public void Button(int x, int y, string label, System.Action onClick = null)
