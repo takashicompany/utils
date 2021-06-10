@@ -784,6 +784,37 @@
 			});
 		}
 
+		public static Tweener DOScale(this LineRenderer self, Vector3 center, float end, float duration)
+		{
+			var froms = new Vector3[self.positionCount];
+			self.GetPositions(froms);
+
+			var current = 1f;
+
+			return DOTween.To(() => current, v => current = v, end, duration).OnUpdate(() =>
+			{
+				for (int i = 0; i < froms.Length; i++)
+				{
+					var from = froms[i];
+					self.SetPosition(i, Vector3.Lerp(center, from, current));
+				}
+			});
+		}
+
+		public static Tweener DOScale(this IList<Vector3> self, Vector3 center, float end, float duration)
+		{
+			var froms = self.ToArray();
+			var current = 1f;
+			return DOTween.To(() => current, v => current = v, end, duration).OnUpdate(() =>
+			{
+				for (int i = 0; i < self.Count; i++)
+				{
+					var from = froms[i];
+					self[i] = Vector3.Lerp(center, from, current);
+				}
+			});
+		}
+
 		/// <summary>
 		/// Dictionary<K, V>からDictionay<V, K>を生成する。
 		/// Valueがnullだったり値が被る場合は除外
