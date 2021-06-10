@@ -796,7 +796,7 @@
 				for (int i = 0; i < froms.Length; i++)
 				{
 					var from = froms[i];
-					self.SetPosition(i, Vector3.Lerp(center, from, current));
+					self.SetPosition(i, Vector3.LerpUnclamped(center, from, current));
 				}
 			});
 		}
@@ -810,7 +810,7 @@
 				for (int i = 0; i < self.Count; i++)
 				{
 					var from = froms[i];
-					self[i] = Vector3.Lerp(center, from, current);
+					self[i] = Vector3.LerpUnclamped(center, from, current);
 				}
 			});
 		}
