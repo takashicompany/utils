@@ -3,9 +3,24 @@ namespace TakashiCompany.Unity
 	using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
+	
+	[System.Serializable]
+	public struct PRS
+	{
+		public Vector3 position;
+		public Quaternion rotation;
+		public Vector3 scale;
+
+		public void Set(Transform transform)
+		{
+			transform.position = position;
+			transform.rotation = rotation;
+			transform.localScale = scale;
+		}
+	}
 
 	/// <summary>
-	/// Position Rotation Scale
+	/// Nullable Position Rotation Scale
 	/// </summary>
 	public struct NullablePRS
 	{
