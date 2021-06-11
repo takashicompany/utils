@@ -876,6 +876,33 @@
 			return new Vector3(x, y, z);
 		}
 
+		public static Bounds GetBounds(this IEnumerable<Vector3> points)
+		{
+			var minX = float.MaxValue;
+			var minY = float.MaxValue;
+			var minZ = float.MaxValue;
+
+			var maxX = float.MinValue;
+			var maxY = float.MinValue;
+			var maxZ = float.MinValue;
+
+			foreach (var p in points)
+			{
+				if (minX > p.x) minX = p.x;
+				if (minY > p.y) minY = p.y;
+				if (minZ > p.z) minZ = p.z;
+
+				if (maxX < p.x) maxX = p.x;
+				if (maxY < p.y) maxY = p.y;
+				if (maxZ < p.z) maxZ = p.z;
+			}
+
+			var size = new Vector3(maxX - minX, maxY - minY, maxZ - minZ);
+			var center = new Vector3(minX + size.x / 2, minY + size.y / 2, minZ + size.z / 2);
+
+			return new Bounds(center, size);
+		}
+
 		public static string ToArrayStr<T>(this IList<T> list)
 		{
 			var str = "";
