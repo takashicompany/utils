@@ -65,7 +65,7 @@ namespace TakashiCompany.Unity
 						originBone.position = copiedBone.position;
 						originBone.rotation = copiedBone.rotation;
 					}
-					
+
 					originBone.localScale = copiedBone.localScale;
 				}
 			}
@@ -87,7 +87,6 @@ namespace TakashiCompany.Unity
 				_boneActiveDict[bone] = active;
 			}
 		}
-
 
 		public static ActiveRagdoll GenerateActiveRagdoll(Animator origin)
 		{
