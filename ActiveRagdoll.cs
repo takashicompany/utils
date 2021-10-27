@@ -26,6 +26,11 @@ namespace TakashiCompany.Unity
 
 			foreach (HumanBodyBones boneName in System.Enum.GetValues(typeof(HumanBodyBones)))
 			{
+				if (boneName == HumanBodyBones.LastBone)
+				{
+					continue;
+				}
+
 				var originBone = origin.GetBoneTransform(boneName);
 				var copiedBone = origin.GetBoneTransform(boneName);
 
@@ -40,6 +45,8 @@ namespace TakashiCompany.Unity
 					}
 				}
 			}
+
+			origin.enabled = false;
 		}
 
 		private void LateUpdate()
@@ -92,21 +99,26 @@ namespace TakashiCompany.Unity
 		{
 			var copiedAnimator = Instantiate(origin, origin.transform.parent);
 
-			var gameObjects = copiedAnimator.GetComponentsInChildren<GameObject>();
+			var transforms = copiedAnimator.GetComponentsInChildren<Transform>();
 
-			foreach (var go in gameObjects)
+			foreach (var t in transforms)
 			{
-				if (go.TryGetComponent<Renderer>(out var renderer))
+				if (t.TryGetComponent<Renderer>(out var renderer))
 				{
 					Destroy(renderer);
 				}
 
-				if (go.TryGetComponent<Rigidbody>(out var rigidbody))
+				if (t.TryGetComponent<Joint>(out var joint))
+				{
+					Destroy(joint);
+				}
+
+				if (t.TryGetComponent<Rigidbody>(out var rigidbody))
 				{
 					Destroy(rigidbody);
 				}
 
-				if (go.TryGetComponent<Collider>(out var collider))
+				if (t.TryGetComponent<Collider>(out var collider))
 				{
 					Destroy(collider);
 				}
