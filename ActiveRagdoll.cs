@@ -7,6 +7,7 @@ namespace TakashiCompany.Unity
 
 	public class ActiveRagdoll : MonoBehaviour
 	{
+		private Animator _origin;
 		private Animator _animator;
 
 		public Animator animator => _animator;
@@ -26,6 +27,7 @@ namespace TakashiCompany.Unity
 		
 		public void Init(Animator origin, Animator copied)
 		{
+			_origin = origin;
 			_animator = copied;
 
 			_boneDict.Clear();
@@ -57,16 +59,6 @@ namespace TakashiCompany.Unity
 			}
 
 			origin.enabled = false;
-
-			// var colliders = origin.GetComponentsInChildren<Collider>();
-
-			// foreach (var c in colliders)
-			// {
-			// 	foreach (var a in colliders)
-			// 	{
-			// 		Physics.IgnoreCollision(c, a, true);
-			// 	}
-			// }
 		}
 
 		private void LateUpdate()
@@ -80,23 +72,6 @@ namespace TakashiCompany.Unity
 				{
 					var copiedBone = _animator.GetBoneTransform(boneName);
 					var originBone = _boneDict[copiedBone];
-
-					/*
-					// Rigidbodyがあればそちらを優先
-					if (_rigidbodyDict.TryGetValue(boneName, out var rigidbody))
-					{
-						rigidbody.position = copiedBone.position;
-						rigidbody.rotation = copiedBone.rotation;
-					}
-					else
-					{
-						originBone.position = copiedBone.position;
-						originBone.rotation = copiedBone.rotation;
-					}
-
-					originBone.localScale = copiedBone.localScale;
-					*/
-					
 
 					// 回転だけにしてみる
 					originBone.localRotation = copiedBone.localRotation;
@@ -122,6 +97,8 @@ namespace TakashiCompany.Unity
 				if (_rigidbodyDict.TryGetValue(bone, out var rigidbody))
 				{
 					rigidbody.isKinematic = active;
+					_origin.gameObject.SetActive(false);
+					_origin.gameObject.SetActive(true);
 				}
 			}
 		}
