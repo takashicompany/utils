@@ -12,7 +12,7 @@ namespace TakashiCompany.Unity
 		public Animator animator => _animator;
 
 		private Dictionary<Transform, Transform> _boneDict = new Dictionary<Transform, Transform>();
-		private Dictionary<Transform, Rigidbody> _rigidbodyDict = new Dictionary<Transform, Rigidbody>();
+		private Dictionary<HumanBodyBones, Rigidbody> _rigidbodyDict = new Dictionary<HumanBodyBones, Rigidbody>();
 
 		private Dictionary<HumanBodyBones, bool> _boneActiveDict = new Dictionary<HumanBodyBones, bool>();
 		
@@ -32,17 +32,19 @@ namespace TakashiCompany.Unity
 				}
 
 				var originBone = origin.GetBoneTransform(boneName);
-				var copiedBone = origin.GetBoneTransform(boneName);
+				var copiedBone = copied.GetBoneTransform(boneName);
 
-				if (originBone != copiedBone)
+				if (originBone != null && copiedBone != null)
 				{
-					_boneActiveDict[boneName] = true;	// とりあえずtrue入れておくか
 					_boneDict.Add(copiedBone, originBone);
+					_boneActiveDict.Add(boneName, true);
 
 					if (originBone.TryGetComponent<Rigidbody>(out var rigidbody))
 					{
-						_rigidbodyDict.Add(originBone, rigidbody);
+						_rigidbodyDict.Add(boneName, rigidbody);
 					}
+
+					SetBoneActive(boneName, true);
 				}
 			}
 
@@ -61,8 +63,9 @@ namespace TakashiCompany.Unity
 					var copiedBone = _animator.GetBoneTransform(boneName);
 					var originBone = _boneDict[copiedBone];
 
+					/*
 					// Rigidbodyがあればそちらを優先
-					if (_rigidbodyDict.TryGetValue(originBone, out var rigidbody))
+					if (_rigidbodyDict.TryGetValue(boneName, out var rigidbody))
 					{
 						rigidbody.position = copiedBone.position;
 						rigidbody.rotation = copiedBone.rotation;
@@ -74,6 +77,11 @@ namespace TakashiCompany.Unity
 					}
 
 					originBone.localScale = copiedBone.localScale;
+					*/
+					
+
+					// 回転だけにしてみる
+					originBone.localRotation = copiedBone.localRotation;
 				}
 			}
 		}
@@ -92,6 +100,13 @@ namespace TakashiCompany.Unity
 			if (_boneActiveDict.ContainsKey(bone))
 			{
 				_boneActiveDict[bone] = active;
+
+				if (_rigidbodyDict.TryGetValue(bone, out var rigidbody))
+				{
+					rigidbody.isKinematic = active;
+				}
+
+				Debug.Log("bone:" + bone + " active:" + active);
 			}
 		}
 
