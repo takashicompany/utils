@@ -7,13 +7,21 @@ namespace TakashiCompany.Unity
 
 	public class ColliderReceiver : MonoBehaviour
 	{
-		public delegate void CollisionDelegate(ColliderReceiver collisionReceiver, Collision collision);
+		public delegate void CollisionDelegate(ColliderReceiver colliderReceiver, Collision collision);
+
+		public delegate void TriggerDelegate(ColliderReceiver colliderReceiver, Collider other);
 
 		public event CollisionDelegate onCollisionEnter;
+		public event TriggerDelegate onTriggerEnter;
 
 		private void OnCollisionEnter(Collision collision)
 		{
 			onCollisionEnter?.Invoke(this, collision);
+		}
+
+		private void OnTriggerEnter(Collider other)
+		{
+			onTriggerEnter?.Invoke(this, other);
 		}
 	}
 }

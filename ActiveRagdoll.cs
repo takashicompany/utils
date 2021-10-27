@@ -15,6 +15,14 @@ namespace TakashiCompany.Unity
 		private Dictionary<HumanBodyBones, Rigidbody> _rigidbodyDict = new Dictionary<HumanBodyBones, Rigidbody>();
 
 		private Dictionary<HumanBodyBones, bool> _boneActiveDict = new Dictionary<HumanBodyBones, bool>();
+
+		public HumanBodyBones targetBone;
+
+		[ContextMenu("Test")]
+		private void Test()
+		{
+			SetBoneActive(targetBone, false);
+		}
 		
 		public void Init(Animator origin, Animator copied)
 		{
@@ -49,6 +57,16 @@ namespace TakashiCompany.Unity
 			}
 
 			origin.enabled = false;
+
+			// var colliders = origin.GetComponentsInChildren<Collider>();
+
+			// foreach (var c in colliders)
+			// {
+			// 	foreach (var a in colliders)
+			// 	{
+			// 		Physics.IgnoreCollision(c, a, true);
+			// 	}
+			// }
 		}
 
 		private void LateUpdate()
@@ -105,8 +123,6 @@ namespace TakashiCompany.Unity
 				{
 					rigidbody.isKinematic = active;
 				}
-
-				Debug.Log("bone:" + bone + " active:" + active);
 			}
 		}
 
