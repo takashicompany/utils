@@ -17,18 +17,13 @@ namespace TakashiCompany.Unity
 
 		private Dictionary<HumanBodyBones, bool> _boneActiveDict = new Dictionary<HumanBodyBones, bool>();
 
-		public HumanBodyBones targetBone;
-
-		[ContextMenu("Test")]
-		private void Test()
-		{
-			SetBoneActive(targetBone, false);
-		}
+		private bool _withMovePosition;
 		
-		public void Init(Animator origin, Animator copied)
+		public void Init(Animator origin, Animator copied, bool withMovePosition)
 		{
 			_origin = origin;
 			_animator = copied;
+			_withMovePosition = withMovePosition;
 
 			_boneDict.Clear();
 			_rigidbodyDict.Clear();
@@ -73,7 +68,11 @@ namespace TakashiCompany.Unity
 					var copiedBone = _animator.GetBoneTransform(boneName);
 					var originBone = _boneDict[copiedBone];
 
-					// 回転だけにしてみる
+					if (_withMovePosition)
+					{
+						originBone.position = copiedBone.position;
+					}
+
 					originBone.localRotation = copiedBone.localRotation;
 				}
 			}
@@ -97,13 +96,11 @@ namespace TakashiCompany.Unity
 				if (_rigidbodyDict.TryGetValue(bone, out var rigidbody))
 				{
 					rigidbody.isKinematic = active;
-					_origin.gameObject.SetActive(false);
-					_origin.gameObject.SetActive(true);
 				}
 			}
 		}
 
-		public static ActiveRagdoll GenerateActiveRagdoll(Animator origin)
+		public static ActiveRagdoll GenerateActiveRagdoll(Animator origin, bool withMovePosition)
 		{
 			var copiedAnimator = Instantiate(origin, origin.transform.parent);
 
@@ -133,7 +130,7 @@ namespace TakashiCompany.Unity
 			}
 
 			var activeRagdoll = copiedAnimator.gameObject.AddComponent<ActiveRagdoll>();
-			activeRagdoll.Init(origin, copiedAnimator);
+			activeRagdoll.Init(origin, copiedAnimator, withMovePosition);
 
 			return activeRagdoll;
 		}
