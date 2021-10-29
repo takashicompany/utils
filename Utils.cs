@@ -331,6 +331,18 @@
 			self.Foreach((x, y) => function(new Vector2Int(x, y)));
 		}
 
+		public static HashSet<Vector2Int> CreateHashSet(this Vector2Int self)
+		{
+			var hashset = new HashSet<Vector2Int>();
+
+			self.Foreach((x, y) =>
+			{
+				hashset.Add(new Vector2Int(x, y));
+			});
+			
+			return hashset;
+		}
+
 		// public static void GetPositionOnGrids(Vector3Int gridSize, Vector3 unitPerGrid, out Vector3[,,] centerPositions, out Vector3[,,] crossPositions)
 		// {
 		// 	var crossGridSize = new Vector3Int(gridSize.x + 1, gridSize.y + 1, gridSize.z + 1);
@@ -488,7 +500,7 @@
 			return list;
 		}
 
-		public static T[] PickRandom<T>(this IList<T> self, int count)
+		public static T[] GetRandom<T>(this IList<T> self, int count)
 		{
 			var result = new T[count];
 			
@@ -1069,6 +1081,8 @@
 
 			return wn != 0;
 		}
+
+
 
 		public static class Debug
 		{
