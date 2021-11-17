@@ -55,6 +55,11 @@
 		}
 
 		// https://setchi.hatenablog.com/entry/2017/07/12/202756
+		/// <summary>
+		/// 線分同士の交点を求める
+		/// </summary>
+		/// <param name="intersection">交差する位置</param>
+		/// <returns>交差の有無</returns>
 		public static bool LineSegmentsIntersection(
 			Vector2 p1,
 			Vector2 p2,
@@ -85,6 +90,11 @@
 			return true;
 		}
 
+		/// <summary>
+		/// 線分同士の交点を求める
+		/// </summary>
+		/// <param name="intersection">交差する位置</param>
+		/// <returns>交差の有無</returns>
 		public static bool LineSegmentsIntersectionXZ(
 			Vector3 p1,
 			Vector3 p2,
@@ -111,13 +121,38 @@
 			return a + Vector3.Project(p - a, b - a);
 		}
 
-		public static Vector3 GetPointOfProgress(this IList<Vector3> path, float progress)
+		/// <summary>
+		///  点Pから最も近い線分AB上にある点を返す
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <param name="p"></param>
+		/// <returns></returns>
+		public static Vector3 NearestPointOnLineSegment(Vector3 a, Vector3 b, Vector3 p)
 		{
-			progress = Mathf.Clamp01(progress);
+			 Vector3 ab = b - a;
+			 float length = ab.magnitude;
+			 ab.Normalize();
+
+			 float k = Vector3.Dot(p - a, ab);
+			 k = Mathf.Clamp(k, 0, length);
+			 return a + k * ab;
+		}
+
+#region Path関係
+		/// <summary>
+		/// パスの中から位置を求める
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="normalized">0~1</param>
+		/// <returns></returns>
+		public static Vector3 GetPointOfProgress(this IList<Vector3> path, float normalized)
+		{
+			normalized = Mathf.Clamp01(normalized);
 
 			var totalLength = path.GetTotalLength();
 
-			var lengthOnProgress = totalLength * progress;
+			var lengthOnProgress = totalLength * normalized;
 
 			var currentLength = 0f;
 
@@ -143,6 +178,11 @@
 			return path[path.Count - 1];
 		}
 
+		/// <summary>
+		/// パスの長さを求める
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
 		public static float GetTotalLength(this IList<Vector3> path)
 		{
 			var length = 0f;
@@ -158,6 +198,13 @@
 			return length;
 		}
 		
+		/// <summary>
+		/// パスの中から最も点に近い位置を求める
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="point"></param>
+		/// <param name="ratio"></param>
+		/// <returns></returns>
 		public static Vector3 GetPointOnPath(this IList<Vector3> path, Vector3 point, out float ratio)
 		{
 			var result = point;
@@ -192,6 +239,7 @@
 
 			return result;
 		}
+#endregion
 		
 		public static Vector3 ToX(this Vector3 self, float x)
 		{
