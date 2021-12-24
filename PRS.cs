@@ -3,36 +3,51 @@ namespace TakashiCompany.Unity
 	using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
+	
+	[System.Serializable]
+	public struct PRS
+	{
+		public Vector3 position;
+		public Quaternion rotation;
+		public Vector3 scale;
+
+		public void Set(Transform transform)
+		{
+			transform.position = position;
+			transform.rotation = rotation;
+			transform.localScale = scale;
+		}
+	}
 
 	/// <summary>
-	/// Position Rotation Scale
+	/// Nullable Position Rotation Scale
 	/// </summary>
-	public struct PRS
+	public struct NullablePRS
 	{
 		public Vector3? position { get; private set; }
 		public Quaternion? rotation { get; private set; }
 		public Vector3? scale { get; private set; }
 
-		public PRS(Vector3? position, Quaternion? rotation, Vector3? scale)
+		public NullablePRS(Vector3? position, Quaternion? rotation, Vector3? scale)
 		{
 			this.position = position;
 			this.rotation = rotation;
 			this.scale = scale;
 		}
 
-		public PRS(Vector3 position)
+		public NullablePRS(Vector3 position)
 		{
 			this.position = position;
 			this.rotation = null;
 			this.scale = null;
 		}
 
-		public PRS(Vector3 position, Quaternion rotation) : this(position)
+		public NullablePRS(Vector3 position, Quaternion rotation) : this(position)
 		{
 			this.rotation = rotation;
 		}
 
-		public PRS(Vector3 position, Quaternion rotation, Vector3 scale) : this (position, rotation)
+		public NullablePRS(Vector3 position, Quaternion rotation, Vector3 scale) : this (position, rotation)
 		{
 			this.scale = scale;
 		}

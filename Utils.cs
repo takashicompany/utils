@@ -55,6 +55,11 @@
 		}
 
 		// https://setchi.hatenablog.com/entry/2017/07/12/202756
+		/// <summary>
+		/// 線分同士の交点を求める
+		/// </summary>
+		/// <param name="intersection">交差する位置</param>
+		/// <returns>交差の有無</returns>
 		public static bool LineSegmentsIntersection(
 			Vector2 p1,
 			Vector2 p2,
@@ -85,6 +90,11 @@
 			return true;
 		}
 
+		/// <summary>
+		/// 線分同士の交点を求める
+		/// </summary>
+		/// <param name="intersection">交差する位置</param>
+		/// <returns>交差の有無</returns>
 		public static bool LineSegmentsIntersectionXZ(
 			Vector3 p1,
 			Vector3 p2,
@@ -111,13 +121,38 @@
 			return a + Vector3.Project(p - a, b - a);
 		}
 
-		public static Vector3 GetPointOfProgress(this IList<Vector3> path, float progress)
+		/// <summary>
+		///  点Pから最も近い線分AB上にある点を返す
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <param name="p"></param>
+		/// <returns></returns>
+		public static Vector3 NearestPointOnLineSegment(Vector3 a, Vector3 b, Vector3 p)
 		{
-			progress = Mathf.Clamp01(progress);
+			 Vector3 ab = b - a;
+			 float length = ab.magnitude;
+			 ab.Normalize();
+
+			 float k = Vector3.Dot(p - a, ab);
+			 k = Mathf.Clamp(k, 0, length);
+			 return a + k * ab;
+		}
+
+#region Path関係
+		/// <summary>
+		/// パスの中から位置を求める
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="normalized">0~1</param>
+		/// <returns></returns>
+		public static Vector3 GetPointOfProgress(this IList<Vector3> path, float normalized)
+		{
+			normalized = Mathf.Clamp01(normalized);
 
 			var totalLength = path.GetTotalLength();
 
-			var lengthOnProgress = totalLength * progress;
+			var lengthOnProgress = totalLength * normalized;
 
 			var currentLength = 0f;
 
@@ -143,6 +178,11 @@
 			return path[path.Count - 1];
 		}
 
+		/// <summary>
+		/// パスの長さを求める
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
 		public static float GetTotalLength(this IList<Vector3> path)
 		{
 			var length = 0f;
@@ -158,6 +198,13 @@
 			return length;
 		}
 		
+		/// <summary>
+		/// パスの中から最も点に近い位置を求める
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="point"></param>
+		/// <param name="ratio"></param>
+		/// <returns></returns>
 		public static Vector3 GetPointOnPath(this IList<Vector3> path, Vector3 point, out float ratio)
 		{
 			var result = point;
@@ -192,6 +239,8 @@
 
 			return result;
 		}
+
+#endregion
 		
 		public static Vector3 ToX(this Vector3 self, float x)
 		{
@@ -329,6 +378,18 @@
 		public static void Foreach(this Vector2Int self, System.Action<Vector2Int> function)
 		{
 			self.Foreach((x, y) => function(new Vector2Int(x, y)));
+		}
+
+		public static HashSet<Vector2Int> CreateHashSet(this Vector2Int self)
+		{
+			var hashset = new HashSet<Vector2Int>();
+
+			self.Foreach((x, y) =>
+			{
+				hashset.Add(new Vector2Int(x, y));
+			});
+			
+			return hashset;
 		}
 
 		// public static void GetPositionOnGrids(Vector3Int gridSize, Vector3 unitPerGrid, out Vector3[,,] centerPositions, out Vector3[,,] crossPositions)
@@ -488,7 +549,7 @@
 			return list;
 		}
 
-		public static T[] PickRandom<T>(this IList<T> self, int count)
+		public static T[] GetRandom<T>(this IList<T> self, int count)
 		{
 			var result = new T[count];
 			
@@ -784,6 +845,37 @@
 			});
 		}
 
+		public static Tweener DOScale(this LineRenderer self, Vector3 center, float end, float duration)
+		{
+			var froms = new Vector3[self.positionCount];
+			self.GetPositions(froms);
+
+			var current = 1f;
+
+			return DOTween.To(() => current, v => current = v, end, duration).OnUpdate(() =>
+			{
+				for (int i = 0; i < froms.Length; i++)
+				{
+					var from = froms[i];
+					self.SetPosition(i, Vector3.LerpUnclamped(center, from, current));
+				}
+			});
+		}
+
+		public static Tweener DOScale(this IList<Vector3> self, Vector3 center, float end, float duration)
+		{
+			var froms = self.ToArray();
+			var current = 1f;
+			return DOTween.To(() => current, v => current = v, end, duration).OnUpdate(() =>
+			{
+				for (int i = 0; i < self.Count; i++)
+				{
+					var from = froms[i];
+					self[i] = Vector3.LerpUnclamped(center, from, current);
+				}
+			});
+		}
+
 		/// <summary>
 		/// Dictionary<K, V>からDictionay<V, K>を生成する。
 		/// Valueがnullだったり値が被る場合は除外
@@ -830,6 +922,7 @@
 			return Quaternion.Euler(RandomVector3(0, 360));
 		}
 
+
 		public static Vector3 RandomPoint(this Bounds bounds)
 		{
 			return bounds.RandomPoint(Vector3.zero);
@@ -842,6 +935,33 @@
 			var z = Random.Range(bounds.min.z + excludeFromEdge.z, bounds.max.z - excludeFromEdge.z);
 
 			return new Vector3(x, y, z);
+		}
+
+		public static Bounds GetBounds(this IEnumerable<Vector3> points)
+		{
+			var minX = float.MaxValue;
+			var minY = float.MaxValue;
+			var minZ = float.MaxValue;
+
+			var maxX = float.MinValue;
+			var maxY = float.MinValue;
+			var maxZ = float.MinValue;
+
+			foreach (var p in points)
+			{
+				if (minX > p.x) minX = p.x;
+				if (minY > p.y) minY = p.y;
+				if (minZ > p.z) minZ = p.z;
+
+				if (maxX < p.x) maxX = p.x;
+				if (maxY < p.y) maxY = p.y;
+				if (maxZ < p.z) maxZ = p.z;
+			}
+
+			var size = new Vector3(maxX - minX, maxY - minY, maxZ - minZ);
+			var center = new Vector3(minX + size.x / 2, minY + size.y / 2, minZ + size.z / 2);
+
+			return new Bounds(center, size);
 		}
 
 		public static string ToArrayStr<T>(this IList<T> list)
@@ -974,6 +1094,44 @@
 			result = self.GetValueOrDefault();
 			return self.HasValue;
 		}
+
+		/// <summary>
+		/// 2次元上の多角形が対象の点を内包しているか(囲んでいるか)を確認する関数
+		/// </summary>
+		public static bool IsSurrounding(this IList<Vector2> points, Vector2 target)
+		{
+			// https://www.nttpc.co.jp/technology/number_algorithm.html を参考に実装
+			
+			var wn = 0;
+
+			for(var i = 0; i < points.Count - 1; i++)
+			{
+				// 上向きの辺、下向きの辺によって処理が分かれる。
+				// 上向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、終点は含まない。(ルール1)
+				if ( (points[i].y <= target.y) && (points[i+1].y > target.y) ) {
+					// 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
+					// 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
+					var vt = (target.y - points[i].y) / (points[i+1].y - points[i].y);
+					if(target.x < (points[i].x + (vt * (points[i+1].x - points[i].x)))){
+						++wn;  //ここが重要。上向きの辺と交差した場合は+1
+					}
+				} 
+				// 下向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、始点は含まない。(ルール2)
+				else if ( (points[i].y > target.y) && (points[i+1].y <= target.y) ) {
+					// 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
+					// 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
+					var vt = (target.y - points[i].y) / (points[i+1].y - points[i].y);
+					if(target.x < (points[i].x + (vt * (points[i+1].x - points[i].x)))){
+						--wn;  //ここが重要。下向きの辺と交差した場合は-1
+					}	
+				}
+				// ルール1,ルール2を確認することで、ルール3も確認できている。
+			}
+
+			return wn != 0;
+		}
+
+
 
 		public static class Debug
 		{

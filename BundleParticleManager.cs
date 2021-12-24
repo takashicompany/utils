@@ -26,7 +26,7 @@ namespace TakashiCompany.Unity
 
 		private Dictionary<T, Bundle> _dict = new Dictionary<T, Bundle>();
 
-		private Dictionary<T, Queue<PRS>> _queues = new Dictionary<T, Queue<PRS>>();
+		private Dictionary<T, Queue<NullablePRS>> _queues = new Dictionary<T, Queue<NullablePRS>>();
 
 		private bool _isInit;
 
@@ -49,7 +49,7 @@ namespace TakashiCompany.Unity
 
 				_dict.Add(b.particleType, b);
 
-				_queues.Add(b.particleType, new Queue<PRS>());
+				_queues.Add(b.particleType, new Queue<NullablePRS>());
 			}
 
 			_isInit = true;
@@ -83,7 +83,7 @@ namespace TakashiCompany.Unity
 				return;
 			}
 
-			_queues[particleType].Enqueue(new PRS(position));
+			_queues[particleType].Enqueue(new NullablePRS(position));
 		}
 
 		public void Play(T particleType, Vector3 position, Quaternion rotation)
@@ -94,7 +94,7 @@ namespace TakashiCompany.Unity
 				return;
 			}
 
-			_queues[particleType].Enqueue(new PRS(position, rotation));
+			_queues[particleType].Enqueue(new NullablePRS(position, rotation));
 		}
 
 		public void Play(T particleType, Vector3 position, Quaternion rotation, Vector3 scale)
@@ -105,10 +105,10 @@ namespace TakashiCompany.Unity
 				return;
 			}
 
-			_queues[particleType].Enqueue(new PRS(position, rotation, scale));
+			_queues[particleType].Enqueue(new NullablePRS(position, rotation, scale));
 		}
 
-		private void PlayInternal(T particleType, PRS param)
+		private void PlayInternal(T particleType, NullablePRS param)
 		{
 			var particle = _dict[particleType].particle;
 
