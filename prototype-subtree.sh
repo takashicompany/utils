@@ -1,9 +1,9 @@
 #!/bin/bash
 
-repo=git@github.com:takashicompany/prototyper-casual.git
-remote=prototyper-casual
+repo=git@github.com:takashicompany/prototype.git
+remote=prototype
 branch=master
-path=Assets/TakashiCompany/PrototyperCasual
+path=Assets/takashicompany/Prototype
 
 if [ $# -eq 0 ]; then
 	echo "this is git-subtree-suppot tool.\noptions:\n init\n pull\n push"
