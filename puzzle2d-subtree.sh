@@ -3,7 +3,7 @@
 repo=git@github.com:takashicompany/puzzle2d.git
 remote=puzzle2d
 branch=master
-path=Assets/TakashiCompany/Game/Puzzle2d
+path=Assets/takashicompany/Game/Puzzle2d
 
 if [ $# -eq 0 ]; then
 	echo "this is git-subtree-suppot tool.\noptions:\n init\n pull\n push"

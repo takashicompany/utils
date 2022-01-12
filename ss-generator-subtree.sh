@@ -3,7 +3,7 @@
 repo=git@github.com:takashicompany/ss-generator.git
 remote=ss-generator
 branch=master
-path=Assets/TakashiCompany/SSGenerator
+path=Assets/takashicompany/SSGenerator
 
 if [ $# -eq 0 ]; then
 	echo "this is git-subtree-suppot tool.\noptions:\n init\n pull\n push"

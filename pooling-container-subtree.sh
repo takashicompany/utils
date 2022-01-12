@@ -3,7 +3,7 @@
 repo=git@github.com:takashicompany/pooling-container.git
 remote=pooling-container
 branch=master
-path=Assets/TakashiCompany/PoolingContainer
+path=Assets/takashicompany/PoolingContainer
 
 if [ $# -eq 0 ]; then
 	echo "this is git-subtree-suppot tool.\noptions:\n init\n pull\n push"
