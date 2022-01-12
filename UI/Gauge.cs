@@ -1,10 +1,10 @@
-namespace TakashiCompany.Unity.UI
+namespace takashicompany.Unity.UI
 {
 	using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
 	using UnityEngine.UI;
-	using TakashiCompany.Unity;
+	using takashicompany.Unity;
 	using DG.Tweening;
 
 	public class Gauge : MonoBehaviour
