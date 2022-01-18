@@ -29,7 +29,7 @@ namespace takashicompany.Unity
 		}
 	}
 
-	public static class Extensions
+	public static class TaBehaviourExtensions
 	{
 		public static T GetSelfOrParentComponent<T>(this Component self)
 		{
