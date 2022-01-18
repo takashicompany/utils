@@ -1022,6 +1022,13 @@
 			Gizmos.DrawCube(a, b);
 		}
 
+		public static void DrawGizmosPoint(Vector3 point, float extents = 0.5f)
+		{
+			Gizmos.DrawLine(point + Vector3.down * extents, point + Vector3.up * extents);
+			Gizmos.DrawLine(point + Vector3.left * extents, point + Vector3.right * extents);
+			Gizmos.DrawLine(point +	Vector3.back * extents, point + Vector3.forward * extents);
+		}
+
 		/// <summary>
 		/// AnimatorのHumanoidから名前で対応したTransformを取得する
 		/// </summary>
