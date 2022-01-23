@@ -87,9 +87,12 @@ namespace takashicompany.Unity
 
 		private void OnDrawGizmos()
 		{
-			foreach (var p in _paramList)
+			if (_paramList != null)
 			{
-				p.DrawGizmos();
+				foreach (var p in _paramList)
+				{
+					p.DrawGizmos();
+				}
 			}
 		}
 	}
