@@ -20,6 +20,9 @@ namespace takashicompany.Unity
 			private Bounds _bounds = new Bounds(Vector3.zero, Vector3.one);
 
 			[SerializeField]
+			private Vector3Int _grid = new Vector3Int(1, 1, 1);
+
+			[SerializeField]
 			private Transform[] _prefabs;
 
 			[SerializeField]
@@ -27,18 +30,51 @@ namespace takashicompany.Unity
 
 			public List<Transform> Place()
 			{
+				var map = new Transform[_grid.x, _grid.y, _grid.z];
+
 				var placed = new List<Transform>();
 
 				var count = Random.Range(_min, _max);
 
+				var unitPerGrid = new Vector3(
+					_bounds.size.x != 0f ? _bounds.size.x / _grid.x : 0,
+					_bounds.size.y != 0f ? _bounds.size.y / _grid.y : 0,
+					_bounds.size.z != 0f ? _bounds.size.z / _grid.z : 0);
+
+				var zeroPoint = GetBounds().center;
+
 				for (int i = 0; i < count; i++)
 				{
+					var pos = _grid.GetRandom();
+
+					var isValid = false;
+
+					for (int j = 0; j < 100; j++)
+					{
+						if (map[pos.x, pos.y, pos.z] == null)
+						{
+							isValid = true;
+							break;
+						}
+					}
+
+					if (!isValid)
+					{
+						break;
+					}
+
 					var prefab = _prefabs[Random.Range(0, _prefabs.Length)];
 
 					var obj = Instantiate(prefab, _root);
 
 					obj.name = prefab.name + "(" + i + ")";
-					obj.transform.position = GetBounds().RandomPoint();
+					// obj.transform.position = GetBounds().RandomPoint();
+
+					map[pos.x, pos.y, pos.z] = obj;
+
+					var p = Utils.GetPositionOnGrid(_grid, pos, unitPerGrid);
+
+					obj.position = zeroPoint + p;
 
 					placed.Add(obj);
 				}
