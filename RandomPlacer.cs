@@ -93,12 +93,28 @@ namespace takashicompany.Unity
 				{
 					return;
 				}
-
-				Gizmos.color = Color.red;
 			
 				var b = GetBounds();
 
-				Gizmos.DrawWireCube(b.center, b.size);
+				var unitPerGrid = new Vector3(
+					_bounds.size.x != 0f ? (float)_bounds.size.x / _grid.x : 0,
+					_bounds.size.y != 0f ? (float)_bounds.size.y / _grid.y : 0,
+					_bounds.size.z != 0f ? (float)_bounds.size.z / _grid.z : 0);
+
+				var zeroPoint = GetBounds().center;
+
+				for (int x = 0; x < _grid.x; x++)
+				{
+					for (int y = 0; y < _grid.y; y++)
+					{
+						for (int z = 0; z <_grid.z; z++)
+						{
+							var p = Utils.GetPositionOnGrid(_grid, new Vector3Int(x, y, z), unitPerGrid);
+
+							Gizmos.DrawWireCube(zeroPoint + p, unitPerGrid);
+						}
+					}
+				}
 			}
 		}
 		
@@ -125,9 +141,13 @@ namespace takashicompany.Unity
 		{
 			if (_paramList != null)
 			{
+				var index = 0;
 				foreach (var p in _paramList)
 				{
+					Gizmos.color = PowerOf2.GetColor(index);	// お借りしちゃおう
 					p.DrawGizmos();
+
+					index++;
 				}
 			}
 		}
