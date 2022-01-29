@@ -56,8 +56,11 @@ namespace takashicompany.Unity
 							isValid = true;
 							break;
 						}
+<<<<<<< HEAD
 
 						pos = _grid.GetRandom();
+=======
+>>>>>>> bc07760e5c294f0f62c04c4ec9fe32dc9c28aeff
 					}
 
 					if (!isValid)
@@ -148,7 +151,6 @@ namespace takashicompany.Unity
 				{
 					Gizmos.color = PowerOf2.GetColor(index);	// お借りしちゃおう
 					p.DrawGizmos();
-
 					index++;
 				}
 			}
