@@ -980,6 +980,37 @@
 			return new Bounds(center, size);
 		}
 
+		public static Bounds GetBounds(this IEnumerable<Rect> rects)
+		{
+			var points = new List<Vector3>();
+
+			foreach (var r in rects)
+			{
+				points.Add(r.min);
+				points.Add(r.max);
+			}
+
+			return points.GetBounds();
+		}
+
+		public static Bounds GetBounds(this IEnumerable<Bounds> self)
+		{
+			var points = new List<Vector3>();
+
+			foreach (var b in self)
+			{
+				points.Add(b.min);
+				points.Add(b.max);
+			}
+
+			return points.GetBounds();
+		}
+
+		public static Bounds GetBounds(this Rect rect)
+		{
+			return new Bounds(rect.center, rect.size);
+		}
+
 		public static string ToArrayStr<T>(this IList<T> list)
 		{
 			var str = "";
