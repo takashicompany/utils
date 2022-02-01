@@ -3,7 +3,7 @@
 repo=git@github.com:takashicompany/steeringer.git
 remote=steeringer
 branch=master
-path=Assets/TakashiCompany/Steeringer
+path=Assets/takashicompany/Steeringer
 
 if [ $# -eq 0 ]; then
 	echo "this is git-subtree-suppot tool.\noptions:\n init\n pull\n push"
