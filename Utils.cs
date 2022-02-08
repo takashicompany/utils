@@ -1,6 +1,5 @@
 ﻿namespace takashicompany.Unity
 {
-	
 	using System.Collections;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -391,6 +390,14 @@
 			});
 			
 			return hashset;
+		}
+
+		public static void Foreach<K, V>(this Dictionary<K, V> self, System.Action<K, V> function)
+		{
+			foreach (var kvp in self)
+			{
+				function?.Invoke(kvp.Key, kvp.Value);
+			}
 		}
 
 		// public static void GetPositionOnGrids(Vector3Int gridSize, Vector3 unitPerGrid, out Vector3[,,] centerPositions, out Vector3[,,] crossPositions)
