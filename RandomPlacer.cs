@@ -56,8 +56,9 @@ namespace takashicompany.Unity
 							isValid = true;
 							break;
 						}
-
+						
 						pos = _grid.GetRandom();
+
 					}
 
 					if (!isValid)
