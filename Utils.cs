@@ -1192,37 +1192,7 @@
 			return wn != 0;
 		}
 
-		public static bool  TryGetDirectionFromTouch(
-			this Camera camera, Vector2 fromScreenPoint, Vector2 toScreenPoint, out Vector3 direction, float distance = 1000f, params string[] layerNames)
-		{
-			return TryGetDirectionFromTouch(camera, fromScreenPoint, toScreenPoint, out direction, LayerMask.GetMask(layerNames), distance);
-		}
 
-		public static bool TryGetDirectionFromTouch(
-			this Camera camera, Vector2 fromScreenPoint, Vector2 toScreenPoint, out Vector3 direction, LayerMask layerMask, float distance = 1000f)
-		{
-			var fromRay = camera.ScreenPointToRay(fromScreenPoint);
-			RaycastHit fromRayHit;
-
-			if (!Physics.Raycast(fromRay, out fromRayHit, distance, layerMask))
-			{
-				direction = Vector3.zero;
-				return false;
-			}
-
-			var toRay = camera.ScreenPointToRay(toScreenPoint);
-			RaycastHit toRayHit;
-
-			if (!Physics.Raycast(toRay, out toRayHit, distance, layerMask))
-			{
-				direction = Vector3.zero;
-				return false;
-			}
-
-			direction = (toRayHit.point - fromRayHit.point).normalized;
-
-			return true;
-		}
 
 		public static class Debug
 		{
