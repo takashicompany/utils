@@ -1192,6 +1192,12 @@
 			return wn != 0;
 		}
 
+		// public Vector3 GetDirectionFromTouch(this Camera camera, Vector2 fromScreenPoint, Vector2 toScreenPoint, params string[] layerNames)
+		// {
+		// 	var fromRay = camera.ScreenPointToRay(fromScreenPoint);
+		// 	var toRay = camera
+		// }
+
 
 
 		public static class Debug
