@@ -27,6 +27,11 @@ namespace takashicompany.Unity
 		{
 			return internalComponent ?? (internalComponent = this.GetSelfOfChildrenGetComponent<T>());
 		}
+
+		protected T ReturnOrGetParent<T>(ref T internalComponent) where T : Component
+		{
+			return internalComponent ?? (internalComponent = this.GetSelfOrParentComponent<T>());
+		}
 	}
 
 	public static class TaBehaviourExtensions
