@@ -345,6 +345,20 @@
 			return 0 <= target.x && target.x < self.x && 0 <= target.y && target.y < self.y && 0 <= target.z && target.z < self.z;
 		}
 
+		public static IEnumerable<KeyValuePair<Vector3Int, T>> GetEnumerable<T>(this T[,,] self)
+		{
+			for (var x = 0; x < self.GetLength(0); x++)
+			{
+				for (var y = 0; y < self.GetLength(1); y++)
+				{
+					for (var z = 0; z < self.GetLength(2); z++)
+					{
+						yield return new KeyValuePair<Vector3Int, T>(new Vector3Int(x, y, z), self[x, y, z]);
+					}
+				}
+			}
+		}
+
 		public static void Foreach(this Vector3Int self, System.Action<int, int, int> function)
 		{
 			for (var x = 0; x < self.x; x++)
