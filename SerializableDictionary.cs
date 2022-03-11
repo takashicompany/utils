@@ -9,7 +9,7 @@ namespace takashicompany.Unity
 	/// インスペクターで辞書を使えるようにした
 	/// </summary>
 	[System.Serializable]
-	public class SerializableDictionary<K, V>: IEnumerable<KeyValuePair<K, V>>//, IDictionary<K, V>
+	public class SerializableDictionary<K, V>: IEnumerable<KeyValuePair<K, V>>, IDictionary<K, V>
 	{
 		[System.Serializable]
 		private class KeyValuePair
@@ -142,6 +142,11 @@ namespace takashicompany.Unity
 		}
 
 		public bool Remove(KeyValuePair<K, V> item)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		void IDictionary<K, V>.Add(K key, V value)
 		{
 			throw new System.NotImplementedException();
 		}
