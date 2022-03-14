@@ -151,4 +151,36 @@ namespace takashicompany.Unity
 			throw new System.NotImplementedException();
 		}
 	}
+
+	public static class SerializableDictionaryExtensions
+	{
+		public static bool HasFlag<K, V>(this SerializableDictionary<K, V> self, K flag) where K : System.Enum
+		{
+			foreach (var kvp in self)
+			{
+				if(kvp.Key.HasFlag(flag))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// フラグから見た辞書のキーでフラグを判定する
+		/// </summary>
+		public static bool HasFlagByFlag<K, V>(this SerializableDictionary<K, V> self, K flag) where K : System.Enum
+		{
+			foreach (var kvp in self)
+			{
+				if(flag.HasFlag(kvp.Key))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
 }
