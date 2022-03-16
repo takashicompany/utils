@@ -1,5 +1,6 @@
 ﻿namespace takashicompany.Unity
 {
+	using System;
 	using System.Collections;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -7,6 +8,7 @@
 	using UnityEngine.UI;
 	using UnityEngine.EventSystems;
 	using DG.Tweening;
+	using Random = UnityEngine.Random;
 
 	public static class Utils
 	{
@@ -130,13 +132,13 @@
 		/// <returns></returns>
 		public static Vector3 NearestPointOnLineSegment(Vector3 a, Vector3 b, Vector3 p)
 		{
-			 Vector3 ab = b - a;
-			 float length = ab.magnitude;
-			 ab.Normalize();
+			Vector3 ab = b - a;
+			float length = ab.magnitude;
+			ab.Normalize();
 
-			 float k = Vector3.Dot(p - a, ab);
-			 k = Mathf.Clamp(k, 0, length);
-			 return a + k * ab;
+			float k = Vector3.Dot(p - a, ab);
+			k = Mathf.Clamp(k, 0, length);
+			return a + k * ab;
 		}
 
 #region Path関係
@@ -336,7 +338,7 @@
 #region 色関係
 		public static Color GetRandomColor()
 		{
-			return new Color(Random.Range(0f, 1f), Random.Range(0, 1f), Random.Range(0, 1), 1);
+			return new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1), 1);
 		}
 #endregion
 
@@ -524,16 +526,38 @@
 
 			return points.ToArray();
 		}
+
+		public static IEnumerable<T> GetEnumerableByFlag<T>(this T self, bool includeZero = false) where T : System.Enum
+		{
+			foreach (T e in System.Enum.GetValues(typeof(T)))
+			{
+				if (!includeZero)
+				{
+					IConvertible convertible = e;
+					var num = convertible.ToInt32(null);
+
+					if (num == 0)
+					{
+						continue;
+					}
+				}
+				
+				if (self.HasFlag(e))
+				{
+					yield return e;
+				}
+			}
+		}
 		
 #region リストをランダムで処理する
 		public static int GetRandomIndex<T>(this IList<T> self)
 		{
-			return Random.Range(0, self.Count);
+			return UnityEngine.Random.Range(0, self.Count);
 		}
 
 		public static int GetRandomIndex(this IList self)
 		{
-			return Random.Range(0, self.Count);
+			return UnityEngine.Random.Range(0, self.Count);
 		}
 
 		public static T GetRandom<T>(this IList self)
@@ -1052,7 +1076,7 @@
 		/// <summary>
 		/// クラス名でResources.Loadをする
 		/// </summary>
-		public static T LoadPrefab<T>() where T : Object
+		public static T LoadPrefab<T>() where T : UnityEngine.Object
 		{
 			return Resources.Load<T>(typeof(T).Name);
 		}
