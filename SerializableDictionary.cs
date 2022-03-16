@@ -170,9 +170,9 @@ namespace takashicompany.Unity
 		/// <summary>
 		/// フラグから見た辞書のキーでフラグを判定する
 		/// </summary>
-		public static bool HasFlagByFlag<K, V>(this SerializableDictionary<K, V> self, K flag) where K : System.Enum
+		public static bool HasFlag<K, V>(this K flag, SerializableDictionary<K, V> dict) where K : System.Enum
 		{
-			foreach (var kvp in self)
+			foreach (var kvp in dict)
 			{
 				if(flag.HasFlag(kvp.Key))
 				{
