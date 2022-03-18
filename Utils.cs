@@ -941,6 +941,11 @@
 			return dict;
 		}
 
+		public static IEnumerable<T> FindAbove<T>(this Collider self, float height, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
+		{
+			return Physics.OverlapBox(self.bounds.center + Vector3.up * self.bounds.size.y, self.bounds.extents, self.transform.rotation, layerMask, queryTriggerInteraction).Select(c => c.GetComponent<T>());
+		}
+
 		public static Collider[] Overlap(this BoxCollider self, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
 		{
 			return Physics.OverlapBox(self.transform.position, self.size / 2, self.transform.rotation, layerMask, queryTriggerInteraction);
@@ -1141,6 +1146,51 @@
 
 			return null;
 		}
+
+#region Vector2Int
+
+		public static HashSet<Vector2Int> GetBorder(this IEnumerable<Vector2Int> points, bool diagonalCorner = false)
+		{
+			// HashSet.TryGetValueは.Net４.7.2から使えるらしいのでHashSetはむりぽ https://docs.microsoft.com/ja-jp/dotnet/api/system.collections.generic.hashset-1.trygetvalue?view=net-6.0#system-collections-generic-hashset-1-trygetvalue(-0-0@)
+			var map =  new Dictionary<Vector2Int, bool>();	//  new HashSet<Vector2Int>();
+
+			foreach (var point in points)
+			{
+				map.Add(point, true);
+			}
+
+			var result = new HashSet<Vector2Int>();
+
+			foreach (var point in points)
+			{
+				for (int x = -1; x <= 1; x++)
+				{
+					for (int y = -1; y <= 1; y++)
+					{
+						if (x == 0 && y == 0)
+						{
+							continue;
+						}
+
+						var offset = new Vector2Int(x, y);
+						if (!diagonalCorner && offset.magnitude >= 2)
+						{
+							continue;
+						}
+
+						if (!map.ContainsKey(point + offset))
+						{
+							result.Add(point + offset);
+						}
+					}
+				}
+			}
+
+			return result;
+		}
+
+		
+#endregion
 
 		public static Vector3Int ToV3IntXZ(this Vector2Int self)
 		{
