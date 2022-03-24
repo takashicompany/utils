@@ -116,7 +116,12 @@ namespace takashicompany.Unity
 		void Start()
 		{
 
-		} 
+		}
+
+		public List<Transform> GenerateList()
+		{
+			return new List<Transform>(_placed);
+		}
 
 		private void OnDrawGizmos()
 		{
