@@ -72,19 +72,24 @@ namespace takashicompany.Unity
 			set => _dict[key].value = value;
 		}
 
-		public bool Add(K key, V value)
+		public bool TryAdd(K key, V value)
 		{
 			if (_dict.ContainsKey(key))
 			{
 				return false;
 			}
 
+			AddInternal(key, value);
+			
+			return true;
+		}
+
+		private void AddInternal(K key, V value)
+		{
 			var kvp =  new KeyValuePair(key, value);
 
 			_dict.Add(key, kvp);
 			_list.Add(kvp);
-			
-			return true;
 		}
 
 		IEnumerator<KeyValuePair<K, V>> IEnumerable<KeyValuePair<K, V>>.GetEnumerator()
@@ -122,7 +127,7 @@ namespace takashicompany.Unity
 
 		public void Add(KeyValuePair<K, V> item)
 		{
-			Add(item.Key, item.Value);
+			TryAdd(item.Key, item.Value);
 		}
 
 		public void Clear()
@@ -148,7 +153,7 @@ namespace takashicompany.Unity
 
 		void IDictionary<K, V>.Add(K key, V value)
 		{
-			throw new System.NotImplementedException();
+			AddInternal(key, value);
 		}
 	}
 

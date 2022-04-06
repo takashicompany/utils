@@ -19,7 +19,6 @@ namespace takashicompany.Unity
 		public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
 // override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
 		{
-			Debug.Log("Random");
 			var hashRandom = Animator.StringToHash(_toHashString);
 			animator.SetInteger(hashRandom,  Random.Range (_min, _max));
 		}
