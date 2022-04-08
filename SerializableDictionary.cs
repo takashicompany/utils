@@ -151,7 +151,7 @@ namespace takashicompany.Unity
 			throw new System.NotImplementedException();
 		}
 
-		void IDictionary<K, V>.Add(K key, V value)
+		public void Add(K key, V value)
 		{
 			AddInternal(key, value);
 		}
