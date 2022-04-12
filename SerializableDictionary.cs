@@ -33,6 +33,16 @@ namespace takashicompany.Unity
 				_key = key;
 				_value = value;
 			}
+
+			private KeyValuePair()
+			{
+
+			}
+
+			public static KeyValuePair Empty()
+			{
+				return new KeyValuePair();
+			}
 		}
 
 		[SerializeField]
@@ -122,7 +132,15 @@ namespace takashicompany.Unity
 
 		public bool TryGetValue(K key, out V value)
 		{
-			throw new System.NotImplementedException();
+			var result = _dict.TryGetValue(key, out var kvp);
+
+			if (!result)
+			{
+				kvp = KeyValuePair.Empty();
+			}
+
+			value = kvp.value;
+			return result;
 		}
 
 		public void Add(KeyValuePair<K, V> item)
