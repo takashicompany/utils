@@ -12,7 +12,7 @@ namespace takashicompany.Unity
 	public class SerializableDictionary<K, V>: IEnumerable<KeyValuePair<K, V>>, IDictionary<K, V>
 	{
 		[System.Serializable]
-		private class KeyValuePair
+		private class SdKeyValuePair
 		{
 			[SerializeField]
 			private K _key;
@@ -28,35 +28,35 @@ namespace takashicompany.Unity
 				set => _value = value;
 			}
 
-			public KeyValuePair(K key, V value)
+			public SdKeyValuePair(K key, V value)
 			{
 				_key = key;
 				_value = value;
 			}
 			
-			private KeyValuePair()
+			private SdKeyValuePair()
 			{
 
 			}
 
-			public static KeyValuePair Empty()
+			public static SdKeyValuePair Empty()
 			{
-				return new KeyValuePair();
+				return new SdKeyValuePair();
 			}
 		}
 
 		[SerializeField]
-		private List<KeyValuePair> _list = new List<KeyValuePair>();
+		private List<SdKeyValuePair> _list = new List<SdKeyValuePair>();
 
-		private Dictionary<K, KeyValuePair> _dictInternal;
+		private Dictionary<K, SdKeyValuePair> _dictInternal;
 
-		private Dictionary<K, KeyValuePair> _dict
+		private Dictionary<K, SdKeyValuePair> _dict
 		{
 			get
 			{
 				if (_dictInternal == null)
 				{
-					_dictInternal = new Dictionary<K, KeyValuePair>();
+					_dictInternal = new Dictionary<K, SdKeyValuePair>();
 
 					foreach (var kvp in _list)
 					{
@@ -95,21 +95,21 @@ namespace takashicompany.Unity
 
 	
 
-		public bool Add(K key, V value)
+		public void Add(K key, V value)
 		{
 			if (_dict.ContainsKey(key))
 			{
-				return false;
+				return;
 			}
 
 			AddInternal(key, value);
 			
-			return true;
+			return;
 		}
 
 		private void AddInternal(K key, V value)
 		{
-			var kvp =  new KeyValuePair(key, value);
+			var kvp =  new SdKeyValuePair(key, value);
 
 			_dict.Add(key, kvp);
 			_list.Add(kvp);
@@ -149,7 +149,7 @@ namespace takashicompany.Unity
 
 			if (!result)
 			{
-				kvp = KeyValuePair.Empty();
+				kvp = SdKeyValuePair.Empty();
 			}
 
 			value = kvp.value;
@@ -159,6 +159,7 @@ namespace takashicompany.Unity
 
 		public void Add(KeyValuePair<K, V> item)
 		{
+			// ここの引数のKeyValuePairはC#のものなので分解する必要がある
 			Add(item.Key, item.Value);
 		}
 
@@ -179,12 +180,6 @@ namespace takashicompany.Unity
 		}
 
 		public bool Remove(KeyValuePair<K, V> item)
-		{
-			throw new System.NotImplementedException();
-		}
-
-
-		void IDictionary<K, V>.Add(K key, V value)
 		{
 			throw new System.NotImplementedException();
 		}
