@@ -79,7 +79,17 @@ namespace takashicompany.Unity
 		public V this[K key]
 		{
 			get => _dict[key].value;
-			set => _dict[key].value = value;
+			set 
+			{	
+				if (!_dict.ContainsKey(key))
+				{
+					Add(key, value);
+				}
+				else
+				{
+					_dict[key].value = value;
+				}
+			}
 		}
 
 		public bool TryAdd(K key, V value)
