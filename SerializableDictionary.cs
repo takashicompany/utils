@@ -33,7 +33,7 @@ namespace takashicompany.Unity
 				_key = key;
 				_value = value;
 			}
-
+			
 			private KeyValuePair()
 			{
 
@@ -79,6 +79,7 @@ namespace takashicompany.Unity
 		public V this[K key]
 		{
 			get => _dict[key].value;
+
 			set 
 			{	
 				if (!_dict.ContainsKey(key))
@@ -92,7 +93,9 @@ namespace takashicompany.Unity
 			}
 		}
 
-		public bool TryAdd(K key, V value)
+	
+
+		public bool Add(K key, V value)
 		{
 			if (_dict.ContainsKey(key))
 			{
@@ -151,11 +154,12 @@ namespace takashicompany.Unity
 
 			value = kvp.value;
 			return result;
+
 		}
 
 		public void Add(KeyValuePair<K, V> item)
 		{
-			TryAdd(item.Key, item.Value);
+			Add(item.Key, item.Value);
 		}
 
 		public void Clear()
@@ -179,9 +183,10 @@ namespace takashicompany.Unity
 			throw new System.NotImplementedException();
 		}
 
-		public void Add(K key, V value)
+
+		void IDictionary<K, V>.Add(K key, V value)
 		{
-			AddInternal(key, value);
+			throw new System.NotImplementedException();
 		}
 	}
 
