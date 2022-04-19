@@ -26,6 +26,17 @@
 #endif
 		}
 
+		public static int Lerp(int min, int max, float t)
+		{
+			t = Mathf.Clamp01(t);
+
+			var v = max - min;
+
+			var per = 1f / v;
+
+			return Mathf.RoundToInt(t / per);
+		}
+
 		/// <summary>
 		/// CamelCase => camel_case
 		/// </summary>
