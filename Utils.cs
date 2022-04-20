@@ -1131,6 +1131,7 @@
 			Gizmos.DrawLine(point +	Vector3.back * extents, point + Vector3.forward * extents);
 		}
 
+#region Animator
 		/// <summary>
 		/// AnimatorのHumanoidから名前で対応したTransformを取得する
 		/// </summary>
@@ -1157,6 +1158,23 @@
 
 			return null;
 		}
+
+		public static void PlayAllLayer(this Animator self, string stateName, int layer = -1, float normalizedTime = float.NegativeInfinity)
+		{
+			for (int i = 0; i < self.layerCount; i++)
+			{
+				self.Play(stateName, i, normalizedTime);
+			}
+		}
+
+		public static void CrossFadeAllLayer(this Animator self, string stateName, float normalizedTransitionDuration, float normalizedTimeOffset = float.NegativeInfinity, float normalizedTransitionTime = 0.0f)
+		{
+			for (int i = 0; i < self.layerCount; i++)
+			{
+				self.CrossFade(stateName, normalizedTransitionDuration, i, normalizedTimeOffset, normalizedTransitionTime);
+			}
+		}
+#endregion
 
 #region Vector2Int
 
