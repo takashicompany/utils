@@ -419,14 +419,6 @@
 			return hashset;
 		}
 
-		public static void Foreach<K, V>(this Dictionary<K, V> self, System.Action<K, V> function)
-		{
-			foreach (var kvp in self)
-			{
-				function?.Invoke(kvp.Key, kvp.Value);
-			}
-		}
-
 		// public static void GetPositionOnGrids(Vector3Int gridSize, Vector3 unitPerGrid, out Vector3[,,] centerPositions, out Vector3[,,] crossPositions)
 		// {
 		// 	var crossGridSize = new Vector3Int(gridSize.x + 1, gridSize.y + 1, gridSize.z + 1);
@@ -932,7 +924,7 @@
 				}
 			});
 		}
-
+#region Dictionary
 		/// <summary>
 		/// Dictionary<K, V>からDictionay<V, K>を生成する。
 		/// Valueがnullだったり値が被る場合は除外
@@ -951,6 +943,35 @@
 
 			return dict;
 		}
+
+		public static void NewAndAddList<K, V>(this Dictionary<K, List<V>> self, K key, V val)
+		{
+			if (!self.ContainsKey(key))
+			{
+				self.Add(key, new List<V>());
+			}
+
+			self[key].Add(val);
+		}
+
+		public static void Foreach<K, V>(this Dictionary<K, V> self, System.Action<K, V> function)
+		{
+			foreach (var kvp in self)
+			{
+				function?.Invoke(kvp.Key, kvp.Value);
+			}
+		}
+
+		public static K GetRandomKey<K, V>(this Dictionary<K, V> self)
+		{
+			return self.Keys.ToList().GetRandom();
+		}
+
+		public static V GetRandomValue<K, V>(this Dictionary<K, V> self)
+		{			
+			return self[self.GetRandomKey()];
+		}
+#endregion
 
 		public static IEnumerable<T> FindAbove<T>(this Collider self, float height, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
 		{
