@@ -1355,6 +1355,36 @@
 				}
 			}
 		}
+
+#if UNITY_EDITOR
+		public static void EditorNotificationGameView(string message)
+		{
+			var assembly = typeof(UnityEditor.EditorWindow).Assembly;
+			var type = assembly.GetType("UnityEditor.GameView");
+			UnityEditor.EditorWindow.GetWindow(type).ShowNotification(new GUIContent(message), 5);
+		}
+
+		public static void EditorNotificationSceneView(string message)
+		{
+			var assembly = typeof(UnityEditor.EditorWindow).Assembly;
+			var type = assembly.GetType("UnityEditor.SceneView");
+			UnityEditor.EditorWindow.GetWindow(type).ShowNotification(new GUIContent(message), 5);
+		}
+
+		public static void EditorNotificationConsoleWindow(string message)
+		{
+			var assembly = typeof(UnityEditor.EditorWindow).Assembly;
+			var type = assembly.GetType("UnityEditor.ConsoleWindow");
+			UnityEditor.EditorWindow.GetWindow(type).ShowNotification(new GUIContent(message), 5);
+		}
+
+		public static void EditorNotificationAll(string message)
+		{
+			EditorNotificationGameView(message);
+			EditorNotificationSceneView(message);
+			EditorNotificationConsoleWindow(message);
+		}
+#endif
 	}
 
 	public class IMGrid
