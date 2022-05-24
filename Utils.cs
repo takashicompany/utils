@@ -407,6 +407,34 @@
 			self.Foreach((x, y) => function(new Vector2Int(x, y)));
 		}
 
+		public static void Foreach(this BoundsInt b, System.Action<Vector3Int> function, bool includeMax = false)
+		{
+			for (var x = b.xMin; includeMax ? x <= b.xMax : x < b.xMax; x++)
+			{
+				for (var y = b.yMin; includeMax ? y <= b.yMax : x < b.yMax; y++)
+				{
+					for (var z = b.zMin; includeMax ? z <= b.zMax : z < b.zMax; z++)
+					{
+						function?.Invoke(new Vector3Int(x, y, z));
+					}
+				}
+			}
+		}
+
+		public static IEnumerable<Vector3Int> GetV3Ints(this BoundsInt b, bool includeMax = false)
+		{
+			for (var x = b.xMin; includeMax ? x <= b.xMax : x < b.xMax; x++)
+			{
+				for (var y = b.yMin; includeMax ? y <= b.yMax : x < b.yMax; y++)
+				{
+					for (var z = b.zMin; includeMax ? z <= b.zMax : z < b.zMax; z++)
+					{
+						yield return new Vector3Int(x, y, z);
+					}
+				}
+			}
+		}
+
 		public static HashSet<Vector2Int> CreateHashSet(this Vector2Int self)
 		{
 			var hashset = new HashSet<Vector2Int>();
