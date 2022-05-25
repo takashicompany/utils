@@ -40,22 +40,17 @@ namespace takashicompany.Unity
 		{
 			if (_pointerEvents.Count >= 2)
 			{
-				Debug.Log(_pointerEvents.Count);	
 				var a = _pointerEvents[0];
 				var b = _pointerEvents[1];
 				
 				if (_pinchPointers.ContainsKey(a.pointerId) && _pinchPointers.ContainsKey(b.pointerId))
 				{
-					var currentDistance = Vector2.Distance(a.position, b.position);
+					var currentDistance = Vector2.Distance(a.CalcNormalizedPosition(), b.CalcNormalizedPosition());
 
 					if (_pinchDistance != 0)
 					{
 						var offset = currentDistance - _pinchDistance;
-
-						if (Mathf.Abs(offset) > 1)
-						{
-							onPinchEvent(offset);
-						}
+						onPinchEvent(offset);
 					}
 
 					_pinchDistance = currentDistance;
@@ -105,7 +100,7 @@ namespace takashicompany.Unity
 
 		void IEndDragHandler.OnEndDrag(PointerEventData eventData)
 		{
-			AddPointerEvent(eventData);
+			// EndDragはどうぜPointerUpと同じく呼ばれるので、ここでピンチ系の処理は入れない
 			onEndDragEvent?.Invoke(eventData);
 		}
 
@@ -113,6 +108,12 @@ namespace takashicompany.Unity
 		{
 			RemovePointerEvent(eventData.pointerId);
 			onPointerUpEvent?.Invoke(eventData);
+
+			_pinchPointers.Remove(eventData.pointerId);
+
+			var dummy = CreateVirtualPointer(eventData);
+
+			_pinchPointers.Remove(dummy.pointerId);
 		}
 
 		private bool RemovePointerEvent(int pointerId)
@@ -127,20 +128,25 @@ namespace takashicompany.Unity
 
 			if (_virtualMultiTouch)
 			{
-				var dummy = CreateDummy(pointer);
+				var dummy = CreateVirtualPointer(pointer);
 				RemovePointerEvent(dummy.pointerId);
 				_pointerEvents.Add(dummy);
 			}
 		}
 
-		private PointerEventData CreateDummy(PointerEventData pointer)
+		private PointerEventData CreateVirtualPointer(PointerEventData pointer)
 		{
 			var dummy = new PointerEventData(EventSystem.current);
 
 			dummy.position = new Vector2(pointer.position.x - (pointer.position.x - Screen.width / 2) * 2, pointer.position.y - (pointer.position.y - Screen.height / 2) * 2);
-			dummy.pointerId = int.MinValue / 2 + pointer.pointerId;
+			dummy.pointerId = GenerateVirtualPointerId(pointer.pointerId);
 
 			return dummy;
+		}
+
+		private static int GenerateVirtualPointerId(int pointerId)
+		{
+			return int.MinValue / 2 + pointerId;
 		}
 	}
 }
