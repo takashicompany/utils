@@ -25,15 +25,19 @@ namespace takashicompany.Unity
 
 		private Dictionary<int, PointerEventData> _pinchPointers = new Dictionary<int, PointerEventData>();
 
-		private float _pinchDistance = 0;
+		
 
 		private bool _virtualMultiTouch;
 
 		[SerializeField]
 		private KeyCode _virtualMultiTouchKeyCode = KeyCode.G;
 
+		[SerializeField]
+		private float _pinchClearance = 0.1f;
+
 		public delegate void PinchEvent(float offsetDistance);
 
+		private float _pinchDistance;
 		public event PinchEvent onPinchEvent;
 
 		private void Update()
@@ -47,7 +51,7 @@ namespace takashicompany.Unity
 				{
 					var currentDistance = Vector2.Distance(a.CalcNormalizedPosition(), b.CalcNormalizedPosition());
 
-					if (_pinchDistance != 0)
+					if ((Mathf.Abs(_pinchDistance) > _pinchClearance &&_pinchDistance != 0))
 					{
 						var offset = currentDistance - _pinchDistance;
 						onPinchEvent(offset);
@@ -107,13 +111,14 @@ namespace takashicompany.Unity
 		void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
 		{
 			RemovePointerEvent(eventData.pointerId);
-			onPointerUpEvent?.Invoke(eventData);
 
 			_pinchPointers.Remove(eventData.pointerId);
 
-			var dummy = CreateVirtualPointer(eventData);
+			var dummyId = GenerateVirtualPointerId(eventData.pointerId);
+			RemovePointerEvent(dummyId);
+			_pinchPointers.Remove(dummyId);
 
-			_pinchPointers.Remove(dummy.pointerId);
+			onPointerUpEvent?.Invoke(eventData);
 		}
 
 		private bool RemovePointerEvent(int pointerId)
