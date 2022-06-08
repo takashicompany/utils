@@ -1030,7 +1030,12 @@
 
 		public static Vector3 RandomVector3(float min, float max)
 		{
-			return new Vector3(Random.Range(min, max), Random.Range(min, max), Random.Range(min, max));
+			return RandomVector3(new Vector3(min, min, min), new Vector3(max, max, max));
+		}
+
+		public static Vector3 RandomVector3(Vector3 min, Vector3 max)
+		{
+			return new Vector3(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
 		}
 
 		public static Vector3Int RandomVector3Int(Vector3Int min, Vector3Int max)
