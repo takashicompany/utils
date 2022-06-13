@@ -37,6 +37,7 @@
 			return Mathf.RoundToInt(t / per);
 		}
 
+#region 
 		/// <summary>
 		/// CamelCase => camel_case
 		/// </summary>
@@ -46,6 +47,17 @@
 			var regex = new System.Text.RegularExpressions.Regex("[a-z][A-Z]");
 			return regex.Replace(str, s => $"{s.Groups[0].Value[0]}_{s.Groups[0].Value[1]}").ToLower();
 		}
+
+		/// <summary>
+		/// TextMesh Proで使う
+		/// </summary>
+		/// <param name="spriteName"></param>
+		/// <returns></returns>
+		public static string ToTMPSpriteName(this string spriteName)
+		{
+			return string.Format("<sprite name=\"{0}\">", spriteName);
+		}
+#endregion
 
 		public static float GetAngleXZ(Vector3 start, Vector3 target)
 		{
