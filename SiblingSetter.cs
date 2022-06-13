@@ -20,7 +20,6 @@ namespace takashicompany.Unity
 			{
 				UpdateIndex();
 			}
-				
 		}
 
 		private void UpdateIndex()
