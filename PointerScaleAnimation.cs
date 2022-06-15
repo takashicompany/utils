@@ -30,7 +30,6 @@ namespace takashicompany.Unity
 		void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
 		{
 			transform.localScale = _pointerDownScale;
-			Debug.Log("hey");
 		}
 
 		void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
