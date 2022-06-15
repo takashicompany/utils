@@ -284,6 +284,18 @@
 			self.z = z;
 			return self;
 		}
+		
+		/// <summary>
+		/// ワールド座標上に対するキャンバス座標にTransformの位置を設定する。HPゲージなどのオーバレイ表示に向いてる。
+		/// </summary>
+		/// <param name="transform"></param>
+		/// <param name="worldPosition"></param>
+		public static  void AttachOnCanvas(this Transform transform, Vector3 worldPosition)
+		{
+			var sp = Camera.main.WorldToScreenPoint(worldPosition);
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent as RectTransform, sp, null, out var localPosition);
+			transform.localPosition = localPosition;
+		}
 
 #region TrajectoryCalculate
 		
@@ -702,7 +714,8 @@
 
 			return result;
 		}
-		
+
+#region Transform
 		public static void ToX(this Transform self, float x)
 		{
 			var p = self.position;
@@ -745,6 +758,10 @@
 			self.localPosition = p;
 		}
 
+#endregion
+
+#region  RectTransform
+
 		/// <summary>
 		/// アンカー側のマージンを基準にサイズを0 ~ 1で変化させる。左右で異なるマージンを設定する使い方はできない
 		/// pivot.xは0じゃないと正しく動かないです。つまり左側ゲージのみ
@@ -757,6 +774,7 @@
 
 			self.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width * normalizedX);
 		}
+#endregion
 
 		public static T GetComponentSelfOrInParent<T>(this Component self) where T : Component
 		{
