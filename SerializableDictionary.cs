@@ -93,8 +93,6 @@ namespace takashicompany.Unity
 			}
 		}
 
-	
-
 		public void Add(K key, V value)
 		{
 			if (_dict.ContainsKey(key))
@@ -182,6 +180,24 @@ namespace takashicompany.Unity
 		public bool Remove(KeyValuePair<K, V> item)
 		{
 			throw new System.NotImplementedException();
+		}
+
+		public Dictionary<K, V> GenerateDictionary()
+		{
+			var dict = new Dictionary<K, V>();
+
+			CopyTo(dict);
+
+			return dict;
+		}
+
+		public void CopyTo(IDictionary<K, V> dict)
+		{
+			dict.Clear();
+			foreach (var kvp in _list)
+			{
+				dict.Add(kvp.key, kvp.value);
+			}
 		}
 	}
 
