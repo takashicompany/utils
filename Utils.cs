@@ -803,6 +803,7 @@
 			return list;
 		}
 
+#region GameObject
 		public static List<T> GetComponentsSelfAndChildren<T>(this GameObject self) where T : Component
 		{
 			var list = new List<T>();
@@ -822,6 +823,18 @@
 				ChangeLayerWithChildren(n.gameObject, layer);
 			}
 		}
+
+		/// <summary>
+		/// 現在のアクティブ状況と異なる場合にアクティブを切り替える
+		/// </summary>
+		public static void SetActiveIfNot(this GameObject self, bool active)
+		{
+			if (self.activeSelf != active)
+			{
+				self.SetActive(active);
+			}
+		}
+#endregion
 
 		public static Color SetAlpha(this Color self, float alpha)
 		{
