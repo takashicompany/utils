@@ -16,6 +16,8 @@ namespace takashicompany.Unity
 
 		private static int _lastUpdateFrame = int.MinValue;
 
+		public static event System.Action<int> onUpdateFPS;
+
 		static FPS()
 		{
 			_remainNextCalc = seconds;
@@ -39,6 +41,7 @@ namespace takashicompany.Unity
 				_fps = (int)(_count / seconds);
 				_count = 0;
 				_remainNextCalc = seconds;
+				onUpdateFPS?.Invoke(_fps);
 			}
 		}
 
@@ -58,6 +61,36 @@ namespace takashicompany.Unity
 			fps = _fps;
 
 			return true;
+		}
+	}
+
+	public class FPSWatcher
+	{
+		private List<int> _fpsList = new List<int>();
+
+		private int _count;
+
+		public event System.Action<int> onWatchFPS;
+
+		public FPSWatcher(int count)
+		{
+			_count = count;
+			FPS.onUpdateFPS += OnUpdateFPS;
+		}
+
+		private void OnUpdateFPS(int fps)
+		{
+			_fpsList.Add(fps);
+
+			if (_fpsList.Count >= _count)
+			{
+				var sum = _fpsList.Sum();
+				var calc = (sum / _fpsList.Count());
+
+				onWatchFPS?.Invoke(calc);
+
+				_fpsList.Clear();
+			}
 		}
 	}
 
