@@ -1054,6 +1054,17 @@
 				self.Add(key, value);
 			}
 		}
+
+		public static bool TryAdd<K,V>(this IDictionary<K,V> self, K key, V value)
+		{
+			if (!self.ContainsKey(key))
+			{
+				self.Add(key, value);
+				return true;
+			}
+
+			return false;
+		}
 #endregion
 
 		public static IEnumerable<T> FindAbove<T>(this Collider self, float height, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
@@ -1294,7 +1305,7 @@
 
 			foreach (var point in points)
 			{
-				map.Add(point, true);
+				map.TryAdd(point, true);
 			}
 
 			var result = new HashSet<Vector2Int>();
