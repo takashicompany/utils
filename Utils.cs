@@ -1283,6 +1283,15 @@
 				self.CrossFade(stateName, normalizedTransitionDuration, i, normalizedTimeOffset, normalizedTransitionTime);
 			}
 		}
+
+		/// <summary>
+		/// 特定のStateの再生完了を待っているか
+		/// </summary>
+		public static bool IsCompleteWaiting(this AnimatorStateInfo self, string stateName)
+		{
+			return self.IsName(stateName) && self.normalizedTime < 1f;
+		}
+
 #endregion
 
 #region Vector2Int
