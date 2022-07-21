@@ -1119,6 +1119,11 @@
 			return Quaternion.Euler(RandomVector3(0, 360));
 		}
 
+		public static Quaternion RandomRotation(Vector3 min, Vector3 max)
+		{
+			return Quaternion.Euler(RandomVector3(min, max));
+		}
+
 
 		public static Vector3 RandomPoint(this Bounds bounds)
 		{
