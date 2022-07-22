@@ -1108,6 +1108,11 @@
 			return Quaternion.Euler(RandomVector3(0, 360));
 		}
 
+		public static Quaternion RandomRotation(Vector3 min, Vector3 max)
+		{
+			return Quaternion.Euler(RandomVector3(min, max));
+		}
+
 
 		public static Vector3 RandomPoint(this Bounds bounds)
 		{
@@ -1285,7 +1290,8 @@
 		}
 
 		/// <summary>
-		/// 特定のStateの再生完了を待っているか
+		/// 特定のStateの再生完了を待っているか。
+		/// この関数を判定に使う場合、Animator.Playを読んでから1フレーム待たないと、stateNameのstateに入らないことがある
 		/// </summary>
 		public static bool IsCompleteWaiting(this AnimatorStateInfo self, string stateName)
 		{
