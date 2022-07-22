@@ -1301,7 +1301,8 @@
 		}
 
 		/// <summary>
-		/// 特定のStateの再生完了を待っているか
+		/// 特定のStateの再生完了を待っているか。
+		/// この関数を判定に使う場合、Animator.Playを読んでから1フレーム待たないと、stateNameのstateに入らないことがある
 		/// </summary>
 		public static bool IsCompleteWaiting(this AnimatorStateInfo self, string stateName)
 		{
