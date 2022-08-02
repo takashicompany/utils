@@ -1489,6 +1489,13 @@
 					UnityEngine.Debug.DrawLine(start, end, color, duration);
 				}
 			}
+
+			public static void DrawCross(Vector3 center, Vector3 size, Color color, float duration)
+			{
+				UnityEngine.Debug.DrawLine(center + Vector3.left * size.x / 2, center + Vector3.right * size.x / 2, color, duration);
+				UnityEngine.Debug.DrawLine(center + Vector3.down * size.y / 2, center + Vector3.up * size.y / 2, color, duration);
+				UnityEngine.Debug.DrawLine(center + Vector3.back * size.z / 2, center + Vector3.forward * size.z / 2, color, duration);
+			}
 		}
 
 #if UNITY_EDITOR
