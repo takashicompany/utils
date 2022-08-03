@@ -72,7 +72,7 @@ namespace takashicompany.Unity
 
 		public ICollection<V> Values => throw new System.NotImplementedException();
 
-		public int Count => throw new System.NotImplementedException();
+		public int Count => _list.Count();
 
 		public bool IsReadOnly => throw new System.NotImplementedException();
 
@@ -174,7 +174,7 @@ namespace takashicompany.Unity
 
 		public void CopyTo(KeyValuePair<K, V>[] array, int arrayIndex)
 		{
-			throw new System.NotImplementedException();
+			_list.Select(kvp => new KeyValuePair<K, V>(kvp.key, kvp.value)).ToArray().CopyTo(array, arrayIndex);
 		}
 
 		public bool Remove(KeyValuePair<K, V> item)
