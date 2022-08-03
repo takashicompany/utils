@@ -4,7 +4,7 @@ namespace takashicompany.Unity
 	using System.Collections.Generic;
 	using UnityEngine;
 
-	public class TaBehabviour : MonoBehaviour
+	public class TaBehaviour : MonoBehaviour
 	{
 		private Rigidbody _rigidbodyInternal;
 
