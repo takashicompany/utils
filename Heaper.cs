@@ -39,6 +39,12 @@ namespace takashicompany.Unity
 		[ContextMenu("Heap")]
 		public void Heap()
 		{
+			Heap(_object, _amount);
+		}
+		
+		public void Heap(GameObject obj, int amount)
+		{
+			Debug.Log(obj.name);
 			if (_heaped != null)
 			{
 				foreach(var h in _heaped)
@@ -57,21 +63,19 @@ namespace takashicompany.Unity
 			var bounds = GetBounds();
 			var root = GetHeapedRoot();
 
-			for (int i = 0; i < _amount; i++)
+			for (int i = 0; i < amount; i++)
 			{
-				
-
 				GameObject go = null;
 				
 #if UNITY_EDITOR
 				if (!Application.isPlaying)
 				{
-					go = UnityEditor.PrefabUtility.InstantiatePrefab(_object, root) as GameObject;
+					go = UnityEditor.PrefabUtility.InstantiatePrefab(obj, root) as GameObject;
 				}
 #endif
 				if (go == null)
 				{
-					go = Instantiate(_object, root);
+					go = Instantiate(obj, root);
 				}
 
 				if (go == null)
@@ -126,6 +130,13 @@ namespace takashicompany.Unity
 		private Bounds GetBounds()
 		{
 			return _heapBounds.Transform(GetHeapedRoot());
+		}
+
+		private void OnDrawGizmos()
+		{
+			Gizmos.color = Color.red;
+			var b = GetBounds();
+			Gizmos.DrawWireCube(b.center, b.size);
 		}
 	}
 }
