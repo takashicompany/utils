@@ -44,7 +44,6 @@ namespace takashicompany.Unity
 		
 		public void Heap(GameObject obj, int amount)
 		{
-			Debug.Log(obj.name);
 			if (_heaped != null)
 			{
 				foreach(var h in _heaped)
@@ -62,9 +61,9 @@ namespace takashicompany.Unity
 
 			var bounds = GetBounds();
 			var root = GetHeapedRoot();
-
 			for (int i = 0; i < amount; i++)
 			{
+
 				GameObject go = null;
 				
 #if UNITY_EDITOR
