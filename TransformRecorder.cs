@@ -6,6 +6,7 @@ namespace takashicompany.Unity
 
 	public class TransformRecorder : MonoBehaviour
 	{
+		[System.Serializable]
 		private struct Param
 		{
 			public float time;
@@ -73,6 +74,11 @@ namespace takashicompany.Unity
 				{
 					animation.enabled = false;
 				}
+
+				if (TryGetComponent<IPlayEvent>(out var p))
+				{
+					p.StartPlay();
+				}
 			}
 		}
 
@@ -84,6 +90,7 @@ namespace takashicompany.Unity
 
 		private void Apply(Param p)
 		{
+			Debug.Log("hey");
 			transform.localPosition = p.position;
 			transform.localRotation = p.rotation;
 			transform.localScale = p.scale;
@@ -228,6 +235,10 @@ namespace takashicompany.Unity
 			}
 		}
 
+		public interface IPlayEvent
+		{
+			void StartPlay();
+		}
 
 	}
 }
