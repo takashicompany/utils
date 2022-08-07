@@ -90,7 +90,6 @@ namespace takashicompany.Unity
 
 		private void Apply(Param p)
 		{
-			Debug.Log("hey");
 			transform.localPosition = p.position;
 			transform.localRotation = p.rotation;
 			transform.localScale = p.scale;
