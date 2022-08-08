@@ -75,6 +75,11 @@ namespace takashicompany.Unity
 					animation.enabled = false;
 				}
 
+				if (TryGetComponent<UnityEngine.AI.NavMeshAgent>(out var agent))
+				{
+					agent.enabled = false;
+				}
+
 				if (TryGetComponent<IPlayEvent>(out var p))
 				{
 					p.StartPlay();
@@ -239,5 +244,23 @@ namespace takashicompany.Unity
 			void StartPlay();
 		}
 
+		public static HashSet<TransformRecorder> AddRecorderSelfAndChildren(Transform transform)
+		{
+			var transforms = new List<Transform>();
+
+			transforms.Add(transform);
+
+			transforms.AddRange(transform.GetComponentsInChildren<Transform>());
+
+			var recorders = new HashSet<TransformRecorder>();
+
+			foreach (var t in transforms)
+			{
+				var r = t.gameObject.AddComponent<TransformRecorder>();
+				recorders.Add(r);
+			}
+
+			return recorders;
+		}
 	}
 }
