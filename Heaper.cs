@@ -44,7 +44,6 @@ namespace takashicompany.Unity
 		
 		public void Heap(GameObject obj, int amount)
 		{
-			Debug.Log(obj.name);
 			if (_heaped != null)
 			{
 				foreach(var h in _heaped)
@@ -131,7 +130,7 @@ namespace takashicompany.Unity
 		{
 			return _heapBounds.Transform(GetHeapedRoot());
 		}
-
+		
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = Color.red;
