@@ -1055,7 +1055,7 @@
 			}
 		}
 
-		public static bool TryAdd<K,V>(this IDictionary<K,V> self, K key, V value)
+		public static bool TryAdd<K, V>(this IDictionary<K, V> self, K key, V value)
 		{
 			if (!self.ContainsKey(key))
 			{
@@ -1064,6 +1064,23 @@
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// IDictionary<K, int>型で足し算を行う
+		/// </summary>
+		public static int Sum<K>(this IDictionary<K, int> self, K key, int value)
+		{
+			if (self.ContainsKey(key))
+			{
+				self[key] += value; 
+			}
+			else
+			{
+				self.Add(key, value);
+			}
+
+			return self[key];
 		}
 #endregion
 
