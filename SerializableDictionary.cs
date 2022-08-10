@@ -68,9 +68,9 @@ namespace takashicompany.Unity
 			}
 		}
 
-		public ICollection<K> Keys => throw new System.NotImplementedException();
+		public ICollection<K> Keys => _dict.Keys;
 
-		public ICollection<V> Values => throw new System.NotImplementedException();
+		public ICollection<V> Values => _dict.Values.Select(kvp => kvp.value).ToList();
 
 		public int Count => _list.Count();
 
