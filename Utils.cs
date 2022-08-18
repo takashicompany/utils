@@ -758,6 +758,21 @@
 			self.localPosition = p;
 		}
 
+		public static string GetNameWithHierarchy(this Transform self)
+		{
+			var str = self.name;
+
+			var current = self.parent;
+			
+			while (current != null)
+			{
+				str = current.name + "/" + str;
+				current = current.parent;
+			}
+
+			return str;
+		}
+
 #endregion
 
 #region  RectTransform
