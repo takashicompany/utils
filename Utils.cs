@@ -663,6 +663,11 @@
 		}
 #endregion
 
+		public static int IndexOf<T>(this IList<T> self, T item)
+		{
+			return self.IndexOf(item);
+		}
+
 		public static IEnumerable<T> ToEnumerable<T>() where T : System.Enum
 		{
 			// 実装的に同じらしい
