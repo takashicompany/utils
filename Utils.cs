@@ -668,6 +668,22 @@
 		}
 #endregion
 
+#region 配列
+
+		public static bool TryGet<T>(this IList<T> self, int index, out T result)
+		{
+			if (index < 0 || self.Count <= index)
+			{
+				result = default(T);
+				return false;
+			}
+
+			result = self[index];
+			return true;
+		}
+
+#endregion
+
 		public static int IndexOf<T>(this IList<T> self, T item)
 		{
 			return self.IndexOf(item);
