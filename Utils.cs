@@ -1131,6 +1131,7 @@
 			return (Vector2)RandomVector3(min, max);
 		}
 
+#region Vector3
 		public static Vector3 RandomVector3(float min, float max)
 		{
 			return RandomVector3(new Vector3(min, min, min), new Vector3(max, max, max));
@@ -1150,6 +1151,12 @@
 		{
 			return RandomVector3Int(Vector3Int.zero, max);
 		}
+
+		public static Transform GetClosest(this Vector3 worldPoint, params Transform[] transforms)
+		{
+			return transforms.OrderBy(t => Vector3.Distance(worldPoint, t.position)).FirstOrDefault();
+		}
+#endregion
 
 		public static Quaternion RandomRotation()
 		{
