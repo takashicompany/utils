@@ -3,6 +3,7 @@ namespace takashicompany.Unity
 	using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
+	using DG.Tweening;
 	
 	[System.Serializable]
 	public struct PRS
@@ -23,6 +24,16 @@ namespace takashicompany.Unity
 			transform.position = position;
 			transform.rotation = rotation;
 			transform.localScale = scale;
+		}
+
+		public static PRS Lerp(PRS a, PRS b, float t)
+		{
+			return new PRS()
+			{
+				position = Vector3.Lerp(a.position, b.position, t),
+				rotation = Quaternion.Lerp(a.rotation, b.rotation, t),
+				scale = Vector3.Lerp(a.scale, b.scale, 1f)
+			};
 		}
 	}
 
@@ -108,6 +119,16 @@ namespace takashicompany.Unity
 				rotation = transform.rotation,
 				scale = transform.localScale,
 			};
+		}
+
+		public static Tweener DOLocalPRS(this Transform transform, PRS to, float duration)
+		{
+			var from = transform.GetLocalPRS();
+			var t = 0f;
+			return DOTween.To(() => t, v => t = v, 1, duration).OnUpdate(() =>
+			{
+				transform.SetLocal(PRS.Lerp(from, to, t));
+			});
 		}
 	}
 
