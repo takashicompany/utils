@@ -11,7 +11,14 @@ namespace takashicompany.Unity
 		public Quaternion rotation;
 		public Vector3 scale;
 
-		public void Set(Transform transform)
+		public void SetLocal(Transform transform)
+		{
+			transform.localPosition = position;
+			transform.rotation = rotation;
+			transform.localScale = scale;
+		}
+
+		public void SetWorld(Transform transform)
 		{
 			transform.position = position;
 			transform.rotation = rotation;
@@ -68,6 +75,39 @@ namespace takashicompany.Unity
 			{
 				transform.localScale = scale;
 			}
+		}
+	}
+
+	public static class PRSExtensions
+	{
+		public static void SetLocal(this Transform transform, PRS prs)
+		{
+			prs.SetLocal(transform);
+		}
+
+		public static void SetWorld(this Transform transform, PRS prs)
+		{
+			prs.SetWorld(transform);
+		}
+
+		public static PRS GetLocalPRS(this Transform transform)
+		{
+			return new PRS()
+			{
+				position = transform.localPosition,
+				rotation = transform.localRotation,
+				scale = transform.localScale
+			};
+		}
+
+		public static PRS GetWorldPRS(this Transform transform)
+		{
+			return new PRS()
+			{
+				position = transform.position,
+				rotation = transform.rotation,
+				scale = transform.localScale,
+			};
 		}
 	}
 
