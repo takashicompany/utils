@@ -31,6 +31,20 @@
 #endif
 		}
 
+#region int
+		public static int Pow(this int self, int pow)
+		{
+			var first = self;
+
+			for (int i = 1; i < pow; i++)
+			{
+				self *= first; 
+			}
+
+			return self;
+		}
+#endregion
+
 		public static int Lerp(int min, int max, float t)
 		{
 			t = Mathf.Clamp01(t);
