@@ -56,7 +56,7 @@
 			return Mathf.RoundToInt(t / per);
 		}
 
-#region 
+#region string
 		/// <summary>
 		/// CamelCase => camel_case
 		/// </summary>
@@ -1177,6 +1177,26 @@
 			return new Vector3(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
 		}
 
+		public static Transform GetClosest(this Vector3 worldPoint, params Transform[] transforms)
+		{
+			return transforms.OrderBy(t => Vector3.Distance(worldPoint, t.position)).FirstOrDefault();
+		}
+
+#endregion
+
+#region Vector2Int
+		public static Vector2Int RandomVector2Int(Vector2Int min, Vector2Int max)
+		{
+			return (Vector2Int)RandomVector3Int(((Vector3Int)min), ((Vector3Int)max));
+		}
+
+		public static Vector2Int GetRandom(this Vector2Int max)
+		{
+			return RandomVector2Int(Vector2Int.zero, max);
+		}
+#endregion
+
+#region Vector3Int
 		public static Vector3Int RandomVector3Int(Vector3Int min, Vector3Int max)
 		{
 			return new Vector3Int(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
@@ -1185,11 +1205,6 @@
 		public static Vector3Int GetRandom(this Vector3Int max)
 		{
 			return RandomVector3Int(Vector3Int.zero, max);
-		}
-
-		public static Transform GetClosest(this Vector3 worldPoint, params Transform[] transforms)
-		{
-			return transforms.OrderBy(t => Vector3.Distance(worldPoint, t.position)).FirstOrDefault();
 		}
 #endregion
 
