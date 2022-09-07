@@ -10,6 +10,11 @@
 	using DG.Tweening;
 	using Random = UnityEngine.Random;
 
+# if UNITY_EDITOR
+	using UnityEditor;
+
+#endif
+
 	public static class Utils
 	{
 		public static bool IsDevelopmentBuild()
@@ -661,6 +666,22 @@
 
 			return result;
 		}
+#endregion
+
+#region 配列
+
+		public static bool TryGet<T>(this IList<T> self, int index, out T result)
+		{
+			if (index < 0 || self.Count <= index)
+			{
+				result = default(T);
+				return false;
+			}
+
+			result = self[index];
+			return true;
+		}
+
 #endregion
 
 		public static int IndexOf<T>(this IList<T> self, T item)
@@ -1570,6 +1591,39 @@
 			EditorNotificationSceneView(message);
 			EditorNotificationConsoleWindow(message);
 		}
+
+
+
+		/// <summary>
+		/// リストの要素Indexを返す
+		/// </summary>
+		public static int GetArrayElementIndex(this SerializedProperty property)
+		{
+			// プロパティがリストのインデックスであれば、パスは(変数名).Array.data[(インデックス)] 
+			// となるため、この文字列からインデックスを取得する
+
+			// リストの要素であるか判定する
+			var match = System.Text.RegularExpressions.Regex.Match(property.propertyPath, "^([a-zA-Z0-9_]*).Array.data\\[([0-9]*)\\]$");
+			
+			if (!match.Success)
+			{
+				return -1;
+			}
+
+			// Indexを抜き出す
+			var splitPath = property.propertyPath.Split('.');
+			var regax = new System.Text.RegularExpressions.Regex(@"[^0-9]");
+			var indexText = regax.Replace(splitPath[splitPath.Length - 1], "");
+			int index = 0;
+			
+			if (!int.TryParse(indexText, out index))
+			{
+				return -1;
+			}
+
+			return index;
+		}
+
 #endif
 	}
 
