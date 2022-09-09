@@ -43,7 +43,7 @@
 
 			return self;
 		}
-#endregion
+
 
 		public static int Lerp(int min, int max, float t)
 		{
@@ -55,6 +55,7 @@
 
 			return Mathf.RoundToInt(t / per);
 		}
+#endregion
 
 #region string
 		/// <summary>
@@ -76,6 +77,105 @@
 		{
 			return string.Format("<sprite name=\"{0}\">", spriteName);
 		}
+#endregion
+
+#region 多次元配列
+		public static bool IsInBounds<T>(this T[,] self, Vector2Int p)
+		{
+			return self.IsInBounds(p.x, p.y);
+		}
+
+		public static bool IsInBounds<T>(this T[,] self, int x, int y)
+		{
+			if (x < 0 || self.GetLength(0) <= x || y < 0 || self.GetLength(1) <= y)
+			{
+				return false;
+			}
+			
+			return true;
+		}
+
+		public static IEnumerable<T> GetEnumerable<T>(this T[,] self)
+		{
+			for (var x = 0; x < self.GetLength(0); x++)
+			{
+				for (var y = 0; y < self.GetLength(1); y++)
+				{
+					yield return self[x, y];
+				}
+			}
+		}
+#endregion
+
+#region Vector2Int
+
+		public static readonly Vector2Int[] Vector2Directions = new Vector2Int[]
+		{
+			Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left
+		};
+
+		public static void Foreach(this Vector2Int self, System.Action<int, int> function)
+		{
+			for (var x = 0; x < self.x; x++)
+			{
+				for (var y = 0; y < self.y; y++)
+				{
+					function(x, y);
+				}
+			}
+		}
+
+		public static void Foreach(this Vector2Int self, System.Action<Vector2Int> function)
+		{
+			self.Foreach((x, y) => function(new Vector2Int(x, y)));
+		}
+		
+		public static HashSet<Vector2Int> CreateHashSet(this Vector2Int self)
+		{
+			var hashset = new HashSet<Vector2Int>();
+
+			self.Foreach((x, y) =>
+			{
+				hashset.Add(new Vector2Int(x, y));
+			});
+			
+			return hashset;
+		}
+
+		/// <summary>
+		/// 二次元座標の中の特定の位置の東西南北方向の座標の列を返す。添字はVector2.方向
+		/// </summary>
+		public static Dictionary<Vector2Int, List<Vector2Int>> Get4DirectionFromPoint(this Vector2Int self, Vector2Int point)
+		{
+			var dict = new Dictionary<Vector2Int, List<Vector2Int>>();
+
+			for (var i = 0; i < Vector2Directions.Length; i++)
+			{
+				var current = point;
+				var d = Vector2Directions[i];
+				
+				current += d;
+
+				while (self.IsInBounds(current))
+				{
+					dict.NewAndAddList(d, current);
+					current += d;
+				}
+			}
+
+			return dict;
+		}
+
+		public static bool IsInBounds(this Vector2Int self, Vector2Int point)
+		{
+			if (point.x < 0 || self.x <= point.x || point.y < 0 || self.y <= point.y)
+			{
+				return false;
+			}
+			
+			return true;
+		}
+
 #endregion
 
 		public static float GetAngleXZ(Vector3 start, Vector3 target)
@@ -434,21 +534,7 @@
 			self.Foreach((x, y, z) => function(new Vector3Int(x, y, z)));
 		}
 
-		public static void Foreach(this Vector2Int self, System.Action<int, int> function)
-		{
-			for (var x = 0; x < self.x; x++)
-			{
-				for (var y = 0; y < self.y; y++)
-				{
-					function(x, y);
-				}
-			}
-		}
-
-		public static void Foreach(this Vector2Int self, System.Action<Vector2Int> function)
-		{
-			self.Foreach((x, y) => function(new Vector2Int(x, y)));
-		}
+		
 
 		public static void Foreach(this BoundsInt b, System.Action<Vector3Int> function, bool includeMax = false)
 		{
@@ -476,18 +562,6 @@
 					}
 				}
 			}
-		}
-
-		public static HashSet<Vector2Int> CreateHashSet(this Vector2Int self)
-		{
-			var hashset = new HashSet<Vector2Int>();
-
-			self.Foreach((x, y) =>
-			{
-				hashset.Add(new Vector2Int(x, y));
-			});
-			
-			return hashset;
 		}
 
 		// public static void GetPositionOnGrids(Vector3Int gridSize, Vector3 unitPerGrid, out Vector3[,,] centerPositions, out Vector3[,,] crossPositions)
@@ -644,7 +718,7 @@
 			return self[self.GetRandomIndex()];
 		}
 
-		public static T RemoveRandom<T>(this IList<T> self)
+		public static T PickRandom<T>(this IList<T> self)
 		{
 			var index = self.GetRandomIndex();
 
@@ -663,7 +737,7 @@
 
 			while(myList.Count > 0)
 			{
-				list.Add(myList.RemoveRandom());
+				list.Add(myList.PickRandom());
 			}
 
 			return list;
