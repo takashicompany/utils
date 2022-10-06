@@ -130,6 +130,16 @@ namespace takashicompany.Unity
 				transform.SetLocal(PRS.Lerp(from, to, t));
 			});
 		}
+
+		public static Tweener DOWorldPRS(this Transform transform, PRS to, float duration)
+		{
+			var from = transform.GetWorldPRS();
+			var t = 0f;
+			return DOTween.To(() => t, v => t = v, 1, duration).OnUpdate(() =>
+			{
+				transform.SetWorld(PRS.Lerp(from, to, t));
+			});
+		}
 	}
 
 }
