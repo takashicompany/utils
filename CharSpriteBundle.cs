@@ -11,20 +11,18 @@ namespace takashicompany.Unity
 		[ContextMenu("Setup Number Bundle")]
 		private void NumberBundle()
 		{
-			var suffix = PowerOf2.suffix.Where(s => !string.IsNullOrEmpty(s)).ToArray();
-			_paramList = new Param[10 + suffix.Length];
+			_dict = new SerializableDictionary<char, Sprite>();
 
 			for (int i = 0; i < 10; i++)
 			{
-				var p = new Param(i.ToString()[0], null);
-
-				_paramList[i] = p;
+				_dict.TryAdd(i.ToString()[0], null);
 			}
+
+			var suffix = PowerOf2.suffix.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
 			for (int i = 0; i < suffix.Length; i++)
 			{
-				var p = new Param(suffix[i][0], null);
-				_paramList[i + 10] = p;
+				_dict.TryAdd(suffix[i][0], null);
 			}
 		}
 	}
