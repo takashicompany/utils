@@ -57,6 +57,20 @@
 		}
 #endregion
 
+#region ulong
+		public static ulong Pow(this ulong self, int pow)
+		{
+			var first = self;
+
+			for (int i = 1; i < pow; i++)
+			{
+				self *= first; 
+			}
+
+			return self;
+		}
+#endregion
+
 #region string
 		/// <summary>
 		/// CamelCase => camel_case
