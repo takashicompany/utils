@@ -1,5 +1,6 @@
 namespace takashicompany.Unity
 {
+	using System;
 	using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
@@ -17,6 +18,24 @@ namespace takashicompany.Unity
 		private Animator _animatorInternal;
 
 		protected Animator _animator => ReturnOrGetChildren(ref _animatorInternal);
+
+		private Dictionary<Type, Component> _components = new Dictionary<Type, Component>();
+
+		protected T ReturnOrGet<T>() where T : Component
+		{
+			if (_components.TryGetValue(typeof(T), out var component))
+			{
+				return (T)component;
+			}
+
+			T c = null;
+
+			c = ReturnOrGet<T>(ref c);
+
+			_components.Add(typeof(T), c);
+
+			return c;
+		}
 
 		protected T ReturnOrGet<T>(ref T internalComponent) where T : Component
 		{
