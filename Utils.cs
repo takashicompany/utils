@@ -919,6 +919,8 @@
 		}
 #endregion
 
+#region Component
+
 		public static T GetComponentSelfOrInParent<T>(this Component self) where T : Component
 		{
 			return self.gameObject.GetComponentSelfOrInParent<T>();
@@ -945,6 +947,23 @@
 
 			return list;
 		}
+
+		public static IEnumerable<T> GetComponents<T>(this IEnumerable<Component> self) where T : Component
+		{
+			return self.Select(c => c.GetComponent<T>()).Where(c => c != null);
+		}
+
+		public static T GetOrAddComponent<T>(this Component self) where T : Component
+		{
+			if (!self.TryGetComponent<T>(out var c))
+			{
+				c = self.gameObject.AddComponent<T>();
+			}
+
+			return c;
+		}
+
+#endregion
 
 #region GameObject
 		public static List<T> GetComponentsSelfAndChildren<T>(this GameObject self) where T : Component
