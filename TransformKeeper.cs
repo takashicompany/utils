@@ -61,12 +61,17 @@ namespace takashicompany.Unity
 			_records = records.ToArray();
 		}
 
-		public void Back(float duration, Ease ease = Ease.OutSine)
+		public List<Tweener> Back(float duration, Ease ease = Ease.OutSine)
 		{
+			var tweeners = new List<Tweener>();
+			
 			foreach (var r in _records)
 			{
-				r.transform.DOLocalPRS(r.prs, duration).SetEase(ease);
+				var t = r.transform.DOLocalPRS(r.prs, duration).SetEase(ease);
+				tweeners.Add(t);
 			}
+
+			return tweeners;
 		}
 	}
 }
