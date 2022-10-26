@@ -15,7 +15,7 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private Transform _lineParent;
 
-		[SerializeField]
+		[SerializeField, Header("コライダーの線の太さ")]
 		private float _lineColliderEdgeRadius = 0.1f;
 
 		[System.Serializable]

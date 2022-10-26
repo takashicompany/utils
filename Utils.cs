@@ -1273,7 +1273,17 @@
 			return (Vector2)RandomVector3(min, max);
 		}
 
+#region Vector2
+		public static Vector2 RandomVector2(Vector2 center, float radius)
+		{
+			var d = new Vector2(Random.Range(-100f, 100f), Random.Range(-100f, 100f)).normalized;
+
+			return center + d * Random.Range(0f, radius); 
+		}
+#endregion
+
 #region Vector3
+		
 		public static Vector3 RandomVector3(float min, float max)
 		{
 			return RandomVector3(new Vector3(min, min, min), new Vector3(max, max, max));

@@ -37,6 +37,38 @@ namespace takashicompany.Unity
 			return c;
 		}
 
+		protected T ReturnOrGetChildren<T>() where T : Component
+		{
+			if (_components.TryGetValue(typeof(T), out var component))
+			{
+				return (T)component;
+			}
+
+			T c = null;
+
+			c = ReturnOrGetChildren<T>(ref c);
+
+			_components.Add(typeof(T), c);
+
+			return c;
+		}
+
+		protected T ReturnOrGetParent<T>() where T : Component
+		{
+			if (_components.TryGetValue(typeof(T), out var component))
+			{
+				return (T)component;
+			}
+
+			T c = null;
+
+			c = ReturnOrGetParent<T>(ref c);
+
+			_components.Add(typeof(T), c);
+
+			return c;
+		}
+
 		protected T ReturnOrGet<T>(ref T internalComponent) where T : Component
 		{
 			return internalComponent ?? (internalComponent = GetComponent<T>());
