@@ -45,3 +45,5 @@ Assets/HcAd/SecretConfig*
 ss/
 
 *.keystore
+
+*AdKeys*.cs*
