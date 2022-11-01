@@ -46,7 +46,7 @@ namespace takashicompany.Unity
 
 		private HashSet<DrawnMesh> _drawnMeshes = new HashSet<DrawnMesh>();
 
-		private Dictionary<int, DrawnMesh> drawingMeshes = new Dictionary<int, DrawnMesh>();
+		private Dictionary<int, DrawnMesh> _drawingMeshes = new Dictionary<int, DrawnMesh>();
 
 		public void OnBeginDrag(PointerEventData eventData)
 		{
@@ -71,11 +71,11 @@ namespace takashicompany.Unity
 
 		public bool BeginPoint(int pointerId)
 		{
-			if (!drawingMeshes.ContainsKey(pointerId))
+			if (!_drawingMeshes.ContainsKey(pointerId))
 			{
 				var line = Instantiate(_linePrefab, _lineParent);
 				line.positionCount = 0;
-				drawingMeshes.Add(pointerId, new DrawnMesh(line, _lineColliderEdgeRadius));
+				_drawingMeshes.Add(pointerId, new DrawnMesh(line, _lineColliderEdgeRadius));
 				return true;
 			}
 
@@ -84,7 +84,7 @@ namespace takashicompany.Unity
 
 		public void AddPoint(int pointerId, Vector3 point)
 		{
-			if (drawingMeshes.TryGetValue(pointerId, out var drawnMesh))
+			if (_drawingMeshes.TryGetValue(pointerId, out var drawnMesh))
 			{
 				drawnMesh.AddPoint(point);
 			}
@@ -92,16 +92,16 @@ namespace takashicompany.Unity
 
 		public void EndPoint(int pointerId)
 		{
-			if (drawingMeshes.ContainsKey(pointerId))
+			if (_drawingMeshes.ContainsKey(pointerId))
 			{
-				_drawnMeshes.Add(drawingMeshes[pointerId]);
-				drawingMeshes.Remove(pointerId);
+				_drawnMeshes.Add(_drawingMeshes[pointerId]);
+				_drawingMeshes.Remove(pointerId);
 			}
 		}
 
 		public LineRenderer GetDrawingLine(int pointerId)
 		{
-			drawingMeshes.TryGetValue(pointerId, out var mesh);
+			_drawingMeshes.TryGetValue(pointerId, out var mesh);
 			return mesh.line;
 		}
 	}
