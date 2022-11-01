@@ -1244,6 +1244,18 @@
 
 			return self[key];
 		}
+
+		public static bool AddIfNecessaryNew<K, V, S>(this IDictionary<K, S> dict, K key, V value) where S : ISet<V>, new()
+		{
+			if (!dict.TryGetValue(key, out var setObj))
+			{
+				setObj = new S();
+				dict.Add(key, setObj);
+			}
+
+			return setObj.Add(value);
+		}
+
 #endregion
 
 		public static IEnumerable<T> FindAbove<T>(this Collider self, float height, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
