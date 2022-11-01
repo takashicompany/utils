@@ -50,22 +50,10 @@ namespace takashicompany.Unity
 
 		public void OnBeginDrag(PointerEventData eventData)
 		{
-			if (!currentDrawnMeshes.ContainsKey(eventData.pointerId))
+			if (BeginPoint(eventData.pointerId))
 			{
-				var line = Instantiate(_linePrefab, _lineParent);
-				line.positionCount = 0;
-				currentDrawnMeshes.Add(eventData.pointerId, new DrawnMesh(line, _lineColliderEdgeRadius));
-
 				AddPoint(eventData.pointerId, eventData.pointerPressRaycast.worldPosition);
 				AddPoint(eventData.pointerId, eventData.pointerCurrentRaycast.worldPosition);
-			}
-		}
-
-		private void AddPoint(int pointerId, Vector3 point)
-		{
-			if (currentDrawnMeshes.TryGetValue(pointerId, out var drawnMesh))
-			{
-				drawnMesh.AddPoint(point);
 			}
 		}
 
@@ -78,10 +66,36 @@ namespace takashicompany.Unity
 		{
 			AddPoint(eventData.pointerId, eventData.pointerCurrentRaycast.worldPosition);
 
-			if (currentDrawnMeshes.ContainsKey(eventData.pointerId))
+			EndPoint(eventData.pointerId);
+		}
+
+		public bool BeginPoint(int pointerId)
+		{
+			if (!currentDrawnMeshes.ContainsKey(pointerId))
 			{
-				_drawnMeshes.Add(currentDrawnMeshes[eventData.pointerId]);
-				currentDrawnMeshes.Remove(eventData.pointerId);
+				var line = Instantiate(_linePrefab, _lineParent);
+				line.positionCount = 0;
+				currentDrawnMeshes.Add(pointerId, new DrawnMesh(line, _lineColliderEdgeRadius));
+				return true;
+			}
+
+			return false;
+		}
+
+		public void AddPoint(int pointerId, Vector3 point)
+		{
+			if (currentDrawnMeshes.TryGetValue(pointerId, out var drawnMesh))
+			{
+				drawnMesh.AddPoint(point);
+			}
+		}
+
+		public void EndPoint(int pointerId)
+		{
+			if (currentDrawnMeshes.ContainsKey(pointerId))
+			{
+				_drawnMeshes.Add(currentDrawnMeshes[pointerId]);
+				currentDrawnMeshes.Remove(pointerId);
 			}
 		}
 	}
