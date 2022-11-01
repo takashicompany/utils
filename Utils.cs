@@ -298,6 +298,33 @@
 		}
 
 #region Path関係
+
+
+		/// <summary>
+		/// 距離を元に最後の点を返す。
+		/// </summary>
+		public static Vector3 GetPathPointByDistance(this IList<Vector2> path, float distance, out int index)
+		{
+			var currentDistance = 0f;
+			
+			for (int i = 1; i < path.Count; i++)
+			{
+				var prev = path[i - 1];
+				var current = path[i];
+				currentDistance += Vector2.Distance(prev, current);
+				if (currentDistance >= distance)
+				{
+					index = i - 1;
+					return prev;
+				}
+			}
+
+			index = path.Count - 1;
+
+			return path[index];
+		}
+
+
 		/// <summary>
 		/// パスの中から位置を求める
 		/// </summary>
