@@ -48,6 +48,9 @@ namespace takashicompany.Unity
 
 		private Dictionary<int, DrawnMesh> _drawingMeshes = new Dictionary<int, DrawnMesh>();
 
+		[SerializeField]
+		private List<Vector2> _lastDrawPoints;
+
 		public void OnBeginDrag(PointerEventData eventData)
 		{
 			if (BeginPoint(eventData.pointerId))
@@ -65,7 +68,6 @@ namespace takashicompany.Unity
 		public void OnEndDrag(PointerEventData eventData)
 		{
 			AddPoint(eventData.pointerId, eventData.pointerCurrentRaycast.worldPosition);
-
 			EndPoint(eventData.pointerId);
 		}
 
@@ -95,6 +97,7 @@ namespace takashicompany.Unity
 			if (_drawingMeshes.ContainsKey(pointerId))
 			{
 				_drawnMeshes.Add(_drawingMeshes[pointerId]);
+				_lastDrawPoints = _drawingMeshes[pointerId].points;
 				_drawingMeshes.Remove(pointerId);
 			}
 		}
