@@ -1472,6 +1472,7 @@
 			return Resources.Load<T>(typeof(T).Name);
 		}
 
+#region Gizmos
 		public static void DrawGizmosWireCubeWithRotate(Vector3 center, Quaternion rotation, Vector3 size)
 		{
 			var matrix = Gizmos.matrix;
@@ -1505,6 +1506,29 @@
 			Gizmos.DrawLine(point + Vector3.left * extents, point + Vector3.right * extents);
 			Gizmos.DrawLine(point +	Vector3.back * extents, point + Vector3.forward * extents);
 		}
+
+		public static void DrawLineGizmos(this IList<Vector2> points)
+		{
+			for (var i = 0; i < points.Count - 1; i++)
+			{
+				var current = points[i];
+				var next = points[i + 1];
+
+				Gizmos.DrawLine(current, next);
+			}
+		}
+
+		public static void DrawLineGizmos(this IList<Vector3> points)
+		{
+			for (var i = 0; i < points.Count - 1; i++)
+			{
+				var current = points[i];
+				var next = points[i + 1];
+
+				Gizmos.DrawLine(current, next);
+			}
+		}
+#endregion
 
 #region Animator
 		/// <summary>
