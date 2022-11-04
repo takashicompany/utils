@@ -561,6 +561,11 @@
 		{
 			return "<color=#" + color.ColorToHex() + ">" + text + "</color>";
 		}
+
+		public static string WrapSizeTag(this string text, int size)
+		{
+			return "<size=" + size + ">" + text + "</size>";
+		}
 #endregion
 
 		public static bool Include(this Vector3Int self, Vector3Int target)
