@@ -537,10 +537,29 @@
 		}
 #endregion
 
-#region 色関係
+#region Color
 		public static Color GetRandomColor()
 		{
 			return new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1), 1);
+		}
+
+		public static string ColorToHex(this Color self, bool withAlpha = false)
+		{
+			return ColorToHex((Color32)self);
+		}
+
+		public static string ColorToHex(this Color32 self, bool withAlpha = false)
+		{
+			string hex = self.r.ToString("X2") + self.g.ToString("X2") + self.b.ToString("X2");
+			if (withAlpha) hex += self.a.ToString("X2");
+			return hex;
+		}
+#endregion
+
+#region UnityUI
+		public static string WrapColorTag(this string text, Color color)
+		{
+			return "<color=#" + color.ColorToHex() + ">" + text + "</color>";
 		}
 #endregion
 
