@@ -93,6 +93,13 @@
 		}
 #endregion
 
+#region IList
+		public static T GetByValidIndex<T>(this IList<T> self, int index)
+		{
+			return self[index % self.Count];
+		}
+#endregion
+
 #region 多次元配列
 		public static bool IsInBounds<T>(this T[,] self, Vector2Int p)
 		{
