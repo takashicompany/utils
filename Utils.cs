@@ -91,6 +91,42 @@
 		{
 			return string.Format("<sprite name=\"{0}\">", spriteName);
 		}
+
+
+		/// <summary>
+		/// 二次元的にマッピングされた文字列を2次元配列で返す
+		/// 0,1,0
+		/// 1,0,1
+		/// 1,1,0
+		/// </summary>
+		public static string[,] Get2dMap(this string str, string columnSeparete, string rowSeparete = "\n")
+		{
+			var rows = str.Split(rowSeparete);
+
+			var columnLists = new List<string[]>();
+
+			foreach (var r in rows)
+			{
+				var column = r.Split(rowSeparete);
+
+				columnLists.Add(column);
+			}
+
+			var maxColumn = columnLists.Max(c => c.Length);
+
+			var result = new string[maxColumn, rows.Length];
+
+			for (var y = 0; y < result.GetLength(0); y++)
+			{
+				var column = columnLists[y];
+				for (var x = 0; x < column.Length; x++)
+				{
+					result[x, y] = column[x];
+				}
+			}
+
+			return result;
+		}
 #endregion
 
 #region IList
