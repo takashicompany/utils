@@ -11,7 +11,13 @@ namespace takashicompany.Unity
 	{
 		public static string GetOpenedPrefab()
 		{
-			var prefabStage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+			var prefabStage = UnityEditor.
+#if UNITY_2021_3_OR_NEWER
+								SceneManagement
+#else
+								Experimental.SceneManagement
+#endif
+								.PrefabStageUtility.GetCurrentPrefabStage();
 
 			if (prefabStage == null)
 			{
@@ -23,7 +29,13 @@ namespace takashicompany.Unity
 
 		public static T GetEditingPrefab<T>() where T : Object
 		{
-			var prefabStage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+			var prefabStage = UnityEditor.
+#if UNITY_2021_3_OR_NEWER
+								SceneManagement
+#else
+								Experimental.SceneManagement
+#endif
+								.PrefabStageUtility.GetCurrentPrefabStage();
 
 			if (prefabStage == null)
 			{
