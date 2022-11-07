@@ -48,6 +48,16 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+<<<<<<< HEAD
+=======
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "2.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+>>>>>>> 0030a4e0832eef4f24a20953790e2007354d1187
     "com.unity.recorder": {
       "version": "2.5.7",
       "depth": 0,
