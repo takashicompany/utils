@@ -31,6 +31,13 @@
 #endif
 		}
 
+#region Object
+		public static T Instantiate<T>(this T obj, Transform parent) where T : UnityEngine.Object
+		{
+			return GameObject.Instantiate(obj, parent);
+		}
+#endregion
+
 #region int
 		public static int Pow(this int self, int pow)
 		{

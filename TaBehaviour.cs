@@ -7,6 +7,9 @@ namespace takashicompany.Unity
 
 	public class TaBehaviour : MonoBehaviour
 	{
+		protected Renderer _renderer => ReturnOrGetChildren<Renderer>();
+		protected Renderer[] _renderers => ReturnsOrGetChildren<Renderer>();
+
 		private Rigidbody _rigidbodyInternal;
 
 		protected Rigidbody _rigidbody => ReturnOrGet(ref _rigidbodyInternal); // _rigidbodyInternal ?? (_rigidbodyInternal = GetComponent<Rigidbody>());
@@ -19,11 +22,12 @@ namespace takashicompany.Unity
 
 		protected Animator _animator => ReturnOrGetChildren(ref _animatorInternal);
 
-		private Dictionary<Type, Component> _components = new Dictionary<Type, Component>();
+		private Dictionary<Type, Component> _componentDict = new Dictionary<Type, Component>();
+		private Dictionary<Type, Component[]> _componentsDict = new Dictionary<Type, Component[]>();
 
 		protected T ReturnOrGet<T>() where T : Component
 		{
-			if (_components.TryGetValue(typeof(T), out var component))
+			if (_componentDict.TryGetValue(typeof(T), out var component))
 			{
 				return (T)component;
 			}
@@ -32,14 +36,14 @@ namespace takashicompany.Unity
 
 			c = ReturnOrGet<T>(ref c);
 
-			_components.Add(typeof(T), c);
+			_componentDict.Add(typeof(T), c);
 
 			return c;
 		}
 
 		protected T ReturnOrGetChildren<T>() where T : Component
 		{
-			if (_components.TryGetValue(typeof(T), out var component))
+			if (_componentDict.TryGetValue(typeof(T), out var component))
 			{
 				return (T)component;
 			}
@@ -48,14 +52,28 @@ namespace takashicompany.Unity
 
 			c = ReturnOrGetChildren<T>(ref c);
 
-			_components.Add(typeof(T), c);
+			_componentDict.Add(typeof(T), c);
 
 			return c;
 		}
 
+		protected T[] ReturnsOrGetChildren<T>() where T : Component
+		{
+			if (_componentsDict.TryGetValue(typeof(T), out var components))
+			{
+				return (T[])components;
+			}
+
+			var result = GetComponentsInChildren<T>();
+
+			_componentsDict.Add(typeof(T), result);
+
+			return result;
+		}
+
 		protected T ReturnOrGetParent<T>() where T : Component
 		{
-			if (_components.TryGetValue(typeof(T), out var component))
+			if (_componentDict.TryGetValue(typeof(T), out var component))
 			{
 				return (T)component;
 			}
@@ -64,7 +82,7 @@ namespace takashicompany.Unity
 
 			c = ReturnOrGetParent<T>(ref c);
 
-			_components.Add(typeof(T), c);
+			_componentDict.Add(typeof(T), c);
 
 			return c;
 		}
