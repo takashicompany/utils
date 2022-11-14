@@ -92,6 +92,22 @@
 			return string.Format("<sprite name=\"{0}\">", spriteName);
 		}
 
+		public static string ToStringByItem<T>(this IEnumerable<T> items)
+		{
+			var str = "";
+
+			foreach (var item in items)
+			{
+				if (!string.IsNullOrEmpty(str))
+				{
+					str += ", ";
+				}
+
+				str += item.ToString();
+			}
+
+			return str;
+		}
 
 		/// <summary>
 		/// 二次元的にマッピングされた文字列を2次元配列で返す
@@ -107,8 +123,7 @@
 
 			foreach (var r in rows)
 			{
-				var column = r.Split(rowSeparete);
-
+				var column = r.Split(columnSeparete);
 				columnLists.Add(column);
 			}
 
@@ -116,7 +131,7 @@
 
 			var result = new string[maxColumn, rows.Length];
 
-			for (var y = 0; y < result.GetLength(0); y++)
+			for (var y = 0; y < result.GetLength(1); y++)
 			{
 				var column = columnLists[y];
 				for (var x = 0; x < column.Length; x++)
@@ -604,6 +619,25 @@
 		}
 #endregion
 
+#region Vector3Int
+
+		/// <summary>
+		/// 四捨五入したV3Intを返す
+		/// </summary>
+		public static Vector3Int ToRound(this Vector3 p) => ToRound(p, Vector3.one);
+
+		/// <summary>
+		/// 四捨五入したV3Intを返す
+		/// </summary>
+		public static Vector3Int ToRound(this Vector3 p, Vector3 unitPerGrid)
+		{
+			return new Vector3Int(
+				(int)System.Math.Round(p.x / unitPerGrid.x, System.MidpointRounding.AwayFromZero),
+				(int)System.Math.Round(p.y / unitPerGrid.y, System.MidpointRounding.AwayFromZero),
+				(int)System.Math.Round(p.z / unitPerGrid.y, System.MidpointRounding.AwayFromZero)
+			);
+		}
+
 		public static bool Include(this Vector3Int self, Vector3Int target)
 		{
 			return 0 <= target.x && target.x < self.x && 0 <= target.y && target.y < self.y && 0 <= target.z && target.z < self.z;
@@ -754,6 +788,7 @@
 
 			 return new Vector3Int((int)Mathf.Floor(p.x / unitPerGrid.x), (int)Mathf.Floor(p.y / unitPerGrid.y), (int)Mathf.Floor(p.z / unitPerGrid.z));
 		}
+#endregion
 
 		/// <summary>
 		/// 円周上の位置を返す関数
@@ -1496,15 +1531,41 @@
 
 		public static Bounds GetBounds(this IEnumerable<Bounds> self)
 		{
-			var points = new List<Vector3>();
+			// newする実装ではなくする
+			// var points = new List<Vector3>();
 
-			foreach (var b in self)
+			// foreach (var b in self)
+			// {
+			// 	points.Add(b.min);
+			// 	points.Add(b.max);
+			// }
+
+			// return points.GetBounds();
+
+
+			var minX = float.MaxValue;
+			var minY = float.MaxValue;
+			var minZ = float.MaxValue;
+
+			var maxX = float.MinValue;
+			var maxY = float.MinValue;
+			var maxZ = float.MinValue;
+
+			foreach (var p in self)
 			{
-				points.Add(b.min);
-				points.Add(b.max);
+				if (minX > p.min.x) minX = p.min.x;
+				if (minY > p.min.y) minY = p.min.y;
+				if (minZ > p.min.z) minZ = p.min.z;
+
+				if (maxX < p.max.x) maxX = p.max.x;
+				if (maxY < p.max.y) maxY = p.max.y;
+				if (maxZ < p.max.z) maxZ = p.max.z;
 			}
 
-			return points.GetBounds();
+			var size = new Vector3(maxX - minX, maxY - minY, maxZ - minZ);
+			var center = new Vector3(minX + size.x / 2, minY + size.y / 2, minZ + size.z / 2);
+
+			return new Bounds(center, size);
 		}
 
 		public static Bounds GetBounds(this Rect rect)
@@ -1727,9 +1788,9 @@
 
 		public static void Foreach<T>(this T[,] self, System.Action<int, int, T> callback)
 		{
-			for (var x = 0; x < self.GetLength(0); x++)
+			for (var y = 0; y < self.GetLength(1); y++)
 			{
-				for (var y = 0; y < self.GetLength(1); y++)
+				for (var x = 0; x < self.GetLength(0); x++)
 				{
 					callback(x, y, self[x, y]);
 				}
