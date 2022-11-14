@@ -75,7 +75,7 @@ namespace takashicompany.Unity
 
 					map[pos.x, pos.y, pos.z] = obj;
 
-					var p = Utils.GetPositionOnGrid(_grid, pos, unitPerGrid);
+					var p = Utils.GetPositionByCell(_grid, pos, unitPerGrid);
 
 					obj.position = zeroPoint + p;
 
@@ -112,7 +112,7 @@ namespace takashicompany.Unity
 					{
 						for (int z = 0; z <_grid.z; z++)
 						{
-							var p = Utils.GetPositionOnGrid(_grid, new Vector3Int(x, y, z), unitPerGrid);
+							var p = Utils.GetPositionByCell(_grid, new Vector3Int(x, y, z), unitPerGrid);
 
 							Gizmos.DrawWireCube(zeroPoint + p, unitPerGrid);
 						}

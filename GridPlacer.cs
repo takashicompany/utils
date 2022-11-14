@@ -48,7 +48,7 @@ namespace takashicompany.Unity
 							var prefab = _prefabs[Random.Range(0, _prefabs.Length)];
 							var obj = Instantiate(prefab, _root);
 							obj.name = prefab.name + "(" + x + ", " + y + ", " + z + ")";
-							var p = Utils.GetPositionOnGrid(_grid, v3int, unitPerGrid);
+							var p = Utils.GetPositionByCell(_grid, v3int, unitPerGrid);
 							obj.position = zeroPoint + p;
 							list.Add(obj);
 
@@ -90,7 +90,7 @@ namespace takashicompany.Unity
 					{
 						for (int z = 0; z <_grid.z; z++)
 						{
-							var p = Utils.GetPositionOnGrid(_grid, new Vector3Int(x, y, z), unitPerGrid);
+							var p = Utils.GetPositionByCell(_grid, new Vector3Int(x, y, z), unitPerGrid);
 
 							Gizmos.DrawWireCube(zeroPoint + p, unitPerGrid);
 						}

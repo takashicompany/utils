@@ -642,8 +642,6 @@
 			self.Foreach((x, y, z) => function(new Vector3Int(x, y, z)));
 		}
 
-		
-
 		public static void Foreach(this BoundsInt b, System.Action<Vector3Int> function, bool includeMax = false)
 		{
 			for (var x = b.xMin; includeMax ? x <= b.xMax : x < b.xMax; x++)
@@ -725,12 +723,12 @@
 		// 	});
 		// }
 
-		public static Vector2 GetPositionOnGrid(Vector2Int gridSize, Vector2Int gridPosition, Vector2 unitPerGrid)
+		public static Vector2 GetPositionByCell(Vector2Int gridSize, Vector2Int gridPosition, Vector2 unitPerGrid)
 		{
-			return GetPositionOnGrid(gridSize.ToV3Int(), gridPosition.ToV3Int(), unitPerGrid);
+			return GetPositionByCell(gridSize.ToV3Int(), gridPosition.ToV3Int(), unitPerGrid);
 		}
 
-		public static Vector3 GetPositionOnGrid(Vector3Int gridSize, Vector3Int gridPosition, Vector3 unitPerGrid)
+		public static Vector3 GetPositionByCell(Vector3Int gridSize, Vector3Int gridPosition, Vector3 unitPerGrid)
 		{
 			var half = unitPerGrid / 2;
 
@@ -743,7 +741,7 @@
 			return start + new Vector3(unitPerGrid.x * gridPosition.x, unitPerGrid.y * gridPosition.y, unitPerGrid.z * gridPosition.z);
 		}
 
-		public static Vector3Int GetGridPosition(Vector3Int gridSize, Vector3 unitPerGrid, Vector3 position)
+		public static Vector3Int GetCellPosition(Vector3Int gridSize, Vector3 unitPerGrid, Vector3 position)
 		{
 			// マスあたりのサイズ x マス数で大きさを出す
 			var size = new Vector3(unitPerGrid.x * gridSize.x, unitPerGrid.y * gridSize.y, unitPerGrid.z * gridSize.z);
@@ -1736,6 +1734,25 @@
 					callback(x, y, self[x, y]);
 				}
 			}
+		}
+
+		public static void Foreach<T>(this T[,,] self, System.Action<int, int, int, T> callback)
+		{
+			for (var x = 0; x < self.GetLength(0); x++)
+			{
+				for (var y = 0; y < self.GetLength(1); y++)
+				{
+					for (var z = 0; z < self.GetLength(2); z++)
+					{
+						callback?.Invoke(x, y, z, self[x, y, z]);
+					}
+				}
+			}
+		}
+
+		public static void Foreach<T>(this T[,,] self, System.Action<Vector3Int, T> callback)
+		{
+			self.Foreach((x, y, z, item)=> callback?.Invoke(new Vector3Int(x, y, z), item));
 		}
 
 		public static void Foreach<T>(this T[,] self, System.Action<Vector2Int, T> callback)
