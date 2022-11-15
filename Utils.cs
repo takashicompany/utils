@@ -159,6 +159,12 @@
 #endregion
 
 #region 多次元配列
+
+		public static T Get<T>(this T[,,] self, Vector3Int p)
+		{
+			return self[p.x, p.y, p.z];
+		}
+
 		public static bool IsInBounds<T>(this T[,] self, Vector2Int p)
 		{
 			return self.IsInBounds(p.x, p.y);
@@ -174,6 +180,21 @@
 			return true;
 		}
 
+		public static bool IsInBounds<T>(this T[,,] self, Vector3Int p)
+		{
+			return self.IsInBounds(p.x, p.y, p.z);
+		}
+
+		public static bool IsInBounds<T>(this T[,,] self, int x, int y, int z)
+		{
+			if (x < 0 || self.GetLength(0) <= x || y < 0 || self.GetLength(1) <= y || z < 0 || self.GetLength(1) <= z)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
 		public static IEnumerable<T> GetEnumerable<T>(this T[,] self)
 		{
 			for (var x = 0; x < self.GetLength(0); x++)
@@ -183,6 +204,142 @@
 					yield return self[x, y];
 				}
 			}
+		}
+
+		public static void Foreach<T>(this T[,] self, System.Action<int, int, T> callback)
+		{
+			for (var y = 0; y < self.GetLength(1); y++)
+			{
+				for (var x = 0; x < self.GetLength(0); x++)
+				{
+					callback(x, y, self[x, y]);
+				}
+			}
+		}
+
+		public static void Foreach<T>(this T[,,] self, System.Action<int, int, int, T> callback)
+		{
+			for (var x = 0; x < self.GetLength(0); x++)
+			{
+				for (var y = 0; y < self.GetLength(1); y++)
+				{
+					for (var z = 0; z < self.GetLength(2); z++)
+					{
+						callback?.Invoke(x, y, z, self[x, y, z]);
+					}
+				}
+			}
+		}
+
+		public static void Foreach<T>(this T[,,] self, System.Action<Vector3Int, T> callback)
+		{
+			self.Foreach((x, y, z, item)=> callback?.Invoke(new Vector3Int(x, y, z), item));
+		}
+
+		public static void Foreach<T>(this T[,] self, System.Action<Vector2Int, T> callback)
+		{
+			self.Foreach((x, y, item) => callback(new Vector2Int(x, y), item));
+		}
+
+		public delegate bool BareDelegate<T>(T target) where T : IEquatable<T>;
+
+		public static bool IsBare<T>(this T[,,] self, Vector3Int p) where T : IEquatable<T>
+		{
+			return self.IsBare(p, obj =>
+			{
+				return obj.Equals(default(T));		// nullとかだった時心配だわ
+			});
+		}
+
+		public static bool IsBare<T>(this T[,,] self, Vector3Int p, BareDelegate<T> callback) where T : IEquatable<T>
+		{
+			for (var x = -1; x <= 1; x++)
+			{
+				for (var y = -1; y <= 1; y++)
+				{
+					for (var z = -1; z <= 1; z++)
+					{
+						if (x == p.x && y == p.y && z == p.z)
+						{
+							continue;
+						}
+
+						var current = new Vector3Int(p.x + x, p.y + y, p.z + z);
+
+						if (!self.IsInBounds(p))	// 範囲外に触れているなら、むき出しとする
+						{
+							return true;
+						}
+
+						if (callback(self[current.x, current.y, current.z]))
+						{
+							return true;
+						}
+ 					}
+				}
+			}
+
+			return false;
+		}
+
+		public delegate bool ConnectDelegate<T>(T main, T current, T target);
+
+		public static Dictionary<Vector3Int, int> GetConnected<T>(this T[,,] self, Vector3Int from, bool onlyOneDistance, ConnectDelegate<T> callback)
+		{
+			var connectedWithSteps = new Dictionary<Vector3Int, int>();
+
+			var unconnecteds = new HashSet<Vector3Int>();
+
+			var main = self[from.x, from.y, from.z];
+
+			Search(from, 0);
+			
+			void Search(Vector3Int current, int step)
+			{
+				step++;
+
+				for (var x = -1; x <= 1; x++) for (var y = -1; y <= 1; y++) for (var z = -1; z <= 1; z++)
+				{
+					var target = new Vector3Int(current.x + x, current.y + y, current.z + z);
+
+					if (onlyOneDistance && Vector3Int.Distance(current, target) > 1)
+					{
+						continue;
+					}
+
+					if (target == from)
+					{
+						continue;
+					}
+
+					if (!self.IsInBounds(target))
+					{
+						continue;
+					}
+
+					if (unconnecteds.Contains(target))
+					{
+						continue;
+					}
+
+					if (connectedWithSteps.ContainsKey(target))
+					{
+						continue;
+					}
+
+					if (callback(main, self.Get(current), self.Get(target)))
+					{
+						connectedWithSteps.Add(target, step);
+						Search(target, step);
+					}
+					else
+					{
+						unconnecteds.Add(target);
+					}
+				}
+			}
+
+			return connectedWithSteps;
 		}
 #endregion
 
@@ -1791,41 +1948,6 @@
 		public static Vector3 ToV3XZ(this Vector2 self)
 		{
 			return new Vector3(self.x, 0, self.y);
-		}
-
-		public static void Foreach<T>(this T[,] self, System.Action<int, int, T> callback)
-		{
-			for (var y = 0; y < self.GetLength(1); y++)
-			{
-				for (var x = 0; x < self.GetLength(0); x++)
-				{
-					callback(x, y, self[x, y]);
-				}
-			}
-		}
-
-		public static void Foreach<T>(this T[,,] self, System.Action<int, int, int, T> callback)
-		{
-			for (var x = 0; x < self.GetLength(0); x++)
-			{
-				for (var y = 0; y < self.GetLength(1); y++)
-				{
-					for (var z = 0; z < self.GetLength(2); z++)
-					{
-						callback?.Invoke(x, y, z, self[x, y, z]);
-					}
-				}
-			}
-		}
-
-		public static void Foreach<T>(this T[,,] self, System.Action<Vector3Int, T> callback)
-		{
-			self.Foreach((x, y, z, item)=> callback?.Invoke(new Vector3Int(x, y, z), item));
-		}
-
-		public static void Foreach<T>(this T[,] self, System.Action<Vector2Int, T> callback)
-		{
-			self.Foreach((x, y, item) => callback(new Vector2Int(x, y), item));
 		}
 
 		public static bool TryGet<T>(this T? self, out T result) where T : struct
