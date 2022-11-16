@@ -10,17 +10,12 @@ namespace takashicompany.Unity
 		protected Renderer _renderer => ReturnOrGetChildren<Renderer>();
 		protected Renderer[] _renderers => ReturnsOrGetChildren<Renderer>();
 
-		private Rigidbody _rigidbodyInternal;
+		protected Rigidbody _rigidbody => ReturnOrGet<Rigidbody>();
+		
+		protected Collider _collider => ReturnOrGet<Collider>();
+		protected Collider2D _collider2D => ReturnOrGet<Collider2D>();
 
-		protected Rigidbody _rigidbody => ReturnOrGet(ref _rigidbodyInternal); // _rigidbodyInternal ?? (_rigidbodyInternal = GetComponent<Rigidbody>());
-
-		private Collider _colliderInternal;
-
-		protected Collider _collider => ReturnOrGet(ref _colliderInternal);
-
-		private Animator _animatorInternal;
-
-		protected Animator _animator => ReturnOrGetChildren(ref _animatorInternal);
+		protected Animator _animator => ReturnOrGetChildren<Animator>();
 
 		private Dictionary<Type, Component> _componentDict = new Dictionary<Type, Component>();
 		private Dictionary<Type, Component[]> _componentsDict = new Dictionary<Type, Component[]>();
@@ -94,42 +89,12 @@ namespace takashicompany.Unity
 
 		protected T ReturnOrGetChildren<T>(ref T internalComponent) where T : Component
 		{
-			return internalComponent ?? (internalComponent = this.GetSelfOfChildrenGetComponent<T>());
+			return internalComponent ?? (internalComponent = this.GetComponentInChildren<T>());
 		}
 
 		protected T ReturnOrGetParent<T>(ref T internalComponent) where T : Component
 		{
-			return internalComponent ?? (internalComponent = this.GetSelfOrParentComponent<T>());
-		}
-	}
-
-	public static class TaBehaviourExtensions
-	{
-		public static T GetSelfOrParentComponent<T>(this Component self)
-		{
-			if (self.TryGetComponent<T>(out var result))
-			{
-				return result;
-			}
-			
-			return self.GetComponentInParent<T>();
-		}
-
-		public static bool TryGetSelfOrParentComponent<T>(this Component self, out T result)
-		{
-			result = self.GetSelfOrParentComponent<T>();
-
-			return result != null;
-		}
-
-		public static T GetSelfOfChildrenGetComponent<T>(this Component self)
-		{
-			if (self.TryGetComponent<T>(out var result))
-			{
-				return result;
-			}
-			
-			return self.GetComponentInChildren<T>();
+			return internalComponent ?? (internalComponent = this.GetComponentInChildren<T>());
 		}
 	}
 }
