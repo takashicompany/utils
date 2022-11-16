@@ -18,6 +18,11 @@ namespace takashicompany.Unity
 		[SerializeField, Header("コライダーの線の太さ")]
 		private float _lineColliderEdgeRadius = 0.1f;
 
+		[SerializeField]
+		private UnityEvent<int> _onBeginPoint;
+
+		public UnityEvent<int> onBeginPoint => _onBeginPoint;
+
 		[System.Serializable]
 		private class DrawnMesh
 		{
@@ -78,6 +83,7 @@ namespace takashicompany.Unity
 				var line = Instantiate(_linePrefab, _lineParent);
 				line.positionCount = 0;
 				_drawingMeshes.Add(pointerId, new DrawnMesh(line, _lineColliderEdgeRadius));
+				_onBeginPoint?.Invoke(pointerId);
 				return true;
 			}
 
