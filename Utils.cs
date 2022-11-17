@@ -1496,7 +1496,7 @@
 		/// Dictionary<K, V>からDictionay<V, K>を生成する。
 		/// Valueがnullだったり値が被る場合は除外
 		/// </summary>
-		public static Dictionary<V, K> BuildReverse<K, V>(this Dictionary<K, V> self)
+		public static Dictionary<V, K> BuildReverse<K, V>(this IDictionary<K, V> self)
 		{
 			var dict = new Dictionary<V, K>();
 
@@ -1511,7 +1511,7 @@
 			return dict;
 		}
 
-		public static void NewAndAddList<K, V>(this Dictionary<K, List<V>> self, K key, V val)
+		public static void NewAndAddList<K, V>(this IDictionary<K, List<V>> self, K key, V val)
 		{
 			if (!self.ContainsKey(key))
 			{
@@ -1521,7 +1521,7 @@
 			self[key].Add(val);
 		}
 
-		public static void Foreach<K, V>(this Dictionary<K, V> self, System.Action<K, V> function)
+		public static void Foreach<K, V>(this IDictionary<K, V> self, System.Action<K, V> function)
 		{
 			foreach (var kvp in self)
 			{
@@ -1529,12 +1529,12 @@
 			}
 		}
 
-		public static K GetRandomKey<K, V>(this Dictionary<K, V> self)
+		public static K GetRandomKey<K, V>(this IDictionary<K, V> self)
 		{
 			return self.Keys.ToList().GetRandom();
 		}
 
-		public static V GetRandomValue<K, V>(this Dictionary<K, V> self)
+		public static V GetRandomValue<K, V>(this IDictionary<K, V> self)
 		{			
 			return self[self.GetRandomKey()];
 		}
