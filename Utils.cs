@@ -546,6 +546,32 @@
 			return path[index];
 		}
 
+		/// <summary>
+		/// 距離を元に最後の点を返す。
+		/// </summary>
+		public static Vector3 GetPathPointByDistance(this IList<Vector3> path, float distance, out int index)
+		{
+			// TODO ↑のVector2版と実装を共用にできないか
+
+			var currentDistance = 0f;
+			
+			for (int i = 1; i < path.Count; i++)
+			{
+				var prev = path[i - 1];
+				var current = path[i];
+				currentDistance += Vector3.Distance(prev, current);
+				if (currentDistance >= distance)
+				{
+					index = i - 1;
+					return prev;
+				}
+			}
+
+			index = path.Count - 1;
+
+			return path[index];
+		}
+
 
 		/// <summary>
 		/// パスの中から位置を求める
@@ -939,18 +965,35 @@
 			return start + new Vector3(unitPerGrid.x * gridPosition.x, unitPerGrid.y * gridPosition.y, unitPerGrid.z * gridPosition.z);
 		}
 
-		public static Vector3Int GetCellPosition(Vector3Int gridSize, Vector3 unitPerGrid, Vector3 position)
+		public static Vector2Int GetCellPosition(Vector2Int gridSize, Vector2 unitPerGrid, Vector2 position)
 		{
-			// マスあたりのサイズ x マス数で大きさを出す
-			var size = new Vector3(unitPerGrid.x * gridSize.x, unitPerGrid.y * gridSize.y, unitPerGrid.z * gridSize.z);
+			Vector3Int v3 = new Vector3Int(gridSize.x, gridSize.y, 0);
+			var result =  GetCellPosition(v3, (Vector3)unitPerGrid, (Vector3)position);
 
-			// 原点の座標を出す
-			var origin = size / -2;
+			return new Vector2Int(result.x, result.y);
+		}
 
-			// 原点から見た時の距離
-			var p = position - origin;
+		public static Vector3Int GetCellPosition(Vector3Int cells, Vector3 cellSize, Vector3 position)
+		{
+			// なんでこの実装にしていたのか謎だから一応は残す
 
-			 return new Vector3Int((int)Mathf.Floor(p.x / unitPerGrid.x), (int)Mathf.Floor(p.y / unitPerGrid.y), (int)Mathf.Floor(p.z / unitPerGrid.z));
+			// // マスあたりのサイズ x マス数で全体の大きさを出す
+			// var size = new Vector3(cellSize.x * cells.x, cellSize.y * cells.y, cellSize.z * cells.z);
+
+			// // 原点の座標を出す
+			// var origin = size / -2;
+
+			// // 原点から見た時の距離
+			// var p = position - origin;
+			
+			//  return new Vector3Int((int)Mathf.Floor(p.x / cellSize.x), (int)Mathf.Floor(p.y / cellSize.y), (int)Mathf.Floor(p.z / cellSize.z));
+
+			return new Vector3Int(
+				(int)System.Math.Round(position.x / cellSize.x, System.MidpointRounding.AwayFromZero),
+				(int)System.Math.Round(position.y / cellSize.y, System.MidpointRounding.AwayFromZero),
+				(int)System.Math.Round(position.z / cellSize.z, System.MidpointRounding.AwayFromZero)
+			);
+
 		}
 #endregion
 
@@ -1626,6 +1669,29 @@
 		{
 			return RandomVector3Int(Vector3Int.zero, max);
 		}
+#endregion
+
+#region Rect
+		public static Vector2 GetRandomPoint(this Rect rect, bool includeMax = false)
+		{
+			return new Vector2(
+				Random.Range(rect.min.x, rect.max.x + (includeMax ? 1 : 0)),
+				Random.Range(rect.min.y, rect.max.y + (includeMax ? 1 : 0))
+			);
+		}
+
+#endregion
+
+#region RectInt
+
+		public static Vector2Int GetRandomPoint(this RectInt rect, bool includeMax = false)
+		{
+			return new Vector2Int(
+				Random.Range(rect.min.x, rect.max.x + (includeMax ? 1 : 0)),
+				Random.Range(rect.min.y, rect.max.y + (includeMax ? 1 : 0))
+			);
+		}
+
 #endregion
 
 		public static Quaternion RandomRotation()
