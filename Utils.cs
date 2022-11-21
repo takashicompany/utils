@@ -1235,6 +1235,14 @@
 			return str;
 		}
 
+		public static Rect TransformRect(this Transform self, Rect rect)
+		{
+			var result = new Rect();
+			result.min = self.TransformPoint(rect.min);
+			result.max = self.TransformPoint(rect.max);
+			return result;
+		}
+
 #endregion
 
 #region  RectTransform
@@ -1250,6 +1258,20 @@
 			var width = parent.rect.width - Mathf.Lerp(self.offsetMin.x, self.offsetMax.x, self.pivot.x) * 2;
 
 			self.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width * normalizedX);
+		}
+
+		/// <summary>
+		/// あるRectTransformのワールド矩形が別のRectTransformのワールド矩形を含むかを返す。
+		/// 3D空間の回転が含まれると計算が崩壊する
+		/// </summary>
+		public static bool Overlaps(this RectTransform self, RectTransform other)
+		{
+			return self.TransformRect(self.rect).Overlaps(other.TransformRect(other.rect));
+		}
+
+		public static Rect GetWorldRect(this RectTransform self)
+		{
+			return self.TransformRect(self.rect);
 		}
 #endregion
 
@@ -1672,6 +1694,7 @@
 #endregion
 
 #region Rect
+		
 		public static Vector2 GetRandomPoint(this Rect rect, bool includeMax = false)
 		{
 			return new Vector2(

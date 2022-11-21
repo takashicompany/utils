@@ -21,7 +21,9 @@
 		[SerializeField]
 		protected Transform _container;
 
-		protected List<T> _pooledList = new List<T>();
+		protected List<T> _pooled = new List<T>();
+
+		public List<T> pooled => _pooled;
 
 		// コンストラクタを入れると動かなくなるのでいれないでくれ
 		// public PoolingContainer(T prefab, Transform container)
@@ -42,7 +44,7 @@
 		/// </summary>
 		public void Prepare(int amount)
 		{
-			while(_pooledList.Count < amount)
+			while(_pooled.Count < amount)
 			{
 				Generate();
 			}
@@ -53,7 +55,7 @@
 		/// </summary>
 		public virtual void CollectAll()
 		{
-			foreach (var item in _pooledList)
+			foreach (var item in _pooled)
 			{
 				item.transform.SetParent(_container);
 				item.gameObject.SetActive(false);
@@ -67,7 +69,7 @@
 		/// <returns></returns>
 		protected T FindOne(bool flag)
 		{
-			return _pooledList.Find(m => m.gameObject.activeSelf == flag);
+			return _pooled.Find(m => m.gameObject.activeSelf == flag);
 		}
 
 		/// <summary>
@@ -77,7 +79,7 @@
 		/// <returns></returns>
 		private IEnumerable<T> FindAll(bool usable)
 		{
-			foreach (var p in _pooledList)
+			foreach (var p in _pooled)
 			{
 				if (IsUsed(p) == usable)
 				{
@@ -121,10 +123,10 @@
 		{
 			var myObject = GameObject.Instantiate(_prefab, _container);
 			myObject.gameObject.SetActive(false);
-			myObject.name = _prefab.name + "_" + _pooledList.Count;
+			myObject.name = _prefab.name + "_" + _pooled.Count;
 			myObject.transform.localPosition = Vector3.zero;
 			myObject.transform.localScale = _prefab.transform.localScale;
-			_pooledList.Add(myObject);
+			_pooled.Add(myObject);
 
 			return myObject;
 		}
