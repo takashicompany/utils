@@ -158,6 +158,13 @@
 		}
 #endregion
 
+#region IReadOnlyList
+		public static T GetByValidIndex<T>(this IReadOnlyList<T> self, int index)
+		{
+			return self[index % self.Count];
+		}
+#endregion
+
 #region 多次元配列
 
 		public static T Get<T>(this T[,,] self, Vector3Int p)
