@@ -1,149 +1,126 @@
-﻿namespace takashicompany.Unity
+﻿namespace takashicompany.Unity.ObjectPool
 {
-
 	using UnityEngine;
 	using System.Collections.Generic;
 	using System.Linq;
-	
-	/// <summary>
-	/// GameObjectを再利用するクラス
-	/// GameObject.activeSelfで再利用可能かを判断する
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
+
 	[System.Serializable]
-	public class PoolingContainer<T> where T : Component
+	public abstract class PoolingContainer<T>
 	{
-		[SerializeField]
-		protected T _prefab;
-
-		public T prefab => _prefab;
-
-		[SerializeField]
-		protected Transform _container;
-
-		protected List<T> _pooled = new List<T>();
-
-		public List<T> pooled => _pooled;
-
-		// コンストラクタを入れると動かなくなるのでいれないでくれ
-		// public PoolingContainer(T prefab, Transform container)
-		// {
-		// 	_prefab = prefab;
-		// 	_container = container;
-		// 	_pooledList = new List<T>();
-		// }
-
-		public void Setup(T prefab, Transform container)
-		{
-			_prefab = prefab;
-			_container = container;
-		}
+		protected List<T> _pooledList = new List<T>();
 
 		/// <summary>
 		/// 指定した個数までオブジェクトを生成しておく
 		/// </summary>
 		public void Prepare(int amount)
 		{
-			while(_pooled.Count < amount)
+			while(_pooledList.Count < amount)
 			{
 				Generate();
 			}
 		}
 
-		/// <summary>
-		/// 全てのオブジェクトを回収する
-		/// </summary>
-		public virtual void CollectAll()
-		{
-			foreach (var item in _pooled)
-			{
-				item.transform.SetParent(_container);
-				item.gameObject.SetActive(false);
-			}
-		}
-
-		/// <summary>
-		/// activeがtrue/falseのオブジェクトを一つ取得する
-		/// </summary>
-		/// <param name="flag"></param>
-		/// <returns></returns>
-		protected T FindOne(bool flag)
-		{
-			return _pooled.Find(m => m.gameObject.activeSelf == flag);
-		}
-
-		/// <summary>
-		/// activeがtrue/falseのオブジェクトリストを取得する
-		/// </summary>
-		/// <param name="flag"></param>
-		/// <returns></returns>
-		private IEnumerable<T> FindAll(bool usable)
-		{
-			foreach (var p in _pooled)
-			{
-				if (IsUsed(p) == usable)
-				{
-					yield return p;
-				}
-			}
-		}
-
-		/// <summary>
-		/// オブジェクトを取得する
-		/// </summary>
-		/// <returns></returns>
 		public virtual T Get()
 		{
-			var myObject = FindOne(false);
+			var obj = _pooledList.FirstOrDefault(p => CanUse(p));
 
-			if (myObject == null)
+			if (obj == null)
 			{
-				myObject = Generate();
+				obj = Generate();
 			}
-			myObject.gameObject.SetActive(true);
 
-			return myObject;
+			Use(obj);
+
+			return obj;
 		}
 
-		public List<T> GetUsedList()
-		{
-			return FindAll(true).ToList();
+		public void CollectAll()
+	 	{
+			foreach (var obj in _pooledList)
+			{
+				Collect(obj);
+			}
 		}
 
 		public IEnumerable<T> GetUsedAll()
 		{
-			return FindAll(true);
+			return _pooledList.Where(p => IsUse(p));
 		}
 
-		/// <summary>
-		/// オブジェクトを生成する
-		/// </summary>
-		/// <returns></returns>
-		protected virtual T Generate()
+		public abstract bool IsUse(T obj);
+		
+		protected bool CanUse(T obj)
 		{
-			var myObject = GameObject.Instantiate(_prefab, _container);
-			myObject.gameObject.SetActive(false);
-			myObject.name = _prefab.name + "_" + _pooled.Count;
-			myObject.transform.localPosition = Vector3.zero;
-			myObject.transform.localScale = _prefab.transform.localScale;
-			_pooled.Add(myObject);
-
-			return myObject;
+			return !IsUse(obj);
 		}
 
-		/// <summary>
-		/// オブジェクトが利用されているか
-		/// </summary>
-		/// <param name="obj"></param>
-		/// <returns></returns>
-		public static bool IsUsed(T obj)
+		protected abstract void Use(T obj);
+
+		protected abstract T Generate();
+
+		protected abstract void Collect(T obj);
+
+	}
+
+
+	[System.Serializable]
+	public abstract class TransformPoolingContainer<T> : PoolingContainer<T> where T : Component
+	{
+		[SerializeField]
+		protected Transform _container;
+
+		[SerializeField]
+		protected T _prefab;
+
+		public T prefab => _prefab;
+
+		public virtual void Setup(T prefab, Transform container)
+		{
+			_prefab = prefab;
+			_container = container;
+		}
+		
+		protected override void Collect(T obj)
+		{
+			obj.transform.SetParent(_container);
+		}
+
+		protected override T Generate()
+		{
+			var obj = GameObject.Instantiate(_prefab, _container);
+			obj.name = _prefab.name + "_" + _pooledList.Count;
+			obj.transform.localPosition = Vector3.zero;
+			obj.transform.localScale = _prefab.transform.localScale;
+			_pooledList.Add(obj);
+
+			Collect(obj);
+
+			return obj;
+		}
+	}
+
+	/// <summary>
+	/// GameObjectを再利用するクラス
+	/// GameObject.activeSelfで再利用可能かを判断する
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	[System.Serializable]
+	public class ActivePoolingContainer<T> : TransformPoolingContainer<T> where T : Component
+	{
+		protected override void Collect(T item)
+		{
+			base.Collect(item);
+			item.gameObject.SetActive(false);
+		}
+		
+		public override bool IsUse(T obj)
 		{
 			return obj.gameObject.activeSelf;
 		}
 
-		public static bool CanUse(T obj)
+		protected override void Use(T obj)
 		{
-			return !IsUsed(obj);
+			obj.gameObject.SetActive(true);
 		}
 	}
 }
