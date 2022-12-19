@@ -1619,6 +1619,14 @@
 			return setObj.Add(value);
 		}
 
+		public static bool TrySearchKey<K, V>(this IDictionary<K, V> dict, V val, out K key)
+		{
+			var kvp = dict.FirstOrDefault(kvp => kvp.Value.Equals(val));
+
+			key = kvp.Key;
+
+			return dict.ContainsKey(key);
+		}
 #endregion
 
 		public static IEnumerable<T> FindAbove<T>(this Collider self, float height, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
