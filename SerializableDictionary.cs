@@ -12,7 +12,7 @@ namespace takashicompany.Unity
 	public class SerializableDictionary<K, V>: IEnumerable<KeyValuePair<K, V>>, IDictionary<K, V>
 	{
 		[System.Serializable]
-		private class SdKeyValuePair
+		public class SdKeyValuePair
 		{
 			[SerializeField]
 			private K _key;
@@ -47,6 +47,8 @@ namespace takashicompany.Unity
 
 		[SerializeField]
 		private List<SdKeyValuePair> _list = new List<SdKeyValuePair>();
+
+		public IReadOnlyList<SdKeyValuePair> list => _list;
 
 		private Dictionary<K, SdKeyValuePair> _dictInternal;
 
