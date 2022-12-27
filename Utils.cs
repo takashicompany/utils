@@ -154,14 +154,14 @@
 #region IList
 		public static T GetByValidIndex<T>(this IList<T> self, int index)
 		{
-			return self[index % self.Count];
+			return self[Mathf.Abs(index) % self.Count];
 		}
 #endregion
 
 #region IReadOnlyList
 		public static T GetByValidIndex<T>(this IReadOnlyList<T> self, int index)
 		{
-			return self[index % self.Count];
+			return self[Mathf.Abs(index) % self.Count];
 		}
 #endregion
 
