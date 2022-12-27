@@ -34,7 +34,7 @@
 			return obj;
 		}
 
-		public void CollectAll()
+		public virtual void CollectAll()
 	 	{
 			foreach (var obj in _pooledList)
 			{
