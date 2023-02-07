@@ -1,4 +1,4 @@
-﻿namespace takashicompany.Unity.ObjectPool
+﻿namespace takashicompany.Unity
 {
 	using UnityEngine;
 	using System.Collections.Generic;
