@@ -7,14 +7,16 @@
 	[System.Serializable]
 	public abstract class PoolingContainer<T>
 	{
-		protected List<T> _pooledList = new List<T>();
+		protected List<T> _pooled = new List<T>();
+
+		public List<T> pooled => _pooled;
 
 		/// <summary>
 		/// 指定した個数までオブジェクトを生成しておく
 		/// </summary>
 		public void Prepare(int amount)
 		{
-			while(_pooledList.Count < amount)
+			while(_pooled.Count < amount)
 			{
 				Generate();
 			}
@@ -22,7 +24,7 @@
 
 		public virtual T Get()
 		{
-			var obj = _pooledList.FirstOrDefault(p => CanUse(p));
+			var obj = _pooled.FirstOrDefault(p => CanUse(p));
 
 			if (obj == null)
 			{
@@ -36,7 +38,7 @@
 
 		public virtual void CollectAll()
 	 	{
-			foreach (var obj in _pooledList)
+			foreach (var obj in _pooled)
 			{
 				Collect(obj);
 			}
@@ -44,7 +46,7 @@
 
 		public IEnumerable<T> GetUsedAll()
 		{
-			return _pooledList.Where(p => IsUse(p));
+			return _pooled.Where(p => IsUse(p));
 		}
 
 		public abstract bool IsUse(T obj);
@@ -88,10 +90,10 @@
 		protected override T Generate()
 		{
 			var obj = GameObject.Instantiate(_prefab, _container);
-			obj.name = _prefab.name + "_" + _pooledList.Count;
+			obj.name = _prefab.name + "_" + _pooled.Count;
 			obj.transform.localPosition = Vector3.zero;
 			obj.transform.localScale = _prefab.transform.localScale;
-			_pooledList.Add(obj);
+			_pooled.Add(obj);
 
 			Collect(obj);
 
