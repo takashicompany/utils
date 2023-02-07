@@ -1250,6 +1250,14 @@
 			return result;
 		}
 
+		public static Rect InverseTransformRect(this Transform self, Rect rect)
+		{
+			var result = new Rect();
+			result.min = self.InverseTransformPoint(rect.min);
+			result.max = self.InverseTransformPoint(rect.max);
+			return result;
+		}
+
 #endregion
 
 #region  RectTransform
