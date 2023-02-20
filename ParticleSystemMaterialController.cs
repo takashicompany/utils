@@ -11,6 +11,8 @@ namespace takashicompany.Unity
 		[SerializeField, Header("メインのパーティクル。大抵はパーティクルのルートになるはず。")]
 		private ParticleSystem _mainParticleSystem;
 
+		public ParticleSystem mainParticleSystem => _mainParticleSystem;
+
 		[Header("PlayOnAwakeは無効にしておいてください。")]
 		[SerializeField, Header("色を変えたいParticle")]
 		private ParticleSystem[] _particleSystems;
