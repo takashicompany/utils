@@ -816,8 +816,7 @@
 		}
 #endregion
 
-#region Vector3Int
-
+#region  Vector3
 		/// <summary>
 		/// 四捨五入したV3Intを返す
 		/// </summary>
@@ -835,6 +834,10 @@
 			);
 		}
 
+#endregion
+
+#region Vector3Int
+		
 		public static bool Include(this Vector3Int self, Vector3Int target)
 		{
 			return 0 <= target.x && target.x < self.x && 0 <= target.y && target.y < self.y && 0 <= target.z && target.z < self.z;
@@ -2135,6 +2138,59 @@
 
 			return true;
 		}
+
+		public static bool TryGetPositionOnRay(Ray ray, int vector3Index, float target, out Vector3 position)
+		{
+			// Rayの方向ベクトルを正規化する
+			Vector3 direction = ray.direction.normalized;
+
+			// Rayの始点と目標の高さの差分を求める
+			float delta = target - ray.origin[vector3Index];
+
+			// Rayが指定された高さに到達しない場合はfalseを返す
+			if (Mathf.Approximately(delta, 0f) || Mathf.Approximately(direction[vector3Index], 0f))
+			{
+				position = Vector3.zero;
+				return false;
+			}
+
+			// Rayの始点から、指定された高さまでの距離を計算する
+			float distance = delta / direction[vector3Index];
+
+			// Rayの始点に、高さが指定された高さとなる位置を求める
+			position = ray.origin + direction * distance;
+
+			// XZ座標を返す
+			position[vector3Index] = 0f;
+			return true;
+		}
+
+		public static bool TryGetWorldPositionFromPressCurrentRaycast(this PointerEventData eventData, int vector3Index, out Vector3 worldPosition)
+		{
+			worldPosition = Vector3.zero;
+
+			// pointerCurrentRaycastのgameObjectが存在する場合
+			if (eventData.pointerCurrentRaycast.gameObject != null)
+			{
+				worldPosition = eventData.pointerCurrentRaycast.worldPosition;
+				worldPosition[vector3Index] = eventData.pointerCurrentRaycast.gameObject.transform.position[vector3Index];
+				return true;
+			}
+			// pointerCurrentRaycastのgameObjectが存在しない場合
+			else if (eventData.pointerPressRaycast.gameObject != null)
+			{
+				var target = eventData.pointerPressRaycast.gameObject.transform.position[vector3Index];
+				Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
+				
+				if (TryGetPositionOnRay(ray, vector3Index, target, out worldPosition))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 
 		public static class Debug
 		{
