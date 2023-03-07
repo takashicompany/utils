@@ -2035,6 +2035,13 @@
 		
 #endregion
 
+#region LayerMask
+		public static bool Contains(this LayerMask layerMask, int layer)
+		{
+			return ((1 << layer) & layerMask) != 0;
+		}
+#endregion
+
 		public static Vector3Int ToV3IntXZ(this Vector2Int self)
 		{
 			return new Vector3Int(self.x, 0, self.y);
