@@ -7,51 +7,31 @@ namespace takashicompany.Unity
 	using UnityEngine.EventSystems;
 	using UnityEngine.Events;
 
-	public class DoodleCollider2DMaker : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+	public class DoodleManager<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler where T : DoodleManager<T>.ITouchEvent, new()
 	{
+		
 		[SerializeField, Header("線のプレハブを設定する")]
 		private LineRenderer _linePrefab;
 
 		[SerializeField]
 		private Transform _lineParent;
 
-		[SerializeField, Header("コライダーの線の太さ")]
-		private float _lineColliderEdgeRadius = 0.1f;
+		public interface ITouchEvent
+		{
+			LineRenderer line { get; }
+			List<Vector2> points { get; }
+			void AddPoint(Vector3 point);
+			void SetLine(LineRenderer line);
+		}
 
 		[SerializeField]
 		private UnityEvent<int> _onBeginPoint;
 
 		public UnityEvent<int> onBeginPoint => _onBeginPoint;
 
-		[System.Serializable]
-		private class DrawnMesh
-		{
-			public LineRenderer line { get; private set; }
-			public EdgeCollider2D collider { get; private set; }
+		private HashSet<T> _touched = new HashSet<T>();
 
-			public List<Vector2> points { get; private set; }
-
-			public DrawnMesh(LineRenderer line, float colliderEdgeRadius)
-			{
-				this.line = line;
-				collider = line.gameObject.AddComponent<EdgeCollider2D>();
-				collider.edgeRadius = colliderEdgeRadius;
-				points = new List<Vector2>();
-			}
-
-			public void AddPoint(Vector3 point)
-			{
-				points.Add(point);
-
-				line.positionCount += 1;
-				line.SetPosition(line.positionCount - 1, point);
-				collider.SetPoints(points);
-			}
-		}
-
-		private HashSet<DrawnMesh> _drawnMeshes = new HashSet<DrawnMesh>();
-
-		private Dictionary<int, DrawnMesh> _drawingMeshes = new Dictionary<int, DrawnMesh>();
+		private Dictionary<int, T> _touching = new Dictionary<int, T>();
 
 		[SerializeField]
 		private List<Vector2> _lastDrawPoints;
@@ -78,11 +58,13 @@ namespace takashicompany.Unity
 
 		public bool BeginPoint(int pointerId)
 		{
-			if (!_drawingMeshes.ContainsKey(pointerId))
+			if (!_touching.ContainsKey(pointerId))
 			{
 				var line = Instantiate(_linePrefab, _lineParent);
 				line.positionCount = 0;
-				_drawingMeshes.Add(pointerId, new DrawnMesh(line, _lineColliderEdgeRadius));
+				var touchEvent = GetTouchEvent();
+				touchEvent.SetLine(line);
+				_touching.Add(pointerId, touchEvent);
 				_onBeginPoint?.Invoke(pointerId);
 				return true;
 			}
@@ -92,7 +74,7 @@ namespace takashicompany.Unity
 
 		public void AddPoint(int pointerId, Vector3 point)
 		{
-			if (_drawingMeshes.TryGetValue(pointerId, out var drawnMesh))
+			if (_touching.TryGetValue(pointerId, out var drawnMesh))
 			{
 				drawnMesh.AddPoint(point);
 			}
@@ -100,18 +82,81 @@ namespace takashicompany.Unity
 
 		public void EndPoint(int pointerId)
 		{
-			if (_drawingMeshes.ContainsKey(pointerId))
+			if (_touching.ContainsKey(pointerId))
 			{
-				_drawnMeshes.Add(_drawingMeshes[pointerId]);
-				_lastDrawPoints = _drawingMeshes[pointerId].points;
-				_drawingMeshes.Remove(pointerId);
+				_touched.Add(_touching[pointerId]);
+				_lastDrawPoints = _touching[pointerId].points;
+				_touching.Remove(pointerId);
 			}
 		}
 
 		public LineRenderer GetDrawingLine(int pointerId)
 		{
-			_drawingMeshes.TryGetValue(pointerId, out var mesh);
+			_touching.TryGetValue(pointerId, out var mesh);
 			return mesh.line;
 		}
+
+		protected virtual T GetTouchEvent()
+		{
+			return new T();
+		}
+	}
+
+
+	public class DoodleCollider2DMaker : DoodleManager<DoodleCollider2DMaker.DrawnMesh>
+	{
+		[SerializeField, Header("コライダーの線の太さ")]
+		private float _lineColliderEdgeRadius = 0.1f;
+
+		[System.Serializable]
+		public class DrawnMesh : ITouchEvent
+		{
+			public LineRenderer line { get; private set; }
+			public EdgeCollider2D collider { get; private set; }
+
+			public List<Vector2> points { get; private set; }
+
+			private float _colliderEdgeRadius;
+
+			public DrawnMesh()
+			{
+				points = new List<Vector2>();
+			}
+
+			public void SetLine(LineRenderer line)
+			{
+				this.line = line;
+				collider = line.gameObject.AddComponent<EdgeCollider2D>();
+				SetColliderRadius(_colliderEdgeRadius);
+			}
+
+			public void SetColliderRadius(float radius)
+			{
+				_colliderEdgeRadius = radius;
+
+				if (collider != null)
+				{
+					collider.edgeRadius = _colliderEdgeRadius;
+				}
+			}
+
+			public void AddPoint(Vector3 point)
+			{
+				points.Add(point);
+
+				line.positionCount += 1;
+				line.SetPosition(line.positionCount - 1, point);
+				collider.SetPoints(points);
+			}
+		}
+
+		protected override DrawnMesh GetTouchEvent()
+		{
+			var touch = base.GetTouchEvent();
+			touch.SetColliderRadius(_lineColliderEdgeRadius);
+			return touch;
+		}
+
+		
 	}
 }
