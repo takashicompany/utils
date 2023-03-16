@@ -3,7 +3,7 @@
 repo=git@github.com:takashicompany/route-runner.git
 remote=route-runner
 branch=master
-path=Assets/TakashiCompany/RouteRunner
+path=Assets/takashicompany/RouteRunner
 
 if [ $# -eq 0 ]; then
 	echo "this is git-subtree-suppot tool.\noptions:\n init\n pull\n push"
