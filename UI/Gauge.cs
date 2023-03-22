@@ -9,7 +9,7 @@ namespace takashicompany.Unity.UI
 
 	public class Gauge : MonoBehaviour
 	{
-		[SerializeField]
+		[SerializeField, Header("Pivotは左にしてください。")]
 		private Image _bar;
 
 		private Tweener _tweener;
