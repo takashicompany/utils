@@ -834,6 +834,19 @@
 			);
 		}
 
+		/// <summary>
+		/// XZ座標でfromからtoの点がforward方向から一定角度の範囲内かを判定する
+		/// </summary>
+		public static bool IsInAngleXZ(Vector3 from, Vector3 to, Vector3 forward, float angleThreshold)
+		{
+			Vector3 direction = to - from;
+			direction.y = 0;
+			direction.Normalize();
+			float angle = Vector3.Angle(forward, direction);
+
+			return angle <= angleThreshold;
+		}
+
 #endregion
 
 #region Vector3Int
