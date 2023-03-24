@@ -2055,6 +2055,25 @@
 		}
 #endregion
 
+#region NavMeshAgent
+		public static bool IsReachedDestinationOrGaveUp(this UnityEngine.AI.NavMeshAgent self)
+		{
+
+			if (!self.pathPending)
+			{
+				if (self.remainingDistance <= self.stoppingDistance)
+				{
+					if (!self.hasPath || self.velocity.sqrMagnitude == 0f)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+#endregion
+
 		public static Vector3Int ToV3IntXZ(this Vector2Int self)
 		{
 			return new Vector3Int(self.x, 0, self.y);
