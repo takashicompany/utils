@@ -850,6 +850,12 @@
 		public static Quaternion LookAt(this Quaternion currentRotation, Vector3 from, Vector3 to, float delta)
 		{
 			var direction = to - from;
+			
+			if (direction.magnitude == 0)
+			{
+				return Quaternion.identity;
+			}
+
 			var targetRotation = Quaternion.LookRotation(direction);
 			return Quaternion.Slerp(currentRotation, targetRotation, delta);
 		}
