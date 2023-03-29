@@ -847,6 +847,13 @@
 			return angle <= angleThreshold;
 		}
 
+		public static Quaternion LookAt(this Quaternion currentRotation, Vector3 from, Vector3 to, float delta)
+		{
+			var direction = to - from;
+			var targetRotation = Quaternion.LookRotation(direction);
+			return Quaternion.Slerp(currentRotation, targetRotation, delta);
+		}
+
 #endregion
 
 #region Vector3Int
@@ -1274,6 +1281,11 @@
 			return result;
 		}
 
+		public static Quaternion LookAt(this Transform transform, Vector3 to, float delta)
+		{
+			transform.rotation = transform.rotation.LookAt(transform.position, to, delta);
+			return transform.rotation;
+		}
 #endregion
 
 #region  RectTransform
