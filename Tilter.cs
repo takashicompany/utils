@@ -7,13 +7,13 @@ namespace takashicompany.Unity
 
 	public class Tilter : MonoBehaviour
 	{
-		[SerializeField, Header("傾けたい確度")]
-		private Vector3 _tiltRotate;
+		[Header("傾けたい確度")]
+		public Vector3 tiltRotate = Vector3.right * 30;
 
 		private void LateUpdate()
 		{
 			transform.localRotation = Quaternion.identity;
-			transform.Rotate(_tiltRotate, Space.World);
+			transform.Rotate(tiltRotate, Space.World);
 		}
 	}
 }
