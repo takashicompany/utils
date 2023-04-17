@@ -16,15 +16,15 @@ namespace takashicompany.Unity
 
 		public Animator animator => TaBehaviour.ReturnOrGet<Animator>(this, ref _animator);
 
-		public delegate void ChangeStateDelegate(int layer, string prevStateName, string currentStateName);
+		public delegate void ChangeStateDelegate(int layer, int prevStateHash, int currentStateHash);
 
 		public event ChangeStateDelegate onChangeState;
 
-		private Dictionary<int, string> _dict;
+		private Dictionary<int, int> _dict;
 
 		private void Awake()
 		{
-			_dict = new Dictionary<int, string>();
+			_dict = new Dictionary<int, int>();
 
 			for (int i = 0; i < animator.layerCount; i++)
 			{
@@ -60,9 +60,9 @@ namespace takashicompany.Unity
 			}
 		}
 
-		private string GetCurrentStateName(int index)
+		private int GetCurrentStateName(int index)
 		{
-			return animator.GetCurrentAnimatorStateInfo(index).fullPathHash.ToString();
+			return animator.GetCurrentAnimatorStateInfo(index).fullPathHash;
 		}
 	}
 }
