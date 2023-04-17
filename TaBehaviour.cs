@@ -29,7 +29,7 @@ namespace takashicompany.Unity
 
 			T c = null;
 
-			c = ReturnOrGet<T>(ref c);
+			c = ReturnOrGet<T>(this, ref c);
 
 			_componentDict.Add(typeof(T), c);
 
@@ -45,7 +45,7 @@ namespace takashicompany.Unity
 
 			T c = null;
 
-			c = ReturnOrGetChildren<T>(ref c);
+			c = ReturnOrGetChildren<T>(this, ref c);
 
 			_componentDict.Add(typeof(T), c);
 
@@ -75,26 +75,26 @@ namespace takashicompany.Unity
 
 			T c = null;
 
-			c = ReturnOrGetParent<T>(ref c);
+			c = ReturnOrGetParent<T>(this, ref c);
 
 			_componentDict.Add(typeof(T), c);
 
 			return c;
 		}
 
-		protected T ReturnOrGet<T>(ref T internalComponent) where T : Component
+		public static T ReturnOrGet<T>(Component c, ref T internalComponent) where T : Component
 		{
-			return internalComponent ?? (internalComponent = GetComponent<T>());
+			return internalComponent ?? (internalComponent = c.GetComponent<T>());
 		}
 
-		protected T ReturnOrGetChildren<T>(ref T internalComponent) where T : Component
+		public static T ReturnOrGetChildren<T>(Component c, ref T internalComponent) where T : Component
 		{
-			return internalComponent ?? (internalComponent = this.GetComponentInChildren<T>());
+			return internalComponent ?? (internalComponent = c.GetComponentInChildren<T>());
 		}
 
-		protected T ReturnOrGetParent<T>(ref T internalComponent) where T : Component
+		public static T ReturnOrGetParent<T>(Component c, ref T internalComponent) where T : Component
 		{
-			return internalComponent ?? (internalComponent = this.GetComponentInChildren<T>());
+			return internalComponent ?? (internalComponent = c.GetComponentInParent<T>());
 		}
 	}
 }
