@@ -2024,7 +2024,10 @@
 			return self.IsName(stateName) && self.normalizedTime < 1f;
 		}
 
-		public static void Insert(this MonoBehaviour self, Animator animator, string stateName, int layerIndex = 0)
+		/// <summary>
+		/// 指定されたアニメーションを再生して、且つ元のアニメーションステートにクロスフェードさせる
+		/// </summary>
+		public static void InsertAnimation(this MonoBehaviour self, Animator animator, string stateName, int layerIndex = 0)
 		{
 			var stateInfo = animator.GetCurrentAnimatorStateInfo(layerIndex);
 			
