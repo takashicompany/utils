@@ -2024,6 +2024,23 @@
 			return self.IsName(stateName) && self.normalizedTime < 1f;
 		}
 
+		public static void Insert(this MonoBehaviour self, Animator animator, string stateName, int layerIndex = 0)
+		{
+			var stateInfo = animator.GetCurrentAnimatorStateInfo(layerIndex);
+			
+			var hash = stateInfo.fullPathHash;
+			var normalizedTime = stateInfo.normalizedTime;
+
+			animator.Play(stateName, layerIndex);
+			self.StartCoroutine(CoInsert());
+			
+			IEnumerator CoInsert()
+			{
+				yield return null;
+				animator.CrossFade(hash, 1f, layerIndex, normalizedTime);
+			}
+		}
+
 #endregion
 
 #region Vector2Int
