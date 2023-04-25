@@ -158,8 +158,8 @@ namespace takashicompany.Unity
 			return new List<Transform>(_placed);
 		}
 
-		private void OnDrawGizmos()
-		{
+		private void OnDrawGizmosSelected() {
+		
 			if (_paramList != null)
 			{
 
