@@ -1368,6 +1368,13 @@
 			return c;
 		}
 
+		public static bool TryGetComponentInParent<T>(this Component self, out T component, bool includeInactive = false)
+		{
+			component = self.GetComponentInParent<T>(includeInactive);
+
+			return component != null;
+		}
+
 #endregion
 
 #region GameObject
