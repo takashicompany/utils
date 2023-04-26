@@ -2228,7 +2228,7 @@
 			return true;
 		}
 
-		public static bool TryGetPositionOnRay(Ray ray, int vector3Index, float target, out Vector3 position)
+		public static bool TryGetPositionOnRay(this Ray ray, int vector3Index, float target, out Vector3 position)
 		{
 			// Rayの方向ベクトルを正規化する
 			Vector3 direction = ray.direction.normalized;
