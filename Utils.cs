@@ -834,6 +834,32 @@
 			);
 		}
 
+		/// <summary>
+		/// XZ座標でfromからtoの点がforward方向から一定角度の範囲内かを判定する
+		/// </summary>
+		public static bool IsInAngleXZ(Vector3 from, Vector3 to, Vector3 forward, float angleThreshold)
+		{
+			Vector3 direction = to - from;
+			direction.y = 0;
+			direction.Normalize();
+			float angle = Vector3.Angle(forward, direction);
+
+			return angle <= angleThreshold;
+		}
+
+		public static Quaternion LookAt(this Quaternion currentRotation, Vector3 from, Vector3 to, float delta)
+		{
+			var direction = to - from;
+			
+			if (direction.magnitude == 0)
+			{
+				return Quaternion.identity;
+			}
+
+			var targetRotation = Quaternion.LookRotation(direction);
+			return Quaternion.Slerp(currentRotation, targetRotation, delta);
+		}
+
 #endregion
 
 #region Vector3Int
@@ -1261,6 +1287,11 @@
 			return result;
 		}
 
+		public static Quaternion LookAt(this Transform transform, Vector3 to, float delta)
+		{
+			transform.rotation = transform.rotation.LookAt(transform.position, to, delta);
+			return transform.rotation;
+		}
 #endregion
 
 #region  RectTransform
@@ -1335,6 +1366,13 @@
 			}
 
 			return c;
+		}
+
+		public static bool TryGetComponentInParent<T>(this Component self, out T component, bool includeInactive = false)
+		{
+			component = self.GetComponentInParent<T>(includeInactive);
+
+			return component != null;
 		}
 
 #endregion
@@ -1693,6 +1731,11 @@
 			return transforms.OrderBy(t => Vector3.Distance(worldPoint, t.position)).FirstOrDefault();
 		}
 
+		public static bool IsCloser(this Vector3 from, Vector3 close, Vector3 far)
+		{
+			return Vector3.Distance(from, close) < Vector3.Distance(from, far);
+		}
+
 #endregion
 
 #region Vector2Int
@@ -1988,6 +2031,26 @@
 			return self.IsName(stateName) && self.normalizedTime < 1f;
 		}
 
+		/// <summary>
+		/// 指定されたアニメーションを再生して、且つ元のアニメーションステートにクロスフェードさせる
+		/// </summary>
+		public static void InsertAnimation(this MonoBehaviour self, Animator animator, string stateName, int layerIndex = 0)
+		{
+			var stateInfo = animator.GetCurrentAnimatorStateInfo(layerIndex);
+			
+			var hash = stateInfo.fullPathHash;
+			var normalizedTime = stateInfo.normalizedTime;
+
+			animator.Play(stateName, layerIndex);
+			self.StartCoroutine(CoInsert());
+			
+			IEnumerator CoInsert()
+			{
+				yield return null;
+				animator.CrossFade(hash, 1f, layerIndex, normalizedTime);
+			}
+		}
+
 #endregion
 
 #region Vector2Int
@@ -2039,6 +2102,25 @@
 		public static bool Contains(this LayerMask layerMask, int layer)
 		{
 			return ((1 << layer) & layerMask) != 0;
+		}
+#endregion
+
+#region NavMeshAgent
+		public static bool IsReachedDestinationOrGaveUp(this UnityEngine.AI.NavMeshAgent self)
+		{
+
+			if (!self.pathPending)
+			{
+				if (self.remainingDistance <= self.stoppingDistance)
+				{
+					if (!self.hasPath || self.velocity.sqrMagnitude == 0f)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
 		}
 #endregion
 
@@ -2146,7 +2228,7 @@
 			return true;
 		}
 
-		public static bool TryGetPositionOnRay(Ray ray, int vector3Index, float target, out Vector3 position)
+		public static bool TryGetPositionOnRay(this Ray ray, int vector3Index, float target, out Vector3 position)
 		{
 			// Rayの方向ベクトルを正規化する
 			Vector3 direction = ray.direction.normalized;

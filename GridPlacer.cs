@@ -46,7 +46,21 @@ namespace takashicompany.Unity
 						{
 							var v3int = new Vector3Int(x, y, z);
 							var prefab = _prefabs[Random.Range(0, _prefabs.Length)];
-							var obj = Instantiate(prefab, _root);
+
+							Transform obj = null;
+
+#if UNITY_EDITOR
+							if (Application.isPlaying)
+							{
+								obj = Instantiate(prefab, _root);
+							}
+							else
+							{
+								obj = UnityEditor.PrefabUtility.InstantiatePrefab(prefab, _root) as Transform;
+							}
+#else
+							obj = Instantiate(prefab, _root);
+#endif
 							obj.name = prefab.name + "(" + x + ", " + y + ", " + z + ")";
 							var p = Utils.GetPositionByCell(_grid, v3int, unitPerGrid);
 							obj.position = zeroPoint + p;
@@ -102,13 +116,14 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private Param[] _paramList;
 
+		[SerializeField]
 		private List<Transform> _placed = new List<Transform>();
 
 		void Awake()
 		{
-			foreach (var p in _paramList)
+			if (_placed == null || _placed.Count == 0)
 			{
-				_placed.AddRange(p.Place());
+				Place();
 			}
 		}
 
@@ -117,14 +132,34 @@ namespace takashicompany.Unity
 		{
 
 		}
+		
+		[ContextMenu("配置する")]
+		private void Place()
+		{
+			foreach (var p in _paramList)
+			{
+				_placed.AddRange(p.Place());
+			}
+		}
+
+		[ContextMenu("消去する")]
+		private void Clear()
+		{
+			foreach (var p in _placed)
+			{
+				DestroyImmediate(p.gameObject);
+			}
+
+			_placed.Clear();
+		}
 
 		public List<Transform> GenerateList()
 		{
 			return new List<Transform>(_placed);
 		}
 
-		private void OnDrawGizmos()
-		{
+		private void OnDrawGizmosSelected() {
+		
 			if (_paramList != null)
 			{
 
