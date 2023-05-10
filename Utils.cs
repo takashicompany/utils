@@ -2034,7 +2034,7 @@
 		/// <summary>
 		/// 指定されたアニメーションを再生して、且つ元のアニメーションステートにクロスフェードさせる
 		/// </summary>
-		public static void InsertAnimation(this MonoBehaviour self, Animator animator, string stateName, int layerIndex = 0)
+		public static Coroutine InsertAnimation(this MonoBehaviour self, Animator animator, string stateName, int layerIndex = 0)
 		{
 			var stateInfo = animator.GetCurrentAnimatorStateInfo(layerIndex);
 			
@@ -2042,7 +2042,7 @@
 			var normalizedTime = stateInfo.normalizedTime;
 
 			animator.Play(stateName, layerIndex);
-			self.StartCoroutine(CoInsert());
+			return self.StartCoroutine(CoInsert());
 			
 			IEnumerator CoInsert()
 			{
