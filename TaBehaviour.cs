@@ -25,6 +25,18 @@ namespace takashicompany.Unity
 			return _componentDict.ContainsKey(typeof(T));
 		}
 
+		protected bool TryGetComponentByDict<T>(out T component) where T : Component
+		{
+			if (_componentDict.TryGetValue(typeof(T), out var c))
+			{
+				component = (T)c;
+				return true;
+			}
+
+			component = null;
+			return false;
+		}
+
 		protected T ReturnOrGet<T>() where T : Component
 		{
 			if (_componentDict.TryGetValue(typeof(T), out var component))
