@@ -20,6 +20,11 @@ namespace takashicompany.Unity
 		private Dictionary<Type, Component> _componentDict = new Dictionary<Type, Component>();
 		private Dictionary<Type, Component[]> _componentsDict = new Dictionary<Type, Component[]>();
 
+		protected bool HasComponent<T>() where T : Component
+		{
+			return _componentDict.ContainsKey(typeof(T));
+		}
+
 		protected T ReturnOrGet<T>() where T : Component
 		{
 			if (_componentDict.TryGetValue(typeof(T), out var component))
