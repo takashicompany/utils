@@ -71,6 +71,8 @@
 		[SerializeField]
 		protected Transform _container;
 
+		public Transform container => _container;
+
 		[SerializeField]
 		protected T _prefab;
 
