@@ -2301,6 +2301,42 @@
 				UnityEngine.Debug.DrawLine(center + Vector3.down * size.y / 2, center + Vector3.up * size.y / 2, color, duration);
 				UnityEngine.Debug.DrawLine(center + Vector3.back * size.z / 2, center + Vector3.forward * size.z / 2, color, duration);
 			}
+
+			public static void DrawOctahedron(Vector3 position, float size, Color color, float duration = 1f)
+			{
+				float scale = size / Mathf.Sqrt(2f);
+
+				Vector3 vertex1 = position + new Vector3(0f, scale, 0f);
+				Vector3 vertex2 = position + new Vector3(scale, 0f, 0f);
+				Vector3 vertex3 = position + new Vector3(0f, 0f, scale);
+				Vector3 vertex4 = position + new Vector3(-scale, 0f, 0f);
+				Vector3 vertex5 = position + new Vector3(0f, 0f, -scale);
+				Vector3 vertex6 = position + new Vector3(0f, -scale, 0f);
+
+				UnityEngine.Debug.DrawLine(vertex1, vertex2, color, duration);
+				UnityEngine.Debug.DrawLine(vertex2, vertex3, color, duration);
+				UnityEngine.Debug.DrawLine(vertex3, vertex1, color, duration);
+
+				UnityEngine.Debug.DrawLine(vertex1, vertex4, color, duration);
+				UnityEngine.Debug.DrawLine(vertex4, vertex3, color, duration);
+				UnityEngine.Debug.DrawLine(vertex3, vertex5, color, duration);
+
+				UnityEngine.Debug.DrawLine(vertex5, vertex3, color, duration);
+				UnityEngine.Debug.DrawLine(vertex3, vertex4, color, duration);
+				UnityEngine.Debug.DrawLine(vertex4, vertex6, color, duration);
+
+				UnityEngine.Debug.DrawLine(vertex6, vertex4, color, duration);
+				UnityEngine.Debug.DrawLine(vertex4, vertex1, color, duration);
+				UnityEngine.Debug.DrawLine(vertex1, vertex5, color, duration);
+
+				UnityEngine.Debug.DrawLine(vertex5, vertex1, color, duration);
+				UnityEngine.Debug.DrawLine(vertex1, vertex2, color, duration);
+				UnityEngine.Debug.DrawLine(vertex2, vertex6, color, duration);
+
+				UnityEngine.Debug.DrawLine(vertex6, vertex2, color, duration);
+				UnityEngine.Debug.DrawLine(vertex2, vertex5, color, duration);
+				UnityEngine.Debug.DrawLine(vertex5, vertex6, color, duration);
+			}
 		}
 	}
 
