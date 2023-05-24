@@ -5,7 +5,7 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
-	public class ParticleSystemMaterialController : MonoBehaviour
+	public class ParticleSystemController : MonoBehaviour
 	{
 		[Header("PlayOnAwakeは無効にしておいてください。")]
 		[SerializeField, Header("メインのパーティクル。大抵はパーティクルのルートになるはず。")]
@@ -23,7 +23,7 @@ namespace takashicompany.Unity
 			_particleSystems = GetComponentsInChildren<ParticleSystem>();
 		}
 
-		public void SetColor(Color color)
+		public void SetMaterialColor(Color color)
 		{
 			foreach (var p in _particleSystems)
 			{
@@ -31,6 +31,15 @@ namespace takashicompany.Unity
 				{
 					r.material.color = color;
 				}
+			}
+		}
+
+		public void SetStartColor(Color color)
+		{
+			foreach (var p in _particleSystems)
+			{
+				var main = p.main;
+				main.startColor = color;
 			}
 		}
 
