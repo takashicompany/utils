@@ -1113,6 +1113,37 @@
 			return item;
 		}
 
+		public static IEnumerable<T> PickRandom<T>(this IList<T> self, int amount, bool allowDuplicates = false)
+		{
+			if (allowDuplicates)
+			{
+				for (int i = 0; i < amount; i++)
+				{
+					yield return self.PickRandom();
+				}
+			}
+			else
+			{
+				if (self.Count < amount)
+				{
+					throw new System.Exception("amount is too large");
+				}
+
+				var list = new List<T>(self);
+
+				var count = 0;
+
+				while (count < amount)
+				{
+					var item = list.PickRandom();
+
+					yield return item;
+
+					count++;
+				}
+			}
+		}
+
 		public static List<T> GetRandomSorted<T>(this IList<T> self)
 		{
 			var myList = new List<T>(self);
