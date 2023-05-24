@@ -6,6 +6,7 @@ namespace takashicompany.Unity
 
 	public class AnimationEventWithStringReceiver : AnimationEventReceiver<string>
 	{
-		
+		private Animator _animator;
+		public Animator animator => _animator ?? (_animator = GetComponent<Animator>());
 	}
 }
