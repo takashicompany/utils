@@ -1709,6 +1709,13 @@
 		}
 #endregion
 
+#region Collider
+		public static Vector3 GetBottomPosition(this Collider self)
+		{
+			return new Vector3(self.bounds.center.x, self.bounds.min.y, self.bounds.center.z);
+		}
+#endregion
+
 		public static IEnumerable<T> FindAbove<T>(this Collider self, float height, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
 		{
 			return Physics.OverlapBox(self.bounds.center + Vector3.up * self.bounds.size.y, self.bounds.extents, self.transform.rotation, layerMask, queryTriggerInteraction).Select(c => c.GetComponent<T>());
