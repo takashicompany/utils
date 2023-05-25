@@ -1767,6 +1767,14 @@
 			return Vector3.Distance(from, close) < Vector3.Distance(from, far);
 		}
 
+		public static Vector3 Direction(this Vector3 forward, Vector3 direction)
+		{
+			Vector3 perpendicular = Vector3.Cross(forward, direction).normalized;
+			Vector3 desiredVector = Vector3.Cross(perpendicular, direction).normalized;
+
+			return desiredVector;
+		}
+
 #endregion
 
 #region Vector2Int
