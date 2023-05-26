@@ -152,7 +152,7 @@ namespace takashicompany.Unity
 				Mathf.RoundToInt(bounds.size.z / cellSize.z));
 		}
 
-		public static Vector3 GetPositon(Bounds bounds, Vector3Int point, Vector3 cellSize)
+		public static Vector3 GetPosition(Bounds bounds, Vector3Int point, Vector3 cellSize)
 		{
 			var min = bounds.min + cellSize / 2;
 
@@ -166,7 +166,7 @@ namespace takashicompany.Unity
 
 		public static bool CanPlace(Bounds bounds, Vector3Int point, float y, int layer, Vector3 cellSize, CanPlaceDelegate delegateMethod = null)
 		{
-			var pos = GetPositon(bounds, point, cellSize);
+			var pos = GetPosition(bounds, point, cellSize);
 			pos.y = y;
 
 			// 隣のコライダーにヒットする時があるので、キャストの箱のサイズは0.99倍にしておく
@@ -183,20 +183,24 @@ namespace takashicompany.Unity
 			return success;
 		}
 
-		public static List<Vector3Int> GetPlaceablePoints(IEnumerable<Collider> colliders, float y, int layer, Vector3 cellSize, CanPlaceDelegate delegateMethod = null)
+		public static List<Vector3Int> GetPlaceablePoints(IEnumerable<Collider> colliders, float y, int layer, Vector3 cellSize, out Bounds bounds, out Vector3Int grids, out Vector3 origin, CanPlaceDelegate delegateMethod = null)
 		{
-			var bounds = GetBounds(colliders);
-			var grid = GetGrid(bounds, cellSize);
+			bounds = GetBounds(colliders);
+			grids = GetGrid(bounds, cellSize);
 
 			var points = new List<Vector3Int>();
 
-			grid.Foreach(v3 =>
+			var b = bounds;
+
+			grids.Foreach(v3 =>
 			{
-				if (CanPlace(bounds, v3, y, layer, cellSize, delegateMethod))
+				if (CanPlace(b, v3, y, layer, cellSize, delegateMethod))
 				{
 					points.Add(v3);
 				}
 			});
+
+			origin = GetPosition(bounds, Vector3Int.zero, cellSize);
 
 			return points;
 		}
@@ -208,7 +212,7 @@ namespace takashicompany.Unity
 
 			grid.Foreach(v3 =>
 			{
-				var pos = GetPositon(bounds, v3, _cellSize);
+				var pos = GetPosition(bounds, v3, _cellSize);
 
 				var canPlace = CanPlace(bounds, v3, 50f, 1, _cellSize);
 
