@@ -16,6 +16,8 @@ namespace takashicompany.Unity.UI
 		private Text _uiText;
 		private TextMeshPro _tmText;
 
+		private bool _isInit;
+
 		public string text 
 		{
 			get
@@ -64,11 +66,25 @@ namespace takashicompany.Unity.UI
 
 		private void Init()
 		{
+			if (_isInit)
+			{
+				return;
+			}
+
 			if (_uiText == null && _tmText == null)
 			{
 				_uiText = _obj.GetComponent<Text>();
 				_tmText = _obj.GetComponent<TextMeshPro>();
 			}
+
+			
+			_isInit = true;
+		}
+
+		public bool HasInstance()
+		{
+			Init();
+			return _uiText != null || _tmText != null;
 		}
 	}
 }

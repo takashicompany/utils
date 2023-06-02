@@ -52,6 +52,12 @@ namespace takashicompany.Unity.UI
 			_bar.rectTransform.SimpleHorizontalGauge(r);
 		}
 
+		public void UpdateBar(uint current, uint max)
+		{
+			var r = Mathf.Clamp01((float)current / (float)max);
+			_bar.rectTransform.SimpleHorizontalGauge(r);
+		}
+
 		/// <summary>
 		/// バーをアニメーションさせる。OnCompleteは予約済み
 		/// </summary>

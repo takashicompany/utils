@@ -705,9 +705,10 @@
 		/// </summary>
 		/// <param name="transform"></param>
 		/// <param name="worldPosition"></param>
-		public static  void AttachOnCanvas(this Transform transform, Vector3 worldPosition)
+		public static  void AttachOnCanvas(this Transform transform, Vector3 worldPosition, Camera camera = null)
 		{
-			var sp = Camera.main.WorldToScreenPoint(worldPosition);
+			if (camera == null) camera = Camera.main;
+			var sp = camera.WorldToScreenPoint(worldPosition);
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent as RectTransform, sp, null, out var localPosition);
 			transform.localPosition = localPosition;
 		}
