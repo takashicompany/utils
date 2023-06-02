@@ -7,11 +7,11 @@ namespace takashicompany.Unity
 
 	public interface ITransform
 	{
-		GameObject gameObject { get; }
+		Transform transform { get; }
 	}
 
 	public interface IGameObject
 	{
-		Transform transform { get; }
+		GameObject gameObject { get; }
 	}
 }
