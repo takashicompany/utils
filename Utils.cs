@@ -902,6 +902,7 @@
 			self.Foreach((x, y, z) => function(new Vector3Int(x, y, z)));
 		}
 
+#region BoundsInt
 		public static void Foreach(this BoundsInt b, System.Action<Vector3Int> function, bool includeMax = false)
 		{
 			for (var x = b.xMin; includeMax ? x <= b.xMax : x < b.xMax; x++)
@@ -928,6 +929,93 @@
 					}
 				}
 			}
+		}
+
+		public static bool IsInBounds(this BoundsInt b, Vector3Int p)
+		{
+			return b.IsInBounds(p.x, p.y, p.z);
+		}
+
+		public static bool IsInBounds(this BoundsInt b, int x, int y, int z)
+		{
+			return b.xMin <= x && x < b.xMax && b.yMin <= y && y < b.yMax && b.zMin <= z && z < b.zMax;
+		}
+#endregion
+
+		private static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
+		{
+			var min = new Vector3Int(int.MaxValue, int.MaxValue, int.MaxValue);
+			var max = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
+
+			foreach (var p in points)
+			{
+				min.x = System.Math.Min(min.x, p.x);
+				min.y = System.Math.Min(min.y, p.y);
+				min.z = System.Math.Min(min.z, p.z);
+
+				max.x = System.Math.Max(max.x, p.x);
+				max.y = System.Math.Max(max.y, p.y);
+				max.z = System.Math.Max(max.z, p.z);
+			}
+
+			return new BoundsInt(min, max - min);
+		}
+
+		public static IEnumerable<Vector3Int> GetBarePoints(this IEnumerable<Vector3Int> points)
+		{
+			foreach (var p in points)
+			{
+				if (IsBare(points, p))
+				{
+					yield return p;
+				}
+			}
+		}
+
+		public static IEnumerable<Vector3Int> GetInsidePoints(this IEnumerable<Vector3Int> points)
+		{
+			foreach (var p in points)
+			{
+				if (!IsBare(points, p))
+				{
+					yield return p;
+				}
+			}
+		}
+
+		public static bool IsBare(this IEnumerable<Vector3Int> points, Vector3Int p)
+		{
+			var bounds = points.GetBoundsInt();
+
+			for (var x = -1; x <= 1; x++)
+			{
+				for (var y = -1; y <= 1; y++)
+				{
+					for (var z = -1; z <= 1; z++)
+					{
+						if (x == p.x && y == p.y && z == p.z)
+						{
+							continue;
+						}
+
+						var current = new Vector3Int(p.x + x, p.y + y, p.z + z);
+
+						if (!bounds.IsInBounds(current))	// 範囲外に触れているなら、むき出しとする
+						{
+							UnityEngine.Debug.Log($"out of bounds: {current}");
+							return true;
+						}
+
+						if (!points.Contains(current))
+						{
+							UnityEngine.Debug.Log($"not contains: {current}");
+							return true;
+						}
+ 					}
+				}
+			}
+
+			return false;
 		}
 
 		// public static void GetPositionOnGrids(Vector3Int gridSize, Vector3 unitPerGrid, out Vector3[,,] centerPositions, out Vector3[,,] crossPositions)
@@ -2139,6 +2227,69 @@
 			}
 
 			return result;
+		}
+
+		public static RectInt GetRectInt(this IEnumerable<Vector2Int> points)
+		{
+			var minX = int.MaxValue;
+			var minY = int.MaxValue;
+			var maxX = int.MinValue;
+			var maxY = int.MinValue;
+
+			foreach (var point in points)
+			{
+				minX = Mathf.Min(minX, point.x);
+				minY = Mathf.Min(minY, point.y);
+				maxX = Mathf.Max(maxX, point.x);
+				maxY = Mathf.Max(maxY, point.y);
+			}
+
+			return new RectInt(minX, minY, maxX - minX, maxY - minY);
+		}
+
+		public static HashSet<Vector2Int> GetInside(this IEnumerable<Vector2Int> points)
+		{
+			var results = new HashSet<Vector2Int>();
+			
+			var rect = points.GetRectInt();
+
+			var dict = new Dictionary<Vector2Int, bool>();
+
+			foreach (var p in points)
+			{
+				dict.TryAdd(p, true);
+			}
+
+			foreach (var p in points)
+			{
+				if (rect.xMin < p.x && p.x < rect.xMax && rect.yMin < p.y && p.y < rect.yMax)
+				{
+					var isInside = true;
+					for (var x = -1; isInside && x <= 1; x++)
+					{
+						for (var y = -1; isInside && y <= 1; y++)
+						{
+							if (x == 0 && y == 0)
+							{
+								continue;
+							}
+
+							if (!dict.ContainsKey(p + new Vector2Int(x, y)))
+							{
+								isInside = false;
+								break;
+							}
+						}
+					}
+
+					if (isInside)
+					{
+						results.Add(p);
+					}
+				}
+			}
+
+			return results;
 		}
 
 		
