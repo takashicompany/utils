@@ -1,6 +1,7 @@
 namespace takashicompany.Unity
 {
 	using System;
+	using System.Linq;
 	using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
@@ -17,15 +18,15 @@ namespace takashicompany.Unity
 
 		protected Animator _animator => ReturnOrGetChildren<Animator>();
 
-		private Dictionary<Type, Component> _componentDict = new Dictionary<Type, Component>();
-		private Dictionary<Type, Component[]> _componentsDict = new Dictionary<Type, Component[]>();
+		private Dictionary<Type, object> _componentDict = new Dictionary<Type, object>();
+		private Dictionary<Type, object[]> _componentsDict = new Dictionary<Type, object[]>();
 
-		protected bool HasComponent<T>() where T : Component
+		protected bool HasComponent<T>() 
 		{
 			return _componentDict.ContainsKey(typeof(T));
 		}
 
-		protected bool TryGetComponentByDict<T>(out T component) where T : Component
+		protected bool TryGetComponentByDict<T>(out T component) 
 		{
 			if (_componentDict.TryGetValue(typeof(T), out var c))
 			{
@@ -33,18 +34,18 @@ namespace takashicompany.Unity
 				return true;
 			}
 
-			component = null;
+			component = default;
 			return false;
 		}
 
-		protected T ReturnOrGet<T>() where T : Component
+		protected T ReturnOrGet<T>() 
 		{
 			if (_componentDict.TryGetValue(typeof(T), out var component))
 			{
 				return (T)component;
 			}
 
-			T c = null;
+			T c = default;
 
 			c = ReturnOrGet<T>(this, ref c);
 
@@ -53,14 +54,14 @@ namespace takashicompany.Unity
 			return c;
 		}
 
-		protected T ReturnOrGetChildren<T>() where T : Component
+		protected T ReturnOrGetChildren<T>() 
 		{
 			if (_componentDict.TryGetValue(typeof(T), out var component))
 			{
 				return (T)component;
 			}
 
-			T c = null;
+			T c = default;
 
 			c = ReturnOrGetChildren<T>(this, ref c);
 
@@ -69,28 +70,28 @@ namespace takashicompany.Unity
 			return c;
 		}
 
-		protected T[] ReturnsOrGetChildren<T>() where T : Component
+		protected T[] ReturnsOrGetChildren<T>() 
 		{
 			if (_componentsDict.TryGetValue(typeof(T), out var components))
 			{
-				return (T[])components;
+				return components.ToArray() as T[];
 			}
 
 			var result = GetComponentsInChildren<T>();
 
-			_componentsDict.Add(typeof(T), result);
+			_componentsDict.Add(typeof(T), result.ToArray() as object[]);
 
 			return result;
 		}
 
-		protected T ReturnOrGetParent<T>() where T : Component
+		protected T ReturnOrGetParent<T>() 
 		{
 			if (_componentDict.TryGetValue(typeof(T), out var component))
 			{
 				return (T)component;
 			}
 
-			T c = null;
+			T c = default;
 
 			c = ReturnOrGetParent<T>(this, ref c);
 
@@ -99,17 +100,17 @@ namespace takashicompany.Unity
 			return c;
 		}
 
-		public static T ReturnOrGet<T>(Component c, ref T internalComponent) where T : Component
+		public static T ReturnOrGet<T>(Component c, ref T internalComponent) 
 		{
 			return internalComponent ?? (internalComponent = c.GetComponent<T>());
 		}
 
-		public static T ReturnOrGetChildren<T>(Component c, ref T internalComponent) where T : Component
+		public static T ReturnOrGetChildren<T>(Component c, ref T internalComponent) 
 		{
 			return internalComponent ?? (internalComponent = c.GetComponentInChildren<T>());
 		}
 
-		public static T ReturnOrGetParent<T>(Component c, ref T internalComponent) where T : Component
+		public static T ReturnOrGetParent<T>(Component c, ref T internalComponent) 
 		{
 			return internalComponent ?? (internalComponent = c.GetComponentInParent<T>());
 		}
