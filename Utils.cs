@@ -1887,6 +1887,26 @@
 		{
 			return RandomVector3Int(Vector3Int.zero, max);
 		}
+
+		public static void Foreach(this Vector3Int from, Vector3Int to, System.Action<Vector3> callback)
+		{
+			var signZ = to.z - from.z >= 0 ? 1 : -1;
+			var countZ = Mathf.Abs(to.z - from.z);
+			do
+			{
+				var signY = to.y - from.y >= 0 ? 1 : -1;
+				var countY = Mathf.Abs(to.y - from.y);
+				do
+				{
+					var signX = to.x - from.x >= 0 ? 1 : -1;
+					var countX = Mathf.Abs(to.x - from.x);
+					do
+					{
+						callback(new Vector3(from.x, from.y, from.z));
+					} while (countX-- > 0);
+				} while (countY-- > 0);
+			} while (countZ-- > 0);
+		}
 #endregion
 
 #region Rect
