@@ -248,6 +248,28 @@
 			self.Foreach((x, y, item) => callback(new Vector2Int(x, y), item));
 		}
 
+		public static void Foreach<T>(this T[,,] self, System.Func<int, int, int, T, bool> callback)
+		{
+			for (var x = 0; x < self.GetLength(0); x++)
+			{
+				for (var y = 0; y < self.GetLength(1); y++)
+				{
+					for (var z = 0; z < self.GetLength(2); z++)
+					{
+						if (callback.Invoke(x, y, z, self[x, y, z]))
+						{
+							return;
+						}
+					}
+				}
+			}
+		}
+
+		public static void Foreach<T>(this T[,,] self, System.Func<Vector3Int, T, bool> callback)
+		{
+			self.Foreach((x, y, z, item)=> callback?.Invoke(new Vector3Int(x, y, z), item));
+		}
+
 		public delegate bool BareDelegate<T>(T target) where T : IEquatable<T>;
 
 		public static bool IsBare<T>(this T[,,] self, Vector3Int p) where T : IEquatable<T>
