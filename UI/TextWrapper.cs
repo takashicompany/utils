@@ -6,9 +6,10 @@ namespace takashicompany.Unity.UI
 	using UnityEngine;
 	using UnityEngine.UI;
 	using TMPro;
+	using takashicompany.Unity;
 	
 	[System.Serializable]
-	public class TextWrapper
+	public class TextWrapper : ITransform, IGameObject
 	{
 		[SerializeField]
 		private MaskableGraphic _obj;
@@ -63,6 +64,9 @@ namespace takashicompany.Unity.UI
 				}
 			}
 		}
+
+		public Transform transform => _obj.transform;
+		public GameObject gameObject => _obj.gameObject;
 
 		private void Init()
 		{
