@@ -1100,25 +1100,17 @@
 
 		public static Vector3Int GetCellPosition(Vector3Int cells, Vector3 cellSize, Vector3 position)
 		{
-			// なんでこの実装にしていたのか謎だから一応は残す
 
-			// // マスあたりのサイズ x マス数で全体の大きさを出す
-			// var size = new Vector3(cellSize.x * cells.x, cellSize.y * cells.y, cellSize.z * cells.z);
+			// マスあたりのサイズ x マス数で全体の大きさを出す
+			var size = new Vector3(cellSize.x * cells.x, cellSize.y * cells.y, cellSize.z * cells.z);
 
-			// // 原点の座標を出す
-			// var origin = size / -2;
+			// 原点(左下後)の座標を出す
+			var origin = size / -2;
 
-			// // 原点から見た時の距離
-			// var p = position - origin;
+			// 原点から見た時の距離
+			var p = position - origin;
 			
-			//  return new Vector3Int((int)Mathf.Floor(p.x / cellSize.x), (int)Mathf.Floor(p.y / cellSize.y), (int)Mathf.Floor(p.z / cellSize.z));
-
-			return new Vector3Int(
-				(int)System.Math.Round(position.x / cellSize.x, System.MidpointRounding.AwayFromZero),
-				(int)System.Math.Round(position.y / cellSize.y, System.MidpointRounding.AwayFromZero),
-				(int)System.Math.Round(position.z / cellSize.z, System.MidpointRounding.AwayFromZero)
-			);
-
+			return new Vector3Int((int)Mathf.Floor(p.x / cellSize.x), (int)Mathf.Floor(p.y / cellSize.y), (int)Mathf.Floor(p.z / cellSize.z));
 		}
 #endregion
 
