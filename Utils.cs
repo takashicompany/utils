@@ -1872,6 +1872,11 @@
 			return transforms.OrderBy(t => Vector3.Distance(worldPoint, t.position)).FirstOrDefault();
 		}
 
+		public static Transform GetClosest(this Vector3 worldPoint, IEnumerable<Transform> transforms)
+		{
+			return transforms.OrderBy(t => Vector3.Distance(worldPoint, t.position)).FirstOrDefault();
+		}
+
 		public static bool IsCloser(this Vector3 from, Vector3 close, Vector3 far)
 		{
 			return Vector3.Distance(from, close) < Vector3.Distance(from, far);
