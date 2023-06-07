@@ -127,4 +127,32 @@
 			obj.gameObject.SetActive(true);
 		}
 	}
+	
+
+	/// <summary>
+	/// Prefabを元にPoolingContainerを生成するクラス
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	public class ActivePoolingContainerPrefabBundle<T> where T : Component
+	{
+		private Transform _root;
+		private Dictionary<T, ActivePoolingContainer<T>> _containers = new Dictionary<T, ActivePoolingContainer<T>>();
+
+		public ActivePoolingContainerPrefabBundle(Transform root)
+		{
+			_root = root;
+		}
+
+		public T GetOrInstantiate(T prefab)
+		{
+			if (!_containers.ContainsKey(prefab))
+			{
+				var pool = new ActivePoolingContainer<T>();
+				pool.Setup(prefab, _root);
+				_containers.Add(prefab, pool);
+			}
+
+			return _containers[prefab].Get();
+		}
+	}
 }
