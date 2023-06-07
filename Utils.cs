@@ -1810,6 +1810,18 @@
 
 			return dict.ContainsKey(key);
 		}
+
+		public static string ToDebugString<K, V>(this IDictionary<K, V> dict)
+		{
+			var sb = new System.Text.StringBuilder();
+
+			foreach (var kvp in dict)
+			{
+				sb.AppendLine($"{kvp.Key} : {kvp.Value}");
+			}
+
+			return sb.ToString();
+		}
 #endregion
 
 #region Collider
