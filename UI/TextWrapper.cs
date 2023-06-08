@@ -15,7 +15,7 @@ namespace takashicompany.Unity.UI
 		private MaskableGraphic _obj;
 
 		private Text _uiText;
-		private TextMeshPro _tmText;
+		private TextMeshProUGUI _tmText;
 
 		private bool _isInit;
 
@@ -78,7 +78,7 @@ namespace takashicompany.Unity.UI
 			if (_uiText == null && _tmText == null)
 			{
 				_uiText = _obj.GetComponent<Text>();
-				_tmText = _obj.GetComponent<TextMeshPro>();
+				_tmText = _obj.GetComponent<TextMeshProUGUI>();
 			}
 
 			
