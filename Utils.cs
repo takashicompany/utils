@@ -930,7 +930,7 @@
 		{
 			for (var x = b.xMin; includeMax ? x <= b.xMax : x < b.xMax; x++)
 			{
-				for (var y = b.yMin; includeMax ? y <= b.yMax : x < b.yMax; y++)
+				for (var y = b.yMin; includeMax ? y <= b.yMax : y < b.yMax; y++)
 				{
 					for (var z = b.zMin; includeMax ? z <= b.zMax : z < b.zMax; z++)
 					{
@@ -944,7 +944,7 @@
 		{
 			for (var x = b.xMin; includeMax ? x <= b.xMax : x < b.xMax; x++)
 			{
-				for (var y = b.yMin; includeMax ? y <= b.yMax : x < b.yMax; y++)
+				for (var y = b.yMin; includeMax ? y <= b.yMax : y < b.yMax; y++)
 				{
 					for (var z = b.zMin; includeMax ? z <= b.zMax : z < b.zMax; z++)
 					{
