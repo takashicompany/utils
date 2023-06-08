@@ -21,7 +21,7 @@ namespace takashicompany.Unity.UI
 		[SerializeField]
 		private RectTransform _flyDestination;
 
-		public void Play(int amount, Vector3 worldPosition, Camera camera = null)
+		public void Play(int amount, Vector3 worldPosition, System.Action onComplete = null, Camera camera = null)
 		{
 			if (camera == null) camera = Camera.main;
 			var sp = camera.WorldToScreenPoint(worldPosition);
@@ -40,12 +40,20 @@ namespace takashicompany.Unity.UI
 				scatterPosition = scatterPosition * Random.Range(_minScatterDistance, _maxScatterDistance);
 
 				seq.Append(coin.transform.DOLocalMove(coin.transform.localPosition + scatterPosition, 0.25f).SetEase(Ease.OutCubic));
-				seq.AppendInterval(0.5f);
+				seq.AppendInterval(0.5f + 0.025f * i);
 				seq.Append(coin.transform.DOLocalMove(_flyDestination.localPosition, 0.25f).SetEase(Ease.InCubic));
 				seq.AppendCallback(() =>
 				{
 					coin.gameObject.SetActive(false);
 				});
+
+				if (i == amount - 1)
+				{
+					seq.OnComplete(() =>
+					{
+						onComplete?.Invoke();
+					});
+				}
 			}
 		}
 	}
