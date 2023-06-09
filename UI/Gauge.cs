@@ -58,6 +58,11 @@ namespace takashicompany.Unity.UI
 			_bar.rectTransform.SimpleHorizontalGauge(r);
 		}
 
+		public void UpdateBarColor(Color color)
+		{
+			_bar.color = color;
+		}
+
 		/// <summary>
 		/// バーをアニメーションさせる。OnCompleteは予約済み
 		/// </summary>
