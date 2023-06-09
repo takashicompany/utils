@@ -7,6 +7,7 @@ namespace takashicompany.Unity.UI
 	using UnityEngine.UI;
 	using TMPro;
 	using takashicompany.Unity;
+	using DG.Tweening;
 	
 	[System.Serializable]
 	public class TextWrapper : ITransform, IGameObject
@@ -89,6 +90,38 @@ namespace takashicompany.Unity.UI
 		{
 			Init();
 			return _uiText != null || _tmText != null;
+		}
+
+		public Tweener DOFade(float a, float duration)
+		{
+			Init();
+
+			if (_uiText != null)
+			{
+				return _uiText.DOFade(a, duration);
+			}
+			else
+			{
+				return _tmText.DOFade(a, duration);
+			}
+		}
+
+		public void SetAlpha(float a)
+		{
+			Init();
+
+			if (_uiText != null)
+			{
+				var c = _uiText.color;
+				c.a = a;
+				_uiText.color = c;
+			}
+			else
+			{
+				var c = _tmText.color;
+				c.a = a;
+				_tmText.color = c;
+			}
 		}
 	}
 }

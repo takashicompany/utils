@@ -1542,6 +1542,13 @@
 				self.SetActive(active);
 			}
 		}
+
+		public static bool SetActiveIfMe(this GameObject self, GameObject other)
+		{
+			var result = self == other;
+			self.SetActive(result);
+			return result;
+		}
 #endregion
 
 		public static Color SetAlpha(this Color self, float alpha)
