@@ -12,6 +12,7 @@ namespace takashicompany.Unity
 		protected Renderer[] _renderers => ReturnsOrGetChildren<Renderer>();
 
 		protected Rigidbody _rigidbody => ReturnOrGet<Rigidbody>();
+		protected Rigidbody2D _rigidbody2D => ReturnOrGet<Rigidbody2D>();
 		
 		protected Collider _collider => ReturnOrGet<Collider>();
 		protected Collider2D _collider2D => ReturnOrGet<Collider2D>();
