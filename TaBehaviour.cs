@@ -20,7 +20,7 @@ namespace takashicompany.Unity
 		protected Animator _animator => ReturnOrGetChildren<Animator>();
 
 		private Dictionary<Type, object> _componentDict = new Dictionary<Type, object>();
-		private Dictionary<Type, object[]> _componentsDict = new Dictionary<Type, object[]>();
+		private Dictionary<Type, Component[]> _componentsDict = new Dictionary<Type, Component[]>();
 
 		protected bool HasComponent<T>() 
 		{
@@ -71,16 +71,16 @@ namespace takashicompany.Unity
 			return c;
 		}
 
-		protected T[] ReturnsOrGetChildren<T>() 
+		protected T[] ReturnsOrGetChildren<T>() where T : Component
 		{
 			if (_componentsDict.TryGetValue(typeof(T), out var components))
 			{
-				return components.ToArray() as T[];
+				return (T[])components;
 			}
 
 			var result = GetComponentsInChildren<T>();
 
-			_componentsDict.Add(typeof(T), result.ToArray() as object[]);
+			_componentsDict.Add(typeof(T), result);
 
 			return result;
 		}
