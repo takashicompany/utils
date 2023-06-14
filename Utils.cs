@@ -1724,10 +1724,34 @@
 			});
 		}
 
-		public static Tweener DOFlash(this SpriteRenderer renderer, float duration, Color addColor, Color subtractColor)
+		public static Tweener DOFlash(this SpriteRenderer renderer, float duration, Color addColor, float addRatio)
 		{
-			
+			return renderer.material.DOFlash(duration, addColor, addRatio);
 		}
+
+		public static Tweener DOFlash(this Material material, float duration, Color addColor, float addRatio)
+		{
+			var v = 0f;
+			var beforeAddColor = material.GetAddColor();
+			var beforeAddRatio = material.GetAddRatio();
+			return DOTween.To(() => v, val => v = val, 1f, duration).OnUpdate(() =>
+			{
+				material.SetColor("_AddColor", Color.Lerp(beforeAddColor, addColor, v));
+				material.SetFloat("_AddRatio", Mathf.Lerp(beforeAddRatio, addRatio, v));
+			});
+		}
+
+		public static Color GetAddColor(this Material material)
+		{
+			return material.GetColor("_AddColor");
+		}
+
+		public static float GetAddRatio(this Material material)
+		{
+			return material.GetFloat("_AddRatio");
+		}
+
+	
 #region Dictionary
 		/// <summary>
 		/// Dictionary<K, V>からDictionay<V, K>を生成する。
