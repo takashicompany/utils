@@ -1724,20 +1724,21 @@
 			});
 		}
 
-		public static Tweener DOFlash(this SpriteRenderer renderer, float duration, Color addColor, float addRatio)
+#region SpriteRenderer Flash
+		public static Tweener DOFlash(this SpriteRenderer renderer, Color addColor, float addRatio, float duration)
 		{
-			return renderer.material.DOFlash(duration, addColor, addRatio);
+			return renderer.material.DOFlash(addColor, addRatio, duration).SetTarget(renderer);
 		}
 
-		public static Tweener DOFlash(this Material material, float duration, Color addColor, float addRatio)
+		public static Tweener DOFlash(this Material material, Color addColor, float addRatio, float duration)
 		{
 			var v = 0f;
 			var beforeAddColor = material.GetAddColor();
 			var beforeAddRatio = material.GetAddRatio();
 			return DOTween.To(() => v, val => v = val, 1f, duration).OnUpdate(() =>
 			{
-				material.SetColor("_AddColor", Color.Lerp(beforeAddColor, addColor, v));
-				material.SetFloat("_AddRatio", Mathf.Lerp(beforeAddRatio, addRatio, v));
+				material.SetAddColor(Color.Lerp(beforeAddColor, addColor, v));
+				material.SetAddRatio(Mathf.Lerp(beforeAddRatio, addRatio, v));
 			});
 		}
 
@@ -1751,6 +1752,37 @@
 			return material.GetFloat("_AddRatio");
 		}
 
+		public static void SetAddColor(this Material material, Color color)
+		{
+			material.SetColor("_AddColor", color);
+		}
+
+		public static void SetAddRatio(this Material material, float ratio)
+		{
+			material.SetFloat("_AddRatio", ratio);
+		}
+
+		public static void ResetAdd(this Material material)
+		{
+			material.SetAddColor(Color.clear);
+			material.SetAddRatio(0f);
+		}
+
+		public static void ResetAdd(this SpriteRenderer renderer)
+		{
+			renderer.material.ResetAdd();
+		}
+
+		public static void SetAddColor(this SpriteRenderer renderer, Color color)
+		{
+			renderer.material.SetAddColor(color);
+		}
+
+		public static void SetAddRatio(this SpriteRenderer renderer, float ratio)
+		{
+			renderer.material.SetAddRatio(ratio);
+		}
+#endregion
 	
 #region Dictionary
 		/// <summary>
