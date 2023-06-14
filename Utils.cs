@@ -1426,6 +1426,19 @@
 			transform.rotation = transform.rotation.LookAt(transform.position, to, delta);
 			return transform.rotation;
 		}
+
+		public static void LookAt2D(this Transform transform, Transform to)
+		{
+			transform.LookAt2D(to.position);
+		}
+
+		public static void LookAt2D(this Transform transform, Vector3 to)
+		{
+			// 対象物へのベクトルを算出
+			Vector3 toDirection = to - transform.position;
+			// 対象物へ回転する
+			transform.rotation = Quaternion.FromToRotation(Vector3.up, toDirection);
+		}
 #endregion
 
 #region  RectTransform
