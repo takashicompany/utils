@@ -1723,6 +1723,11 @@
 				}
 			});
 		}
+
+		public static Tweener DOFlash(this SpriteRenderer renderer, float duration, Color addColor, Color subtractColor)
+		{
+			
+		}
 #region Dictionary
 		/// <summary>
 		/// Dictionary<K, V>からDictionay<V, K>を生成する。
