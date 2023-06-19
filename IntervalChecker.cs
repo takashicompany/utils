@@ -9,7 +9,10 @@ namespace takashicompany.Unity
 	public class IntervalChecker
 	{
 		public float interval;
+
+		[HideInInspector]
 		public float nextRemainTime;
+
 		public bool manualReset;
 
 		public IntervalChecker(float interval) : this(interval, false) {}
@@ -17,8 +20,8 @@ namespace takashicompany.Unity
 		public IntervalChecker(float interval, bool manualReset)
 		{
 			this.interval = interval;
-			this.nextRemainTime = 0;
 			this.manualReset = manualReset;
+			Reset();
 		}
 
 		public bool Update(float deltaTime)
