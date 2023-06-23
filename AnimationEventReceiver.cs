@@ -18,7 +18,7 @@ namespace takashicompany.Unity
 
 		private void OnEvent()
 		{
-			_callback.Invoke();
+			_callback?.Invoke();
 			onEvent?.Invoke();
 		}
 	}
