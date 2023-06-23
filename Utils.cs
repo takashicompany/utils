@@ -860,7 +860,7 @@
 		/// <summary>
 		/// XZ座標でfromからtoの点がforward方向から一定角度の範囲内かを判定する
 		/// </summary>
-		public static bool IsInAngleXZ(Vector3 from, Vector3 to, Vector3 forward, float angleThreshold)
+		public static bool IsInAngleXZ(this Vector3 from, Vector3 to, Vector3 forward, float angleThreshold)
 		{
 			Vector3 direction = to - from;
 			direction.y = 0;
@@ -1522,6 +1522,11 @@
 			return component != null;
 		}
 
+		public static IEnumerable<A> GetComponents<A, B>(this IEnumerable<B> self) where A : Component where B : IGameObject
+		{
+			return self.Select(c => c.gameObject.GetComponent<A>()).Where(c => c != null);
+		}
+
 #endregion
 
 #region GameObject
@@ -1910,7 +1915,30 @@
 		{
 			return new Vector3(self.bounds.center.x, self.bounds.min.y, self.bounds.center.z);
 		}
+
+		public static bool IsRayHitting(this Collider self, Ray ray, float distance, int layerMask, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+		{
+			return Physics.Raycast(ray, out var hit, distance, layerMask, queryTriggerInteraction) && hit.collider == self;
+		}
 #endregion
+
+#region LayerMask
+		// LayerMaskにレイヤーを追加する関数 by ChatGPT
+		public static LayerMask AddToLayerMask(this LayerMask original, params string[] layerNamesToAdd)
+		{
+			LayerMask maskToAdd = LayerMask.GetMask(layerNamesToAdd);
+			original.value = original.value | maskToAdd.value;
+			return original;
+		}
+
+		// LayerMaskからレイヤーを削除する関数 by ChatGPT
+		public static LayerMask RemoveFromLayerMask(this LayerMask original, params string[] layerNamesToRemove)
+		{
+			LayerMask maskToRemove = LayerMask.GetMask(layerNamesToRemove);
+			original.value = original.value & ~maskToRemove.value;
+			return original;
+		}
+	#endregion
 
 		public static IEnumerable<T> FindAbove<T>(this Collider self, float height, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
 		{
