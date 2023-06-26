@@ -12,6 +12,11 @@ namespace takashicompany.Unity
 
 		private void LateUpdate()
 		{
+			Tilt(transform, tiltRotate);
+		}
+
+		public static void Tilt(Transform transform, Vector3 tiltRotate)
+		{
 			transform.localRotation = Quaternion.identity;
 			transform.Rotate(tiltRotate, Space.World);
 		}
