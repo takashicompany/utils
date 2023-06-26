@@ -925,6 +925,20 @@
 			self.Foreach((x, y, z) => function(new Vector3Int(x, y, z)));
 		}
 
+		public static IEnumerable<Vector3Int> GetV3Ints(this Vector3Int self)
+		{
+			for (var x = 0; x < self.x; x++)
+			{
+				for (var y = 0; y < self.y; y++)
+				{
+					for (var z = 0; z < self.z; z++)
+					{
+						yield return new Vector3Int(x, y, z);
+					}
+				}
+			}
+		}
+
 #region BoundsInt
 		public static void Foreach(this BoundsInt b, System.Action<Vector3Int> function, bool includeMax = false)
 		{
