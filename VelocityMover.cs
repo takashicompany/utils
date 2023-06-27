@@ -88,7 +88,7 @@ namespace takashicompany.Unity
 			_state = State.Move;
 		}
 
-		public void Brake()
+		public void Breke()
 		{
 			_state = State.Break;
 		}
