@@ -1519,6 +1519,16 @@
 			return self.Select(c => c.GetComponent<T>()).Where(c => c != null);
 		}
 
+		public static T GetOrAddComponent<T>(this GameObject self) where T : Component
+		{
+			if (!self.TryGetComponent<T>(out var c))
+			{
+				c = self.AddComponent<T>();
+			}
+
+			return c;
+		}
+
 		public static T GetOrAddComponent<T>(this Component self) where T : Component
 		{
 			if (!self.TryGetComponent<T>(out var c))

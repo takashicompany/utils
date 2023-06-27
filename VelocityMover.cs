@@ -11,7 +11,7 @@ namespace takashicompany.Unity
 		private float _maxSpeed = 10;
 		
 		[SerializeField]
-		private float _accelerationPerSeconds = 5;
+		private float _accelerationPerSeconds = 10;
 
 		private Rigidbody _rigidbodyInternal;
 		private Rigidbody _rigidbody => _rigidbodyInternal ?? (_rigidbodyInternal = GetComponent<Rigidbody>());
@@ -23,12 +23,37 @@ namespace takashicompany.Unity
 		private float _forceAddTime;
 		private float _forceAddDuration;
 
+		private enum State
+		{
+			Stop,
+			Move,
+			Break
+		}
+
+		private State _state = State.Stop;
+
 		private void FixedUpdate()
 		{
-			var current = _rigidbody.velocity;
-			var addSpeed = _direction.normalized * _accelerationPerSeconds * Time.fixedDeltaTime;
+			if (_state == State.Stop)
+			{
+				_rigidbody.velocity = Vector3.zero;
+				return;
+			}
 
-			current += addSpeed;
+			var current = _rigidbody.velocity;
+			
+			switch (_state)
+			{
+				case State.Move:
+					var addSpeed = _direction.normalized * _accelerationPerSeconds * Time.fixedDeltaTime;
+					current += addSpeed;
+					break;
+
+				case State.Break:
+					var brakeSpeed = current.normalized * _accelerationPerSeconds * Time.fixedDeltaTime;
+					current -= brakeSpeed;
+					break;
+			}
 
 			if (current.magnitude > _maxSpeed)
 			{
@@ -52,9 +77,30 @@ namespace takashicompany.Unity
 			_forceAddDuration = duration;
 		}
 
+		public void Stop()
+		{
+			_state = State.Stop;
+		}
+
 		public void SetDirection(Vector3 direction)
 		{
 			_direction = direction;
+			_state = State.Move;
+		}
+
+		public void Brake()
+		{
+			_state = State.Break;
+		}
+
+		public void SetMaxSpeed(float speed)
+		{
+			_maxSpeed = speed;
+		}
+
+		public void SetAcceleration(float accelerationPerSeconds)
+		{
+			_accelerationPerSeconds = accelerationPerSeconds;
 		}
 	}
 }
