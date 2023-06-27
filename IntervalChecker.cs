@@ -60,5 +60,10 @@ namespace takashicompany.Unity
 		{
 			return 1f - (nextRemainTime / interval);
 		}
+
+		public void Full()
+		{
+			nextRemainTime = 0;
+		}
 	}
 }
