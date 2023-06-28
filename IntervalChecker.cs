@@ -10,6 +10,9 @@ namespace takashicompany.Unity
 	{
 		public float interval;
 
+		[Header("インターバル代入する際のゆらぎ。0からこの値の間をランダムで追加する")]
+		public float intervalJitter;
+
 		[HideInInspector]
 		public float nextRemainTime;
 
@@ -17,10 +20,11 @@ namespace takashicompany.Unity
 
 		public IntervalChecker(float interval) : this(interval, false) {}
 
-		public IntervalChecker(float interval, bool manualReset)
+		public IntervalChecker(float interval, bool manualReset, float intervalJitter = 0f)
 		{
 			this.interval = interval;
 			this.manualReset = manualReset;
+			this.intervalJitter = intervalJitter;
 			Reset();
 		}
 
@@ -32,7 +36,7 @@ namespace takashicompany.Unity
 			{
 				if (!manualReset)
 				{
-					nextRemainTime = interval;
+					Reset();
 				}
 
 				return true;
@@ -41,9 +45,22 @@ namespace takashicompany.Unity
 			return false;
 		}
 
+		private float CalcJitter()
+		{
+			if (intervalJitter == 0)
+			{
+				return 0;
+			}
+
+			var min = Mathf.Min(0, intervalJitter);
+			var max = Mathf.Max(0, intervalJitter);
+
+			return Random.Range(min, max);
+		}
+
 		public void Reset()
 		{
-			nextRemainTime = interval;
+			nextRemainTime = interval + CalcJitter();
 		}
 
 		public bool Update()
@@ -58,7 +75,7 @@ namespace takashicompany.Unity
 
 		public float GetRemainNormalized()
 		{
-			return 1f - (nextRemainTime / interval);
+			return Mathf.Clamp01(1f - (nextRemainTime / interval));
 		}
 
 		public void Full()
