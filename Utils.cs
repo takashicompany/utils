@@ -2355,6 +2355,23 @@
 			onComplete?.Invoke();
 		}
 
+		public static IEnumerator CoPlayAndWait(this Animator self, string stateName, float[] normalizedWaitTimes, System.Action onComplete = null, int layerIndex = 0)
+		{
+			self.Play(stateName, layerIndex);
+
+			yield return null;
+			
+			foreach (var normalizedWaitTime in normalizedWaitTimes)
+			{
+				while (self.GetCurrentAnimatorStateInfo(layerIndex).IsName(stateName) && self.GetCurrentAnimatorStateInfo(layerIndex).normalizedTime < normalizedWaitTime)
+				{
+					yield return null;
+				}
+
+				onComplete?.Invoke();
+			}			
+		}
+
 		/// <summary>
 		/// 特定のStateの再生完了を待っているか。
 		/// この関数を判定に使う場合、Animator.Playを読んでから1フレーム待たないと、stateNameのstateに入らないことがある
