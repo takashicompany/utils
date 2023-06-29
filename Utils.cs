@@ -2001,6 +2001,16 @@
 #endregion
 
 #region Vector3
+
+		public static Vector3 RandomVector3FromZero(this Vector3 self)
+		{
+			return RandomVector3(Vector3.zero, self);
+		}
+
+		public static Vector3 RandomVector3WithMinus(this Vector3 self)
+		{
+			return RandomVector3(-self, self);
+		}
 		
 		public static Vector3 RandomVector3(float min, float max)
 		{
