@@ -1861,15 +1861,21 @@
 			return self[self.GetRandomKey()];
 		}
 
-		public static void AddOrSet<K, V>(this IDictionary<K, V> self, K key, V value)
+		/// <summary>
+		/// 既に存在する場合は上書き、存在しない場合は追加する
+		/// </summary>
+		/// <returns>新しくキーを追加したらtrue</returns>
+		public static bool AddOrSet<K, V>(this IDictionary<K, V> self, K key, V value)
 		{
 			if (self.ContainsKey(key))
 			{
 				self[key] = value;
+				return false;
 			}
 			else
 			{
 				self.Add(key, value);
+				return true;
 			}
 		}
 
