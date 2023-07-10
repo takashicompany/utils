@@ -21,6 +21,11 @@ namespace takashicompany.Unity
 			[SerializeField]
 			private Vector3Int _grid = new Vector3Int(1, 1, 1);
 
+			public Vector3Int grid => _grid;
+
+			[SerializeField]
+			private List<BoundsInt> _noPlaceAreas = new List<BoundsInt>();
+
 			[SerializeField]
 			private Transform[] _prefabs;
 
@@ -45,6 +50,12 @@ namespace takashicompany.Unity
 						for (int z = 0; z < _grid.z; z++)
 						{
 							var v3int = new Vector3Int(x, y, z);
+
+							if (_noPlaceAreas.Any((noPlaceArea) => noPlaceArea.Contains(v3int)))
+							{
+								continue;
+							}
+							
 							var prefab = _prefabs[Random.Range(0, _prefabs.Length)];
 
 							Transform obj = null;
@@ -111,6 +122,11 @@ namespace takashicompany.Unity
 					}
 				}
 			}
+
+			public void AddNoPlaceArea(BoundsInt b)
+			{
+				_noPlaceAreas.Add(b);
+			}
 		}
 		
 		[SerializeField]
@@ -134,11 +150,27 @@ namespace takashicompany.Unity
 		}
 		
 		[ContextMenu("配置する")]
-		private void Place()
+		public void Place()
 		{
 			foreach (var p in _paramList)
 			{
 				_placed.AddRange(p.Place());
+			}
+		}
+
+		public void AddNoPlaceArea(BoundsInt b)
+		{
+			foreach (var p in _paramList)
+			{
+				p.AddNoPlaceArea(b);
+			}
+		}
+
+		public IEnumerable<Vector3Int> GetGrids()
+		{
+			foreach (var p in _paramList)
+			{
+				yield return p.grid;
 			}
 		}
 
