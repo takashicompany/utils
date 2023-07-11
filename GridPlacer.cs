@@ -43,6 +43,8 @@ namespace takashicompany.Unity
 
 				var zeroPoint = GetBounds().center;
 
+				Debug.Log("noplace area count: " + _noPlaceAreas.Count);
+
 				for (int x = 0; x < _grid.x; x++)
 				{
 					for (int y = 0; y < _grid.y; y++)
@@ -53,6 +55,7 @@ namespace takashicompany.Unity
 
 							if (_noPlaceAreas.Any((noPlaceArea) => noPlaceArea.Contains(v3int)))
 							{
+								Debug.Log("no place area");
 								continue;
 							}
 							
@@ -135,18 +138,12 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private List<Transform> _placed = new List<Transform>();
 
-		void Awake()
+		void Start()
 		{
 			if (_placed == null || _placed.Count == 0)
 			{
 				Place();
 			}
-		}
-
-		// https://hwks.hatenadiary.jp/entry/2014/06/13/022747 のため
-		void Start()
-		{
-
 		}
 		
 		[ContextMenu("配置する")]

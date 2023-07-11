@@ -977,6 +977,26 @@
 		{
 			return b.xMin <= x && x < b.xMax && b.yMin <= y && y < b.yMax && b.zMin <= z && z < b.zMax;
 		}
+
+		public static BoundsInt GenerateRandomBounds(this Vector3Int maxBounds, Vector3Int size)
+		{
+			// sizeがmaxBoundsを超えないようにチェック
+			if (size.x > maxBounds.x || size.y > maxBounds.y || size.z > maxBounds.z)
+			{
+				throw new ArgumentException("Size cannot be larger than maxBounds.");
+			}
+
+			// ランダムな開始位置を決定
+			int x = UnityEngine.Random.Range(0, maxBounds.x - size.x + 1);
+			int y = UnityEngine.Random.Range(0, maxBounds.y - size.y + 1);
+			int z = UnityEngine.Random.Range(0, maxBounds.z - size.z + 1);
+			Vector3Int position = new Vector3Int(x, y, z);
+
+			// 新しいBoundsIntを生成
+			BoundsInt randomBounds = new BoundsInt(position, size);
+
+			return randomBounds;
+		}
 #endregion
 
 		private static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
