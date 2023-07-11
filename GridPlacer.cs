@@ -94,7 +94,6 @@ namespace takashicompany.Unity
 
 			public Vector3 GetPosition(Vector3Int cellPosition)
 			{
-				if (Application.isPlaying) Debug.Log($"bounds: {GetBounds()} _grid: {_grid}, cellPosition: {cellPosition} upg: {GetUnitPerGrid()}"); // " + Utils.GetPositionByCell(_grid, cellPosition, GetUnitPerGrid()));
 				return GetBounds().center + Utils.GetPositionByCell(_grid, cellPosition, GetUnitPerGrid());
 			}
 
