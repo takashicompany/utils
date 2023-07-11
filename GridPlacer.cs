@@ -5,46 +5,44 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
-	public interface IPlaced
-	{
-		void OnPlace(Vector3Int pointV3);
-	}
+	// public interface IPlaced
+	// {
+	// 	void OnPlace(Vector3Int pointV3);
+	// }
 
 	public class GridPlacer : MonoBehaviour
 	{
 		[System.Serializable]
-		private class Param
+		public class Param<T> where T : Component
 		{
 			[SerializeField]
 			private Bounds _bounds = new Bounds(Vector3.zero, Vector3.one);
 
 			[SerializeField]
-			private Vector3Int _grid = new Vector3Int(1, 1, 1);
+			private Vector3Int _grids = new Vector3Int(1, 1, 1);
 
-			public Vector3Int grid => _grid;
+			public Vector3Int grids => _grids;
 
 			[SerializeField]
 			private List<BoundsInt> _noPlaceAreas = new List<BoundsInt>();
 
 			[SerializeField]
-			private Transform[] _prefabs;
+			private T[] _prefabs;
 
 			[SerializeField]
 			private Transform _root;
 
-			public List<Transform> Place()
+			public List<T> Place(System.Action<T> onGenerate = null)
 			{
-				var list = new List<Transform>();
-
-				
+				var list = new List<T>();
 
 				var zeroPoint = GetBounds().center;
 
-				for (int x = 0; x < _grid.x; x++)
+				for (int x = 0; x < _grids.x; x++)
 				{
-					for (int y = 0; y < _grid.y; y++)
+					for (int y = 0; y < _grids.y; y++)
 					{
-						for (int z = 0; z < _grid.z; z++)
+						for (int z = 0; z < _grids.z; z++)
 						{
 							var v3int = new Vector3Int(x, y, z);
 
@@ -55,7 +53,7 @@ namespace takashicompany.Unity
 							
 							var prefab = _prefabs[Random.Range(0, _prefabs.Length)];
 
-							Transform obj = null;
+							T obj = default(T);
 
 #if UNITY_EDITOR
 							if (Application.isPlaying)
@@ -64,19 +62,20 @@ namespace takashicompany.Unity
 							}
 							else
 							{
-								obj = UnityEditor.PrefabUtility.InstantiatePrefab(prefab, _root) as Transform;
+								obj = UnityEditor.PrefabUtility.InstantiatePrefab(prefab, _root) as T;	// 動くかは未確認
 							}
 #else
 							obj = Instantiate(prefab, _root);
 #endif
-							obj.name = prefab.name + "(" + x + ", " + y + ", " + z + ")";
-							obj.position = GetPosition(v3int);
+							obj.name = prefab.name;
+							Place(obj, v3int);
+							onGenerate?.Invoke(obj);
 							list.Add(obj);
 
-							if (obj.TryGetComponent<IPlaced>(out var placed))
-							{
-								placed.OnPlace(v3int);
-							}
+							// if (obj.TryGetComponent<IPlaced>(out var placed))
+							// {
+							// 	placed.OnPlace(v3int);
+							// }
 						}
 					}
 				}
@@ -84,17 +83,23 @@ namespace takashicompany.Unity
 				return list;
 			}
 
+			public void Place(T obj, Vector3Int gridPosition)
+			{
+				obj.name = obj.name + "(" + gridPosition.x + ", " + gridPosition.y + ", " + gridPosition.z + ")";
+				obj.transform.position = GetPosition(gridPosition);
+			}
+
 			public Vector3 GetUnitPerGrid()
 			{
 				return new Vector3(
-					_bounds.size.x != 0f ? _bounds.size.x / _grid.x : 0,
-					_bounds.size.y != 0f ? _bounds.size.y / _grid.y : 0,
-					_bounds.size.z != 0f ? _bounds.size.z / _grid.z : 0);
+					_bounds.size.x != 0f ? _bounds.size.x / _grids.x : 0,
+					_bounds.size.y != 0f ? _bounds.size.y / _grids.y : 0,
+					_bounds.size.z != 0f ? _bounds.size.z / _grids.z : 0);
 			}
 
 			public Vector3 GetPosition(Vector3Int cellPosition)
 			{
-				return GetBounds().center + Utils.GetPositionByCell(_grid, cellPosition, GetUnitPerGrid());
+				return GetBounds().center + Utils.GetPositionByCell(_grids, cellPosition, GetUnitPerGrid());
 			}
 
 			private Bounds GetBounds()
@@ -112,17 +117,17 @@ namespace takashicompany.Unity
 				var b = GetBounds();
 
 				var unitPerGrid = new Vector3(
-					_bounds.size.x != 0f ? (float)_bounds.size.x / _grid.x : 0,
-					_bounds.size.y != 0f ? (float)_bounds.size.y / _grid.y : 0,
-					_bounds.size.z != 0f ? (float)_bounds.size.z / _grid.z : 0);
+					_bounds.size.x != 0f ? (float)_bounds.size.x / _grids.x : 0,
+					_bounds.size.y != 0f ? (float)_bounds.size.y / _grids.y : 0,
+					_bounds.size.z != 0f ? (float)_bounds.size.z / _grids.z : 0);
 
 				// var zeroPoint = GetBounds().center;
 
-				for (int x = 0; x < _grid.x; x++)
+				for (int x = 0; x < _grids.x; x++)
 				{
-					for (int y = 0; y < _grid.y; y++)
+					for (int y = 0; y < _grids.y; y++)
 					{
-						for (int z = 0; z <_grid.z; z++)
+						for (int z = 0; z <_grids.z; z++)
 						{
 							// var p = Utils.GetPositionByCell(_grid, new Vector3Int(x, y, z), unitPerGrid);
 
@@ -139,7 +144,7 @@ namespace takashicompany.Unity
 		}
 		
 		[SerializeField]
-		private Param[] _paramList;
+		private Param<Transform>[] _paramList;
 
 		[SerializeField]
 		private List<Transform> _placed = new List<Transform>();
@@ -173,7 +178,7 @@ namespace takashicompany.Unity
 		{
 			foreach (var p in _paramList)
 			{
-				yield return p.grid;
+				yield return p.grids;
 			}
 		}
 
