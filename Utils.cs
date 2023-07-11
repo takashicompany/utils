@@ -2078,6 +2078,20 @@
 			return desiredVector;
 		}
 
+
+		/// <summary>
+		/// とあるベクトルに対して角度をつけたベクトル
+		/// </summary>
+		/// <param name="index">x, y, zのindex</param>
+		/// <returns></returns>
+		public static Vector3 RotateVector(this Vector3 vector, float degrees, int index = 2)
+		{
+			Vector3 v = vector;
+			v[index] = degrees;
+			Quaternion rotation = Quaternion.Euler(v);
+			return rotation * vector;
+		}
+
 #endregion
 
 #region Vector2Int
