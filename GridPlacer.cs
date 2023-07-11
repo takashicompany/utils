@@ -43,8 +43,6 @@ namespace takashicompany.Unity
 
 				var zeroPoint = GetBounds().center;
 
-				Debug.Log("noplace area count: " + _noPlaceAreas.Count);
-
 				for (int x = 0; x < _grid.x; x++)
 				{
 					for (int y = 0; y < _grid.y; y++)
@@ -55,7 +53,6 @@ namespace takashicompany.Unity
 
 							if (_noPlaceAreas.Any((noPlaceArea) => noPlaceArea.Contains(v3int)))
 							{
-								Debug.Log("no place area");
 								continue;
 							}
 							
