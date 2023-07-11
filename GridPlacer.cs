@@ -36,10 +36,7 @@ namespace takashicompany.Unity
 			{
 				var list = new List<Transform>();
 
-				var unitPerGrid = new Vector3(
-					_bounds.size.x != 0f ? _bounds.size.x / _grid.x : 0,
-					_bounds.size.y != 0f ? _bounds.size.y / _grid.y : 0,
-					_bounds.size.z != 0f ? _bounds.size.z / _grid.z : 0);
+				
 
 				var zeroPoint = GetBounds().center;
 
@@ -73,8 +70,7 @@ namespace takashicompany.Unity
 							obj = Instantiate(prefab, _root);
 #endif
 							obj.name = prefab.name + "(" + x + ", " + y + ", " + z + ")";
-							var p = Utils.GetPositionByCell(_grid, v3int, unitPerGrid);
-							obj.position = zeroPoint + p;
+							obj.position = GetPosition(v3int);
 							list.Add(obj);
 
 							if (obj.TryGetComponent<IPlaced>(out var placed))
@@ -86,6 +82,20 @@ namespace takashicompany.Unity
 				}
 				
 				return list;
+			}
+
+			public Vector3 GetUnitPerGrid()
+			{
+				return new Vector3(
+					_bounds.size.x != 0f ? _bounds.size.x / _grid.x : 0,
+					_bounds.size.y != 0f ? _bounds.size.y / _grid.y : 0,
+					_bounds.size.z != 0f ? _bounds.size.z / _grid.z : 0);
+			}
+
+			public Vector3 GetPosition(Vector3Int cellPosition)
+			{
+				if (Application.isPlaying) Debug.Log($"bounds: {GetBounds()} _grid: {_grid}, cellPosition: {cellPosition} upg: {GetUnitPerGrid()}"); // " + Utils.GetPositionByCell(_grid, cellPosition, GetUnitPerGrid()));
+				return GetBounds().center + Utils.GetPositionByCell(_grid, cellPosition, GetUnitPerGrid());
 			}
 
 			private Bounds GetBounds()
@@ -107,7 +117,7 @@ namespace takashicompany.Unity
 					_bounds.size.y != 0f ? (float)_bounds.size.y / _grid.y : 0,
 					_bounds.size.z != 0f ? (float)_bounds.size.z / _grid.z : 0);
 
-				var zeroPoint = GetBounds().center;
+				// var zeroPoint = GetBounds().center;
 
 				for (int x = 0; x < _grid.x; x++)
 				{
@@ -115,9 +125,9 @@ namespace takashicompany.Unity
 					{
 						for (int z = 0; z <_grid.z; z++)
 						{
-							var p = Utils.GetPositionByCell(_grid, new Vector3Int(x, y, z), unitPerGrid);
+							// var p = Utils.GetPositionByCell(_grid, new Vector3Int(x, y, z), unitPerGrid);
 
-							Gizmos.DrawWireCube(zeroPoint + p, unitPerGrid);
+							Gizmos.DrawWireCube(GetPosition(new Vector3Int(x, y, z)), unitPerGrid);
 						}
 					}
 				}
@@ -166,6 +176,11 @@ namespace takashicompany.Unity
 			{
 				yield return p.grid;
 			}
+		}
+
+		public Vector3 GetPosition(Vector3Int cellPosition, int paramListIndex = 0)
+		{
+			return _paramList[paramListIndex].GetPosition(cellPosition);
 		}
 
 		[ContextMenu("消去する")]
