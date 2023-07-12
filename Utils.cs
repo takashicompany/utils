@@ -36,6 +36,28 @@
 		{
 			return GameObject.Instantiate(obj, parent);
 		}
+
+		/// <summary>
+		/// 再生中ではない時は、プレハブの参照がされたInstantiateを行う。
+		/// </summary>
+		public static T InstantiateWithPrefabReference<T>(this T prefab, Transform parent) where T : UnityEngine.Object
+		{
+			T obj = null;
+
+#if UNITY_EDITOR
+			if (!Application.isPlaying)
+			{
+				obj = UnityEditor.PrefabUtility.InstantiatePrefab(prefab, parent) as T;	// 動くかは未確認
+			}
+			if (obj == null)
+			{
+				obj = GameObject.Instantiate(prefab, parent);
+			}
+#else
+			obj = Instantiate(prefab, _root);
+#endif
+			return obj;
+		}
 #endregion
 
 #region int
@@ -2567,6 +2589,7 @@
 
 		
 #endregion
+
 
 #region LayerMask
 		public static bool Contains(this LayerMask layerMask, int layer)

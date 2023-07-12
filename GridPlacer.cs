@@ -29,6 +29,8 @@ namespace takashicompany.Unity
 			[SerializeField]
 			private T[] _prefabs;
 
+			public IReadOnlyList<T> prefabs => _prefabs;
+
 			[SerializeField]
 			private Transform _root;
 
