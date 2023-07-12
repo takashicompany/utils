@@ -34,6 +34,11 @@ namespace takashicompany.Unity
 			[SerializeField]
 			private Transform _root;
 
+			public void SetPrefabs(T[] prefabs)
+			{
+				_prefabs = prefabs;
+			}
+
 			public List<T> Place(System.Action<T> onGenerate = null)
 			{
 				var list = new List<T>();
@@ -142,6 +147,11 @@ namespace takashicompany.Unity
 			public void AddNoPlaceArea(BoundsInt b)
 			{
 				_noPlaceAreas.Add(b);
+			}
+
+			public void AddNoPlaceArea(Vector3Int pos)
+			{
+				_noPlaceAreas.Add(new BoundsInt(pos, Vector3Int.one));
 			}
 		}
 		
