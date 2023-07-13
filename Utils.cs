@@ -54,7 +54,7 @@
 				obj = GameObject.Instantiate(prefab, parent);
 			}
 #else
-			obj = Instantiate(prefab, _root);
+			obj = Instantiate(prefab, parent);
 #endif
 			return obj;
 		}
