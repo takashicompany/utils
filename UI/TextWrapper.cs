@@ -22,6 +22,8 @@ namespace takashicompany.Unity.UI
 
 		private bool _isInit;
 
+		private string _cachedText;
+
 		public string text 
 		{
 			get
@@ -34,6 +36,11 @@ namespace takashicompany.Unity.UI
 			{
 				Init();
 
+				if (_cachedText == value)
+				{
+					return;
+				}
+
 				if (_uiText != null)
 				{
 					_uiText.text = value;
@@ -42,6 +49,8 @@ namespace takashicompany.Unity.UI
 				{
 					_tmText.text = value;
 				}
+
+				_cachedText = value;
 			}
 		}
 
