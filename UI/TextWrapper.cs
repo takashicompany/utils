@@ -15,6 +15,8 @@ namespace takashicompany.Unity.UI
 		[SerializeField]
 		private MaskableGraphic _obj;
 
+		public MaskableGraphic maskableGraphic => _obj;
+
 		private Text _uiText;
 		private TextMeshProUGUI _tmText;
 
@@ -68,6 +70,9 @@ namespace takashicompany.Unity.UI
 
 		public Transform transform => _obj.transform;
 		public GameObject gameObject => _obj.gameObject;
+
+		public RectTransform rectTransform => _obj.rectTransform;
+
 
 		private void Init()
 		{

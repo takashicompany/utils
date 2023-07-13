@@ -2695,6 +2695,7 @@
 			return TryGetDirectionFromTouch(camera, fromScreenPoint, toScreenPoint, out direction, LayerMask.GetMask(layerNames), distance);
 		}
 
+#region Camera
 		public static bool TryGetDirectionFromTouch(
 			this Camera camera, Vector2 fromScreenPoint, Vector2 toScreenPoint, out Vector3 direction, LayerMask layerMask, float distance = 1000f)
 		{
@@ -2720,6 +2721,54 @@
 
 			return true;
 		}
+
+		public static Vector3 TryRectTransformToWorldPosition(this Camera camera, RectTransform rectTransform, float distance = 0)
+		{
+			Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.position);	// positionを好きに指定したいを考える
+			screenPoint.z = distance;
+			return camera.ScreenToWorldPoint(screenPoint);
+		}
+
+		public static Vector3 ConvertToWorldPoint(this Camera camera, Graphic graphic)
+		{
+			return graphic.ConvertToCameraWorldPoint(camera);
+		}
+
+		public static Vector3 ConvertToCameraWorldPoint(this Graphic graphic, Camera camera)
+		{
+			// Check if Graphic and Camera are not null
+			if(graphic == null || camera == null)
+			{
+				// Debug.LogError("Graphic and/or Camera is null.");
+				return Vector3.zero;
+			}
+
+			Canvas canvas = graphic.canvas;
+			RectTransform rectTransform = graphic.rectTransform;
+			Vector2 screenPoint = Vector2.zero;
+			Vector3 worldPoint = Vector3.zero;
+
+			// Check if the Canvas render mode is ScreenSpaceOverlay
+			if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+			{
+				// Convert RectTransform position to screen position
+				screenPoint = RectTransformUtility.WorldToScreenPoint(null, rectTransform.position);
+			}
+
+			// Check if the Canvas render mode is ScreenSpaceCamera or WorldSpace
+			else if (canvas.renderMode == RenderMode.ScreenSpaceCamera || canvas.renderMode == RenderMode.WorldSpace)
+			{
+				// Convert RectTransform position to screen position
+				screenPoint = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.position);
+			}
+
+			// Convert the screen point to world point in the camera
+			worldPoint = camera.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, camera.nearClipPlane));
+
+			return worldPoint;
+		}
+
+#endregion
 
 		public static bool TryGetPositionOnRay(this Ray ray, int vector3Index, float target, out Vector3 position)
 		{
@@ -2774,7 +2823,7 @@
 		}
 
 
-		public static class Debug
+		public static class CustomDebug
 		{
 			public static void DrawLines(Color color, float duration, params Vector3[] points)
 			{
