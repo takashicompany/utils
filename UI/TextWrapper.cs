@@ -85,7 +85,7 @@ namespace takashicompany.Unity.UI
 
 		private void Init()
 		{
-			if (_isInit)
+			if (_isInit || _obj == null)
 			{
 				return;
 			}
