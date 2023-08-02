@@ -9,6 +9,9 @@ namespace takashicompany.Unity
 	using UnityEditor;
 #endif
 	
+	/// <summary>
+	/// この属性をつけるEnumは2進数記法で値を定義すると良い
+	/// </summary>
 	[System.AttributeUsage(System.AttributeTargets.Field)]
 	public class EnumFlagAttribute : PropertyAttribute
 	{
