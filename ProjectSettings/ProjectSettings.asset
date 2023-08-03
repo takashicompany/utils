@@ -716,7 +716,8 @@ PlayerSettings:
     Android: MOREMOUNTAINS_NICEVIBRATIONS
   additionalCompilerArguments: {}
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Android: 1
   il2cppCompilerConfiguration: {}
   managedStrippingLevel:
     EmbeddedLinux: 1
