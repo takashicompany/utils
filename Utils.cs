@@ -1246,15 +1246,15 @@
 			return UnityEngine.Random.Range(0, self.Count);
 		}
 
-		public static int GetRandomIndex(this IList self)
-		{
-			return UnityEngine.Random.Range(0, self.Count);
-		}
+		// public static int GetRandomIndex(this IList self)
+		// {
+		// 	return UnityEngine.Random.Range(0, self.Count);
+		// }
 
-		public static T GetRandom<T>(this IList self)
-		{
-			return (T)(self[self.GetRandomIndex()]);
-		}
+		// public static T GetRandom<T>(this IList self)
+		// {
+		// 	return (T)(self[self.GetRandomIndex()]);
+		// }
 
 		public static T GetRandom<T>(this IList<T> self)
 		{
@@ -1381,7 +1381,9 @@
 		{
 			var array = System.Enum.GetValues(typeof(T));
 
-			return array.GetRandom<T>();
+			var index = Random.Range(0, array.Length);
+
+			return (T)(array.GetValue(index));
 		}
 
 		public static T[] PickRandom<T>(int count) where T : System.Enum
