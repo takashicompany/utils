@@ -2772,6 +2772,13 @@
 
 #endregion
 
+#region Generic
+		public static bool IsDefault<T>(T value)
+		{
+			return EqualityComparer<T>.Default.Equals(value, default(T));
+		}
+#endregion
+
 		public static bool TryGetPositionOnRay(this Ray ray, int vector3Index, float target, out Vector3 position)
 		{
 			// Rayの方向ベクトルを正規化する
