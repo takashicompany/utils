@@ -8,7 +8,7 @@ namespace takashicompany.Unity
 	public abstract class ComponentWrapper<T, A, B> where T : Component where A : Component where B : Component
 	{
 		[SerializeField]
-		private T _component;
+		protected T _component;
 
 		protected A _a;
 		protected B _b;

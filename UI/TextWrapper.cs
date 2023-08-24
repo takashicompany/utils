@@ -10,17 +10,9 @@ namespace takashicompany.Unity.UI
 	using DG.Tweening;
 	
 	[System.Serializable]
-	public class TextWrapper : ITransform, IGameObject
+	public class TextWrapper : ComponentWrapper<MaskableGraphic, Text, TextMeshProUGUI>, ITransform, IGameObject
 	{
-		[SerializeField]
-		private MaskableGraphic _obj;
-
-		public MaskableGraphic maskableGraphic => _obj;
-
-		private Text _uiText;
-		private TextMeshProUGUI _tmText;
-
-		private bool _isInit;
+		public MaskableGraphic maskableGraphic => _component;
 
 		private string _cachedText;
 
@@ -29,7 +21,7 @@ namespace takashicompany.Unity.UI
 			get
 			{
 				Init();
-				return _uiText != null ? _uiText.text : _tmText.text;
+				return _a != null ? _a.text : _b.text;
 			}
 
 			set
@@ -41,13 +33,13 @@ namespace takashicompany.Unity.UI
 					return;
 				}
 
-				if (_uiText != null)
+				if (_a != null)
 				{
-					_uiText.text = value;
+					_a.text = value;
 				}
 				else
 				{
-					_tmText.text = value;
+					_b.text = value;
 				}
 
 				_cachedText = value;
@@ -59,64 +51,45 @@ namespace takashicompany.Unity.UI
 			get
 			{
 				Init();
-				return _uiText != null ? _uiText.color : _tmText.color;
+				return _a != null ? _a.color : _b.color;
 			}
 
 			set
 			{
 				Init();
 
-				if (_uiText != null)
+				if (_a != null)
 				{
-					_uiText.color = value;
+					_a.color = value;
 				}
 				else
 				{
-					_tmText.color = value;
+					_b.color = value;
 				}
 			}
 		}
 
-		public Transform transform => _obj.transform;
-		public GameObject gameObject => _obj.gameObject;
+		public Transform transform => _component.transform;
+		public GameObject gameObject => _component.gameObject;
 
-		public RectTransform rectTransform => _obj.rectTransform;
+		public RectTransform rectTransform => _component.rectTransform;
 
-
-		private void Init()
+		public TextWrapper(MaskableGraphic component) : base(component)
 		{
-			if (_isInit || _obj == null)
-			{
-				return;
-			}
-
-			if (_uiText == null && _tmText == null)
-			{
-				_uiText = _obj.GetComponent<Text>();
-				_tmText = _obj.GetComponent<TextMeshProUGUI>();
-			}
-
 			
-			_isInit = true;
-		}
-
-		public bool HasInstance()
-		{
-			Init();
-			return _uiText != null || _tmText != null;
 		}
 
 		public Tweener DOFade(float a, float duration)
 		{
 			Init();
 
-			if (_uiText != null)
+			if (_a != null)
 			{
-				return _uiText.DOFade(a, duration);
+				return _a.DOFade(a, duration);
 			}
 			else
 			{
-				return _tmText.DOFade(a, duration);
+				return _b.DOFade(a, duration);
 			}
 		}
 
@@ -124,18 +97,19 @@ namespace takashicompany.Unity.UI
 		{
 			Init();
 
-			if (_uiText != null)
+			if (_a != null)
 			{
-				var c = _uiText.color;
+				var c = _a.color;
 				c.a = a;
-				_uiText.color = c;
+				_a.color = c;
 			}
 			else
 			{
-				var c = _tmText.color;
+				var c = _b.color;
 				c.a = a;
-				_tmText.color = c;
+				_b.color = c;
 			}
 		}
+		
 	}
 }
