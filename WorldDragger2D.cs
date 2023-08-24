@@ -18,6 +18,10 @@ namespace takashicompany.Unity
 							IPointerUpHandler
 	{
 		[SerializeField]
+		private UnityEngine.Events.UnityEvent<WorldDragger2D> _onPointerDown;
+		public UnityEngine.Events.UnityEvent<WorldDragger2D> onPointerDown => _onPointerDown;
+
+		[SerializeField]
 		private UnityEngine.Events.UnityEvent<WorldDragger2D> _onRelease;
 		public UnityEngine.Events.UnityEvent<WorldDragger2D> onRelease => _onRelease;
 
@@ -61,6 +65,8 @@ namespace takashicompany.Unity
 
 			var worldPoint = eventData.pointerCurrentRaycast.worldPosition;
 			_dragOffset = worldPoint - transform.position;
+
+			onPointerDown?.Invoke(this);
 		}
 
 		void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
