@@ -32,6 +32,9 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private Axis _lockedAxis = Axis.Y;
 
+		[SerializeField]
+		private float _maxDragDistance = 0f;
+
 		private Vector3 _dragOffset;
 
 		public bool isLocked { get; private set; }
@@ -93,6 +96,12 @@ namespace takashicompany.Unity
 			{
 				var p = worldPoint - _dragOffset;
 				p[(int)_lockedAxis] = transform.position[(int)_lockedAxis];
+
+				if (_maxDragDistance > 0 && Vector3.Distance(_pointerDownPosition, p) > _maxDragDistance)
+				{
+					p = _pointerDownPosition + ((p - _pointerDownPosition).normalized * _maxDragDistance);
+				}
+
 				transform.position = p;
 			}
 		}
