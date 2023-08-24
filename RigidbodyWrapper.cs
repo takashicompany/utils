@@ -5,17 +5,17 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
-	public abstract class ComponentWrapper<A, B> where A : Component where B : Component
+	public abstract class ComponentWrapper<T, A, B> where T : Component where A : Component where B : Component
 	{
 		[SerializeField]
-		private Component _component;
+		private T _component;
 
 		protected A _a;
 		protected B _b;
 
 		private bool _isInit;
 
-		public ComponentWrapper(Component component)
+		public ComponentWrapper(T component)
 		{
 			_component = component;
 			Init();
@@ -44,12 +44,20 @@ namespace takashicompany.Unity
 		}
 	}
 
+	public class ComponentWrapper<A, B> : ComponentWrapper<Component, A, B> where A : Component where B : Component
+	{
+		public ComponentWrapper(Component component) : base(component)
+		{
+
+		}
+	}
+
 	[System.Serializable]
 	public class RigidbodyWrapper : ComponentWrapper<Rigidbody, Rigidbody2D>
 	{
 		public RigidbodyWrapper(Component component) : base(component)
 		{
-			
+
 		}
 	}
 }
