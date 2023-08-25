@@ -55,9 +55,76 @@ namespace takashicompany.Unity
 	[System.Serializable]
 	public class RigidbodyWrapper : ComponentWrapper<Rigidbody, Rigidbody2D>
 	{
+		public Vector3 velocity
+		{
+			get
+			{
+				Init();
+				if (Is2D())
+				{
+					return _b.velocity;
+				}
+				else if (Is3D())
+				{
+					return _a.velocity;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。s");
+					return Vector3.zero;
+				}
+			}
+			set
+			{
+				Init();
+				if (Is2D())
+				{
+					_b.velocity = value;
+				}
+				else if (Is3D())
+				{
+					_a.velocity = value;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。s");
+				}
+			}
+		}
+
 		public RigidbodyWrapper(Component component) : base(component)
 		{
-			
+			Init();
+		}
+
+		public bool Is3D()
+		{
+			Init();
+			return _a != null;
+		}
+
+		public bool Is2D()
+		{
+			Init();
+			return _b != null;
+		}
+
+		public void AddForce(Vector3 force)
+		{
+			Init();
+
+			if (Is2D())
+			{
+				_b.AddForce(force);
+			}
+			else if (Is3D())
+			{
+				_a.AddForce(force);
+			}
+			else
+			{
+				Debug.LogError("初期化に失敗しているかもしれません。s");
+			}
 		}
 	}
 }
