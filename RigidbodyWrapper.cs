@@ -57,7 +57,7 @@ namespace takashicompany.Unity
 	{
 		public RigidbodyWrapper(Component component) : base(component)
 		{
-
+			
 		}
 	}
 }
