@@ -48,6 +48,11 @@ namespace takashicompany.Unity
 	{
 		public ComponentWrapper(Component component) : base(component)
 		{
+			Init();
+		}
+
+		public ComponentWrapper(GameObject gameObject) : base(gameObject.GetComponent<Component>())
+		{
 
 		}
 	}
@@ -55,6 +60,16 @@ namespace takashicompany.Unity
 	[System.Serializable]
 	public class RigidbodyWrapper : ComponentWrapper<Rigidbody, Rigidbody2D>
 	{
+		public RigidbodyWrapper(Component component) : base(component)
+		{
+
+		}
+
+		public RigidbodyWrapper(GameObject gameObject) : base(gameObject)
+		{
+
+		}
+
 		public Vector3 velocity
 		{
 			get
@@ -91,12 +106,7 @@ namespace takashicompany.Unity
 				}
 			}
 		}
-
-		public RigidbodyWrapper(Component component) : base(component)
-		{
-			Init();
-		}
-
+		
 		public bool Is3D()
 		{
 			Init();
