@@ -85,7 +85,7 @@ namespace takashicompany.Unity
 				}
 				else
 				{
-					Debug.LogError("初期化に失敗しているかもしれません。s");
+					Debug.LogError("初期化に失敗しているかもしれません。");
 					return Vector3.zero;
 				}
 			}
@@ -99,6 +99,80 @@ namespace takashicompany.Unity
 				else if (Is3D())
 				{
 					_a.velocity = value;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+				}
+			}
+		}
+
+		public Vector3 position
+		{
+			get
+			{
+				Init();
+				if (Is2D())
+				{
+					return _b.position;
+				}
+				else if (Is3D())
+				{
+					return _a.position;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+					return Vector3.zero;
+				}
+			}
+			set
+			{
+				Init();
+				if (Is2D())
+				{
+					_b.position = value;
+				}
+				else if (Is3D())
+				{
+					_a.position = value;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+				}
+			}
+		}
+
+		public Quaternion rotation
+		{
+			get
+			{
+				Init();
+				if (Is2D())
+				{
+					return Quaternion.Euler(0, 0, _b.rotation);
+				}
+				else if (Is3D())
+				{
+					return _a.rotation;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+					return Quaternion.identity;
+				}
+			}
+			set
+			{
+				Init();
+				if (Is2D())
+				{
+					_b.rotation = value.eulerAngles.z;
+				}
+				else if (Is3D())
+				{
+					_a.rotation = value;
 				}
 				else
 				{
@@ -136,5 +210,60 @@ namespace takashicompany.Unity
 				Debug.LogError("初期化に失敗しているかもしれません。s");
 			}
 		}
+
+		public void Sleep()
+		{
+			Init();
+
+			if (Is2D())
+			{
+				_b.Sleep();
+			}
+			else if (Is3D())
+			{
+				_a.Sleep();
+			}
+			else
+			{
+				Debug.LogError("初期化に失敗しているかもしれません。s");
+			}
+		}
+
+		public void MovePosition(Vector3 position)
+		{
+			Init();
+
+			if (Is2D())
+			{
+				_b.MovePosition(position);
+			}
+			else if (Is3D())
+			{
+				_a.MovePosition(position);
+			}
+			else
+			{
+				Debug.LogError("初期化に失敗しているかもしれません。s");
+			}
+		}
+
+		public void MoveRotation(Quaternion rotation)
+		{
+			Init();
+
+			if (Is2D())
+			{
+				_b.MoveRotation(rotation.eulerAngles.z);
+			}
+			else if (Is3D())
+			{
+				_a.MoveRotation(rotation);
+			}
+			else
+			{
+				Debug.LogError("初期化に失敗しているかもしれません。s");
+			}
+		}
+
 	}
 }
