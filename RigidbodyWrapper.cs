@@ -264,6 +264,126 @@ namespace takashicompany.Unity
 				Debug.LogError("初期化に失敗しているかもしれません。s");
 			}
 		}
+	}
 
+	[System.Serializable]
+	public class ColliderWrapper : ComponentWrapper<Collider, Collider2D>
+	{
+		public ColliderWrapper(Component component) : base(component)
+		{
+
+		}
+
+		public ColliderWrapper(GameObject gameObject) : base(gameObject)
+		{
+
+		}
+
+		public bool Is3D()
+		{
+			Init();
+			return _a != null;
+		}
+
+		public bool Is2D()
+		{
+			Init();
+			return _b != null;
+		}
+
+		public bool isTrigger
+		{
+			get
+			{
+				Init();
+				if (Is2D())
+				{
+					return _b.isTrigger;
+				}
+				else if (Is3D())
+				{
+					return _a.isTrigger;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+					return false;
+				}
+			}
+			set
+			{
+				Init();
+				if (Is2D())
+				{
+					_b.isTrigger = value;
+				}
+				else if (Is3D())
+				{
+					_a.isTrigger = value;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+				}
+			}
+		}
+
+		public bool enabled
+		{
+			get
+			{
+				Init();
+				if (Is2D())
+				{
+					return _b.enabled;
+				}
+				else if (Is3D())
+				{
+					return _a.enabled;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+					return false;
+				}
+			}
+			set
+			{
+				Init();
+				if (Is2D())
+				{
+					_b.enabled = value;
+				}
+				else if (Is3D())
+				{
+					_a.enabled = value;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+				}
+			}
+		}
+
+		public Bounds bounds
+		{
+			get
+			{
+				Init();
+				if (Is2D())
+				{
+					return _b.bounds;
+				}
+				else if (Is3D())
+				{
+					return _a.bounds;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+					return new Bounds();
+				}
+			}
+		}
 	}
 }

@@ -1804,7 +1804,8 @@
 			});
 		}
 
-#region SpriteRenderer Flash
+#region SpriteRenderer
+
 		public static Tweener DOFlash(this SpriteRenderer renderer, Color addColor, float addRatio, float duration)
 		{
 			return renderer.material.DOFlash(addColor, addRatio, duration).SetTarget(renderer);
@@ -2001,6 +2002,31 @@
 		{
 			return Physics.Raycast(ray, out var hit, distance, layerMask, queryTriggerInteraction) && hit.collider == self;
 		}
+#endregion
+
+#region  Collider2D
+
+		public static void EnsureInsideBounds(this Collider2D collider, Bounds targetBounds)
+		{
+			var bounds = collider.bounds;
+			bounds.EnsureInsideBounds(targetBounds);
+			collider.transform.position = bounds.center;
+		}
+
+		public static Bounds EnsureInsideBounds(this Bounds bounds, Bounds targetBounds)
+		{
+			// Bの中心がAの範囲内に収まるように計算する。
+			Vector3 newCenter = bounds.center;
+
+			float adjustedX = Mathf.Clamp(bounds.center.x, targetBounds.min.x + bounds.extents.x, targetBounds.max.x - bounds.extents.x);
+			float adjustedY = Mathf.Clamp(bounds.center.y, targetBounds.min.y + bounds.extents.y, targetBounds.max.y - bounds.extents.y);
+
+			newCenter = new Vector3(adjustedX, adjustedY, bounds.center.z);
+			bounds.center = newCenter;
+
+			return bounds;
+		}
+
 #endregion
 
 #region LayerMask
