@@ -15,6 +15,9 @@ namespace takashicompany.Unity.UI
 		private float _anchoredPositionDistance = 200f;
 
 		[SerializeField]
+		private bool _hideWhenPointerUp = true;
+
+		[SerializeField]
 		private bool _autoInit = true;
 
 		private RectTransform _rectTransform => ReturnOrGet<RectTransform>();
@@ -80,7 +83,7 @@ namespace takashicompany.Unity.UI
 
 		void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
 		{
-			Hide();
+			if (_hideWhenPointerUp) Hide();
 		}
 	}
 }
