@@ -11,69 +11,84 @@ namespace takashicompany.Unity
 
 		void Start()
 		{
-			_controller = GameObject.FindObjectOfType<TouchController>();
-
-			if (_controller == null)
-			{
-				return;
-			}
-
-			if (TryGetComponent<IPointerDownHandler>(out var pointerDownHandler))
-			{
-				_controller.onPointerDownEvent += pointerDownHandler.OnPointerDown;
-			}
-
-			if (TryGetComponent<IBeginDragHandler>(out var beginDragHandler))
-			{
-				_controller.onBeginDragEvent += beginDragHandler.OnBeginDrag;
-			}
-
-			if (TryGetComponent<IDragHandler>(out var dragHandler))
-			{
-				_controller.onDragEvent += dragHandler.OnDrag;
-			}
-
-			if (TryGetComponent<IEndDragHandler>(out var endDragHandler))
-			{
-				_controller.onEndDragEvent += endDragHandler.OnEndDrag;
-			}
-
-			if (TryGetComponent<IPointerUpHandler>(out var pointerUpHandler))
-			{
-				_controller.onPointerUpEvent += pointerUpHandler.OnPointerUp;
-			}
+			InitializeListener(gameObject, out _controller);
 		}
 
 		void OnDestroy()
 		{
-			if (_controller == null)
+			DeinitializeListener(gameObject, _controller);
+		}
+
+		public static void InitializeListener(GameObject gameObject, out TouchController controller)
+		{
+			controller = GameObject.FindObjectOfType<TouchController>();
+
+			if (controller == null)
 			{
 				return;
 			}
 
-			if (TryGetComponent<IPointerDownHandler>(out var pointerDownHandler))
+			if (gameObject.TryGetComponent<IPointerDownHandler>(out var pointerDownHandler))
 			{
-				_controller.onPointerDownEvent -= pointerDownHandler.OnPointerDown;
+				controller.onPointerDownEvent += pointerDownHandler.OnPointerDown;
 			}
 
-			if (TryGetComponent<IBeginDragHandler>(out var beginDragHandler))
+			if (gameObject.TryGetComponent<IBeginDragHandler>(out var beginDragHandler))
 			{
-				_controller.onBeginDragEvent -= beginDragHandler.OnBeginDrag;
+				controller.onBeginDragEvent += beginDragHandler.OnBeginDrag;
 			}
 
-			if (TryGetComponent<IDragHandler>(out var dragHandler))
+			if (gameObject.TryGetComponent<IDragHandler>(out var dragHandler))
 			{
-				_controller.onDragEvent -= dragHandler.OnDrag;
+				controller.onDragEvent += dragHandler.OnDrag;
 			}
 
-			if (TryGetComponent<IEndDragHandler>(out var endDragHandler))
+			if (gameObject.TryGetComponent<IEndDragHandler>(out var endDragHandler))
 			{
-				_controller.onEndDragEvent -= endDragHandler.OnEndDrag;
+				controller.onEndDragEvent += endDragHandler.OnEndDrag;
 			}
 
-			if (TryGetComponent<IPointerUpHandler>(out var pointerUpHandler))
+			if (gameObject.TryGetComponent<IPointerUpHandler>(out var pointerUpHandler))
 			{
-				_controller.onPointerUpEvent -= pointerUpHandler.OnPointerUp;
+				controller.onPointerUpEvent += pointerUpHandler.OnPointerUp;
+			}
+		}
+
+		public static void DeinitializeListener(GameObject gameObject, TouchController controller = null)
+		{
+			if (controller == null)
+			{
+				controller = GameObject.FindObjectOfType<TouchController>();
+
+				if (controller == null)
+				{
+					return;
+				}
+			}
+
+			if (gameObject.TryGetComponent<IPointerDownHandler>(out var pointerDownHandler))
+			{
+				controller.onPointerDownEvent -= pointerDownHandler.OnPointerDown;
+			}
+
+			if (gameObject.TryGetComponent<IBeginDragHandler>(out var beginDragHandler))
+			{
+				controller.onBeginDragEvent -= beginDragHandler.OnBeginDrag;
+			}
+
+			if (gameObject.TryGetComponent<IDragHandler>(out var dragHandler))
+			{
+				controller.onDragEvent -= dragHandler.OnDrag;
+			}
+
+			if (gameObject.TryGetComponent<IEndDragHandler>(out var endDragHandler))
+			{
+				controller.onEndDragEvent -= endDragHandler.OnEndDrag;
+			}
+
+			if (gameObject.TryGetComponent<IPointerUpHandler>(out var pointerUpHandler))
+			{
+				controller.onPointerUpEvent -= pointerUpHandler.OnPointerUp;
 			}
 		}
 	}

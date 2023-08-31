@@ -1682,7 +1682,7 @@
 			return self.pressPosition / new Vector2(Screen.width, Screen.height);
 		}
 
-		public static Vector3 CalcNormalizedMovement(this PointerEventData self)
+		public static Vector2 CalcNormalizedMovement(this PointerEventData self)
 		{
 			return (self.position - self.pressPosition) / new Vector2(Screen.width, Screen.height);
 		}
