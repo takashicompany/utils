@@ -8,9 +8,9 @@ namespace takashicompany.Unity
 	public static class VividColor
 	{
 		public static Color red =>			C(255, 0, 64);
-		public static Color green =>		C(64, 192, 128);
+		public static Color green =>		C(32, 192, 64);
 		public static Color blue =>			C(64, 128, 255);
-		public static Color yellow =>		C(255, 192, 32);
+		public static Color yellow =>		C(255, 192, 64);
 		public static Color pink =>			C(255, 0, 160);
 		public static Color orange =>		C(255, 128, 32);
 		public static Color lightGreen =>	C(128, 255, 128);
