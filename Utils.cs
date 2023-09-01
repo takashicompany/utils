@@ -1650,7 +1650,7 @@
 			return self;
 		}
 
-		public static void SetAlpha(this MaskableGraphic self, float alpha)
+		public static void SetAlpha(this Graphic self, float alpha)
 		{
 			var c = self.color;
 			c.a = alpha;
