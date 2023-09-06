@@ -1990,6 +1990,19 @@
 
 			return sb.ToString();
 		}
+
+		public static Vector2Int GetLengths<T>(this IDictionary<Vector2Int, T> dictionary)
+		{
+			int maxCol = 0;
+			int maxRow = 0;
+			foreach (var key in dictionary.Keys)
+			{
+				if (key.x > maxCol) maxCol = key.x;
+				if (key.y > maxRow) maxRow = key.y;
+			}
+			return new Vector2Int(maxCol + 1, maxRow + 1);
+		}
+
 #endregion
 
 #region Collider
@@ -2650,9 +2663,9 @@
 			return new Vector3Int(self.x, 0, self.y);
 		}
 
-		public static Vector3Int ToV3Int(this Vector2Int self)
+		public static Vector3Int ToV3Int(this Vector2Int self, int z = 0)
 		{
-			return new Vector3Int(self.x, self.y, 0);
+			return new Vector3Int(self.x, self.y, z);
 		}
 
 		public static Vector2Int XZtoV2Int(this Vector3Int self)

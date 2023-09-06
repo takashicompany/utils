@@ -38,21 +38,13 @@ namespace takashicompany.Unity
 	[CustomPropertyDrawer(typeof(DynamicGridAttribute))]
 	public class DynamicGridPropertyDrawer : PropertyDrawer
 	{
-		private static Vector2Int GetLengths(SerializableDictionary<Vector2Int, bool> dictionary)
-		{
-			int maxCol = 0;
-			int maxRow = 0;
-			foreach (var key in dictionary.Keys)
-			{
-				if (key.x > maxCol) maxCol = key.x;
-				if (key.y > maxRow) maxRow = key.y;
-			}
-			return new Vector2Int(maxCol + 1, maxRow + 1);
-		}
 
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
 			EditorGUI.BeginProperty(position, label, property);
+
+			EditorGUI.LabelField(new Rect(position.x, position.y, position.width, 20), label.text);
+			position.y += 20;  // ラベルの下に描画するためのオフセット
 
 			var targetObject = property.serializedObject.targetObject;
 			var targetType = targetObject.GetType();
@@ -62,7 +54,8 @@ namespace takashicompany.Unity
 			{
 				SerializableDictionary<Vector2Int, bool> dictionary = field.GetValue(targetObject) as SerializableDictionary<Vector2Int, bool>;
 
-				Vector2Int lengths = GetLengths(dictionary);
+				Vector2Int lengths = dictionary.GetLengths();
+				
 				Vector2Int newLengths = EditorGUI.Vector2IntField(new Rect(position.x, position.y, position.width, 20), "Grid Dimensions:", lengths);
 				position.y += 25;
 
@@ -107,7 +100,7 @@ namespace takashicompany.Unity
 
 						bool newValue = EditorGUI.Toggle(
 							new Rect(position.x + x * 20, 
-									position.y + y * 20, 
+									position.y + (newLengths.y - 1 - y) * 20, 
 									20, 
 									20), 
 							value
@@ -121,6 +114,7 @@ namespace takashicompany.Unity
 				}
 
 				field.SetValue(targetObject, dictionary);
+				property.serializedObject.ApplyModifiedProperties();
 			}
 			else
 			{
@@ -138,8 +132,8 @@ namespace takashicompany.Unity
 			if (field != null && field.FieldType == typeof(SerializableDictionary<Vector2Int, bool>))
 			{
 				SerializableDictionary<Vector2Int, bool> dictionary = field.GetValue(targetObject) as SerializableDictionary<Vector2Int, bool>;
-				Vector2Int maxDimensions = GetLengths(dictionary);
-				return (maxDimensions.x + 1) * 20 + 25;
+				Vector2Int maxDimensions = dictionary.GetLengths();
+				return (maxDimensions.y + 2) * 20 + 25; // +2 は変数名とGrid Dimensions: のため
 			}
 			return base.GetPropertyHeight(property, label);
 		}
