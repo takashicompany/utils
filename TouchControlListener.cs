@@ -22,7 +22,11 @@ namespace takashicompany.Unity
 		public static void InitializeListener(GameObject gameObject, out TouchController controller)
 		{
 			controller = GameObject.FindObjectOfType<TouchController>();
+			InitializeListener(gameObject, controller);
+		}
 
+		public static void InitializeListener(GameObject gameObject, TouchController controller)
+		{
 			if (controller == null)
 			{
 				return;
