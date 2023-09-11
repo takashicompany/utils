@@ -146,6 +146,11 @@
 		/// </summary>
 		public static string[,] Get2dMap(this string str, string columnSeparete, string rowSeparete = "\n")
 		{
+			if (string.IsNullOrEmpty(str))
+			{
+				return new string[0, 0];
+			}
+
 			var rows = str.Split(rowSeparete);
 
 			var columnLists = new List<string[]>();
@@ -188,6 +193,45 @@
 #endregion
 
 #region 多次元配列
+
+		// 二次元配列の行を反転する拡張メソッド
+		public static T[,] TransposeColumns<T>(this T[,] inputArray)
+		{
+			int cols = inputArray.GetLength(0); // 列数
+			int rows = inputArray.GetLength(1); // 行数
+
+			for (int col = 0; col < cols / 2; col++)
+			{
+				for (int row = 0; row < rows; row++)
+				{
+					T temp = inputArray[col, row];
+					inputArray[col, row] = inputArray[cols - col - 1, row];
+					inputArray[cols - col - 1, row] = temp;
+				}
+			}
+
+			return inputArray;
+		}
+
+		// 二次元配列の列を反転する拡張メソッド
+		public static T[,] TransposeRows<T>(this T[,] inputArray)
+		{
+			int cols = inputArray.GetLength(0); // 列数
+			int rows = inputArray.GetLength(1); // 行数
+
+			for (int col = 0; col < cols; col++)
+			{
+				for (int row = 0; row < rows / 2; row++)
+				{
+					T temp = inputArray[col, row];
+					inputArray[col, row] = inputArray[col, rows - row - 1];
+					inputArray[col, rows - row - 1] = temp;
+				}
+			}
+
+			return inputArray;
+		}
+
 
 		public static T Get<T>(this T[,,] self, Vector3Int p)
 		{
