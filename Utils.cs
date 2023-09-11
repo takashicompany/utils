@@ -1448,6 +1448,13 @@
 			self.localPosition = p;
 		}
 
+		public static void ToLocalScale(this Transform self, int index, float p)
+		{
+			var s = self.localScale;
+			s[index] = p;
+			self.localScale = s;
+		}
+			
 		public static string GetNameWithHierarchy(this Transform self)
 		{
 			var str = self.name;

@@ -114,6 +114,7 @@ namespace takashicompany.Unity
 				}
 
 				field.SetValue(targetObject, dictionary);
+				// property.serializedObject.Update();
 				property.serializedObject.ApplyModifiedProperties();
 			}
 			else
