@@ -176,6 +176,7 @@
 
 			return result;
 		}
+		
 #endregion
 
 #region IList
@@ -230,6 +231,23 @@
 			}
 
 			return inputArray;
+		}
+
+		public delegate T ConvertDelegate<F, T>(F from);
+
+		public static T[,] Convert<F,T>(this F[,] self, ConvertDelegate<F, T> convert)
+		{
+			var result = new T[self.GetLength(0), self.GetLength(1)];
+
+			for (var x = 0; x < self.GetLength(0); x++)
+			{
+				for (var y = 0; y < self.GetLength(1); y++)
+				{
+					result[x, y] = convert(self[x, y]);
+				}
+			}
+
+			return result;
 		}
 
 
