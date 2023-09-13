@@ -157,6 +157,11 @@
 
 			foreach (var r in rows)
 			{
+				if (string.IsNullOrEmpty(r))
+				{
+					continue;
+				}
+
 				var column = r.Split(columnSeparete);
 				columnLists.Add(column);
 			}
