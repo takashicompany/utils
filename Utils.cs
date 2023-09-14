@@ -116,19 +116,38 @@
 				return enclosedNumerics[num - 1];
 			}
 
-			throw new NotImplementedException();
+			return null;
 		}
 
+		public static bool TryGetEnclosedNumeric(int num, out string result)
+		{
+			result = GetEnclosedNumeric(num);
+
+			return result != null;
+		}
+
+		/// <summary>
+		/// ①~㊿の文字列を数値に返す
+		/// </summary>
+		/// <param name="enclosedNumeric"></param>
+		/// <returns></returns>
 		public static int GetNumber(string enclosedNumeric)
 		{
 			var index = enclosedNumerics.IndexOf(enclosedNumeric);
 
 			if (index < 0)
 			{
-				throw new NotImplementedException();
+				return int.MinValue;
 			}
 
 			return index + 1;
+		}
+
+		public static bool TryGetNumber(string enclosedNumeric, out int result)
+		{
+			result = GetNumber(enclosedNumeric);
+
+			return result != int.MinValue;
 		}
 
 		/// <summary>
@@ -198,7 +217,7 @@
 
 			var maxColumn = columnLists.Max(c => c.Length);
 
-			var result = new string[maxColumn, rows.Length];
+			var result = new string[maxColumn, columnLists.Count];
 
 			for (var y = 0; y < result.GetLength(1); y++)
 			{
