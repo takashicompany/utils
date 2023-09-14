@@ -101,6 +101,36 @@
 #endregion
 
 #region string
+
+		public static readonly string[] enclosedNumerics = { "①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩", "⑪", "⑫", "⑬", "⑭", "⑮", "⑯", "⑰", "⑱", "⑲", "⑳", "㉑", "㉒", "㉓", "㉔", "㉕", "㉖", "㉗", "㉘", "㉙", "㉚", "㉛", "㉜", "㉝", "㉞", "㉟", "㊱", "㊲", "㊳", "㊴", "㊵", "㊶", "㊷", "㊷", "㊸", "㊹", "㊺", "㊻", "㊼", "㊽", "㊾", "㊿" };
+
+		/// <summary>
+		/// ①〜㊿までの数字を返す
+		/// </summary>
+		/// <param name="num"></param>
+		/// <returns></returns>
+		public static string GetEnclosedNumeric(int num)
+		{
+			if (0 < num && num <= enclosedNumerics.Length)
+			{
+				return enclosedNumerics[num - 1];
+			}
+
+			throw new NotImplementedException();
+		}
+
+		public static int GetNumber(string enclosedNumeric)
+		{
+			var index = enclosedNumerics.IndexOf(enclosedNumeric);
+
+			if (index < 0)
+			{
+				throw new NotImplementedException();
+			}
+
+			return index + 1;
+		}
+
 		/// <summary>
 		/// CamelCase => camel_case
 		/// </summary>
