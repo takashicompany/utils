@@ -215,6 +215,11 @@
 				columnLists.Add(column);
 			}
 
+			if (columnLists.Count == 0)
+			{
+				return new string[0, 0];
+			}
+
 			var maxColumn = columnLists.Max(c => c.Length);
 
 			var result = new string[maxColumn, columnLists.Count];
