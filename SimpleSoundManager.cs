@@ -22,7 +22,7 @@ namespace takashicompany.Unity
 			}
 		}
 
-		public void PlayOneShot(string clipName)
+		public void PlayOneShot(string clipName, float pitch = -1f)
 		{
 			if (!_clips.ContainsKey(clipName))
 			{
@@ -37,7 +37,19 @@ namespace takashicompany.Unity
 				_clips.Add(clipName, clip);
 			}
 
+			var prevPitch = _source.pitch;
+			
+			if (pitch >= 0) _source.pitch = pitch;
+			
 			_source.PlayOneShot(_clips[clipName]);
+		}
+
+		public void PlayOneShot(AudioClip clip, float pitch = -1f)
+		{
+			var prevPitch = _source.pitch;
+			
+			if (pitch >= 0) _source.pitch = pitch;
+			_source.PlayOneShot(clip);
 		}
 	}
 }
