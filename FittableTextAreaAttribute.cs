@@ -36,7 +36,7 @@ namespace takashicompany.Unity
 	{
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
-			if (property.propertyType == SerializedPropertyType.String && Selection.objects.Length == 1)
+			if (property.propertyType == SerializedPropertyType.String && Selection.objects.Length == 1)	// なぜかコンポーネントを複数選択すると上書きされてしまうことがあったので、選択しているオブジェクトが1つの時だけ有効にする。
 			{
 				var attribute = (FittableTextAreaAttribute)base.attribute;
 
