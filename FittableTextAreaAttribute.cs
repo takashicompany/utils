@@ -36,7 +36,7 @@ namespace takashicompany.Unity
 	{
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
-			if (property.propertyType == SerializedPropertyType.String)
+			if (property.propertyType == SerializedPropertyType.String && Selection.objects.Length == 1)
 			{
 				var attribute = (FittableTextAreaAttribute)base.attribute;
 
@@ -79,7 +79,7 @@ namespace takashicompany.Unity
 			}
 			else
 			{
-				EditorGUI.LabelField(position, label.text, "Use ResizeTextArea with strings.");
+				EditorGUI.LabelField(position, label.text, "Use ResizeTextArea with strings or select only one object.");
 			}
 		}
 
