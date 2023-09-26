@@ -2937,6 +2937,42 @@
 			return worldPoint;
 		}
 
+		public static void AdjustDistanceToMatchRatio(this Camera camera, GameObject obj, float targetRatio)
+		{
+			// GameObjectのバウンディングボックスの取得
+			Renderer renderer = obj.GetComponentInChildren<Renderer>();
+			if (renderer == null) return;
+			camera.AdjustDistanceToMatchRatio(renderer.bounds, targetRatio);
+		}
+		
+		/// <summary>
+		/// カメラの距離を、指定のBoundsが画面のtargetRatio内に収まるようにする
+		/// </summary>
+		/// <param name="camera"></param>
+		/// <param name="bounds"></param>
+		/// <param name="targetRatio"></param>
+		public static void AdjustDistanceToMatchRatio(this Camera camera, Bounds bounds, float targetRatio)
+		{
+			float objectSize = Mathf.Max(bounds.extents.x, bounds.extents.y, bounds.extents.z) * 2f;
+
+			// 縦横の比率を考慮して適切な視野角を計算する
+			float fov = camera.fieldOfView * Mathf.Deg2Rad;
+			float aspectRatio = camera.aspect;
+
+			float halfSizeVertical = objectSize / 2f;
+			float halfSizeHorizontal = halfSizeVertical * aspectRatio;
+
+			float distanceVertical = halfSizeVertical / Mathf.Tan(fov / 2f);
+			float distanceHorizontal = halfSizeHorizontal / (aspectRatio * Mathf.Tan(fov / 2f));
+
+			// 必要な距離を計算
+			float requiredDistance = Mathf.Max(distanceVertical, distanceHorizontal) / targetRatio;
+
+			// カメラの方向に基づいてカメラを移動
+			Vector3 direction = (bounds.center - camera.transform.position).normalized;
+			camera.transform.position = bounds.center - direction * requiredDistance;
+		}
+
 #endregion
 
 #region Generic
