@@ -72,8 +72,8 @@ namespace takashicompany.Unity
 		{
 			new Color32(255, 232, 18, 255),
 			new Color32(15, 184, 217, 255),
-			new Color32(159, 202, 0, 255),
 			new Color32(200, 14, 104, 255),
+			new Color32(159, 202, 0, 255),
 			new Color32(38, 96, 172, 255),
 			new Color32(234, 84, 25, 255),
 			new Color32(0, 132, 66, 255),
