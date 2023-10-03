@@ -10,6 +10,78 @@ namespace takashicompany.Unity
 	// 	void OnPlace(Vector3Int pointV3);
 	// }
 
+	[System.Serializable]
+	public class SpawnGrid
+	{
+		[SerializeField]
+		private Vector3Int _grid = new Vector3Int(10, 10, 10);
+		
+		[SerializeField]
+		private Vector3 _center = Vector3.zero;
+
+		[SerializeField]
+		private Vector3 _unitPerCell = Vector3.one;
+
+		public SpawnGrid(Vector3Int grid, Vector3 center, Vector3 unitPerCell)
+		{
+			_grid = grid;
+			_center = center;
+			_unitPerCell = unitPerCell;
+		}
+
+		public List<Vector3Int> GetCells()
+		{
+			var list = new List<Vector3Int>();
+
+			_grid.Foreach(v3 =>
+			{
+				list.Add(v3);
+			});
+
+			return list;
+		}
+
+		public List<Vector3Int> GetRandomCells(int count)
+		{
+			var list = GetCells();
+			var result = new List<Vector3Int>();
+
+			for (int i = 0; i < count; i++)
+			{
+				result.Add(list.PickRandom());
+			}
+
+			return result;
+		}
+
+		public Vector3 CalcUnitPerCellOnWorld(Transform transform)
+		{
+			return transform.TransformVector(_unitPerCell);
+		}
+
+		public Vector3 GetWorldCellPosition(Transform transform, Vector3Int position)
+		{
+			var unitPerCell = CalcUnitPerCellOnWorld(transform);
+			return transform.TransformPoint(_center + Utils.GetPositionByCell(_grid, position, unitPerCell));
+		}
+
+		public Vector3 GetLocalCellPosition(Transform transform, Vector3Int position)
+		{
+			return _center + Utils.GetPositionByCell(_grid, position, _unitPerCell);
+		}
+
+		public void OnDrawGizmos(Transform transform)
+		{
+			var unitPerCell = CalcUnitPerCellOnWorld(transform);
+
+			_grid.Foreach(v3 =>
+			{
+				var p = transform.TransformPoint(_center + Utils.GetPositionByCell(_grid, v3, unitPerCell));
+				Gizmos.DrawWireCube(p, unitPerCell * 0.95f);
+			});
+		}
+	}
+
 	public class GridPlacer : MonoBehaviour
 	{
 		[System.Serializable]
