@@ -15,6 +15,7 @@ namespace takashicompany.Unity
 			List<Vector2> points { get; }
 			void AddPoint(Vector3 point);
 			void SetLine(LineRenderer line);
+			void Delete();
 		}
 
 		public class TouchEvent : ITouchEvent
@@ -43,6 +44,11 @@ namespace takashicompany.Unity
 				line.SetPosition(line.positionCount - 1, point);
 				collider.SetPoints(points);
 			}
+
+			public void Delete()
+			{
+				throw new System.NotImplementedException();
+			}
 		}
 	}
 
@@ -68,9 +74,6 @@ namespace takashicompany.Unity
 		private HashSet<T> _touched = new HashSet<T>();
 
 		private Dictionary<int, T> _touching = new Dictionary<int, T>();
-
-		[SerializeField]
-		private List<Vector2> _lastDrawPoints;
 
 		public void OnBeginDrag(PointerEventData eventData)
 		{
@@ -122,7 +125,6 @@ namespace takashicompany.Unity
 			{
 				var result = _touching[pointerId];
 				_touched.Add(result);
-				_lastDrawPoints = result.points;
 				_touching.Remove(pointerId);
 
 				_onEndPoint?.Invoke(pointerId, result);
@@ -138,6 +140,16 @@ namespace takashicompany.Unity
 		protected virtual T GetTouchEvent()
 		{
 			return new T();
+		}
+
+		public void DeleteAll()
+		{
+			foreach (var touched in _touched)
+			{
+				touched.Delete();
+			}
+
+			_touched.Clear();
 		}
 	}
 
