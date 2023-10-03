@@ -61,14 +61,14 @@ namespace takashicompany.Unity
 				collider.SetPoints(points);
 			}
 
-			public void Kieru(float distance)
+			public bool Disappear(float distance)
 			{
 				// 末端から消していく
-				var position = points.GetPositionAtDistance(distance, true, out var index);
+				var onPath = points.TryGetPositionAtDistance(distance, true, out var position,  out var index);
 
-				if (index < 0)
+				if (!onPath)
 				{
-					return;
+					return true;
 				}
 				
 				while (index + 1 < _tempPoints.Count)
@@ -82,10 +82,17 @@ namespace takashicompany.Unity
 				line.SetPosition(index, position);
 
 				collider.SetPoints(_tempPoints);
+
+				return false;
 			}
 
 			public void Delete()
 			{
+				if (this.line == null || this.collider == null)
+				{
+					return;
+				}
+
 				var line = this.line;
 
 				this.line = null;

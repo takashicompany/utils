@@ -1307,17 +1307,18 @@
 			return path[isReversed ? 0 : path.Count - 1];
 		}
 
-				/// <summary>
-		/// 経路の中から指定した距離にある点を返す
+		/// <summary>
+		/// 経路の中から指定した距離にある点を返す。終点か経路上にいない場合はfalseを返す
 		/// </summary>
-		public static Vector2 GetPositionAtDistance(this IList<Vector2> path, float distance, bool isReversed, out int segmentIndex)
+		public static bool TryGetPositionAtDistance(this IList<Vector2> path, float distance, bool isReversed, out Vector2 position, out int segmentIndex)
 		{
 			// ChatGPTで書いた
 			
 			if (path == null || path.Count < 2)
 			{
 				segmentIndex = -1;
-				return Vector2.zero;
+				position = Vector2.zero;
+				return false;
 			}
 
 			segmentIndex = 0;
@@ -1333,13 +1334,15 @@
 				{
 					segmentIndex = index;
 					float t = (distance - accumulatedDistance) / segmentLength;
-					return Vector2.Lerp(path[index], path[nextIndex], t);
+					position = Vector2.Lerp(path[index], path[nextIndex], t);
+					return true;
 				}
 				accumulatedDistance += segmentLength;
 			}
 
 			segmentIndex = isReversed ? 0 : path.Count - 2;
-			return path[isReversed ? 0 : path.Count - 1];
+			position = path[isReversed ? 0 : path.Count - 1];
+			return false;
 		}
 
 		public static Vector2 GetPositionByCell(Vector2Int gridSize, Vector2Int gridPosition, Vector2 unitPerGrid)
