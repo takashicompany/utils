@@ -693,56 +693,57 @@
 
 #region Path関係
 
+		// 実装が古いのでコメントアウト
 
-		/// <summary>
-		/// 距離を元に最後の点を返す。
-		/// </summary>
-		public static Vector3 GetPathPointByDistance(this IList<Vector2> path, float distance, out int index)
-		{
-			var currentDistance = 0f;
+		// /// <summary>
+		// /// 距離を元に最後の点を返す。
+		// /// </summary>
+		// public static Vector3 GetPathPointByDistance(this IList<Vector2> path, float distance, out int index)
+		// {
+		// 	var currentDistance = 0f;
 			
-			for (int i = 1; i < path.Count; i++)
-			{
-				var prev = path[i - 1];
-				var current = path[i];
-				currentDistance += Vector2.Distance(prev, current);
-				if (currentDistance >= distance)
-				{
-					index = i - 1;
-					return prev;
-				}
-			}
+		// 	for (int i = 1; i < path.Count; i++)
+		// 	{
+		// 		var prev = path[i - 1];
+		// 		var current = path[i];
+		// 		currentDistance += Vector2.Distance(prev, current);
+		// 		if (currentDistance >= distance)
+		// 		{
+		// 			index = i - 1;
+		// 			return prev;
+		// 		}
+		// 	}
 
-			index = path.Count - 1;
+		// 	index = path.Count - 1;
 
-			return path[index];
-		}
+		// 	return path[index];
+		// }
 
-		/// <summary>
-		/// 距離を元に最後の点を返す。
-		/// </summary>
-		public static Vector3 GetPathPointByDistance(this IList<Vector3> path, float distance, out int index)
-		{
-			// TODO ↑のVector2版と実装を共用にできないか
+		// /// <summary>
+		// /// 距離を元に最後の点を返す。
+		// /// </summary>
+		// public static Vector3 GetPathPointByDistance(this IList<Vector3> path, float distance, out int index)
+		// {
+		// 	// TODO ↑のVector2版と実装を共用にできないか
 
-			var currentDistance = 0f;
+		// 	var currentDistance = 0f;
 			
-			for (int i = 1; i < path.Count; i++)
-			{
-				var prev = path[i - 1];
-				var current = path[i];
-				currentDistance += Vector3.Distance(prev, current);
-				if (currentDistance >= distance)
-				{
-					index = i - 1;
-					return prev;
-				}
-			}
+		// 	for (int i = 1; i < path.Count; i++)
+		// 	{
+		// 		var prev = path[i - 1];
+		// 		var current = path[i];
+		// 		currentDistance += Vector3.Distance(prev, current);
+		// 		if (currentDistance >= distance)
+		// 		{
+		// 			index = i - 1;
+		// 			return prev;
+		// 		}
+		// 	}
 
-			index = path.Count - 1;
+		// 	index = path.Count - 1;
 
-			return path[index];
-		}
+		// 	return path[index];
+		// }
 
 
 		/// <summary>
@@ -1270,6 +1271,76 @@
 		// 		}
 		// 	});
 		// }
+
+		/// <summary>
+		/// 経路の中から指定した距離にある点を返す
+		/// </summary>
+		public static Vector3 GetPositionAtDistance(this IList<Vector3> path, float distance, bool isReversed, out int segmentIndex)
+		{
+			// ChatGPTで書いた
+
+			if (path == null || path.Count < 2)
+			{
+				segmentIndex = -1;
+				return Vector3.zero;
+			}
+
+			segmentIndex = 0;
+			float accumulatedDistance = 0;
+			
+			for (int i = 0; i < path.Count - 1; i++)
+			{
+				int index = isReversed ? path.Count - i - 2 : i;
+				int nextIndex = isReversed ? path.Count - i - 1 : i + 1;
+
+				float segmentLength = Vector3.Distance(path[index], path[nextIndex]);
+				if (accumulatedDistance + segmentLength >= distance)
+				{
+					segmentIndex = index;
+					float t = (distance - accumulatedDistance) / segmentLength;
+					return Vector3.Lerp(path[index], path[nextIndex], t);
+				}
+				accumulatedDistance += segmentLength;
+			}
+
+			segmentIndex = isReversed ? 0 : path.Count - 2;
+			return path[isReversed ? 0 : path.Count - 1];
+		}
+
+				/// <summary>
+		/// 経路の中から指定した距離にある点を返す
+		/// </summary>
+		public static Vector2 GetPositionAtDistance(this IList<Vector2> path, float distance, bool isReversed, out int segmentIndex)
+		{
+			// ChatGPTで書いた
+			
+			if (path == null || path.Count < 2)
+			{
+				segmentIndex = -1;
+				return Vector2.zero;
+			}
+
+			segmentIndex = 0;
+			float accumulatedDistance = 0;
+			
+			for (int i = 0; i < path.Count - 1; i++)
+			{
+				int index = isReversed ? path.Count - i - 1 : i;
+				int nextIndex = isReversed ? path.Count - i - 2 : i + 1;
+
+				float segmentLength = Vector2.Distance(path[index], path[nextIndex]);
+				if (accumulatedDistance + segmentLength >= distance)
+				{
+					segmentIndex = index;
+					float t = (distance - accumulatedDistance) / segmentLength;
+					return Vector2.Lerp(path[index], path[nextIndex], t);
+				}
+				accumulatedDistance += segmentLength;
+			}
+
+			segmentIndex = isReversed ? 0 : path.Count - 2;
+			return path[isReversed ? 0 : path.Count - 1];
+		}
 
 		public static Vector2 GetPositionByCell(Vector2Int gridSize, Vector2Int gridPosition, Vector2 unitPerGrid)
 		{

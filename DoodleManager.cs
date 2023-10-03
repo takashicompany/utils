@@ -60,6 +60,11 @@ namespace takashicompany.Unity
 
 		public UnityEvent<int> onBeginPoint => _onBeginPoint;
 
+		[SerializeField]
+		private UnityEvent<int, T> _onEndPoint;
+
+		public UnityEvent<int, T> onEndPoint => _onEndPoint;
+
 		private HashSet<T> _touched = new HashSet<T>();
 
 		private Dictionary<int, T> _touching = new Dictionary<int, T>();
@@ -115,9 +120,12 @@ namespace takashicompany.Unity
 		{
 			if (_touching.ContainsKey(pointerId))
 			{
-				_touched.Add(_touching[pointerId]);
-				_lastDrawPoints = _touching[pointerId].points;
+				var result = _touching[pointerId];
+				_touched.Add(result);
+				_lastDrawPoints = result.points;
 				_touching.Remove(pointerId);
+
+				_onEndPoint?.Invoke(pointerId, result);
 			}
 		}
 
