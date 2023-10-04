@@ -1141,6 +1141,20 @@
 
 			return randomBounds;
 		}
+
+		public static BoundsInt ExpandToInclude(this BoundsInt bounds, Vector3Int point) // ChatGPTでつくった
+		{
+			int newMinX = Mathf.Min(bounds.min.x, point.x);
+			int newMinY = Mathf.Min(bounds.min.y, point.y);
+			int newMinZ = Mathf.Min(bounds.min.z, point.z);
+
+			int newMaxX = Mathf.Max(bounds.max.x, point.x);
+			int newMaxY = Mathf.Max(bounds.max.y, point.y);
+			int newMaxZ = Mathf.Max(bounds.max.z, point.z);
+
+			return new BoundsInt(newMinX, newMinY, newMinZ, newMaxX - newMinX, newMaxY - newMinY, newMaxZ - newMinZ);
+		}
+
 #endregion
 
 		private static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
