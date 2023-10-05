@@ -46,7 +46,6 @@ ss/
 
 *.keystore
 
-*AdKeys.cs*
-!*AdKeys*.cs
+*AdKeysXXX.cs*
 Recordings*
 mono_crash.mem*
