@@ -193,6 +193,9 @@ namespace takashicompany.Unity
 			return _b != null;
 		}
 
+		public Rigidbody d3 => _a;
+		public Rigidbody2D d2 => _b;
+
 		public void AddForce(Vector3 force)
 		{
 			Init();
@@ -264,6 +267,7 @@ namespace takashicompany.Unity
 				Debug.LogError("初期化に失敗しているかもしれません。s");
 			}
 		}
+
 	}
 
 	[System.Serializable]
