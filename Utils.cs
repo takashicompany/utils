@@ -803,6 +803,30 @@
 
 			return length;
 		}
+
+		public static int GetIndex(this IReadOnlyList<Vector3> path, float distance, out float distanceFromIndexOfPoint)
+		{
+			var totalLength = 0f;
+
+			for (int i = 0; i < path.Count - 1; i++)
+			{
+				var head = path[i];
+				var tail = path[i + 1];
+
+				var currentDistance = Vector3.Distance(head, tail);
+
+				if (distance < totalLength + currentDistance)
+				{
+					distanceFromIndexOfPoint = distance - totalLength;
+					return i;
+				}
+				
+				totalLength += currentDistance;
+			}
+
+			distanceFromIndexOfPoint = distance - totalLength;
+			return path.Count - 1;
+		}
 		
 		/// <summary>
 		/// パスの中から最も点に近い位置を求める
