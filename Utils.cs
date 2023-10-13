@@ -752,11 +752,11 @@
 		/// <param name="path"></param>
 		/// <param name="normalized">0~1</param>
 		/// <returns></returns>
-		public static Vector3 GetPointOfProgress(this IList<Vector3> path, float normalized)
+		public static Vector3 GetPointOfProgress(this IReadOnlyList<Vector3> path, float normalized)
 		{
 			normalized = Mathf.Clamp01(normalized);
 
-			var totalLength = path.GetTotalLength();
+			var totalLength = path.GetTotalLength(out _, out _);
 
 			var lengthOnProgress = totalLength * normalized;
 
@@ -789,16 +789,22 @@
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
-		public static float GetTotalLength(this IList<Vector3> path)
+		public static float GetTotalLength(this IReadOnlyList<Vector3> path, out List<float> distances, out List<float> distancesFromStart, int startIndex = 0)
 		{
 			var length = 0f;
 
-			for (int i = 0; i < path.Count - 1; i++)
+			distances = new List<float>();
+			distancesFromStart = new List<float>();
+
+			for (int i = startIndex; i < path.Count - 1; i++)
 			{
 				var head = path[i];
 				var tail = path[i + 1];
 
-				length += Vector3.Distance(head, tail);
+				var distance = Vector3.Distance(head, tail);
+				distances.Add(distance);
+				length += distance;
+				distancesFromStart.Add(length);
 			}
 
 			return length;
