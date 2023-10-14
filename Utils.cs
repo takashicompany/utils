@@ -789,10 +789,8 @@
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
-		public static float GetTotalLength(this IReadOnlyList<Vector3> path, out List<float> distances, out List<float> distancesFromStart, int startIndex = 0)
+		public static float GetTotalLength(this IReadOnlyList<Vector3> path, out List<float> distances, out List<float> distancesFromStart, int startIndex = 0, float length = 0)
 		{
-			var length = 0f;
-
 			distances = new List<float>();
 			distancesFromStart = new List<float>();
 
