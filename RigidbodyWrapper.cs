@@ -4,6 +4,7 @@ namespace takashicompany.Unity
 	using System.Collections.Generic;
 	using System.Linq;
 	using UnityEngine;
+	using UnityEngine.UI;
 
 	public abstract class ComponentWrapper<T, A, B> where T : Component where A : Component where B : Component
 	{
@@ -41,6 +42,16 @@ namespace takashicompany.Unity
 		{
 			Init();
 			return _a != null || _b != null;
+		}
+
+		protected bool IsA()
+		{
+			return _a != null;
+		}
+
+		protected bool IsB()
+		{
+			return _b != null;
 		}
 	}
 
@@ -386,6 +397,55 @@ namespace takashicompany.Unity
 				{
 					Debug.LogError("初期化に失敗しているかもしれません。");
 					return new Bounds();
+				}
+			}
+		}
+	}
+
+	[System.Serializable]
+	public class SpriteWrapper : ComponentWrapper<SpriteRenderer, Image>
+	{
+		public SpriteWrapper(Component component) : base(component)
+		{
+			
+		}
+
+		public SpriteWrapper(GameObject gameObject) : base(gameObject)
+		{
+		}
+
+		public Color color
+		{
+			get
+			{
+				if (IsA())
+				{
+					return _a.color;
+				}
+				else if (IsB())
+				{
+					return _b.color;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+					return Color.white;
+				}
+			}
+
+			set
+			{
+				if (IsA())
+				{
+					_a.color = value;
+				}
+				else if (IsB())
+				{
+					_b.color = value;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
 				}
 			}
 		}
