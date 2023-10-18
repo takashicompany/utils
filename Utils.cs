@@ -3083,6 +3083,11 @@
 		{
 			return EqualityComparer<T>.Default.Equals(value, default(T));
 		}
+
+		public static bool IsEquals<T>(this T value, T other)
+		{
+			return EqualityComparer<T>.Default.Equals(value, other);
+		}
 #endregion
 
 		public static bool TryGetPositionOnRay(this Ray ray, int vector3Index, float target, out Vector3 position)
