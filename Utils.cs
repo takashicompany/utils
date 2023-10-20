@@ -1097,13 +1097,13 @@
 			self.Foreach((x, y, z) => function(new Vector3Int(x, y, z)));
 		}
 
-		public static IEnumerable<Vector3Int> GetV3Ints(this Vector3Int self)
+		public static IEnumerable<Vector3Int> GetV3Ints(this Vector3Int self, bool includeMax = false)
 		{
-			for (var x = 0; x < self.x; x++)
+			for (var z = 0; includeMax ? z <= self.z : z < self.z; z++)
 			{
-				for (var y = 0; y < self.y; y++)
+				for (var y = 0; includeMax ? y <= self.y : y < self.y; y++)
 				{
-					for (var z = 0; z < self.z; z++)
+					for (var x = 0; includeMax ? x <= self.x : x < self.x; x++)
 					{
 						yield return new Vector3Int(x, y, z);
 					}
@@ -1185,7 +1185,7 @@
 
 #endregion
 
-		private static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
+		public static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
 		{
 			var min = new Vector3Int(int.MaxValue, int.MaxValue, int.MaxValue);
 			var max = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
