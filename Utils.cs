@@ -1111,6 +1111,11 @@
 			}
 		}
 
+		public static Vector3 ToVector3(this Vector3Int self)
+		{
+			return new Vector3(self.x, self.y, self.z);
+		}
+
 #region BoundsInt
 		public static void Foreach(this BoundsInt b, System.Action<Vector3Int> function, bool includeMax = false)
 		{
