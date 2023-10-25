@@ -1188,6 +1188,16 @@
 			return new BoundsInt(newMinX, newMinY, newMinZ, newMaxX - newMinX, newMaxY - newMinY, newMaxZ - newMinZ);
 		}
 
+		public static BoundsInt ExpandToInclude(this BoundsInt bounds, IEnumerable<Vector3Int> points)
+		{
+			foreach (var p in points)
+			{
+				bounds = bounds.ExpandToInclude(p);
+			}
+
+			return bounds;
+		}
+
 #endregion
 
 		public static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
