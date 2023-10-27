@@ -418,6 +418,7 @@ namespace takashicompany.Unity
 		{
 			get
 			{
+				Init();
 				if (IsA())
 				{
 					return _a.color;
@@ -435,6 +436,7 @@ namespace takashicompany.Unity
 
 			set
 			{
+				Init();
 				if (IsA())
 				{
 					_a.color = value;
