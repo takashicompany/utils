@@ -53,6 +53,8 @@ namespace takashicompany.Unity
 		{
 			return _b != null;
 		}
+
+		public Transform transform => _component.transform;
 	}
 
 	public class ComponentWrapper<A, B> : ComponentWrapper<Component, A, B> where A : Component where B : Component
@@ -413,6 +415,8 @@ namespace takashicompany.Unity
 		public SpriteWrapper(GameObject gameObject) : base(gameObject)
 		{
 		}
+
+		
 
 		public Color color
 		{
