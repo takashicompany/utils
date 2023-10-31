@@ -26,7 +26,7 @@ RectTransform:
   m_GameObject: {fileID: 5431623447218108622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5431623447571783009}
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _background: {fileID: 5431623447571783008}
   _title:
-    _obj: {fileID: 4111832359684094893}
+    _component: {fileID: 4111832359684094893}
   _itemContainer:
     _container: {fileID: 2743077598122364342}
     _prefab: {fileID: 8668936242554443766, guid: 291f30abec1514cd9a165500a9fc27c1,
