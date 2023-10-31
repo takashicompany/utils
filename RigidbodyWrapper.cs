@@ -414,9 +414,46 @@ namespace takashicompany.Unity
 
 		public SpriteWrapper(GameObject gameObject) : base(gameObject)
 		{
+			
 		}
 
-		
+		public Sprite sprite
+		{
+			get
+			{
+				Init();
+				if (IsA())
+				{
+					return _a.sprite;
+				}
+				else if (IsB())
+				{
+					return _b.sprite;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+					return null;
+				}
+			}
+
+			set
+			{
+				Init();
+				if (IsA())
+				{
+					_a.sprite = value;
+				}
+				else if (IsB())
+				{
+					_b.sprite = value;
+				}
+				else
+				{
+					Debug.LogError("初期化に失敗しているかもしれません。");
+				}
+			}
+		}
 
 		public Color color
 		{
