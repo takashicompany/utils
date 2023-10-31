@@ -1115,6 +1115,33 @@
 		{
 			return new Vector3(self.x, self.y, self.z);
 		}
+#region Bounds
+
+		// ちょっとこの辺りどれぐらい正しいかは未検証
+		public static Bounds Rotate(this Bounds bounds, Quaternion rotation)
+		{
+			Vector3 rotatedVertex = rotation * (GetCorner(bounds, 0) - bounds.center) + bounds.center;
+			Bounds rotatedBounds = new Bounds(rotatedVertex, Vector3.zero);
+
+			for (int i = 1; i < 8; i++)
+			{
+				rotatedVertex = rotation * (GetCorner(bounds, i) - bounds.center) + bounds.center;
+				rotatedBounds.Encapsulate(rotatedVertex);
+			}
+
+			return rotatedBounds;
+		}
+
+		private static Vector3 GetCorner(Bounds bounds, int index)
+		{
+			return bounds.center + new Vector3(
+				(index & 1) == 0 ? bounds.extents.x : -bounds.extents.x,
+				(index & 2) == 0 ? bounds.extents.y : -bounds.extents.y,
+				(index & 4) == 0 ? bounds.extents.z : -bounds.extents.z
+			);
+		}
+
+#endregion
 
 #region BoundsInt
 		public static void Foreach(this BoundsInt b, System.Action<Vector3Int> function, bool includeMax = false)
@@ -3089,6 +3116,21 @@
 
 			Vector3 direction = (bounds.center - camera.transform.position).normalized;
 			camera.transform.position = bounds.center - direction * requiredDistance;
+		}
+
+		public static Vector3[] GetFrustumCorners(this Camera camera, float distance)
+		{
+			GetFrustumCorners(camera, distance, out var bottomLeft, out var bottomRight, out var topLeft, out var topRight);
+			return new Vector3[] { bottomLeft, bottomRight, topLeft, topRight };
+		}
+
+		public static void GetFrustumCorners(this Camera camera, float distance, 
+			out Vector3 bottomLeft, out Vector3 bottomRight, out Vector3 topLeft, out Vector3 topRight)
+		{
+			bottomLeft = camera.ViewportToWorldPoint(new Vector3(0, 0, distance));
+			bottomRight = camera.ViewportToWorldPoint(new Vector3(1, 0, distance));
+			topLeft = camera.ViewportToWorldPoint(new Vector3(0, 1, distance));
+			topRight = camera.ViewportToWorldPoint(new Vector3(1, 1, distance));
 		}
 
 #endregion
