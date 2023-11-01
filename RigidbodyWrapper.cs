@@ -1,10 +1,12 @@
 namespace takashicompany.Unity
 {
+	using System;
 	using System.Collections;
 	using System.Collections.Generic;
 	using System.Linq;
 	using UnityEngine;
 	using UnityEngine.UI;
+	using DG.Tweening;
 
 	public abstract class ComponentWrapper<T, A, B> where T : Component where A : Component where B : Component
 	{
@@ -46,15 +48,67 @@ namespace takashicompany.Unity
 
 		protected bool IsA()
 		{
+			Init();
 			return _a != null;
 		}
 
 		protected bool IsB()
 		{
+			Init();
 			return _b != null;
 		}
 
+		public GameObject gameObject => _component.gameObject;
 		public Transform transform => _component.transform;
+
+		protected V Get<V>(Func<V> funcA, Func<V> funcB)
+		{
+			if (IsA())
+			{
+				return funcA();
+			}
+			else if (IsB())
+			{
+				return funcB();
+			}
+			else
+			{
+				Debug.LogError("初期化に失敗しているかもしれません。");
+				return default(V);
+			}
+		}
+
+		protected void Set<V>(Action<V> setA, Action<V> setB, V value)
+		{
+			if (IsA())
+			{
+				setA(value);
+			}
+			else if (IsB())
+			{
+				setB(value);
+			}
+			else
+			{
+				Debug.LogError("初期化に失敗しているかもしれません。");
+			}
+		}
+
+		protected void Execute(Action executeA, Action executeB)
+		{
+			if (IsA())
+			{
+				executeA();
+			}
+			else if (IsB())
+			{
+				executeB();
+			}
+			else
+			{
+				Debug.LogError("初期化に失敗しているかもしれません。");
+			}
+		}
 	}
 
 	public class ComponentWrapper<A, B> : ComponentWrapper<Component, A, B> where A : Component where B : Component
@@ -85,125 +139,30 @@ namespace takashicompany.Unity
 
 		public Vector3 velocity
 		{
-			get
-			{
-				Init();
-				if (Is2D())
-				{
-					return _b.velocity;
-				}
-				else if (Is3D())
-				{
-					return _a.velocity;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-					return Vector3.zero;
-				}
-			}
-			set
-			{
-				Init();
-				if (Is2D())
-				{
-					_b.velocity = value;
-				}
-				else if (Is3D())
-				{
-					_a.velocity = value;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-				}
-			}
+			get => Get<Vector3>(() => _a.velocity, () => _b.velocity);
+			set => Set(v => _a.velocity = v, v => _b.velocity = v, value);
 		}
 
 		public Vector3 position
 		{
-			get
-			{
-				Init();
-				if (Is2D())
-				{
-					return _b.position;
-				}
-				else if (Is3D())
-				{
-					return _a.position;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-					return Vector3.zero;
-				}
-			}
-			set
-			{
-				Init();
-				if (Is2D())
-				{
-					_b.position = value;
-				}
-				else if (Is3D())
-				{
-					_a.position = value;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-				}
-			}
+			get => Get<Vector3>(() => _a.position, () => _b.position);
+			set => Set(v => _a.position = v, v => _b.position = v, value);
 		}
-
+		
 		public Quaternion rotation
 		{
-			get
-			{
-				Init();
-				if (Is2D())
-				{
-					return Quaternion.Euler(0, 0, _b.rotation);
-				}
-				else if (Is3D())
-				{
-					return _a.rotation;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-					return Quaternion.identity;
-				}
-			}
-			set
-			{
-				Init();
-				if (Is2D())
-				{
-					_b.rotation = value.eulerAngles.z;
-				}
-				else if (Is3D())
-				{
-					_a.rotation = value;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。s");
-				}
-			}
+			get => Get<Quaternion>(() => _a.rotation, () => Quaternion.Euler(0, 0, _b.rotation));
+			set => Set(v => _a.rotation = v, v => _b.rotation = v.eulerAngles.z, value);
 		}
 		
 		public bool Is3D()
 		{
-			Init();
-			return _a != null;
+			return IsA();
 		}
 
 		public bool Is2D()
 		{
-			Init();
-			return _b != null;
+			return IsB();
 		}
 
 		public Rigidbody d3 => _a;
@@ -211,74 +170,22 @@ namespace takashicompany.Unity
 
 		public void AddForce(Vector3 force)
 		{
-			Init();
-
-			if (Is2D())
-			{
-				_b.AddForce(force);
-			}
-			else if (Is3D())
-			{
-				_a.AddForce(force);
-			}
-			else
-			{
-				Debug.LogError("初期化に失敗しているかもしれません。s");
-			}
+			Execute(() => _a.AddForce(force), () => _b.AddForce(force));
 		}
 
 		public void Sleep()
 		{
-			Init();
-
-			if (Is2D())
-			{
-				_b.Sleep();
-			}
-			else if (Is3D())
-			{
-				_a.Sleep();
-			}
-			else
-			{
-				Debug.LogError("初期化に失敗しているかもしれません。s");
-			}
+			Execute(() => _a.Sleep(), () => _b.Sleep());
 		}
 
 		public void MovePosition(Vector3 position)
 		{
-			Init();
-
-			if (Is2D())
-			{
-				_b.MovePosition(position);
-			}
-			else if (Is3D())
-			{
-				_a.MovePosition(position);
-			}
-			else
-			{
-				Debug.LogError("初期化に失敗しているかもしれません。s");
-			}
+			Execute(() => _a.MovePosition(position), () => _b.MovePosition(position));
 		}
 
 		public void MoveRotation(Quaternion rotation)
 		{
-			Init();
-
-			if (Is2D())
-			{
-				_b.MoveRotation(rotation.eulerAngles.z);
-			}
-			else if (Is3D())
-			{
-				_a.MoveRotation(rotation);
-			}
-			else
-			{
-				Debug.LogError("初期化に失敗しているかもしれません。s");
-			}
+			Execute(() => _a.MoveRotation(rotation), () => _b.MoveRotation(rotation.eulerAngles.z));
 		}
 
 	}
@@ -298,109 +205,29 @@ namespace takashicompany.Unity
 
 		public bool Is3D()
 		{
-			Init();
-			return _a != null;
+			return IsA();
 		}
 
 		public bool Is2D()
 		{
-			Init();
-			return _b != null;
+			return IsB();
 		}
 
 		public bool isTrigger
 		{
-			get
-			{
-				Init();
-				if (Is2D())
-				{
-					return _b.isTrigger;
-				}
-				else if (Is3D())
-				{
-					return _a.isTrigger;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-					return false;
-				}
-			}
-			set
-			{
-				Init();
-				if (Is2D())
-				{
-					_b.isTrigger = value;
-				}
-				else if (Is3D())
-				{
-					_a.isTrigger = value;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-				}
-			}
+			get => Get(() => _a.isTrigger, () => _b.isTrigger);
+			set => Set(v => _a.isTrigger = v, v => _b.isTrigger = v, value);
 		}
 
 		public bool enabled
 		{
-			get
-			{
-				Init();
-				if (Is2D())
-				{
-					return _b.enabled;
-				}
-				else if (Is3D())
-				{
-					return _a.enabled;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-					return false;
-				}
-			}
-			set
-			{
-				Init();
-				if (Is2D())
-				{
-					_b.enabled = value;
-				}
-				else if (Is3D())
-				{
-					_a.enabled = value;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-				}
-			}
+			get => Get(() => _a.enabled, () => _b.enabled);
+			set => Set(v => _a.enabled = v, v => _b.enabled = v, value);
 		}
 
 		public Bounds bounds
 		{
-			get
-			{
-				Init();
-				if (Is2D())
-				{
-					return _b.bounds;
-				}
-				else if (Is3D())
-				{
-					return _a.bounds;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-					return new Bounds();
-				}
-			}
+			get => Get(() => _a.bounds, () => _b.bounds);
 		}
 	}
 
@@ -419,78 +246,35 @@ namespace takashicompany.Unity
 
 		public Sprite sprite
 		{
-			get
-			{
-				Init();
-				if (IsA())
-				{
-					return _a.sprite;
-				}
-				else if (IsB())
-				{
-					return _b.sprite;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-					return null;
-				}
-			}
-
-			set
-			{
-				Init();
-				if (IsA())
-				{
-					_a.sprite = value;
-				}
-				else if (IsB())
-				{
-					_b.sprite = value;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-				}
-			}
+			get => Get(() => _a.sprite, () => _b.sprite);
+			set => Set(v => _a.sprite = v, v => _b.sprite = v, value);
 		}
 
 		public Color color
 		{
-			get
-			{
-				Init();
-				if (IsA())
-				{
-					return _a.color;
-				}
-				else if (IsB())
-				{
-					return _b.color;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-					return Color.white;
-				}
-			}
+			get => Get(() => _a.color, () => _b.color);
+			set => Set(v => _a.color = v, v => _b.color = v, value);
+		}
 
-			set
-			{
-				Init();
-				if (IsA())
-				{
-					_a.color = value;
-				}
-				else if (IsB())
-				{
-					_b.color = value;
-				}
-				else
-				{
-					Debug.LogError("初期化に失敗しているかもしれません。");
-				}
-			}
+		public float alpha
+		{
+			get => Get(() => _a.color.a, () => _b.color.a);
+			set => Set(v => _a.color = new Color(_a.color.r, _a.color.g, _a.color.b, v), v => _b.color = new Color(_b.color.r, _b.color.g, _b.color.b, v), value);
+		}
+
+		public void DOKill()
+		{
+			Execute(() => _a.DOKill(), () => _b.DOKill());
+		}
+
+		public DG.Tweening.Core.TweenerCore<Color, Color, DG.Tweening.Plugins.Options.ColorOptions> DOFade(float alpha, float duration)
+		{
+			return Get(() => _a.DOFade(alpha, duration), () => _b.DOFade(alpha, duration));
+		}
+
+		public DG.Tweening.Core.TweenerCore<Color, Color, DG.Tweening.Plugins.Options.ColorOptions> DOColor(Color color, float duration)
+		{
+			return Get(() => _a.DOColor(color, duration), () => _b.DOColor(color, duration));
 		}
 	}
 }
