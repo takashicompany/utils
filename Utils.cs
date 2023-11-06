@@ -1928,6 +1928,12 @@
 			self.SetActive(result);
 			return result;
 		}
+
+		public static bool IsPrefab(this GameObject go)
+		{
+			return !go.scene.isLoaded;
+		}
+		
 #endregion
 
 		public static Color SetAlpha(this Color self, float alpha)
