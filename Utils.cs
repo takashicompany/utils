@@ -1520,6 +1520,11 @@
 		}
 		
 #region リストをランダムで処理する
+		public static int GetRandomIndex<T>(this IReadOnlyList<T> self)
+		{
+			return UnityEngine.Random.Range(0, self.Count);
+		}
+
 		public static int GetRandomIndex<T>(this IList<T> self)
 		{
 			return UnityEngine.Random.Range(0, self.Count);
@@ -1535,7 +1540,7 @@
 		// 	return (T)(self[self.GetRandomIndex()]);
 		// }
 
-		public static T GetRandom<T>(this IList<T> self)
+		public static T GetRandom<T>(this IReadOnlyList<T> self)
 		{
 			return self[self.GetRandomIndex()];
 		}
@@ -1582,7 +1587,7 @@
 			}
 		}
 
-		public static List<T> GetRandomSorted<T>(this IList<T> self)
+		public static List<T> GetRandomSorted<T>(this IReadOnlyList<T> self)
 		{
 			var myList = new List<T>(self);
 
@@ -1596,7 +1601,7 @@
 			return list;
 		}
 
-		public static T[] GetRandom<T>(this IList<T> self, int count)
+		public static T[] GetRandom<T>(this IReadOnlyList<T> self, int count)
 		{
 			var result = new T[count];
 			
