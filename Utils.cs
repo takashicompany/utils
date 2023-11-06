@@ -2758,7 +2758,7 @@
 			}
 		}
 
-		public static IEnumerator CoPlayAndWait(this Animator self, string stateName, float normalizedWaitTime, System.Action onComplete = null, int layerIndex = 0)
+		public static IEnumerator CoPlayAndWait(this Animator self, string stateName, float normalizedWaitTime = 1, /*System.Action onComplete = null,*/ int layerIndex = 0)
 		{
 			self.Play(stateName, layerIndex);
 
@@ -2769,7 +2769,8 @@
 				yield return null;
 			}
 
-			onComplete?.Invoke();
+			// コルーチンでの使用を想定しているので不要。callbackにしたいなら別の関数作ったほうが良さそう
+			// onComplete?.Invoke();
 		}
 
 		public static IEnumerator CoPlayAndWait(this Animator self, string stateName, float[] normalizedWaitTimes, System.Action onComplete = null, int layerIndex = 0)
