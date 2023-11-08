@@ -12,7 +12,7 @@ namespace takashicompany.Unity.UI
 	[System.Serializable]
 	public class TextWrapper : ComponentWrapper<MaskableGraphic, Text, TextMeshProUGUI>, ITransform, IGameObject
 	{
-		public MaskableGraphic maskableGraphic => _component;
+		public MaskableGraphic maskableGraphic => _component as MaskableGraphic;
 
 		private string _cachedText;
 
@@ -69,10 +69,7 @@ namespace takashicompany.Unity.UI
 			}
 		}
 
-		public Transform transform => _component.transform;
-		public GameObject gameObject => _component.gameObject;
-
-		public RectTransform rectTransform => _component.rectTransform;
+		public RectTransform rectTransform => maskableGraphic.rectTransform;
 
 		public TextWrapper(MaskableGraphic component) : base(component)
 		{

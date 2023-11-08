@@ -8,11 +8,44 @@ namespace takashicompany.Unity
 	using UnityEngine.UI;
 	using DG.Tweening;
 
-	public abstract class ComponentWrapper<T, A, B> where T : Component where A : Component where B : Component
+#if UNITY_EDITOR
+	using UnityEditor;
+
+	[CustomPropertyDrawer(typeof(ComponentWrapper), true)]
+	public class ComponentWrapperDrawer : PropertyDrawer
+	{
+		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+		{
+			EditorGUI.BeginProperty(position, label, property);
+
+			// _component フィールドを描画します。
+			SerializedProperty componentProperty = property.FindPropertyRelative("_component");
+			EditorGUI.PropertyField(
+				new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight),
+				componentProperty,
+				label,
+				true
+			);
+
+			EditorGUI.EndProperty();
+		}
+
+		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+		{
+			// _component フィールドのみ表示するため、単一行の高さを返します。
+			return EditorGUIUtility.singleLineHeight;
+		}
+	}
+#endif
+
+	public abstract class ComponentWrapper
 	{
 		[SerializeField]
-		protected T _component;
+		protected Component _component;
+	}
 
+	public abstract class ComponentWrapper<T, A, B> : ComponentWrapper where T : Component where A : Component where B : Component
+	{
 		protected A _a;
 		protected B _b;
 
