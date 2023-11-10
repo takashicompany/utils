@@ -2300,6 +2300,37 @@
 			return new Vector2Int(maxCol + 1, maxRow + 1);
 		}
 
+
+		public static Dictionary<K, V> Build<K, V>(this IEnumerable<V> values, System.Func<V, K> keySelector, bool overrideValue = false)
+		{
+			// LinqにはToDictionaryがあるが、overrideValueがないので自作
+
+			var dict = new Dictionary<K, V>();
+
+			foreach (var v in values)
+			{
+				var key = keySelector(v);
+
+				if (overrideValue)
+				{
+					dict.AddOrSet(key, v);
+				}
+				else
+				{
+					if (dict.ContainsKey(key))
+					{
+						Debug.LogError($"key {key} is already exists");
+					}
+					else
+					{
+						dict.Add(key, v);
+					}
+				}
+			}
+
+			return dict;
+		}
+
 #endregion
 
 #region Collider
