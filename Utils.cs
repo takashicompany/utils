@@ -1571,14 +1571,12 @@
 				{
 					throw new System.Exception("amount is too large");
 				}
-
-				var list = new List<T>(self);
-
+				
 				var count = 0;
 
-				while (count < amount)
+				while (count < amount && self.Count > 0)
 				{
-					var item = list.PickRandom();
+					var item = self.PickRandom();
 
 					yield return item;
 
