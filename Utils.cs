@@ -1571,7 +1571,7 @@
 				{
 					throw new System.Exception("amount is too large");
 				}
-				
+
 				var count = 0;
 
 				while (count < amount && self.Count > 0)
@@ -3062,6 +3062,28 @@
 		{
 			return TryGetDirectionFromTouch(camera, fromScreenPoint, toScreenPoint, out direction, LayerMask.GetMask(layerNames), distance);
 		}
+
+#region DOTween
+
+		/// <summary>
+		/// DOMoveの際にそれぞれの軸毎に別のEaseを指定できるようにした関数。OnUpdateとSetTargetは使用済みです。
+		/// </summary>
+		public static Tweener DOMove(this Transform transform, Vector3 to, float duration, Ease easeX, Ease easeY, Ease easeZ)
+		{
+			var from = transform.position;
+			var current = 0f;
+			return DOTween.To(() => current, v => current = v, 1, duration).OnUpdate(() =>
+			{
+				var p = new Vector3(
+					DOVirtual.EasedValue(from.x, to.x, current, easeX),
+					DOVirtual.EasedValue(from.y, to.y, current, easeY),
+					DOVirtual.EasedValue(from.z, to.z, current, easeZ)
+				);
+
+				transform.position = p;
+			}).SetTarget(transform);
+		} 
+#endregion
 
 #region Camera
 		public static bool TryGetDirectionFromTouch(
