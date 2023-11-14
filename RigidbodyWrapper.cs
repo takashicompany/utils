@@ -142,6 +142,11 @@ namespace takashicompany.Unity
 				Debug.LogError("初期化に失敗しているかもしれません。");
 			}
 		}
+
+		public void DOKill()
+		{
+			Execute(() => _a.DOKill(), () => _b.DOKill());
+		}
 	}
 
 	public class ComponentWrapper<A, B> : ComponentWrapper<Component, A, B> where A : Component where B : Component
@@ -293,11 +298,6 @@ namespace takashicompany.Unity
 		{
 			get => Get(() => _a.color.a, () => _b.color.a);
 			set => Set(v => _a.color = new Color(_a.color.r, _a.color.g, _a.color.b, v), v => _b.color = new Color(_b.color.r, _b.color.g, _b.color.b, v), value);
-		}
-
-		public void DOKill()
-		{
-			Execute(() => _a.DOKill(), () => _b.DOKill());
 		}
 
 		public DG.Tweening.Core.TweenerCore<Color, Color, DG.Tweening.Plugins.Options.ColorOptions> DOFade(float alpha, float duration)

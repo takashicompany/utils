@@ -8,6 +8,8 @@ namespace takashicompany.Unity.UI
 	using TMPro;
 	using takashicompany.Unity;
 	using DG.Tweening;
+	using DG.Tweening.Core;
+	using DG.Tweening.Plugins.Options;
 	
 	[System.Serializable]
 	public class TextWrapper : ComponentWrapper<MaskableGraphic, Text, TextMeshProUGUI>, ITransform, IGameObject
@@ -16,57 +18,16 @@ namespace takashicompany.Unity.UI
 
 		private string _cachedText;
 
-		public string text 
+		public string text
 		{
-			get
-			{
-				Init();
-				return _a != null ? _a.text : _b.text;
-			}
-
-			set
-			{
-				Init();
-
-				if (_cachedText == value)
-				{
-					return;
-				}
-
-				if (_a != null)
-				{
-					_a.text = value;
-				}
-				else
-				{
-					_b.text = value;
-				}
-
-				_cachedText = value;
-			}
+			get => Get(() => _a.text, () => _b.text);
+			set => Set(v => _a.text = v, v => _b.text = v, value);
 		}
 
 		public Color color
 		{
-			get
-			{
-				Init();
-				return _a != null ? _a.color : _b.color;
-			}
-
-			set
-			{
-				Init();
-
-				if (_a != null)
-				{
-					_a.color = value;
-				}
-				else
-				{
-					_b.color = value;
-				}
-			}
+			get => Get(() => _a.color, () => _b.color);
+			set => Set(v => _a.color = v, v => _b.color = v, value);
 		}
 
 		public RectTransform rectTransform => maskableGraphic.rectTransform;
@@ -76,37 +37,19 @@ namespace takashicompany.Unity.UI
 			
 		}
 
-		public Tweener DOFade(float a, float duration)
+		public TweenerCore<Color, Color, ColorOptions> DOFade(float a, float duration)
 		{
-			Init();
+			return Get(() => _a.DOFade(a, duration), () => _b.DOFade(a, duration));
+		}
 
-			if (_a != null)
-			{
-				return _a.DOFade(a, duration);
-			}
-			else
-			{
-				return _b.DOFade(a, duration);
-			}
+		public TweenerCore<Vector2, Vector2, VectorOptions> DOAnchorPos(Vector2 endValue, float duration)
+		{
+			return Get(() => _a.rectTransform.DOAnchorPos(endValue, duration), () => _b.rectTransform.DOAnchorPos(endValue, duration));
 		}
 
 		public void SetAlpha(float a)
 		{
-			Init();
-
-			if (_a != null)
-			{
-				var c = _a.color;
-				c.a = a;
-				_a.color = c;
-			}
-			else
-			{
-				var c = _b.color;
-				c.a = a;
-				_b.color = c;
-			}
+			Set(v => _a.color = new Color(_a.color.r, _a.color.g, _a.color.b, v), v => _b.color = new Color(_b.color.r, _b.color.g, _b.color.b, v), a);
 		}
-		
 	}
 }
