@@ -1344,7 +1344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _background: {fileID: 1440777592762472262}
   _foreground: {fileID: 5329881119712008936}
-  _titleBackground: {fileID: 0}
+  _titleBackground: {fileID: 2382523589393339024}
   _title:
     _component: {fileID: 2382523588164612666}
   _icon: {fileID: 3785610637398876805}
