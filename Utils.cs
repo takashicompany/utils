@@ -15,8 +15,32 @@
 
 #endif
 
+	[System.Flags]
+	public enum UpdateType
+	{
+		None		= 0b0,
+		Update		= 0b1,
+		LateUpdate	= 0b10,
+		FixedUpdate	= 0b100,
+	}
+
 	public static class Utils
 	{
+		public static bool IsUpdate(this UpdateType updateType)
+		{
+			return updateType.HasFlag(UpdateType.Update);
+		}
+
+		public static bool IsLateUpdate(this UpdateType updateType)
+		{
+			return updateType.HasFlag(UpdateType.LateUpdate);
+		}
+
+		public static bool IsFixedUpdate(this UpdateType updateType)
+		{
+			return updateType.HasFlag(UpdateType.FixedUpdate);
+		}
+
 		public static bool IsDevelopmentBuild()
 		{
 			return Application.identifier.Contains("dev");
