@@ -1344,9 +1344,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _background: {fileID: 1440777592762472262}
   _foreground: {fileID: 5329881119712008936}
+  _titleBackground: {fileID: 0}
   _title:
     _component: {fileID: 2382523588164612666}
   _icon: {fileID: 3785610637398876805}
+  _caption:
+    _component: {fileID: 2382523589393339037}
+  _starLayoutGroup: {fileID: 3785610637223756286}
   _description:
     _component: {fileID: 3359773784466539529}
 --- !u!1 &3785610637398876859
