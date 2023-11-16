@@ -12,10 +12,8 @@ namespace takashicompany.Unity.UI
 	using DG.Tweening.Plugins.Options;
 	
 	[System.Serializable]
-	public class TextWrapper : ComponentWrapper<MaskableGraphic, Text, TextMeshProUGUI>, ITransform, IGameObject
+	public class TextWrapper : ComponentWrapper<Text, TextMeshProUGUI>, ITransform, IGameObject
 	{
-		public MaskableGraphic maskableGraphic => _component as MaskableGraphic;
-
 		private string _cachedText;
 
 		public string text
@@ -30,7 +28,7 @@ namespace takashicompany.Unity.UI
 			set => Set(v => _a.color = v, v => _b.color = v, value);
 		}
 
-		public RectTransform rectTransform => maskableGraphic.rectTransform;
+		public RectTransform rectTransform => Get(() => _a.rectTransform, () => _b.rectTransform);
 
 		public TextWrapper(MaskableGraphic component) : base(component)
 		{
