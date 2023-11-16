@@ -138,13 +138,748 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_powerup
+      name: Icon_ImageIcon_Star01_s
       rect:
         serializedVersion: 2
         x: 0
         y: 257
+        width: 179
+        height: 187
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_Star02_s
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 445
+        width: 175
+        height: 178
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Lock00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 624
+        width: 122
+        height: 173
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Add02
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 798
+        width: 138
+        height: 143
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_Knife_Battle
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 624
+        width: 146
+        height: 135
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_Sword
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 445
+        width: 124
+        height: 127
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_Gold
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 257
+        width: 114
+        height: 119
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_Gift_Blue
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 0
+        width: 101
+        height: 113
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Boss_Stage_f
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 114
+        width: 98
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Boss_Stage_n
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 218
+        width: 94
+        height: 94
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_Ad_00_l
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 114
+        width: 87
+        height: 91
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Add03
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 0
+        width: 85
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_TimeColon
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 313
+        width: 55
+        height: 131
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Lock
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 760
+        width: 70
+        height: 98
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_Gift_Purple
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 942
+        width: 76
+        height: 81
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Setting
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 942
+        width: 75
+        height: 79
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_MenuIcon03_Ornament_s
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 859
+        width: 82
+        height: 71
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_MenuIcon03_Ornament_n
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 931
+        width: 82
+        height: 71
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Exit_l
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 760
+        width: 80
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_Ad_00_s
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 833
+        width: 73
+        height: 78
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Help
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 912
+        width: 71
+        height: 80
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_MenuIcon03_Shoes_s
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 573
+        width: 70
+        height: 78
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_MenuIcon03_Shoes_n
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 652
+        width: 70
+        height: 78
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Setting02
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 731
+        width: 70
+        height: 76
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Resume
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 808
+        width: 66
+        height: 79
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_MenuIcon03_Shield_s
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 445
+        width: 67
+        height: 74
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_MenuIcon03_Shield_n
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 313
+        width: 67
+        height: 74
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Exit
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 377
+        width: 73
+        height: 66
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Home
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 206
+        width: 64
+        height: 73
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_powerup
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 90
         width: 80
         height: 58
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_MenuIcon03_Weapon_n
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 0
+        width: 65
+        height: 69
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_MenuIcon03_Weapon_s
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 0
+        width: 65
+        height: 69
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Haptic
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 888
+        width: 70
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Delete
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 953
+        width: 64
+        height: 70
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Next01
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 520
+        width: 49
+        height: 91
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Prev01
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 612
+        width: 49
+        height: 91
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +897,52 @@ TextureImporter:
       name: function_icon_paint
       rect:
         serializedVersion: 2
-        x: 0
-        y: 316
+        x: 373
+        y: 953
         width: 65
         height: 66
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Search
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 704
+        width: 64
+        height: 67
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Time
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 772
+        width: 61
+        height: 70
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,8 +960,29 @@ TextureImporter:
       name: Icon_PictoIcon_Timer
       rect:
         serializedVersion: 2
-        x: 0
-        y: 383
+        x: 379
+        y: 843
+        width: 61
+        height: 70
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86c3a214d9f877150800000000000000
+      internalID: 5870318544866655336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Timer
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 772
         width: 61
         height: 70
       alignment: 9
@@ -204,10 +1002,31 @@ TextureImporter:
       name: function_icon_sun
       rect:
         serializedVersion: 2
-        x: 0
-        y: 454
+        x: 439
+        y: 914
         width: 64
         height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Sound_off
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 843
+        width: 67
+        height: 61
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,8 +1044,8 @@ TextureImporter:
       name: function_icon_boot_fly
       rect:
         serializedVersion: 2
-        x: 62
-        y: 383
+        x: 444
+        y: 149
         width: 71
         height: 55
       alignment: 9
@@ -246,8 +1065,8 @@ TextureImporter:
       name: function_icon_knight
       rect:
         serializedVersion: 2
-        x: 66
-        y: 316
+        x: 504
+        y: 905
         width: 61
         height: 64
       alignment: 9
@@ -267,8 +1086,8 @@ TextureImporter:
       name: function_icon_death
       rect:
         serializedVersion: 2
-        x: 81
-        y: 257
+        x: 351
+        y: 388
         width: 70
         height: 55
       alignment: 9
@@ -288,8 +1107,8 @@ TextureImporter:
       name: function_icon_hat
       rect:
         serializedVersion: 2
-        x: 128
-        y: 313
+        x: 369
+        y: 444
         width: 66
         height: 58
       alignment: 9
@@ -309,8 +1128,8 @@ TextureImporter:
       name: function_icon_blast
       rect:
         serializedVersion: 2
-        x: 0
-        y: 519
+        x: 419
+        y: 280
         width: 64
         height: 59
       alignment: 9
@@ -330,10 +1149,31 @@ TextureImporter:
       name: function_icon_piggy
       rect:
         serializedVersion: 2
-        x: 0
-        y: 579
+        x: 455
+        y: 205
         width: 65
         height: 58
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Wifi
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 340
+        width: 66
+        height: 57
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -351,8 +1191,8 @@ TextureImporter:
       name: function_icon_revive_1
       rect:
         serializedVersion: 2
-        x: 65
-        y: 439
+        x: 484
+        y: 264
         width: 66
         height: 57
       alignment: 9
@@ -372,8 +1212,8 @@ TextureImporter:
       name: function_icon_pinwheel
       rect:
         serializedVersion: 2
-        x: 65
-        y: 497
+        x: 521
+        y: 149
         width: 61
         height: 61
       alignment: 9
@@ -393,8 +1233,8 @@ TextureImporter:
       name: function_icon_plane
       rect:
         serializedVersion: 2
-        x: 0
-        y: 638
+        x: 525
+        y: 70
         width: 61
         height: 61
       alignment: 9
@@ -414,8 +1254,8 @@ TextureImporter:
       name: function_icon_shine
       rect:
         serializedVersion: 2
-        x: 0
-        y: 700
+        x: 577
+        y: 0
         width: 61
         height: 61
       alignment: 9
@@ -435,10 +1275,31 @@ TextureImporter:
       name: function_icon_tool_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 762
+        x: 391
+        y: 503
         width: 63
         height: 59
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Music_off
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 398
+        width: 67
+        height: 55
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -456,8 +1317,8 @@ TextureImporter:
       name: function_icon_strength
       rect:
         serializedVersion: 2
-        x: 62
-        y: 638
+        x: 489
+        y: 322
         width: 60
         height: 61
       alignment: 9
@@ -477,8 +1338,8 @@ TextureImporter:
       name: function_icon_fix_1
       rect:
         serializedVersion: 2
-        x: 62
-        y: 700
+        x: 391
+        y: 563
         width: 62
         height: 59
       alignment: 9
@@ -498,8 +1359,8 @@ TextureImporter:
       name: function_icon_quiver
       rect:
         serializedVersion: 2
-        x: 66
-        y: 559
+        x: 391
+        y: 623
         width: 60
         height: 60
       alignment: 9
@@ -519,31 +1380,10 @@ TextureImporter:
       name: function_icon_compass_2
       rect:
         serializedVersion: 2
-        x: 123
-        y: 620
+        x: 427
+        y: 684
         width: 60
         height: 60
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_revive_2
-      rect:
-        serializedVersion: 2
-        x: 127
-        y: 497
-        width: 57
-        height: 63
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -561,10 +1401,52 @@ TextureImporter:
       name: function_icon_key
       rect:
         serializedVersion: 2
-        x: 132
-        y: 439
+        x: 452
+        y: 623
         width: 63
         height: 57
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_revive_2
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 745
+        width: 57
+        height: 63
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Pause
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 809
+        width: 52
+        height: 69
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -582,10 +1464,52 @@ TextureImporter:
       name: function_icon_castle
       rect:
         serializedVersion: 2
-        x: 134
-        y: 372
+        x: 455
+        y: 454
         width: 56
         height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Prev02
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 519
+        width: 44
+        height: 81
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Next02
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 519
+        width: 44
+        height: 81
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -603,8 +1527,8 @@ TextureImporter:
       name: function_icon_bomb
       rect:
         serializedVersion: 2
-        x: 191
-        y: 372
+        x: 488
+        y: 681
         width: 59
         height: 60
       alignment: 9
@@ -624,8 +1548,8 @@ TextureImporter:
       name: function_icon_wizard
       rect:
         serializedVersion: 2
-        x: 195
-        y: 257
+        x: 545
+        y: 742
         width: 56
         height: 63
       alignment: 9
@@ -645,8 +1569,8 @@ TextureImporter:
       name: function_icon_bug_1
       rect:
         serializedVersion: 2
-        x: 127
-        y: 561
+        x: 504
+        y: 384
         width: 63
         height: 56
       alignment: 9
@@ -666,8 +1590,8 @@ TextureImporter:
       name: function_icon_chat_1
       rect:
         serializedVersion: 2
-        x: 195
-        y: 321
+        x: 176
+        y: 573
         width: 72
         height: 49
       alignment: 9
@@ -687,8 +1611,8 @@ TextureImporter:
       name: function_icon_priest
       rect:
         serializedVersion: 2
-        x: 0
-        y: 822
+        x: 512
+        y: 441
         width: 55
         height: 64
       alignment: 9
@@ -708,8 +1632,8 @@ TextureImporter:
       name: function_icon_planet
       rect:
         serializedVersion: 2
-        x: 252
-        y: 257
+        x: 521
+        y: 211
         width: 73
         height: 48
       alignment: 9
@@ -729,8 +1653,8 @@ TextureImporter:
       name: function_icon_custume_top
       rect:
         serializedVersion: 2
-        x: 185
-        y: 497
+        x: 504
+        y: 970
         width: 66
         height: 53
       alignment: 9
@@ -750,8 +1674,8 @@ TextureImporter:
       name: function_icon_library
       rect:
         serializedVersion: 2
-        x: 196
-        y: 433
+        x: 550
+        y: 322
         width: 60
         height: 58
       alignment: 9
@@ -771,10 +1695,31 @@ TextureImporter:
       name: function_icon_filter
       rect:
         serializedVersion: 2
-        x: 251
-        y: 371
+        x: 551
+        y: 260
         width: 58
         height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Play
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 132
+        width: 49
+        height: 71
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -792,8 +1737,8 @@ TextureImporter:
       name: function_icon_book_open
       rect:
         serializedVersion: 2
-        x: 268
-        y: 306
+        x: 587
+        y: 62
         width: 61
         height: 57
       alignment: 9
@@ -813,8 +1758,8 @@ TextureImporter:
       name: function_icon_support
       rect:
         serializedVersion: 2
-        x: 0
-        y: 887
+        x: 639
+        y: 0
         width: 62
         height: 56
       alignment: 9
@@ -834,8 +1779,8 @@ TextureImporter:
       name: function_icon_education
       rect:
         serializedVersion: 2
-        x: 56
-        y: 822
+        x: 516
+        y: 601
         width: 62
         height: 56
       alignment: 9
@@ -855,31 +1800,10 @@ TextureImporter:
       name: function_icon_caution
       rect:
         serializedVersion: 2
-        x: 64
-        y: 760
+        x: 595
+        y: 204
         width: 63
         height: 55
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_puzzle
-      rect:
-        serializedVersion: 2
-        x: 125
-        y: 681
-        width: 54
-        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -897,10 +1821,31 @@ TextureImporter:
       name: function_icon_battery_charging
       rect:
         serializedVersion: 2
-        x: 0
-        y: 944
+        x: 610
+        y: 260
         width: 72
         height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_puzzle
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 120
+        width: 54
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -918,8 +1863,8 @@ TextureImporter:
       name: function_icon_megaphone
       rect:
         serializedVersion: 2
-        x: 63
-        y: 879
+        x: 649
+        y: 57
         width: 62
         height: 55
       alignment: 9
@@ -939,8 +1884,8 @@ TextureImporter:
       name: function_icon_mic_mute
       rect:
         serializedVersion: 2
-        x: 119
-        y: 816
+        x: 659
+        y: 185
         width: 55
         height: 62
       alignment: 9
@@ -960,8 +1905,8 @@ TextureImporter:
       name: function_icon_event
       rect:
         serializedVersion: 2
-        x: 128
-        y: 746
+        x: 702
+        y: 0
         width: 63
         height: 54
       alignment: 9
@@ -981,8 +1926,8 @@ TextureImporter:
       name: function_icon_signal
       rect:
         serializedVersion: 2
-        x: 180
-        y: 681
+        x: 688
+        y: 113
         width: 64
         height: 53
       alignment: 9
@@ -1002,8 +1947,8 @@ TextureImporter:
       name: function_icon_anchor
       rect:
         serializedVersion: 2
-        x: 73
-        y: 935
+        x: 548
+        y: 658
         width: 53
         height: 64
       alignment: 9
@@ -1023,8 +1968,8 @@ TextureImporter:
       name: function_icon_fish
       rect:
         serializedVersion: 2
-        x: 126
-        y: 879
+        x: 712
+        y: 55
         width: 65
         height: 52
       alignment: 9
@@ -1044,8 +1989,8 @@ TextureImporter:
       name: function_icon_chat_2
       rect:
         serializedVersion: 2
-        x: 184
-        y: 618
+        x: 766
+        y: 0
         width: 66
         height: 51
       alignment: 9
@@ -1065,8 +2010,8 @@ TextureImporter:
       name: function_icon_target_2
       rect:
         serializedVersion: 2
-        x: 191
-        y: 551
+        x: 545
+        y: 506
         width: 58
         height: 58
       alignment: 9
@@ -1086,8 +2031,8 @@ TextureImporter:
       name: function_icon_connect
       rect:
         serializedVersion: 2
-        x: 250
-        y: 551
+        x: 579
+        y: 565
         width: 58
         height: 58
       alignment: 9
@@ -1107,8 +2052,8 @@ TextureImporter:
       name: function_icon_spiderweb
       rect:
         serializedVersion: 2
-        x: 252
-        y: 492
+        x: 562
+        y: 806
         width: 58
         height: 58
       alignment: 9
@@ -1128,10 +2073,31 @@ TextureImporter:
       name: function_icon_target_1
       rect:
         serializedVersion: 2
-        x: 257
-        y: 432
+        x: 566
+        y: 865
         width: 58
         height: 58
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Edit
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 924
+        width: 56
+        height: 60
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1149,8 +2115,8 @@ TextureImporter:
       name: function_icon_trophy
       rect:
         serializedVersion: 2
-        x: 310
-        y: 364
+        x: 568
+        y: 381
         width: 63
         height: 53
       alignment: 9
@@ -1170,10 +2136,31 @@ TextureImporter:
       name: function_icon_cut
       rect:
         serializedVersion: 2
-        x: 175
-        y: 801
+        x: 611
+        y: 309
         width: 64
         height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_location_1
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 435
+        width: 57
+        height: 58
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1191,8 +2178,8 @@ TextureImporter:
       name: function_icon_tool_4
       rect:
         serializedVersion: 2
-        x: 192
-        y: 735
+        x: 604
+        y: 494
         width: 58
         height: 57
       alignment: 9
@@ -1212,8 +2199,8 @@ TextureImporter:
       name: function_icon_fix_2
       rect:
         serializedVersion: 2
-        x: 245
-        y: 670
+        x: 626
+        y: 435
         width: 58
         height: 57
       alignment: 9
@@ -1233,29 +2220,8 @@ TextureImporter:
       name: function_icon_mobile_vibration
       rect:
         serializedVersion: 2
-        x: 251
-        y: 610
-        width: 57
-        height: 58
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_location_1
-      rect:
-        serializedVersion: 2
-        x: 127
-        y: 932
+        x: 632
+        y: 362
         width: 57
         height: 58
       alignment: 9
@@ -1275,8 +2241,29 @@ TextureImporter:
       name: function_icon_skull
       rect:
         serializedVersion: 2
-        x: 185
-        y: 932
+        x: 683
+        y: 248
+        width: 60
+        height: 55
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Sound_on
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 304
         width: 60
         height: 55
       alignment: 9
@@ -1296,8 +2283,8 @@ TextureImporter:
       name: function_icon_magic
       rect:
         serializedVersion: 2
-        x: 192
-        y: 854
+        x: 715
+        y: 167
         width: 54
         height: 61
       alignment: 9
@@ -1317,8 +2304,8 @@ TextureImporter:
       name: function_icon_game
       rect:
         serializedVersion: 2
-        x: 240
-        y: 793
+        x: 753
+        y: 108
         width: 63
         height: 52
       alignment: 9
@@ -1338,8 +2325,8 @@ TextureImporter:
       name: function_icon_life_empty
       rect:
         serializedVersion: 2
-        x: 251
-        y: 728
+        x: 778
+        y: 52
         width: 63
         height: 52
       alignment: 9
@@ -1359,8 +2346,8 @@ TextureImporter:
       name: function_icon_assassin
       rect:
         serializedVersion: 2
-        x: 246
-        y: 916
+        x: 602
+        y: 624
         width: 52
         height: 63
       alignment: 9
@@ -1380,8 +2367,8 @@ TextureImporter:
       name: function_icon_tool_2
       rect:
         serializedVersion: 2
-        x: 304
-        y: 669
+        x: 638
+        y: 552
         width: 57
         height: 57
       alignment: 9
@@ -1401,8 +2388,8 @@ TextureImporter:
       name: function_icon_sword_2
       rect:
         serializedVersion: 2
-        x: 247
-        y: 846
+        x: 663
+        y: 493
         width: 57
         height: 57
       alignment: 9
@@ -1422,8 +2409,8 @@ TextureImporter:
       name: function_icon_paw
       rect:
         serializedVersion: 2
-        x: 304
-        y: 781
+        x: 685
+        y: 421
         width: 56
         height: 58
       alignment: 9
@@ -1443,31 +2430,10 @@ TextureImporter:
       name: function_icon_building
       rect:
         serializedVersion: 2
-        x: 309
-        y: 551
+        x: 690
+        y: 360
         width: 58
         height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_enemy
-      rect:
-        serializedVersion: 2
-        x: 311
-        y: 491
-        width: 55
-        height: 59
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1485,8 +2451,8 @@ TextureImporter:
       name: function_icon_internet_disconnect
       rect:
         serializedVersion: 2
-        x: 309
-        y: 608
+        x: 602
+        y: 688
         width: 59
         height: 55
       alignment: 9
@@ -1506,10 +2472,31 @@ TextureImporter:
       name: function_icon_location_2
       rect:
         serializedVersion: 2
-        x: 316
-        y: 418
+        x: 602
+        y: 744
         width: 59
         height: 55
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_enemy
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 800
+        width: 55
+        height: 59
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1527,8 +2514,8 @@ TextureImporter:
       name: function_icon_lucky
       rect:
         serializedVersion: 2
-        x: 367
-        y: 474
+        x: 625
+        y: 860
         width: 54
         height: 60
       alignment: 9
@@ -1548,8 +2535,8 @@ TextureImporter:
       name: function_icon_volume_up
       rect:
         serializedVersion: 2
-        x: 368
-        y: 535
+        x: 655
+        y: 610
         width: 60
         height: 54
       alignment: 9
@@ -1569,8 +2556,8 @@ TextureImporter:
       name: function_icon_compass_1
       rect:
         serializedVersion: 2
-        x: 299
-        y: 904
+        x: 628
+        y: 921
         width: 53
         height: 61
       alignment: 9
@@ -1590,8 +2577,8 @@ TextureImporter:
       name: function_icon_export
       rect:
         serializedVersion: 2
-        x: 315
-        y: 727
+        x: 833
+        y: 0
         width: 67
         height: 48
       alignment: 9
@@ -1611,8 +2598,8 @@ TextureImporter:
       name: function_icon_album
       rect:
         serializedVersion: 2
-        x: 299
-        y: 966
+        x: 696
+        y: 551
         width: 63
         height: 51
       alignment: 9
@@ -1632,8 +2619,8 @@ TextureImporter:
       name: function_icon_globe
       rect:
         serializedVersion: 2
-        x: 305
-        y: 840
+        x: 721
+        y: 480
         width: 51
         height: 63
       alignment: 9
@@ -1650,11 +2637,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_headset
+      name: function_icon_pot
       rect:
         serializedVersion: 2
-        x: 353
-        y: 904
+        x: 742
+        y: 417
         width: 56
         height: 57
       alignment: 9
@@ -1674,8 +2661,8 @@ TextureImporter:
       name: function_icon_quit
       rect:
         serializedVersion: 2
-        x: 363
-        y: 962
+        x: 744
+        y: 229
         width: 56
         height: 57
       alignment: 9
@@ -1692,11 +2679,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_pot
+      name: function_icon_headset
       rect:
         serializedVersion: 2
-        x: 362
-        y: 664
+        x: 770
+        y: 161
         width: 56
         height: 57
       alignment: 9
@@ -1716,8 +2703,8 @@ TextureImporter:
       name: function_icon_layer_1
       rect:
         serializedVersion: 2
-        x: 357
-        y: 840
+        x: 744
+        y: 287
         width: 55
         height: 58
       alignment: 9
@@ -1737,8 +2724,8 @@ TextureImporter:
       name: function_icon_bluetooth_mute
       rect:
         serializedVersion: 2
-        x: 410
-        y: 899
+        x: 749
+        y: 346
         width: 55
         height: 58
       alignment: 9
@@ -1758,8 +2745,8 @@ TextureImporter:
       name: function_icon_layer_2
       rect:
         serializedVersion: 2
-        x: 420
-        y: 958
+        x: 800
+        y: 287
         width: 55
         height: 58
       alignment: 9
@@ -1779,8 +2766,8 @@ TextureImporter:
       name: function_icon_eye_hide
       rect:
         serializedVersion: 2
-        x: 361
-        y: 776
+        x: 817
+        y: 105
         width: 58
         height: 55
       alignment: 9
@@ -1800,8 +2787,8 @@ TextureImporter:
       name: function_icon_halloween
       rect:
         serializedVersion: 2
-        x: 413
-        y: 832
+        x: 842
+        y: 49
         width: 59
         height: 54
       alignment: 9
@@ -1821,8 +2808,8 @@ TextureImporter:
       name: function_icon_achievement
       rect:
         serializedVersion: 2
-        x: 466
-        y: 887
+        x: 801
+        y: 219
         width: 53
         height: 60
       alignment: 9
@@ -1842,8 +2829,8 @@ TextureImporter:
       name: function_icon_badge
       rect:
         serializedVersion: 2
-        x: 383
-        y: 722
+        x: 827
+        y: 161
         width: 61
         height: 52
       alignment: 9
@@ -1863,8 +2850,8 @@ TextureImporter:
       name: function_icon_heart
       rect:
         serializedVersion: 2
-        x: 420
-        y: 775
+        x: 901
+        y: 0
         width: 67
         height: 47
       alignment: 9
@@ -1881,158 +2868,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_coin_dollar
+      name: function_icon_coin_baht
       rect:
         serializedVersion: 2
-        x: 473
-        y: 823
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_mark_remove
-      rect:
-        serializedVersion: 2
-        x: 476
-        y: 948
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_discount
-      rect:
-        serializedVersion: 2
-        x: 520
-        y: 880
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_coin_peso
-      rect:
-        serializedVersion: 2
-        x: 369
-        y: 590
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_tool_1
-      rect:
-        serializedVersion: 2
-        x: 419
-        y: 647
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_coin_euro
-      rect:
-        serializedVersion: 2
-        x: 426
-        y: 590
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_coin_pound
-      rect:
-        serializedVersion: 2
-        x: 445
-        y: 704
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_coin_won
-      rect:
-        serializedVersion: 2
-        x: 476
-        y: 647
+        x: 876
+        y: 104
         width: 56
         height: 56
       alignment: 9
@@ -2052,8 +2892,8 @@ TextureImporter:
       name: function_icon_coin_yen
       rect:
         serializedVersion: 2
-        x: 488
-        y: 761
+        x: 855
+        y: 214
         width: 56
         height: 56
       alignment: 9
@@ -2070,11 +2910,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_coin_baht
+      name: function_icon_coin_dollar
       rect:
         serializedVersion: 2
-        x: 502
-        y: 704
+        x: 662
+        y: 665
         width: 56
         height: 56
       alignment: 9
@@ -2091,11 +2931,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_sword_1
+      name: function_icon_discount
       rect:
         serializedVersion: 2
-        x: 530
-        y: 818
+        x: 716
+        y: 603
         width: 56
         height: 56
       alignment: 9
@@ -2112,200 +2952,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_double_star
+      name: function_icon_mark_remove
       rect:
         serializedVersion: 2
-        x: 545
-        y: 761
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_shield_magic
-      rect:
-        serializedVersion: 2
-        x: 533
-        y: 937
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_goal
-      rect:
-        serializedVersion: 2
-        x: 577
-        y: 875
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_mark_add
-      rect:
-        serializedVersion: 2
-        x: 587
-        y: 818
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_mark_exclamation
-      rect:
-        serializedVersion: 2
-        x: 590
-        y: 932
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_mark_info
-      rect:
-        serializedVersion: 2
-        x: 634
-        y: 875
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_snowflake
-      rect:
-        serializedVersion: 2
-        x: 647
-        y: 932
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_coin_bitcoin
-      rect:
-        serializedVersion: 2
-        x: 257
-        y: 0
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_mark_question
-      rect:
-        serializedVersion: 2
-        x: 257
-        y: 57
-        width: 56
-        height: 56
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_block
-      rect:
-        serializedVersion: 2
-        x: 257
-        y: 114
+        x: 760
+        y: 544
         width: 56
         height: 56
       alignment: 9
@@ -2325,8 +2976,344 @@ TextureImporter:
       name: function_icon_axe
       rect:
         serializedVersion: 2
-        x: 257
-        y: 171
+        x: 773
+        y: 475
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_block
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 405
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_mark_question
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 346
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_coin_bitcoin
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 271
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_snowflake
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 722
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_coin_won
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 779
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_mark_exclamation
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 836
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_mark_info
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 161
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_goal
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 48
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_shield_magic
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 660
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_double_star
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 601
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_sword_1
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 717
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_coin_pound
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 774
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_coin_euro
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 532
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_tool_1
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 462
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_coin_peso
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 403
+        width: 56
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_mark_add
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 328
         width: 56
         height: 56
       alignment: 9
@@ -2346,8 +3333,8 @@ TextureImporter:
       name: function_icon_star_empty
       rect:
         serializedVersion: 2
-        x: 314
-        y: 0
+        x: 933
+        y: 105
         width: 57
         height: 55
       alignment: 9
@@ -2367,8 +3354,8 @@ TextureImporter:
       name: function_icon_history
       rect:
         serializedVersion: 2
-        x: 314
-        y: 56
+        x: 990
+        y: 0
         width: 58
         height: 54
       alignment: 9
@@ -2388,8 +3375,8 @@ TextureImporter:
       name: function_icon_arrow
       rect:
         serializedVersion: 2
-        x: 372
-        y: 0
+        x: 913
+        y: 218
         width: 58
         height: 54
       alignment: 9
@@ -2409,8 +3396,8 @@ TextureImporter:
       name: function_icon_sildeshow
       rect:
         serializedVersion: 2
-        x: 314
-        y: 111
+        x: 969
+        y: 161
         width: 58
         height: 54
       alignment: 9
@@ -2430,8 +3417,8 @@ TextureImporter:
       name: function_icon_display
       rect:
         serializedVersion: 2
-        x: 314
-        y: 166
+        x: 913
+        y: 273
         width: 58
         height: 54
       alignment: 9
@@ -2451,8 +3438,8 @@ TextureImporter:
       name: function_icon_cyclone
       rect:
         serializedVersion: 2
-        x: 326
-        y: 221
+        x: 991
+        y: 55
         width: 59
         height: 53
       alignment: 9
@@ -2472,10 +3459,31 @@ TextureImporter:
       name: function_icon_scale
       rect:
         serializedVersion: 2
-        x: 330
-        y: 275
+        x: 1049
+        y: 0
         width: 60
         height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Bell
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 658
+        width: 52
+        height: 60
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2493,8 +3501,8 @@ TextureImporter:
       name: function_icon_currency_won
       rect:
         serializedVersion: 2
-        x: 374
-        y: 328
+        x: 991
+        y: 109
         width: 66
         height: 47
       alignment: 9
@@ -2514,10 +3522,31 @@ TextureImporter:
       name: function_icon_mountain
       rect:
         serializedVersion: 2
-        x: 376
-        y: 376
+        x: 1051
+        y: 53
         width: 66
         height: 47
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Music_on
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 893
+        width: 56
+        height: 55
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2535,8 +3564,8 @@ TextureImporter:
       name: function_icon_bank
       rect:
         serializedVersion: 2
-        x: 422
-        y: 424
+        x: 737
+        y: 831
         width: 56
         height: 55
       alignment: 9
@@ -2556,8 +3585,8 @@ TextureImporter:
       name: function_icon_boot_speed
       rect:
         serializedVersion: 2
-        x: 429
-        y: 480
+        x: 682
+        y: 949
         width: 54
         height: 57
       alignment: 9
@@ -2577,8 +3606,8 @@ TextureImporter:
       name: function_icon_arcon
       rect:
         serializedVersion: 2
-        x: 483
-        y: 538
+        x: 737
+        y: 949
         width: 53
         height: 58
       alignment: 9
@@ -2598,8 +3627,8 @@ TextureImporter:
       name: function_icon_music_mute
       rect:
         serializedVersion: 2
-        x: 533
-        y: 597
+        x: 739
+        y: 887
         width: 55
         height: 55
       alignment: 9
@@ -2619,8 +3648,8 @@ TextureImporter:
       name: function_icon_volume_mute
       rect:
         serializedVersion: 2
-        x: 559
-        y: 653
+        x: 791
+        y: 943
         width: 55
         height: 55
       alignment: 9
@@ -2640,29 +3669,8 @@ TextureImporter:
       name: function_icon_hammer
       rect:
         serializedVersion: 2
-        x: 602
-        y: 709
-        width: 55
-        height: 55
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_plus
-      rect:
-        serializedVersion: 2
-        x: 644
-        y: 765
+        x: 791
+        y: 719
         width: 55
         height: 55
       alignment: 9
@@ -2682,8 +3690,8 @@ TextureImporter:
       name: function_icon_notification_mute
       rect:
         serializedVersion: 2
-        x: 691
-        y: 821
+        x: 791
+        y: 775
         width: 55
         height: 55
       alignment: 9
@@ -2703,8 +3711,29 @@ TextureImporter:
       name: function_icon_sound_mute
       rect:
         serializedVersion: 2
-        x: 704
-        y: 877
+        x: 794
+        y: 831
+        width: 55
+        height: 55
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_plus
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 887
         width: 55
         height: 55
       alignment: 9
@@ -2724,8 +3753,8 @@ TextureImporter:
       name: function_icon_print
       rect:
         serializedVersion: 2
-        x: 704
-        y: 933
+        x: 829
+        y: 658
         width: 56
         height: 54
       alignment: 9
@@ -2745,8 +3774,8 @@ TextureImporter:
       name: function_icon_shield
       rect:
         serializedVersion: 2
-        x: 373
-        y: 55
+        x: 830
+        y: 589
         width: 56
         height: 54
       alignment: 9
@@ -2766,8 +3795,8 @@ TextureImporter:
       name: function_icon_piechart
       rect:
         serializedVersion: 2
-        x: 373
-        y: 110
+        x: 874
+        y: 519
         width: 56
         height: 54
       alignment: 9
@@ -2787,31 +3816,10 @@ TextureImporter:
       name: function_icon_star
       rect:
         serializedVersion: 2
-        x: 373
-        y: 165
+        x: 887
+        y: 460
         width: 56
         height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_home_2
-      rect:
-        serializedVersion: 2
-        x: 386
-        y: 220
-        width: 57
-        height: 53
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2829,10 +3837,31 @@ TextureImporter:
       name: function_icon_spin
       rect:
         serializedVersion: 2
-        x: 441
-        y: 274
+        x: 913
+        y: 385
         width: 53
         height: 57
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_home_2
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 328
+        width: 57
+        height: 53
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2850,8 +3879,8 @@ TextureImporter:
       name: function_icon_travelbag
       rect:
         serializedVersion: 2
-        x: 443
-        y: 332
+        x: 847
+        y: 943
         width: 57
         height: 53
       alignment: 9
@@ -2871,8 +3900,8 @@ TextureImporter:
       name: function_icon_cloud_2
       rect:
         serializedVersion: 2
-        x: 479
-        y: 386
+        x: 1110
+        y: 0
         width: 67
         height: 45
       alignment: 9
@@ -2892,8 +3921,8 @@ TextureImporter:
       name: function_icon_anvil
       rect:
         serializedVersion: 2
-        x: 479
-        y: 432
+        x: 972
+        y: 216
         width: 67
         height: 45
       alignment: 9
@@ -2913,8 +3942,8 @@ TextureImporter:
       name: function_icon_suffle
       rect:
         serializedVersion: 2
-        x: 484
-        y: 478
+        x: 1028
+        y: 157
         width: 60
         height: 50
       alignment: 9
@@ -2934,8 +3963,8 @@ TextureImporter:
       name: function_icon_energy
       rect:
         serializedVersion: 2
-        x: 537
-        y: 529
+        x: 972
+        y: 262
         width: 49
         height: 61
       alignment: 9
@@ -2955,8 +3984,8 @@ TextureImporter:
       name: function_icon_island
       rect:
         serializedVersion: 2
-        x: 545
-        y: 478
+        x: 1058
+        y: 101
         width: 62
         height: 48
       alignment: 9
@@ -2976,8 +4005,8 @@ TextureImporter:
       name: function_icon_list_activity
       rect:
         serializedVersion: 2
-        x: 587
-        y: 527
+        x: 1118
+        y: 46
         width: 62
         height: 48
       alignment: 9
@@ -2997,8 +4026,8 @@ TextureImporter:
       name: function_icon_clan
       rect:
         serializedVersion: 2
-        x: 589
-        y: 576
+        x: 847
+        y: 713
         width: 62
         height: 48
       alignment: 9
@@ -3018,8 +4047,8 @@ TextureImporter:
       name: function_icon_leaf
       rect:
         serializedVersion: 2
-        x: 615
-        y: 625
+        x: 886
+        y: 644
         width: 54
         height: 55
       alignment: 9
@@ -3039,8 +4068,8 @@ TextureImporter:
       name: function_icon_alarm
       rect:
         serializedVersion: 2
-        x: 658
-        y: 681
+        x: 887
+        y: 574
         width: 54
         height: 55
       alignment: 9
@@ -3060,8 +4089,8 @@ TextureImporter:
       name: function_icon_bug_2
       rect:
         serializedVersion: 2
-        x: 700
-        y: 737
+        x: 931
+        y: 515
         width: 56
         height: 53
       alignment: 9
@@ -3081,10 +4110,31 @@ TextureImporter:
       name: function_icon_tv
       rect:
         serializedVersion: 2
-        x: 747
-        y: 791
+        x: 944
+        y: 443
         width: 57
         height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_ranking
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 382
+        width: 50
+        height: 59
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3102,8 +4152,8 @@ TextureImporter:
       name: function_icon_timer
       rect:
         serializedVersion: 2
-        x: 760
-        y: 844
+        x: 847
+        y: 762
         width: 50
         height: 59
       alignment: 9
@@ -3123,29 +4173,8 @@ TextureImporter:
       name: function_icon_stopwatch
       rect:
         serializedVersion: 2
-        x: 761
-        y: 904
-        width: 50
-        height: 59
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_ranking
-      rect:
-        serializedVersion: 2
-        x: 761
-        y: 964
+        x: 850
+        y: 822
         width: 50
         height: 59
       alignment: 9
@@ -3165,8 +4194,8 @@ TextureImporter:
       name: function_icon_abstract
       rect:
         serializedVersion: 2
-        x: 430
-        y: 55
+        x: 977
+        y: 324
         width: 64
         height: 46
       alignment: 9
@@ -3186,8 +4215,8 @@ TextureImporter:
       name: function_icon_align_list
       rect:
         serializedVersion: 2
-        x: 431
-        y: 0
+        x: 1022
+        y: 262
         width: 60
         height: 49
       alignment: 9
@@ -3207,7 +4236,7 @@ TextureImporter:
       name: function_icon_cloud_1
       rect:
         serializedVersion: 2
-        x: 492
+        x: 1178
         y: 0
         width: 68
         height: 43
@@ -3225,263 +4254,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_coin
+      name: function_icon_time_2
       rect:
         serializedVersion: 2
-        x: 430
-        y: 102
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_gift
-      rect:
-        serializedVersion: 2
-        x: 430
-        y: 157
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_yang
-      rect:
-        serializedVersion: 2
-        x: 444
-        y: 212
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_player_start
-      rect:
-        serializedVersion: 2
-        x: 495
-        y: 267
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_emoji_smile
-      rect:
-        serializedVersion: 2
-        x: 501
-        y: 322
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_user_3
-      rect:
-        serializedVersion: 2
-        x: 547
-        y: 377
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_checks
-      rect:
-        serializedVersion: 2
-        x: 485
-        y: 102
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_wand
-      rect:
-        serializedVersion: 2
-        x: 485
-        y: 157
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_dagger
-      rect:
-        serializedVersion: 2
-        x: 499
-        y: 212
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_sns_pinterest
-      rect:
-        serializedVersion: 2
-        x: 550
-        y: 267
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_emoji_happy
-      rect:
-        serializedVersion: 2
-        x: 556
-        y: 322
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_home_1
-      rect:
-        serializedVersion: 2
-        x: 495
-        y: 44
-        width: 54
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_account
-      rect:
-        serializedVersion: 2
-        x: 602
-        y: 377
+        x: 898
+        y: 762
         width: 54
         height: 54
       alignment: 9
@@ -3501,8 +4278,8 @@ TextureImporter:
       name: function_icon_emoji_hate
       rect:
         serializedVersion: 2
-        x: 608
-        y: 432
+        x: 910
+        y: 700
         width: 54
         height: 54
       alignment: 9
@@ -3519,11 +4296,242 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_time_2
+      name: function_icon_account
       rect:
         serializedVersion: 2
-        x: 650
-        y: 487
+        x: 851
+        y: 882
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_home_1
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 817
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_emoji_happy
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 755
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_sns_pinterest
+      rect:
+        serializedVersion: 2
+        x: 941
+        y: 630
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_dagger
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 569
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_gift
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 685
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_checks
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 624
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_user_3
+      rect:
+        serializedVersion: 2
+        x: 988
+        y: 496
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_emoji_smile
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 551
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_player_start
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 937
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_yang
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 872
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_coin
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 810
         width: 54
         height: 54
       alignment: 9
@@ -3543,8 +4551,29 @@ TextureImporter:
       name: function_icon_emoji_sad
       rect:
         serializedVersion: 2
-        x: 652
-        y: 542
+        x: 1008
+        y: 740
+        width: 54
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_wand
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 679
         width: 54
         height: 54
       alignment: 9
@@ -3564,8 +4593,8 @@ TextureImporter:
       name: function_icon_emoji_soso
       rect:
         serializedVersion: 2
-        x: 670
-        y: 597
+        x: 1051
+        y: 606
         width: 54
         height: 54
       alignment: 9
@@ -3585,8 +4614,8 @@ TextureImporter:
       name: function_icon_halberd
       rect:
         serializedVersion: 2
-        x: 713
-        y: 652
+        x: 1040
+        y: 208
         width: 62
         height: 47
       alignment: 9
@@ -3606,8 +4635,8 @@ TextureImporter:
       name: function_icon_ring
       rect:
         serializedVersion: 2
-        x: 757
-        y: 700
+        x: 1089
+        y: 150
         width: 52
         height: 56
       alignment: 9
@@ -3627,8 +4656,8 @@ TextureImporter:
       name: function_icon_tranfer_2
       rect:
         serializedVersion: 2
-        x: 805
-        y: 757
+        x: 960
+        y: 927
         width: 51
         height: 57
       alignment: 9
@@ -3648,8 +4677,8 @@ TextureImporter:
       name: function_icon_tranfer_1
       rect:
         serializedVersion: 2
-        x: 811
-        y: 815
+        x: 1121
+        y: 95
         width: 57
         height: 51
       alignment: 9
@@ -3669,8 +4698,8 @@ TextureImporter:
       name: function_icon_send
       rect:
         serializedVersion: 2
-        x: 540
-        y: 99
+        x: 1002
+        y: 442
         width: 58
         height: 50
       alignment: 9
@@ -3690,8 +4719,8 @@ TextureImporter:
       name: function_icon_gesture_tap
       rect:
         serializedVersion: 2
-        x: 540
-        y: 150
+        x: 961
+        y: 865
         width: 50
         height: 58
       alignment: 9
@@ -3711,8 +4740,8 @@ TextureImporter:
       name: function_icon_life
       rect:
         serializedVersion: 2
-        x: 550
-        y: 44
+        x: 1043
+        y: 493
         width: 60
         height: 48
       alignment: 9
@@ -3732,8 +4761,8 @@ TextureImporter:
       name: function_icon_battle
       rect:
         serializedVersion: 2
-        x: 554
-        y: 209
+        x: 1052
+        y: 542
         width: 60
         height: 48
       alignment: 9
@@ -3753,8 +4782,8 @@ TextureImporter:
       name: function_icon_life_break
       rect:
         serializedVersion: 2
-        x: 591
-        y: 150
+        x: 1011
+        y: 795
         width: 60
         height: 48
       alignment: 9
@@ -3774,8 +4803,8 @@ TextureImporter:
       name: function_icon_tree
       rect:
         serializedVersion: 2
-        x: 605
-        y: 258
+        x: 1063
+        y: 734
         width: 48
         height: 60
       alignment: 9
@@ -3795,31 +4824,10 @@ TextureImporter:
       name: function_icon_help
       rect:
         serializedVersion: 2
-        x: 599
-        y: 93
+        x: 1075
+        y: 661
         width: 54
         height: 53
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_dice
-      rect:
-        serializedVersion: 2
-        x: 611
-        y: 319
-        width: 51
-        height: 56
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3837,8 +4845,8 @@ TextureImporter:
       name: function_icon_bag_1
       rect:
         serializedVersion: 2
-        x: 657
-        y: 376
+        x: 1106
+        y: 591
         width: 56
         height: 51
       alignment: 9
@@ -3858,10 +4866,31 @@ TextureImporter:
       name: function_icon_think
       rect:
         serializedVersion: 2
-        x: 663
-        y: 428
+        x: 1018
+        y: 371
         width: 56
         height: 51
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_dice
+      rect:
+        serializedVersion: 2
+        x: 1042
+        y: 312
+        width: 51
+        height: 56
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3879,8 +4908,8 @@ TextureImporter:
       name: function_icon_friend
       rect:
         serializedVersion: 2
-        x: 705
-        y: 480
+        x: 1083
+        y: 256
         width: 63
         height: 45
       alignment: 9
@@ -3900,8 +4929,8 @@ TextureImporter:
       name: function_icon_folder
       rect:
         serializedVersion: 2
-        x: 615
-        y: 199
+        x: 1103
+        y: 207
         width: 59
         height: 48
       alignment: 9
@@ -3921,8 +4950,8 @@ TextureImporter:
       name: function_icon_market_appstore
       rect:
         serializedVersion: 2
-        x: 707
-        y: 526
+        x: 1142
+        y: 147
         width: 48
         height: 59
       alignment: 9
@@ -3942,52 +4971,10 @@ TextureImporter:
       name: function_icon_graph
       rect:
         serializedVersion: 2
-        x: 652
-        y: 147
+        x: 1179
+        y: 95
         width: 60
         height: 47
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_inkpen
-      rect:
-        serializedVersion: 2
-        x: 725
-        y: 586
-        width: 53
-        height: 53
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_rocket
-      rect:
-        serializedVersion: 2
-        x: 776
-        y: 640
-        width: 53
-        height: 53
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4005,8 +4992,8 @@ TextureImporter:
       name: function_icon_qrcode
       rect:
         serializedVersion: 2
-        x: 756
-        y: 526
+        x: 1061
+        y: 423
         width: 53
         height: 53
       alignment: 9
@@ -4023,11 +5010,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_scan
+      name: function_icon_inkpen
       rect:
         serializedVersion: 2
-        x: 779
-        y: 580
+        x: 1075
+        y: 369
         width: 53
         height: 53
       alignment: 9
@@ -4047,8 +5034,50 @@ TextureImporter:
       name: function_icon_sns_skype
       rect:
         serializedVersion: 2
-        x: 810
-        y: 694
+        x: 1104
+        y: 477
+        width: 53
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_scan
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 423
+        width: 53
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_rocket
+      rect:
+        serializedVersion: 2
+        x: 1113
+        y: 531
         width: 53
         height: 53
       alignment: 9
@@ -4068,8 +5097,8 @@ TextureImporter:
       name: function_icon_battery_empty
       rect:
         serializedVersion: 2
-        x: 561
-        y: 0
+        x: 1181
+        y: 44
         width: 72
         height: 39
       alignment: 9
@@ -4089,8 +5118,8 @@ TextureImporter:
       name: function_icon_battery_full
       rect:
         serializedVersion: 2
-        x: 830
-        y: 634
+        x: 1247
+        y: 0
         width: 72
         height: 39
       alignment: 9
@@ -4110,8 +5139,8 @@ TextureImporter:
       name: function_icon_battery_half
       rect:
         serializedVersion: 2
-        x: 611
-        y: 40
+        x: 1158
+        y: 477
         width: 72
         height: 39
       alignment: 9
@@ -4131,8 +5160,8 @@ TextureImporter:
       name: function_icon_helmet_2
       rect:
         serializedVersion: 2
-        x: 857
-        y: 748
+        x: 1094
+        y: 302
         width: 46
         height: 61
       alignment: 9
@@ -4152,8 +5181,8 @@ TextureImporter:
       name: function_icon_moneybag
       rect:
         serializedVersion: 2
-        x: 864
-        y: 674
+        x: 1129
+        y: 364
         width: 50
         height: 56
       alignment: 9
@@ -4173,8 +5202,8 @@ TextureImporter:
       name: function_icon_moneybag_dollar
       rect:
         serializedVersion: 2
-        x: 654
-        y: 80
+        x: 1141
+        y: 302
         width: 50
         height: 56
       alignment: 9
@@ -4194,8 +5223,8 @@ TextureImporter:
       name: function_icon_market_googleplay
       rect:
         serializedVersion: 2
-        x: 654
-        y: 248
+        x: 1163
+        y: 207
         width: 49
         height: 57
       alignment: 9
@@ -4215,8 +5244,8 @@ TextureImporter:
       name: function_icon_eye_show
       rect:
         serializedVersion: 2
-        x: 675
-        y: 195
+        x: 1169
+        y: 421
         width: 58
         height: 48
       alignment: 9
@@ -4236,8 +5265,8 @@ TextureImporter:
       name: function_icon_book
       rect:
         serializedVersion: 2
-        x: 663
-        y: 306
+        x: 1180
+        y: 359
         width: 46
         height: 60
       alignment: 9
@@ -4257,8 +5286,8 @@ TextureImporter:
       name: function_icon_reload
       rect:
         serializedVersion: 2
-        x: 704
-        y: 244
+        x: 1191
+        y: 143
         width: 60
         height: 46
       alignment: 9
@@ -4278,8 +5307,8 @@ TextureImporter:
       name: function_icon_human
       rect:
         serializedVersion: 2
-        x: 684
-        y: 0
+        x: 1240
+        y: 84
         width: 49
         height: 56
       alignment: 9
@@ -4299,8 +5328,8 @@ TextureImporter:
       name: function_icon_cart
       rect:
         serializedVersion: 2
-        x: 710
-        y: 291
+        x: 1192
+        y: 265
         width: 56
         height: 49
       alignment: 9
@@ -4320,8 +5349,8 @@ TextureImporter:
       name: function_icon_helmet_1
       rect:
         serializedVersion: 2
-        x: 714
-        y: 341
+        x: 1213
+        y: 190
         width: 48
         height: 57
       alignment: 9
@@ -4341,8 +5370,8 @@ TextureImporter:
       name: function_icon_sleepmode
       rect:
         serializedVersion: 2
-        x: 720
-        y: 399
+        x: 1227
+        y: 315
         width: 48
         height: 57
       alignment: 9
@@ -4362,8 +5391,8 @@ TextureImporter:
       name: function_icon_infinity
       rect:
         serializedVersion: 2
-        x: 811
-        y: 867
+        x: 571
+        y: 985
         width: 76
         height: 36
       alignment: 9
@@ -4383,8 +5412,8 @@ TextureImporter:
       name: function_icon_delete
       rect:
         serializedVersion: 2
-        x: 869
-        y: 810
+        x: 1252
+        y: 141
         width: 59
         height: 46
       alignment: 9
@@ -4401,95 +5430,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_write_1
+      name: function_icon_leaderboard
       rect:
         serializedVersion: 2
-        x: 763
-        y: 341
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_earth
-      rect:
-        serializedVersion: 2
-        x: 904
-        y: 731
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_cupcake
-      rect:
-        serializedVersion: 2
-        x: 705
-        y: 57
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_buckler
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 0
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_clip
-      rect:
-        serializedVersion: 2
-        x: 713
-        y: 110
+        x: 1249
+        y: 248
         width: 52
         height: 52
       alignment: 9
@@ -4509,134 +5454,8 @@ TextureImporter:
       name: function_icon_tag
       rect:
         serializedVersion: 2
-        x: 758
-        y: 53
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_setting_1
-      rect:
-        serializedVersion: 2
-        x: 787
-        y: 0
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_archer
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 163
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_leaderboard
-      rect:
-        serializedVersion: 2
-        x: 766
-        y: 106
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_category
-      rect:
-        serializedVersion: 2
-        x: 811
-        y: 53
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_calendar
-      rect:
-        serializedVersion: 2
-        x: 840
-        y: 0
-        width: 52
-        height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_calendar_month
-      rect:
-        serializedVersion: 2
-        x: 765
-        y: 216
+        x: 1262
+        y: 188
         width: 52
         height: 52
       alignment: 9
@@ -4656,8 +5475,92 @@ TextureImporter:
       name: function_icon_calendar_week
       rect:
         serializedVersion: 2
-        x: 787
-        y: 159
+        x: 1290
+        y: 40
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_calendar_month
+      rect:
+        serializedVersion: 2
+        x: 1312
+        y: 93
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_calendar
+      rect:
+        serializedVersion: 2
+        x: 1343
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_category
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 373
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_archer
+      rect:
+        serializedVersion: 2
+        x: 1276
+        y: 301
         width: 52
         height: 52
       alignment: 9
@@ -4677,8 +5580,134 @@ TextureImporter:
       name: function_icon_female
       rect:
         serializedVersion: 2
-        x: 819
-        y: 106
+        x: 1302
+        y: 241
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_clip
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 146
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_buckler
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 53
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_cupcake
+      rect:
+        serializedVersion: 2
+        x: 1396
+        y: 0
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_earth
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 844
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_write_1
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 897
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_setting_1
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 950
         width: 52
         height: 52
       alignment: 9
@@ -4698,8 +5727,8 @@ TextureImporter:
       name: function_icon_exit
       rect:
         serializedVersion: 2
-        x: 767
-        y: 269
+        x: 1065
+        y: 844
         width: 45
         height: 60
       alignment: 9
@@ -4719,8 +5748,8 @@ TextureImporter:
       name: function_icon_hashtag
       rect:
         serializedVersion: 2
-        x: 864
-        y: 53
+        x: 1228
+        y: 426
         width: 54
         height: 50
       alignment: 9
@@ -4740,8 +5769,8 @@ TextureImporter:
       name: function_icon_paper
       rect:
         serializedVersion: 2
-        x: 893
-        y: 0
+        x: 1281
+        y: 354
         width: 54
         height: 50
       alignment: 9
@@ -4761,8 +5790,8 @@ TextureImporter:
       name: function_icon_guage
       rect:
         serializedVersion: 2
-        x: 813
-        y: 269
+        x: 1329
+        y: 294
         width: 57
         height: 47
       alignment: 9
@@ -4782,8 +5811,8 @@ TextureImporter:
       name: function_icon_scrap
       rect:
         serializedVersion: 2
-        x: 429
-        y: 538
+        x: 1355
+        y: 199
         width: 52
         height: 51
       alignment: 9
@@ -4803,8 +5832,8 @@ TextureImporter:
       name: function_icon_talk_2
       rect:
         serializedVersion: 2
-        x: 818
-        y: 212
+        x: 1368
+        y: 106
         width: 52
         height: 51
       alignment: 9
@@ -4824,8 +5853,8 @@ TextureImporter:
       name: function_icon_setting_2
       rect:
         serializedVersion: 2
-        x: 840
-        y: 159
+        x: 1418
+        y: 53
         width: 51
         height: 52
       alignment: 9
@@ -4845,8 +5874,8 @@ TextureImporter:
       name: function_icon_pick
       rect:
         serializedVersion: 2
-        x: 872
-        y: 104
+        x: 1449
+        y: 0
         width: 52
         height: 51
       alignment: 9
@@ -4866,8 +5895,8 @@ TextureImporter:
       name: function_icon_store_1
       rect:
         serializedVersion: 2
-        x: 919
-        y: 51
+        x: 1065
+        y: 905
         width: 53
         height: 50
       alignment: 9
@@ -4887,8 +5916,8 @@ TextureImporter:
       name: function_icon_switch
       rect:
         serializedVersion: 2
-        x: 812
-        y: 904
+        x: 1065
+        y: 956
         width: 50
         height: 53
       alignment: 9
@@ -4908,8 +5937,8 @@ TextureImporter:
       name: function_icon_arrow_bottom
       rect:
         serializedVersion: 2
-        x: 812
-        y: 958
+        x: 1116
+        y: 956
         width: 50
         height: 53
       alignment: 9
@@ -4929,31 +5958,10 @@ TextureImporter:
       name: function_icon_arrow_go
       rect:
         serializedVersion: 2
-        x: 948
-        y: 0
+        x: 1111
+        y: 795
         width: 53
         height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_share
-      rect:
-        serializedVersion: 2
-        x: 863
-        y: 904
-        width: 49
-        height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4971,8 +5979,29 @@ TextureImporter:
       name: function_icon_document
       rect:
         serializedVersion: 2
-        x: 863
-        y: 959
+        x: 1111
+        y: 846
+        width: 49
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_share
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 901
         width: 49
         height: 54
       alignment: 9
@@ -4992,8 +6021,8 @@ TextureImporter:
       name: function_icon_user_2
       rect:
         serializedVersion: 2
-        x: 547
-        y: 432
+        x: 439
+        y: 979
         width: 60
         height: 44
       alignment: 9
@@ -5013,8 +6042,8 @@ TextureImporter:
       name: function_icon_talk_1
       rect:
         serializedVersion: 2
-        x: 769
-        y: 394
+        x: 1161
+        y: 846
         width: 55
         height: 48
       alignment: 9
@@ -5034,8 +6063,8 @@ TextureImporter:
       name: function_icon_bag_2
       rect:
         serializedVersion: 2
-        x: 816
-        y: 317
+        x: 1167
+        y: 956
         width: 55
         height: 48
       alignment: 9
@@ -5055,8 +6084,8 @@ TextureImporter:
       name: function_icon_jump
       rect:
         serializedVersion: 2
-        x: 888
-        y: 857
+        x: 1169
+        y: 895
         width: 60
         height: 44
       alignment: 9
@@ -5073,116 +6102,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_search
+      name: function_icon_time_1
       rect:
         serializedVersion: 2
-        x: 929
-        y: 784
-        width: 51
-        height: 51
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_mode_min
-      rect:
-        serializedVersion: 2
-        x: 769
-        y: 443
-        width: 51
-        height: 51
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_preference_2
-      rect:
-        serializedVersion: 2
-        x: 810
-        y: 495
-        width: 51
-        height: 51
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_preference_1
-      rect:
-        serializedVersion: 2
-        x: 821
-        y: 443
-        width: 51
-        height: 51
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_view_1
-      rect:
-        serializedVersion: 2
-        x: 825
-        y: 366
-        width: 51
-        height: 51
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_mail_read
-      rect:
-        serializedVersion: 2
-        x: 833
-        y: 547
+        x: 1223
+        y: 940
         width: 51
         height: 51
       alignment: 9
@@ -5202,8 +6126,8 @@ TextureImporter:
       name: function_icon_view_2
       rect:
         serializedVersion: 2
-        x: 862
-        y: 495
+        x: 1112
+        y: 715
         width: 51
         height: 51
       alignment: 9
@@ -5220,11 +6144,116 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_time_1
+      name: function_icon_view_1
       rect:
         serializedVersion: 2
-        x: 873
-        y: 418
+        x: 1130
+        y: 643
+        width: 51
+        height: 51
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_preference_1
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 585
+        width: 51
+        height: 51
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_mail_read
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 517
+        width: 51
+        height: 51
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_mode_min
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 695
+        width: 51
+        height: 51
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_search
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 637
+        width: 51
+        height: 51
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_preference_2
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 569
         width: 51
         height: 51
       alignment: 9
@@ -5244,8 +6273,8 @@ TextureImporter:
       name: function_icon_arrow_top
       rect:
         serializedVersion: 2
-        x: 885
-        y: 547
+        x: 1231
+        y: 477
         width: 50
         height: 52
       alignment: 9
@@ -5265,10 +6294,52 @@ TextureImporter:
       name: function_icon_arrow_back
       rect:
         serializedVersion: 2
-        x: 903
-        y: 600
+        x: 1165
+        y: 747
         width: 52
         height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Close02
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 689
+        width: 49
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Close01
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 621
+        width: 49
+        height: 53
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5286,8 +6357,8 @@ TextureImporter:
       name: function_icon_trash
       rect:
         serializedVersion: 2
-        x: 914
-        y: 470
+        x: 1267
+        y: 530
         width: 48
         height: 54
       alignment: 9
@@ -5307,8 +6378,8 @@ TextureImporter:
       name: function_icon_newspaper
       rect:
         serializedVersion: 2
-        x: 936
-        y: 525
+        x: 1282
+        y: 477
         width: 54
         height: 48
       alignment: 9
@@ -5328,8 +6399,8 @@ TextureImporter:
       name: function_icon_magnetic
       rect:
         serializedVersion: 2
-        x: 915
-        y: 651
+        x: 1283
+        y: 405
         width: 48
         height: 54
       alignment: 9
@@ -5349,8 +6420,8 @@ TextureImporter:
       name: function_icon_siren
       rect:
         serializedVersion: 2
-        x: 956
-        y: 574
+        x: 1332
+        y: 405
         width: 54
         height: 48
       alignment: 9
@@ -5370,31 +6441,10 @@ TextureImporter:
       name: function_icon_copy
       rect:
         serializedVersion: 2
-        x: 957
-        y: 706
+        x: 1336
+        y: 342
         width: 48
         height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_back
-      rect:
-        serializedVersion: 2
-        x: 964
-        y: 623
-        width: 55
-        height: 47
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5412,10 +6462,31 @@ TextureImporter:
       name: function_icon_notification
       rect:
         serializedVersion: 2
-        x: 871
-        y: 212
+        x: 1385
+        y: 342
         width: 47
         height: 55
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_back
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 798
+        width: 55
+        height: 47
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5433,8 +6504,8 @@ TextureImporter:
       name: function_icon_store_2
       rect:
         serializedVersion: 2
-        x: 871
-        y: 268
+        x: 1217
+        y: 846
         width: 55
         height: 47
       alignment: 9
@@ -5454,8 +6525,8 @@ TextureImporter:
       name: function_icon_keyboard
       rect:
         serializedVersion: 2
-        x: 872
-        y: 316
+        x: 1230
+        y: 894
         width: 60
         height: 43
       alignment: 9
@@ -5475,8 +6546,8 @@ TextureImporter:
       name: function_icon_fire
       rect:
         serializedVersion: 2
-        x: 925
-        y: 360
+        x: 1387
+        y: 251
         width: 43
         height: 60
       alignment: 9
@@ -5496,8 +6567,8 @@ TextureImporter:
       name: function_icon_diamond
       rect:
         serializedVersion: 2
-        x: 925
-        y: 421
+        x: 1218
+        y: 743
         width: 57
         height: 45
       alignment: 9
@@ -5517,8 +6588,8 @@ TextureImporter:
       name: function_icon_video
       rect:
         serializedVersion: 2
-        x: 963
-        y: 467
+        x: 1221
+        y: 789
         width: 61
         height: 42
       alignment: 9
@@ -5538,8 +6609,8 @@ TextureImporter:
       name: function_icon_call
       rect:
         serializedVersion: 2
-        x: 892
-        y: 156
+        x: 1273
+        y: 832
         width: 51
         height: 50
       alignment: 9
@@ -5559,8 +6630,8 @@ TextureImporter:
       name: function_icon_link
       rect:
         serializedVersion: 2
-        x: 925
-        y: 102
+        x: 1266
+        y: 675
         width: 50
         height: 51
       alignment: 9
@@ -5580,8 +6651,8 @@ TextureImporter:
       name: function_icon_explore
       rect:
         serializedVersion: 2
-        x: 973
-        y: 51
+        x: 1276
+        y: 727
         width: 51
         height: 50
       alignment: 9
@@ -5601,8 +6672,8 @@ TextureImporter:
       name: function_icon_like_2
       rect:
         serializedVersion: 2
-        x: 1002
-        y: 0
+        x: 1283
+        y: 778
         width: 52
         height: 49
       alignment: 9
@@ -5622,8 +6693,8 @@ TextureImporter:
       name: function_icon_like_1
       rect:
         serializedVersion: 2
-        x: 991
-        y: 510
+        x: 1408
+        y: 158
         width: 52
         height: 49
       alignment: 9
@@ -5643,10 +6714,52 @@ TextureImporter:
       name: function_icon_rubie
       rect:
         serializedVersion: 2
-        x: 391
-        y: 274
+        x: 1275
+        y: 938
         width: 48
         height: 53
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_align_vertical
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 106
+        width: 54
+        height: 47
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_align_horizontal
+      rect:
+        serializedVersion: 2
+        x: 1291
+        y: 883
+        width: 47
+        height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5664,8 +6777,8 @@ TextureImporter:
       name: function_icon_music
       rect:
         serializedVersion: 2
-        x: 877
-        y: 360
+        x: 1325
+        y: 828
         width: 47
         height: 54
       alignment: 9
@@ -5685,52 +6798,10 @@ TextureImporter:
       name: function_icon_horseshoes
       rect:
         serializedVersion: 2
-        x: 1011
-        y: 560
+        x: 1324
+        y: 938
         width: 47
         height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_align_horizontal
-      rect:
-        serializedVersion: 2
-        x: 919
-        y: 207
-        width: 47
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_align_vertical
-      rect:
-        serializedVersion: 2
-        x: 944
-        y: 154
-        width: 54
-        height: 47
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5748,10 +6819,31 @@ TextureImporter:
       name: function_icon_potion_1
       rect:
         serializedVersion: 2
-        x: 933
-        y: 262
+        x: 1284
+        y: 585
         width: 46
         height: 55
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_chess_4
+      rect:
+        serializedVersion: 2
+        x: 1317
+        y: 641
+        width: 42
+        height: 60
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5769,8 +6861,8 @@ TextureImporter:
       name: function_icon_ticket
       rect:
         serializedVersion: 2
-        x: 976
-        y: 102
+        x: 1470
+        y: 52
         width: 56
         height: 45
       alignment: 9
@@ -5790,29 +6882,8 @@ TextureImporter:
       name: function_icon_medal
       rect:
         serializedVersion: 2
-        x: 969
-        y: 318
-        width: 42
-        height: 60
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_chess_4
-      rect:
-        serializedVersion: 2
-        x: 983
-        y: 379
+        x: 1328
+        y: 702
         width: 42
         height: 60
       alignment: 9
@@ -5832,8 +6903,8 @@ TextureImporter:
       name: function_icon_coupon
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 50
+        x: 1502
+        y: 0
         width: 56
         height: 45
       alignment: 9
@@ -5850,95 +6921,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_sns_facebook
+      name: function_icon_zoomin
       rect:
         serializedVersion: 2
-        x: 967
-        y: 202
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_zoomout
-      rect:
-        serializedVersion: 2
-        x: 999
-        y: 148
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_file_import
-      rect:
-        serializedVersion: 2
-        x: 1033
-        y: 96
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_moon
-      rect:
-        serializedVersion: 2
-        x: 980
-        y: 253
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_network
-      rect:
-        serializedVersion: 2
-        x: 1018
-        y: 199
+        x: 1339
+        y: 883
         width: 50
         height: 50
       alignment: 9
@@ -5958,29 +6945,8 @@ TextureImporter:
       name: function_icon_file_export
       rect:
         serializedVersion: 2
-        x: 1050
-        y: 147
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_mode_max
-      rect:
-        serializedVersion: 2
-        x: 1025
-        y: 440
+        x: 1316
+        y: 526
         width: 50
         height: 50
       alignment: 9
@@ -6000,8 +6966,8 @@ TextureImporter:
       name: function_icon_layout
       rect:
         serializedVersion: 2
-        x: 1044
-        y: 491
+        x: 1331
+        y: 577
         width: 50
         height: 50
       alignment: 9
@@ -6018,11 +6984,116 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_zoomin
+      name: function_icon_mode_max
       rect:
         serializedVersion: 2
-        x: 1012
-        y: 304
+        x: 1336
+        y: 763
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_network
+      rect:
+        serializedVersion: 2
+        x: 1373
+        y: 814
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_moon
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 628
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_file_import
+      rect:
+        serializedVersion: 2
+        x: 1337
+        y: 454
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_zoomout
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 398
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_sns_facebook
+      rect:
+        serializedVersion: 2
+        x: 1367
+        y: 505
         width: 50
         height: 50
       alignment: 9
@@ -6042,8 +7113,8 @@ TextureImporter:
       name: function_icon_home_3
       rect:
         serializedVersion: 2
-        x: 1031
-        y: 250
+        x: 1388
+        y: 449
         width: 49
         height: 51
       alignment: 9
@@ -6063,8 +7134,8 @@ TextureImporter:
       name: function_icon_map
       rect:
         serializedVersion: 2
-        x: 1055
-        y: 0
+        x: 1382
+        y: 556
         width: 51
         height: 49
       alignment: 9
@@ -6084,8 +7155,8 @@ TextureImporter:
       name: function_icon_feather
       rect:
         serializedVersion: 2
-        x: 1069
-        y: 198
+        x: 1418
+        y: 501
         width: 51
         height: 49
       alignment: 9
@@ -6105,52 +7176,10 @@ TextureImporter:
       name: function_icon_custume_boots
       rect:
         serializedVersion: 2
-        x: 1026
-        y: 355
+        x: 1371
+        y: 679
         width: 48
         height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_bulb
-      rect:
-        serializedVersion: 2
-        x: 1084
-        y: 50
-        width: 43
-        height: 58
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_redo
-      rect:
-        serializedVersion: 2
-        x: 1107
-        y: 0
-        width: 58
-        height: 43
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -6168,10 +7197,52 @@ TextureImporter:
       name: function_icon_undo
       rect:
         serializedVersion: 2
-        x: 1063
-        y: 302
+        x: 1411
+        y: 606
         width: 58
         height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_redo
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 551
+        width: 58
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_bulb
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 732
+        width: 43
+        height: 58
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -6189,8 +7260,8 @@ TextureImporter:
       name: function_icon_sns_twitter
       rect:
         serializedVersion: 2
-        x: 1081
-        y: 248
+        x: 1420
+        y: 650
         width: 54
         height: 46
       alignment: 9
@@ -6210,8 +7281,8 @@ TextureImporter:
       name: function_icon_glove
       rect:
         serializedVersion: 2
-        x: 1101
-        y: 109
+        x: 1372
+        y: 934
         width: 42
         height: 59
       alignment: 9
@@ -6231,8 +7302,8 @@ TextureImporter:
       name: function_icon_list_1
       rect:
         serializedVersion: 2
-        x: 1128
-        y: 44
+        x: 1470
+        y: 595
         width: 55
         height: 45
       alignment: 9
@@ -6252,10 +7323,31 @@ TextureImporter:
       name: function_icon_camera
       rect:
         serializedVersion: 2
-        x: 1121
-        y: 169
+        x: 1390
+        y: 865
         width: 52
         height: 47
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_magicball
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 791
+        width: 46
+        height: 53
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -6273,8 +7365,8 @@ TextureImporter:
       name: function_icon_crown_2
       rect:
         serializedVersion: 2
-        x: 1144
-        y: 90
+        x: 1431
+        y: 697
         width: 53
         height: 46
       alignment: 9
@@ -6294,8 +7386,8 @@ TextureImporter:
       name: function_icon_currency_peso
       rect:
         serializedVersion: 2
-        x: 644
-        y: 821
+        x: 1475
+        y: 641
         width: 46
         height: 53
       alignment: 9
@@ -6315,52 +7407,10 @@ TextureImporter:
       name: function_icon_snowball
       rect:
         serializedVersion: 2
-        x: 1184
-        y: 0
+        x: 1415
+        y: 913
         width: 46
         height: 53
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_magicball
-      rect:
-        serializedVersion: 2
-        x: 1075
-        y: 346
-        width: 46
-        height: 53
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_fist
-      rect:
-        serializedVersion: 2
-        x: 1076
-        y: 400
-        width: 45
-        height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -6378,8 +7428,29 @@ TextureImporter:
       name: function_icon_potion_2
       rect:
         serializedVersion: 2
-        x: 913
-        y: 902
+        x: 1415
+        y: 967
+        width: 45
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_fist
+      rect:
+        serializedVersion: 2
+        x: 1461
+        y: 967
         width: 45
         height: 54
       alignment: 9
@@ -6399,8 +7470,8 @@ TextureImporter:
       name: function_icon_internet_connect
       rect:
         serializedVersion: 2
-        x: 949
-        y: 836
+        x: 1408
+        y: 208
         width: 59
         height: 41
       alignment: 9
@@ -6420,8 +7491,8 @@ TextureImporter:
       name: function_icon_menu_2
       rect:
         serializedVersion: 2
-        x: 483
-        y: 597
+        x: 1461
+        y: 154
         width: 49
         height: 49
       alignment: 9
@@ -6441,31 +7512,10 @@ TextureImporter:
       name: function_icon_refresh
       rect:
         serializedVersion: 2
-        x: 913
-        y: 957
+        x: 1476
+        y: 98
         width: 46
         height: 52
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_profile
-      rect:
-        serializedVersion: 2
-        x: 981
-        y: 761
-        width: 52
-        height: 46
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -6483,8 +7533,8 @@ TextureImporter:
       name: function_icon_wallet
       rect:
         serializedVersion: 2
-        x: 959
-        y: 878
+        x: 1431
+        y: 744
         width: 52
         height: 46
       alignment: 9
@@ -6501,13 +7551,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: function_icon_google
+      name: function_icon_profile
       rect:
         serializedVersion: 2
-        x: 1009
-        y: 808
-        width: 48
-        height: 49
+        x: 1443
+        y: 845
+        width: 52
+        height: 46
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -6525,8 +7575,8 @@ TextureImporter:
       name: function_icon_chest_1
       rect:
         serializedVersion: 2
-        x: 1006
-        y: 671
+        x: 1471
+        y: 791
         width: 56
         height: 42
       alignment: 9
@@ -6546,10 +7596,31 @@ TextureImporter:
       name: function_icon_chest_2
       rect:
         serializedVersion: 2
-        x: 1006
-        y: 714
+        x: 1484
+        y: 744
         width: 56
         height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_google
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 892
+        width: 48
+        height: 49
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -6567,8 +7638,8 @@ TextureImporter:
       name: function_icon_check
       rect:
         serializedVersion: 2
-        x: 1034
-        y: 757
+        x: 1485
+        y: 695
         width: 52
         height: 45
       alignment: 9
@@ -6588,8 +7659,8 @@ TextureImporter:
       name: function_icon_comment
       rect:
         serializedVersion: 2
-        x: 1020
-        y: 615
+        x: 1522
+        y: 641
         width: 52
         height: 45
       alignment: 9
@@ -6609,8 +7680,8 @@ TextureImporter:
       name: function_icon_bookmark_add
       rect:
         serializedVersion: 2
-        x: 1059
-        y: 542
+        x: 1538
+        y: 687
         width: 44
         height: 53
       alignment: 9
@@ -6630,8 +7701,8 @@ TextureImporter:
       name: function_icon_bookmark
       rect:
         serializedVersion: 2
-        x: 1095
-        y: 455
+        x: 1496
+        y: 834
         width: 44
         height: 53
       alignment: 9
@@ -6651,8 +7722,8 @@ TextureImporter:
       name: function_icon_crown_1
       rect:
         serializedVersion: 2
-        x: 1063
-        y: 661
+        x: 1528
+        y: 787
         width: 54
         height: 43
       alignment: 9
@@ -6672,8 +7743,8 @@ TextureImporter:
       name: function_icon_male
       rect:
         serializedVersion: 2
-        x: 1073
-        y: 596
+        x: 254
+        y: 377
         width: 38
         height: 61
       alignment: 9
@@ -6693,8 +7764,8 @@ TextureImporter:
       name: function_icon_menu_1
       rect:
         serializedVersion: 2
-        x: 1063
-        y: 705
+        x: 1507
+        y: 942
         width: 48
         height: 48
       alignment: 9
@@ -6714,8 +7785,8 @@ TextureImporter:
       name: function_icon_chess_1
       rect:
         serializedVersion: 2
-        x: 1104
-        y: 509
+        x: 1541
+        y: 831
         width: 39
         height: 59
       alignment: 9
@@ -6735,8 +7806,8 @@ TextureImporter:
       name: function_icon_movie
       rect:
         serializedVersion: 2
-        x: 1112
-        y: 569
+        x: 1541
+        y: 741
         width: 52
         height: 44
       alignment: 9
@@ -6756,8 +7827,8 @@ TextureImporter:
       name: function_icon_calculator
       rect:
         serializedVersion: 2
-        x: 960
-        y: 925
+        x: 1431
+        y: 250
         width: 44
         height: 52
       alignment: 9
@@ -6777,8 +7848,8 @@ TextureImporter:
       name: function_icon_player_rw
       rect:
         serializedVersion: 2
-        x: 1112
-        y: 614
+        x: 1431
+        y: 303
         width: 60
         height: 38
       alignment: 9
@@ -6798,8 +7869,8 @@ TextureImporter:
       name: function_icon_sns_youtube
       rect:
         serializedVersion: 2
-        x: 960
-        y: 978
+        x: 1468
+        y: 204
         width: 57
         height: 40
       alignment: 9
@@ -6819,8 +7890,8 @@ TextureImporter:
       name: function_icon_player_fw
       rect:
         serializedVersion: 2
-        x: 1005
-        y: 925
+        x: 1511
+        y: 891
         width: 60
         height: 38
       alignment: 9
@@ -6840,8 +7911,8 @@ TextureImporter:
       name: function_icon_currency_dollar
       rect:
         serializedVersion: 2
-        x: 1012
-        y: 858
+        x: 1556
+        y: 930
         width: 36
         height: 63
       alignment: 9
@@ -6861,8 +7932,8 @@ TextureImporter:
       name: function_icon_water
       rect:
         serializedVersion: 2
-        x: 152
-        y: 257
+        x: 1476
+        y: 245
         width: 41
         height: 55
       alignment: 9
@@ -6882,8 +7953,8 @@ TextureImporter:
       name: function_icon_photo
       rect:
         serializedVersion: 2
-        x: 1018
-        y: 964
+        x: 1511
+        y: 151
         width: 50
         height: 45
       alignment: 9
@@ -6903,8 +7974,8 @@ TextureImporter:
       name: function_icon_film
       rect:
         serializedVersion: 2
-        x: 1049
-        y: 858
+        x: 1523
+        y: 98
         width: 50
         height: 45
       alignment: 9
@@ -6924,8 +7995,8 @@ TextureImporter:
       name: function_icon_money
       rect:
         serializedVersion: 2
-        x: 1058
-        y: 803
+        x: 1527
+        y: 46
         width: 44
         height: 51
       alignment: 9
@@ -6945,8 +8016,8 @@ TextureImporter:
       name: function_icon_map_pin
       rect:
         serializedVersion: 2
-        x: 1066
-        y: 904
+        x: 1433
+        y: 342
         width: 43
         height: 52
       alignment: 9
@@ -6966,8 +8037,8 @@ TextureImporter:
       name: function_icon_thunder
       rect:
         serializedVersion: 2
-        x: 1069
-        y: 957
+        x: 1581
+        y: 831
         width: 42
         height: 53
       alignment: 9
@@ -6987,8 +8058,8 @@ TextureImporter:
       name: function_icon_currency_euro
       rect:
         serializedVersion: 2
-        x: 1103
-        y: 754
+        x: 1572
+        y: 0
         width: 41
         height: 54
       alignment: 9
@@ -7008,8 +8079,8 @@ TextureImporter:
       name: function_icon_volume
       rect:
         serializedVersion: 2
-        x: 1103
-        y: 809
+        x: 1593
+        y: 885
         width: 41
         height: 54
       alignment: 9
@@ -7029,8 +8100,8 @@ TextureImporter:
       name: function_icon_horuglass
       rect:
         serializedVersion: 2
-        x: 1110
-        y: 864
+        x: 1593
+        y: 940
         width: 44
         height: 50
       alignment: 9
@@ -7050,8 +8121,8 @@ TextureImporter:
       name: function_icon_mail
       rect:
         serializedVersion: 2
-        x: 246
-        y: 980
+        x: 1583
+        y: 786
         width: 51
         height: 43
       alignment: 9
@@ -7071,8 +8142,8 @@ TextureImporter:
       name: function_icon_currency_yen
       rect:
         serializedVersion: 2
-        x: 1118
-        y: 653
+        x: 1624
+        y: 830
         width: 42
         height: 52
       alignment: 9
@@ -7092,8 +8163,8 @@ TextureImporter:
       name: function_icon_mic
       rect:
         serializedVersion: 2
-        x: 1112
-        y: 915
+        x: 1638
+        y: 883
         width: 35
         height: 62
       alignment: 9
@@ -7113,8 +8184,8 @@ TextureImporter:
       name: function_icon_player_play
       rect:
         serializedVersion: 2
-        x: 1148
-        y: 915
+        x: 1638
+        y: 946
         width: 43
         height: 50
       alignment: 9
@@ -7134,8 +8205,8 @@ TextureImporter:
       name: function_icon_currency_baht
       rect:
         serializedVersion: 2
-        x: 1145
-        y: 706
+        x: 1438
+        y: 395
         width: 35
         height: 61
       alignment: 9
@@ -7155,8 +8226,8 @@ TextureImporter:
       name: function_icon_currency_bitcoin
       rect:
         serializedVersion: 2
-        x: 1145
-        y: 768
+        x: 1470
+        y: 457
         width: 35
         height: 61
       alignment: 9
@@ -7176,10 +8247,31 @@ TextureImporter:
       name: function_icon_pay
       rect:
         serializedVersion: 2
-        x: 1112
-        y: 978
+        x: 1572
+        y: 55
         width: 52
         height: 41
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_StarGrade_l_On
+      rect:
+        serializedVersion: 2
+        x: 1614
+        y: 0
+        width: 45
+        height: 47
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7197,8 +8289,8 @@ TextureImporter:
       name: function_icon_list_2
       rect:
         serializedVersion: 2
-        x: 1161
-        y: 653
+        x: 1474
+        y: 395
         width: 48
         height: 44
       alignment: 9
@@ -7218,8 +8310,8 @@ TextureImporter:
       name: function_icon_sound
       rect:
         serializedVersion: 2
-        x: 1165
-        y: 966
+        x: 1493
+        y: 519
         width: 38
         height: 55
       alignment: 9
@@ -7239,8 +8331,8 @@ TextureImporter:
       name: function_icon_mobile
       rect:
         serializedVersion: 2
-        x: 1155
-        y: 830
+        x: 1526
+        y: 575
         width: 36
         height: 58
       alignment: 9
@@ -7260,8 +8352,8 @@ TextureImporter:
       name: function_icon_bluetooth
       rect:
         serializedVersion: 2
-        x: 1181
-        y: 698
+        x: 1506
+        y: 440
         width: 36
         height: 58
       alignment: 9
@@ -7281,8 +8373,8 @@ TextureImporter:
       name: function_icon_currency_pound
       rect:
         serializedVersion: 2
-        x: 1181
-        y: 757
+        x: 1532
+        y: 499
         width: 39
         height: 53
       alignment: 9
@@ -7302,31 +8394,10 @@ TextureImporter:
       name: function_icon_chess_2
       rect:
         serializedVersion: 2
-        x: 1192
-        y: 811
+        x: 1563
+        y: 553
         width: 35
         height: 59
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_lock_2
-      rect:
-        serializedVersion: 2
-        x: 1192
-        y: 871
-        width: 38
-        height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7344,8 +8415,29 @@ TextureImporter:
       name: function_icon_lock_1
       rect:
         serializedVersion: 2
-        x: 1204
-        y: 926
+        x: 1575
+        y: 613
+        width: 38
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_lock_2
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 668
         width: 38
         height: 54
       alignment: 9
@@ -7365,8 +8457,8 @@ TextureImporter:
       name: function_icon_write_2
       rect:
         serializedVersion: 2
-        x: 376
-        y: 424
+        x: 1594
+        y: 723
         width: 45
         height: 45
       alignment: 9
@@ -7386,8 +8478,8 @@ TextureImporter:
       name: function_icon_chess_3
       rect:
         serializedVersion: 2
-        x: 1122
-        y: 295
+        x: 1635
+        y: 769
         width: 37
         height: 54
       alignment: 9
@@ -7407,10 +8499,31 @@ TextureImporter:
       name: function_icon_player_stop
       rect:
         serializedVersion: 2
-        x: 1136
-        y: 217
+        x: 1667
+        y: 824
         width: 44
         height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_StarGrade_l_Off
+      rect:
+        serializedVersion: 2
+        x: 1674
+        y: 869
+        width: 45
+        height: 43
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7428,8 +8541,8 @@ TextureImporter:
       name: function_icon_user_1
       rect:
         serializedVersion: 2
-        x: 602
-        y: 765
+        x: 1477
+        y: 342
         width: 41
         height: 46
       alignment: 9
@@ -7449,29 +8562,8 @@ TextureImporter:
       name: function_icon_arrow_prev
       rect:
         serializedVersion: 2
-        x: 559
-        y: 709
-        width: 37
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_arrow_next
-      rect:
-        serializedVersion: 2
-        x: 1174
-        y: 137
+        x: 301
+        y: 520
         width: 37
         height: 50
       alignment: 9
@@ -7491,10 +8583,31 @@ TextureImporter:
       name: function_icon_arrow_up
       rect:
         serializedVersion: 2
-        x: 1204
-        y: 981
+        x: 960
+        y: 985
         width: 50
         height: 37
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_arrow_next
+      rect:
+        serializedVersion: 2
+        x: 1682
+        y: 913
+        width: 37
+        height: 50
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7512,8 +8625,8 @@ TextureImporter:
       name: function_icon_arrow_down
       rect:
         serializedVersion: 2
-        x: 1198
-        y: 54
+        x: 379
+        y: 914
         width: 50
         height: 37
       alignment: 9
@@ -7533,8 +8646,8 @@ TextureImporter:
       name: function_icon_player_pause
       rect:
         serializedVersion: 2
-        x: 1231
-        y: 0
+        x: 1072
+        y: 795
         width: 37
         height: 46
       alignment: 9
@@ -7554,31 +8667,10 @@ TextureImporter:
       name: function_icon_clear
       rect:
         serializedVersion: 2
-        x: 1198
-        y: 92
+        x: 1682
+        y: 964
         width: 41
         height: 41
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: function_icon_player_next
-      rect:
-        serializedVersion: 2
-        x: 1122
-        y: 350
-        width: 39
-        height: 43
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7596,10 +8688,52 @@ TextureImporter:
       name: function_icon_player_prev
       rect:
         serializedVersion: 2
-        x: 1122
-        y: 394
+        x: 1518
+        y: 245
         width: 39
         height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: function_icon_player_next
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 197
+        width: 39
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Add01
+      rect:
+        serializedVersion: 2
+        x: 1492
+        y: 301
+        width: 40
+        height: 40
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7617,10 +8751,52 @@ TextureImporter:
       name: function_icon_question
       rect:
         serializedVersion: 2
-        x: 1140
-        y: 438
+        x: 902
+        y: 48
         width: 29
         height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_PictoIcon_Down
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 218
+        width: 37
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_StarGrade_s_On
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 565
+        width: 32
+        height: 35
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7638,10 +8814,31 @@ TextureImporter:
       name: function_icon_info
       rect:
         serializedVersion: 2
-        x: 1144
-        y: 493
+        x: 889
+        y: 161
         width: 21
         height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_ImageIcon_StarGrade_s_Off
+      rect:
+        serializedVersion: 2
+        x: 1284
+        y: 641
+        width: 32
+        height: 31
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -7659,8 +8856,8 @@ TextureImporter:
       name: function_icon_exclamation
       rect:
         serializedVersion: 2
-        x: 1165
-        y: 546
+        x: 1523
+        y: 342
         width: 16
         height: 55
       alignment: 9
@@ -7680,8 +8877,8 @@ TextureImporter:
       name: function_icon_more
       rect:
         serializedVersion: 2
-        x: 66
-        y: 620
+        x: 525
+        y: 132
         width: 56
         height: 13
       alignment: 9
@@ -7701,8 +8898,8 @@ TextureImporter:
       name: function_icon_minus
       rect:
         serializedVersion: 2
-        x: 1018
-        y: 1011
+        x: 830
+        y: 644
         width: 55
         height: 12
       alignment: 9
@@ -7729,7 +8926,63 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Icon_Gold: 0
+      Icon_ImageIcon_Ad_00_l: 0
+      Icon_ImageIcon_Ad_00_s: 0
+      Icon_ImageIcon_Gift_Blue: 0
+      Icon_ImageIcon_Gift_Purple: 0
+      Icon_ImageIcon_Knife_Battle: 0
+      Icon_ImageIcon_Star01_s: 0
+      Icon_ImageIcon_Star02_s: 0
+      Icon_ImageIcon_StarGrade_l_Off: 0
+      Icon_ImageIcon_StarGrade_l_On: 0
+      Icon_ImageIcon_StarGrade_s_Off: 0
+      Icon_ImageIcon_StarGrade_s_On: 0
+      Icon_MenuIcon03_Ornament_n: 0
+      Icon_MenuIcon03_Ornament_s: 0
+      Icon_MenuIcon03_Shield_n: 0
+      Icon_MenuIcon03_Shield_s: 0
+      Icon_MenuIcon03_Shoes_n: 0
+      Icon_MenuIcon03_Shoes_s: 0
+      Icon_MenuIcon03_Weapon_n: 0
+      Icon_MenuIcon03_Weapon_s: 0
+      Icon_PictoIcon_Add01: 0
+      Icon_PictoIcon_Add02: 0
+      Icon_PictoIcon_Add03: 0
+      Icon_PictoIcon_Bell: 0
+      Icon_PictoIcon_Boss_Stage_f: 0
+      Icon_PictoIcon_Boss_Stage_n: 0
+      Icon_PictoIcon_Close01: 0
+      Icon_PictoIcon_Close02: 0
+      Icon_PictoIcon_Delete: 0
+      Icon_PictoIcon_Down: 0
+      Icon_PictoIcon_Edit: 0
+      Icon_PictoIcon_Exit: 0
+      Icon_PictoIcon_Exit_l: 0
+      Icon_PictoIcon_Haptic: 0
+      Icon_PictoIcon_Help: 0
+      Icon_PictoIcon_Home: 0
+      Icon_PictoIcon_Lock: 0
+      Icon_PictoIcon_Lock00: 0
+      Icon_PictoIcon_Music_off: 0
+      Icon_PictoIcon_Music_on: 0
+      Icon_PictoIcon_Next01: 0
+      Icon_PictoIcon_Next02: 0
+      Icon_PictoIcon_Pause: 0
+      Icon_PictoIcon_Play: 0
+      Icon_PictoIcon_Prev01: 0
+      Icon_PictoIcon_Prev02: 0
+      Icon_PictoIcon_Resume: 0
+      Icon_PictoIcon_Search: 0
+      Icon_PictoIcon_Setting: 0
+      Icon_PictoIcon_Setting02: 0
+      Icon_PictoIcon_Sound_off: 0
+      Icon_PictoIcon_Sound_on: 0
+      Icon_PictoIcon_Time: 0
+      Icon_PictoIcon_TimeColon: 0
       Icon_PictoIcon_Timer: 5870318544866655336
+      Icon_PictoIcon_Wifi: 0
+      Icon_Sword: 0
       function_icon_abstract: 0
       function_icon_account: 0
       function_icon_achievement: 0
