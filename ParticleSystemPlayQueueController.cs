@@ -35,8 +35,13 @@
 
 		private Queue<Vector3> _positionQueue = new Queue<Vector3>();
 
-		public void Init(Transform transform)
+		public void Init(Transform transform, ParticleSystem overrideParticle = null)
 		{
+			if (overrideParticle != null)
+			{
+				_particleSystem = overrideParticle;
+			}
+
 			if (_particleSystem != null)
 			{
 				if (_particleSystem.gameObject.IsPrefab())
