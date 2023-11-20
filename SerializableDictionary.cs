@@ -212,12 +212,12 @@ namespace takashicompany.Unity
 
 		bool IReadOnlyDictionary<K, V>.ContainsKey(K key)
 		{
-			throw new System.NotImplementedException();
+			return ContainsKey(key);
 		}
 
 		bool IReadOnlyDictionary<K, V>.TryGetValue(K key, out V value)
 		{
-			throw new System.NotImplementedException();
+			return TryGetValue(key, out value);
 		}
 	}
 
