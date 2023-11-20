@@ -9,7 +9,7 @@ namespace takashicompany.Unity
 	/// インスペクターで辞書を使えるようにした
 	/// </summary>
 	[System.Serializable]
-	public class SerializableDictionary<K, V>: IEnumerable<KeyValuePair<K, V>>, IDictionary<K, V>
+	public class SerializableDictionary<K, V>: IEnumerable<KeyValuePair<K, V>>, IDictionary<K, V>, IReadOnlyDictionary<K, V>
 	{
 		[System.Serializable]
 		public class SdKeyValuePair
@@ -77,6 +77,14 @@ namespace takashicompany.Unity
 		public int Count => _list.Count();
 
 		public bool IsReadOnly => throw new System.NotImplementedException();
+
+		IEnumerable<K> IReadOnlyDictionary<K, V>.Keys => this.Keys;
+
+		IEnumerable<V> IReadOnlyDictionary<K, V>.Values => this.Values;
+
+		int IReadOnlyCollection<KeyValuePair<K, V>>.Count => this.Count;
+
+		V IReadOnlyDictionary<K, V>.this[K key] => this[key];
 
 		public V this[K key]
 		{
@@ -200,6 +208,16 @@ namespace takashicompany.Unity
 			{
 				dict.Add(kvp.key, kvp.value);
 			}
+		}
+
+		bool IReadOnlyDictionary<K, V>.ContainsKey(K key)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		bool IReadOnlyDictionary<K, V>.TryGetValue(K key, out V value)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 
