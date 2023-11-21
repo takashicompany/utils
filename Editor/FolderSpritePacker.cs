@@ -7,7 +7,7 @@ namespace takashicompany.Unity.Editor
 
 	public class FolderSpritePacker : EditorWindow
 	{
-		[MenuItem("t.c Utils/選択したフォルダ内のSpriteを1枚のSpriteにまとめる")]
+		[MenuItem("TC Utils/選択したフォルダ内のSpriteを1枚のSpriteにまとめる")]
 		private static void CombineSelectedSprites()
 		{
 			var selectedFolder = Selection.activeObject;
