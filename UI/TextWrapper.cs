@@ -35,6 +35,11 @@ namespace takashicompany.Unity.UI
 			
 		}
 
+		public TweenerCore<Color, Color, ColorOptions> DOColor(Color endValue, float duration)
+		{
+			return Get(() => _a.DOColor(endValue, duration), () => _b.DOColor(endValue, duration));
+		}
+
 		public TweenerCore<Color, Color, ColorOptions> DOFade(float a, float duration)
 		{
 			return Get(() => _a.DOFade(a, duration), () => _b.DOFade(a, duration));
