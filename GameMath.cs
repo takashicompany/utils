@@ -1,5 +1,6 @@
 namespace takashicompany.Unity
 {
+	using System;
 	using System.Collections;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -43,6 +44,38 @@ namespace takashicompany.Unity
 				currentValue = Mathf.RoundToInt(currentValue * multiplier);
 			}
 			return currentValue;
+		}
+
+		public static T RandomKeyByWeight<T>(this IDictionary<T, float> dictionary)
+		{
+			if (dictionary == null || dictionary.Count == 0)
+			{
+				throw new ArgumentException("Dictionary is null or empty.");
+			}
+
+			// 確率の合計値を算出
+			float totalWeight = dictionary.Sum(pair => pair.Value);
+
+			if (totalWeight <= 0)
+			{
+				throw new InvalidOperationException("Total weight must be greater than zero.");
+			}
+
+			// ランダムな値を生成（0から合計重みの範囲で）
+			float randomValue = UnityEngine.Random.Range(0f, totalWeight);
+
+			// 適切なキーを選択
+			foreach (var pair in dictionary)
+			{
+				randomValue -= pair.Value;
+				if (randomValue <= 0)
+				{
+					return pair.Key;
+				}
+			}
+
+			// 理論上はここに到達しないが、念のため最後のキーを返す
+			return dictionary.Last().Key;
 		}
 	}
 }
