@@ -13,10 +13,10 @@ namespace takashicompany.Unity
 
 		[SerializeField]
 		protected int _top = 1;
-		
+
 		[SerializeField]
 		protected int _forward = 2;
-		
+
 		// 片面が決まれば他の面は自動的に決まるというサイコロの仕様
 		protected int _bottom => 7 - _top;
 		protected int _left => 7 - _right;
@@ -50,10 +50,20 @@ namespace takashicompany.Unity
 
 		public Sequence Throw(Vector3 from, Vector3 to, float duration)
 		{
+			var endRotation = Quaternion.Euler(new Vector3(90 * Random.Range(0, 4), 90 * Random.Range(0, 4), 90 * Random.Range(0, 4)));
+			return Throw(from, to, duration, endRotation);
+		}
+
+		public Sequence Throw(Vector3 from, Vector3 to, float duration, int diceNumber)
+		{
+			Debug.Log($"Throw: {diceNumber}");
+			return Throw(transform.position, to, duration, CalculateRotationForNumber(diceNumber));
+		}
+
+		private Sequence Throw(Vector3 from, Vector3 to, float duration, Quaternion endRotation)
+		{
 			gameObject.SetActive(true);
 			transform.position = from;
-
-			var endRotation = new Vector3(90 * Random.Range(0, 4), 90 * Random.Range(0, 4), 90 * Random.Range(0, 4));
 
 			var rot = Quaternion.LookRotation((from - to).normalized).eulerAngles * 360;
 
@@ -61,12 +71,38 @@ namespace takashicompany.Unity
 
 			var seq = DOTween.Sequence();
 
-			seq.Append(transform.DORotate(endRotation, duration, RotateMode.FastBeyond360).SetEase(Ease.OutSine));
+			seq.Append(transform.DORotateQuaternion(endRotation, duration).SetEase(Ease.OutSine));
 			seq.Join(transform.DOMove(to, duration, Ease.OutSine, Ease.OutBounce, Ease.OutSine));
 
 			return seq;
 		}
-		
+
+		public Quaternion CalculateRotationForNumber(int number)
+		{
+			Vector3 upDirection;
+			Vector3 forwardDirection;
+
+			// 各数値に応じて上向きと前向きの方向を決定
+			switch (number)
+			{
+				case 1: upDirection = Vector3.up; forwardDirection = Vector3.forward; break; // 上面が1
+				case 2: upDirection = Vector3.forward; forwardDirection = Vector3.up; break; // 上面が2
+				case 3: upDirection = Vector3.right; forwardDirection = Vector3.back; break; // 上面が3
+				case 4: upDirection = Vector3.left; forwardDirection = Vector3.back; break; // 上面が4
+				case 5: upDirection = Vector3.back; forwardDirection = Vector3.down; break; // 上面が5
+				case 6: upDirection = Vector3.down; forwardDirection = Vector3.forward; break; // 上面が6
+				default: Debug.LogError("Invalid number provided"); return Quaternion.identity;
+			}
+
+			// 指定された方向を向くための回転を計算
+			return Quaternion.LookRotation(forwardDirection, upDirection);
+		}
+
+		public void RotateByNumber(int number)
+		{
+			transform.rotation = CalculateRotationForNumber(number);
+		}
+
 		public void Hide()
 		{
 			gameObject.SetActive(false);
