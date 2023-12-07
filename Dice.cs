@@ -56,7 +56,6 @@ namespace takashicompany.Unity
 
 		public Sequence Throw(Vector3 from, Vector3 to, float duration, int diceNumber)
 		{
-			Debug.Log($"Throw: {diceNumber}");
 			return Throw(transform.position, to, duration, CalculateRotationForNumber(diceNumber));
 		}
 
