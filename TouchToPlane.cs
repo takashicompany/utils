@@ -6,6 +6,9 @@ namespace takashicompany.Unity
 	using UnityEngine;
 	using UnityEngine.EventSystems;
 
+	/// <summary>
+	/// 仮想の平面を用意して、その平面上でのタッチイベントを取得する
+	/// </summary>
 	public class TouchToPlane :
 		MonoBehaviour,
 		IPointerDownHandler,
@@ -106,7 +109,7 @@ namespace takashicompany.Unity
 			}
 
 			eventData = null;
-			return true;
+			return false;
 		}
 	}
 }

@@ -3234,13 +3234,16 @@
 		}
 #endregion
 
-		public static bool TryGetPositionOnRay(this Ray ray, int vector3Index, float target, out Vector3 position)
+		/// <summary>
+		/// Rayが仮想の高さの平面と交わる位置を返す
+		/// </summary>
+		public static bool TryGetPositionOnRay(this Ray ray, int vector3Index, float targetPoint, out Vector3 position)
 		{
 			// Rayの方向ベクトルを正規化する
 			Vector3 direction = ray.direction.normalized;
 
 			// Rayの始点と目標の高さの差分を求める
-			float delta = target - ray.origin[vector3Index];
+			float delta = targetPoint - ray.origin[vector3Index];
 
 			// Rayが指定された高さに到達しない場合はfalseを返す
 			if (Mathf.Approximately(delta, 0f) || Mathf.Approximately(direction[vector3Index], 0f))
