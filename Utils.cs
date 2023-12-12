@@ -1637,7 +1637,6 @@
 #endregion
 
 #region 配列
-
 		public static bool TryGet<T>(this IList<T> self, int index, out T result)
 		{
 			if (index < 0 || self.Count <= index)
@@ -1648,6 +1647,22 @@
 
 			result = self[index];
 			return true;
+		}
+
+		public static void Foreach<T>(this IEnumerable<T> self, System.Action<T> function)
+		{
+			foreach (var item in self)
+			{
+				function(item);
+			}
+		}
+
+		public static void Foreach<T, R>(this IEnumerable<T> self, System.Func<T, R> function)
+		{
+			foreach (var item in self)
+			{
+				function(item);
+			}
 		}
 
 #endregion
