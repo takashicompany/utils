@@ -155,4 +155,56 @@
 			return _containers[prefab].Get();
 		}
 	}
+	
+	/// <summary>
+	/// 複数のPoolingContainerを束ねるクラス
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	[System.Serializable]
+	public class ActivePoolingContainerBundle<T> /*: PoolingContainer<T>*/ where T : Component
+	{
+		[SerializeField]
+		private Transform _container;
+
+		[SerializeField]
+		private T[] _prefabs;
+
+		private Dictionary<T, ActivePoolingContainer<T>> _prefabDict;
+		/*private Dictionary<T, ActivePoolingContainer<T>> _instanceDict;*/
+
+		private void Init()
+		{
+			if (_prefabDict == null/* && _instanceDict == null*/)
+			{
+				_prefabDict = new Dictionary<T, ActivePoolingContainer<T>>();
+				//_instanceDict = new Dictionary<T, ActivePoolingContainer<T>>();
+
+				foreach (var prefab in _prefabs)
+				{
+					var container = new ActivePoolingContainer<T>();
+					container.Setup(prefab, _container);
+					_prefabDict.Add(prefab, container);
+				}
+			}
+		}
+
+		public T Get()
+		{
+			Init();
+
+			var prefab = _prefabs.GetRandom();
+			var container = _prefabDict[prefab];
+			return container.Get();
+		}
+
+		public void CollectAll()
+		{
+			Init();
+
+			foreach (var container in _prefabDict.Values)
+			{
+				container.CollectAll();
+			}
+		}
+	}
 }
