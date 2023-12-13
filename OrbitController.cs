@@ -228,7 +228,9 @@ namespace takashicompany.Unity
 						wrapper.DOKill();
 						wrapper.DOLocalRotateQuaternion(rot, duration);
 
-						var chaser = new Chaser.Updater(orbit, wrapper, localPosition, 100f);
+						var distance = Vector3.Distance(orbit.transform.position, wrapper.TransformPoint(localPosition));
+
+						var chaser = new Chaser.Updater(orbit, wrapper, localPosition, 100);
 						_chaseUpdaters.Add(chaser);
 
 						// orbit.DOKill();
