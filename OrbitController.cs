@@ -15,6 +15,9 @@ namespace takashicompany.Unity
 			Z,
 		}
 
+		[SerializeField, Header("指定なければ同階層に生成する。回転をロックするのでこのGameObjectを指定する時は注意。")]
+		private Transform _root;
+
 		[SerializeField]
 		private float _widthPerOrbit = 1f;
 
@@ -85,6 +88,11 @@ namespace takashicompany.Unity
 			// 	wrapper.position = transform.position;
 			// }
 
+			if (_root != null)
+			{
+				_root.rotation = Quaternion.identity;
+			}
+
 			for (int i = 0; i < _rotators.Count; i++)
 			{
 				var rotator = _rotators[i];
@@ -128,7 +136,8 @@ namespace takashicompany.Unity
 			
 			var wrapper = new GameObject("OrbitWrapper:" + orbit.name).transform;
 			wrapper.position = transform.position;
-			wrapper.SetParent(transform.parent);
+
+			wrapper.SetParent(_root != null ? _root : transform.parent);
 			orbit.SetParent(wrapper);
 			_orbitAndWrappers.Add(orbit, wrapper);
 
@@ -185,8 +194,11 @@ namespace takashicompany.Unity
 			
 			_orbits.Remove(orbit);
 			_orbitAndWrappers.Remove(orbit);
-			Destroy(wrapper.gameObject);
+			_wrapperAndLayers.Remove(wrapper);
+			
+			wrapper.DOKill();
 
+			Destroy(wrapper.gameObject);
 			Align(0.25f);
 		}
 
@@ -225,16 +237,14 @@ namespace takashicompany.Unity
 
 					if (useAnimation)
 					{
-						wrapper.DOKill();
-						wrapper.DOLocalRotateQuaternion(rot, duration);
-
-						// var distance = Vector3.Distance(orbit.transform.position, wrapper.TransformPoint(localPosition));
+						if (wrapper.gameObject != null)
+						{
+							wrapper.DOKill();
+							wrapper.DOLocalRotateQuaternion(rot, duration);
+						}
 
 						var chaser = new Chaser.Updater(orbit, wrapper, localPosition, 100);
 						_chaseUpdaters.Add(chaser);
-
-						// orbit.DOKill();
-						// orbit.DOLocalMove(localPosition, duration);
 					}
 					else
 					{
