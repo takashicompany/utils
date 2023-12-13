@@ -30,6 +30,10 @@
 			{
 				obj = Generate();
 			}
+			else
+			{
+				Collect(obj);
+			}
 
 			Use(obj);
 

@@ -46,6 +46,8 @@ namespace takashicompany.Unity
 
 		private List<Chaser.Updater> _chaseUpdaters = new List<Chaser.Updater>();
 
+		public float maxOrbit { get; private set; }
+
 		private void OnDestroy()
 		{
 			foreach (var wrapper in _orbitAndWrappers.Values)
@@ -212,9 +214,12 @@ namespace takashicompany.Unity
 
 			var useAnimation = duration > 0;
 
+			maxOrbit = 0;
+
 			while (index < _orbits.Count)
 			{
-				var 円周 = Mathf.PI * 2f * (_minOrbitDistance + _widthPerOrbit * layer);
+				var 半径 = _minOrbitDistance + _widthPerOrbit * layer;
+				var 円周 = Mathf.PI * 2f * 半径;
 				var count = (int)(円周 / _widthPerOrbit) - 1;
 				var anglePerOne = 360f / Mathf.Min(count, _orbits.Count - index);
 
@@ -255,19 +260,9 @@ namespace takashicompany.Unity
 
 				index += count;
 				layer++;
+
+				maxOrbit = Mathf.Max(半径, maxOrbit);
 			}
-
-			// var anglePerOne = 360f / _orbits.Count;
-
-			// for (int i = 0; i < _orbits.Count; i++)
-			// {
-			// 	var orbit = _orbits[i];
-			// 	var wrapper = _orbitAndWrappers[orbit];
-			// 	var v = Vector3.zero;
-			// 	v[(int)_rotateAxis] = anglePerOne * i;
-			// 	wrapper.transform.position = transform.position;
-			// 	wrapper.localRotation = Quaternion.Euler(v);
-			// }
 		}
 
 		public int GetLayer(int index, out int maxCountOnLayer)
