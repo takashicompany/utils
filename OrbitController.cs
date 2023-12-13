@@ -119,7 +119,7 @@ namespace takashicompany.Unity
 			while (_rotators.Count <= index)
 			{
 				var rotator = new GameObject(name + " Rotator:" + index).transform;
-				rotator.SetParent(transform.parent);
+				rotator.SetParent(_root != null ? _root : transform.parent);
 				_rotators.Add(rotator);
 			}
 
