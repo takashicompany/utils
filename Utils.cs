@@ -3005,6 +3005,42 @@
 		}
 #endregion
 
+#region Mesh
+		public static void CopyMeshProperties(this Mesh targetMesh, Mesh sourceMesh)
+		{
+			if (targetMesh == null || sourceMesh == null)
+			{
+				Debug.LogError("Target mesh and source mesh must not be null.");
+				return;
+			}
+
+			// コピー可能な各プロパティを設定
+			targetMesh.vertices = sourceMesh.vertices;
+			targetMesh.normals = sourceMesh.normals;
+			targetMesh.tangents = sourceMesh.tangents;
+			targetMesh.uv = sourceMesh.uv;
+			targetMesh.uv2 = sourceMesh.uv2;
+			targetMesh.uv3 = sourceMesh.uv3;
+			targetMesh.uv4 = sourceMesh.uv4;
+			targetMesh.uv5 = sourceMesh.uv5;
+			targetMesh.uv6 = sourceMesh.uv6;
+			targetMesh.uv7 = sourceMesh.uv7;
+			targetMesh.uv8 = sourceMesh.uv8;
+			targetMesh.colors = sourceMesh.colors;
+			targetMesh.colors32 = sourceMesh.colors32;
+			targetMesh.boneWeights = sourceMesh.boneWeights;
+			targetMesh.bindposes = sourceMesh.bindposes;
+			targetMesh.triangles = sourceMesh.triangles;
+			targetMesh.subMeshCount = sourceMesh.subMeshCount;
+			targetMesh.bounds = sourceMesh.bounds;
+
+			// バッファターゲットとインデックスフォーマットもコピー（必要に応じて）
+			targetMesh.vertexBufferTarget = sourceMesh.vertexBufferTarget;
+			targetMesh.indexBufferTarget = sourceMesh.indexBufferTarget;
+			targetMesh.indexFormat = sourceMesh.indexFormat;
+		}
+#endregion
+
 #region NavMeshAgent
 		public static bool IsReachedDestinationOrGaveUp(this UnityEngine.AI.NavMeshAgent self)
 		{
