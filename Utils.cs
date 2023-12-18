@@ -276,6 +276,28 @@
 		}
 #endregion
 
+#region Vector3
+		
+		// オイラー角を用いてベクトルを回転させ、正規化したベクトルを返す関数
+		public static Vector3 RotateAndNormalize(this Vector3 vector, Vector3 eulerAngles)
+		{
+			// オイラー角からQuaternionを作成
+			Quaternion rotation = Quaternion.Euler(eulerAngles);
+
+			// Quaternionを使用してベクトルを回転させる
+			Vector3 rotatedVector = rotation * vector;
+
+			// 回転したベクトルを正規化して返す
+			return rotatedVector.normalized;
+		}
+
+		public static Vector3 ベクトルをオイラー角を用いて回転させた後に正規化して返す(this Vector3 vector, Vector3 eulerAngles)
+		{
+			return RotateAndNormalize(vector, eulerAngles);
+		}
+
+	#endregion
+
 #region 多次元配列
 
 		// 二次元配列の行を反転する拡張メソッド
