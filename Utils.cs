@@ -55,6 +55,14 @@
 #endif
 		}
 
+		public static void SetDirty(UnityEngine.Object obj)
+		{
+
+#if UNITY_EDITOR
+			EditorUtility.SetDirty(obj);
+#endif
+		}
+
 #region Object
 		public static T Instantiate<T>(this T obj, Transform parent) where T : UnityEngine.Object
 		{
@@ -2907,6 +2915,54 @@
 				yield return null;
 				animator.CrossFade(hash, 1f, layerIndex, normalizedTime);
 			}
+		}
+
+		public static List<Rigidbody> GetRigidbodies(this Animator animator)
+		{
+			var list = new List<Rigidbody>();
+
+			foreach (HumanBodyBones bone in System.Enum.GetValues(typeof(HumanBodyBones)))
+			{
+				if (bone == HumanBodyBones.LastBone)
+				{
+					continue;
+				}
+
+				var t = animator.GetBoneTransform(bone);
+				if (t != null)
+				{
+					if (t.TryGetComponent<Rigidbody>(out var rb))
+					{
+						list.Add(rb);
+					}
+				}
+			}
+
+			return list;
+		}
+
+		public static List<Collider> GetColliders(this Animator animator)
+		{
+			var list = new List<Collider>();
+
+			foreach (HumanBodyBones bone in System.Enum.GetValues(typeof(HumanBodyBones)))
+			{
+				if (bone == HumanBodyBones.LastBone)
+				{
+					continue;
+				}
+
+				var t = animator.GetBoneTransform(bone);
+				if (t != null)
+				{
+					if (t.TryGetComponent<Collider>(out var c))
+					{
+						list.Add(c);
+					}
+				}
+			}
+
+			return list;
 		}
 
 #endregion
