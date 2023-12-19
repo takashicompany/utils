@@ -18,13 +18,10 @@ namespace takashicompany.Unity
 		[SerializeField, Header("指定なければ同階層に生成する。回転をロックするのでこのGameObjectを指定する時は注意。")]
 		private Transform _root;
 
-		[SerializeField]
-		private float _widthPerOrbit = 1f;
-
-		[SerializeField]
+		[SerializeField, Header("最小の軌道半径")]
 		private float _minOrbitDistance = 2f;
 
-		[SerializeField]
+		[SerializeField, Header("回転する層が追加される毎に増加する半径")]
 		private float _distancePerLayer = 1.5f;
 
 		[SerializeField]
@@ -218,9 +215,9 @@ namespace takashicompany.Unity
 
 			while (index < _orbits.Count)
 			{
-				var 半径 = _minOrbitDistance + _widthPerOrbit * layer;
+				var 半径 = _minOrbitDistance + _distancePerLayer * layer;
 				var 円周 = Mathf.PI * 2f * 半径;
-				var count = (int)(円周 / _widthPerOrbit) - 1;
+				var count = (int)(円周 / _distancePerLayer) - 1;
 				var anglePerOne = 360f / Mathf.Min(count, _orbits.Count - index);
 
 				var rotator = GetRotator(layer);
@@ -238,7 +235,7 @@ namespace takashicompany.Unity
 					wrapper.localPosition = Vector3.zero;
 
 					var rot = Quaternion.Euler(v);
-					var localPosition = Vector3.forward * (_minOrbitDistance + _widthPerOrbit * layer);
+					var localPosition = Vector3.forward * (_minOrbitDistance + _distancePerLayer * layer);
 
 					if (useAnimation)
 					{
@@ -271,9 +268,9 @@ namespace takashicompany.Unity
 
 			do
 			{
-				var 円周 = Mathf.PI * 2f * (_minOrbitDistance + _widthPerOrbit * depth);
+				var 円周 = Mathf.PI * 2f * (_minOrbitDistance + _distancePerLayer * depth);
 				
-				maxCountOnLayer = (int)(円周 / _widthPerOrbit) - 1;
+				maxCountOnLayer = (int)(円周 / _distancePerLayer) - 1;
 				
 				index -= maxCountOnLayer;
 				
