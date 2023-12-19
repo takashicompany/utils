@@ -124,7 +124,7 @@ namespace takashicompany.Unity
 			}
 
 			var result = _rotators[index];
-			result.transform.position = transform.position;
+			result.transform.position = _rotators != null ? _root.position : transform.position;
 			return result;
 		}
 
