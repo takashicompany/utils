@@ -58,12 +58,12 @@
 
 		public void Play(Vector3 position)
 		{
-			_positionQueue.Enqueue(position);
+			if (_p != null) _positionQueue.Enqueue(position);
 		}
 
 		public void Update()
 		{
-			if (_positionQueue.Count > 0)
+			if (_p != null && _positionQueue.Count > 0)
 			{
 				var p = _positionQueue.Dequeue();
 
