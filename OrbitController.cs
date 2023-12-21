@@ -45,6 +45,9 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private bool _isRotateReverseForLayer = true;
 
+		[SerializeField, Header("軌道オブジェクトを均等に配置するか")]
+		private bool _isOrbitEvenlySpaced = false;
+
 		private List<Transform> _rotators = new List<Transform>();
 		private List<Transform> _orbits = new List<Transform>();
 		private Dictionary<Transform, Transform> _orbitAndWrappers = new Dictionary<Transform, Transform>();
@@ -235,7 +238,7 @@ namespace takashicompany.Unity
 				var 半径 = _minOrbitDistance + _distancePerLayer * layer;
 				var 円周 = Mathf.PI * 2f * 半径;
 				var count = (int)(円周 / _widthPerOrbit) - 1;
-				var anglePerOne = 360f / Mathf.Min(count, _orbits.Count - index);
+				var anglePerOne = _isOrbitEvenlySpaced ? 360f / Mathf.Min(count, _orbits.Count - index) : 360f / count;
 
 				var rotator = GetRotator(layer);
 
