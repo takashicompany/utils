@@ -18,6 +18,9 @@ namespace takashicompany.Unity
 		[SerializeField, Header("指定なければ同階層に生成する。回転をロックするのでこのGameObjectを指定する時は注意。")]
 		private Transform _root;
 
+		[SerializeField, Header("軌道オブジェクトの幅。")]
+		private float _widthPerOrbit = 1f;
+
 		[SerializeField, Header("最小の軌道半径")]
 		private float _minOrbitDistance = 2f;
 
@@ -26,6 +29,12 @@ namespace takashicompany.Unity
 
 		[SerializeField]
 		private Axis _rotateAxis = Axis.Y;
+
+		[SerializeField, Header("軌道オブジェクトの接近の周期の間隔。数字大きくすると間隔が短くなる。")]
+		private float _wrapperBreathInterval = 2f;
+
+		[SerializeField, Header("軌道オブジェクトの接近の大きさ")]
+		private float _wrapperBreathRatio = 0.1f;
 
 		[SerializeField, EnumFlag]
 		private UpdateType _updateType = UpdateType.LateUpdate;
@@ -108,6 +117,14 @@ namespace takashicompany.Unity
 				{
 					_chaseUpdaters.RemoveAt(i);
 				}
+			}
+
+			foreach (var wrapper in _orbitAndWrappers.Values)
+			{
+				var back = wrapper.forward * -1f;
+				var sign = 1f; // wrapper.GetSiblingIndex() % 2 == 0 ? 1f : -1f;
+				var byTime = Mathf.Sin(Time.time * _wrapperBreathInterval);
+				wrapper.position =  wrapper.parent.position + back * byTime * _wrapperBreathRatio * sign;
 			}
 		}
 
@@ -217,7 +234,7 @@ namespace takashicompany.Unity
 			{
 				var 半径 = _minOrbitDistance + _distancePerLayer * layer;
 				var 円周 = Mathf.PI * 2f * 半径;
-				var count = (int)(円周 / _distancePerLayer) - 1;
+				var count = (int)(円周 / _widthPerOrbit) - 1;
 				var anglePerOne = 360f / Mathf.Min(count, _orbits.Count - index);
 
 				var rotator = GetRotator(layer);
@@ -270,7 +287,7 @@ namespace takashicompany.Unity
 			{
 				var 円周 = Mathf.PI * 2f * (_minOrbitDistance + _distancePerLayer * depth);
 				
-				maxCountOnLayer = (int)(円周 / _distancePerLayer) - 1;
+				maxCountOnLayer = (int)(円周 / _widthPerOrbit) - 1;
 				
 				index -= maxCountOnLayer;
 				
