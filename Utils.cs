@@ -2259,6 +2259,25 @@
 			self[key].Add(val);
 		}
 
+		public static bool Append<K, V>(this IDictionary<K, V> self, IEnumerable<KeyValuePair<K, V>> pairs)
+		{
+			var result = true;
+
+			foreach (var kvp in pairs)
+			{
+				if (self.ContainsKey(kvp.Key))
+				{
+					result = false;
+				}
+				else
+				{
+					self.Add(kvp.Key, kvp.Value);
+				}
+			}
+
+			return result;
+		}
+
 		public static void Foreach<K, V>(this IDictionary<K, V> self, System.Action<K, V> function)
 		{
 			foreach (var kvp in self)
