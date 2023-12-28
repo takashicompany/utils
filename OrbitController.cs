@@ -110,7 +110,7 @@ namespace takashicompany.Unity
 				var v = Vector3.zero;
 				v[(int)_rotateAxis] = _rotationPerSecond * Time.deltaTime;
 				rotator.Rotate(_isRotateReverseForLayer && i % 2 == 1 ? -v : v);
-				rotator.position = transform.position;
+				rotator.position = _root != null ? _root.position : transform.position;
 			}
 
 			for (int i = _chaseUpdaters.Count - 1; i >= 0; i--)
@@ -141,7 +141,8 @@ namespace takashicompany.Unity
 			}
 
 			var result = _rotators[index];
-			result.transform.position = _rotators != null ? _root.position : transform.position;
+			result.transform.position = _root != null ? _root.position : transform.position;
+
 			return result;
 		}
 
