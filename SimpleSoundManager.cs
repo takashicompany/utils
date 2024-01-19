@@ -52,4 +52,47 @@ namespace takashicompany.Unity
 			_source.PlayOneShot(clip);
 		}
 	}
+	
+	public class SoundManager<T> where T : System.Enum
+	{
+		private Dictionary<T, AudioClip> _clips = new Dictionary<T, AudioClip>();
+
+		private AudioSource _source;
+
+		private string _resourcesPath;
+
+		public SoundManager(string resourcesPath = "")
+		{
+			_resourcesPath = resourcesPath;
+			_source = GameObject.FindObjectOfType<AudioSource>();
+
+			if (_source == null)
+			{
+				var go = new GameObject("SimpleSoundManager");
+				_source = go.AddComponent<AudioSource>();
+			}
+		}
+
+		public void PlayOneShot(T clipType, float pitch = -1f)
+		{
+			if (!_clips.ContainsKey(clipType))
+			{
+				var clip = Resources.Load<AudioClip>(_resourcesPath + clipType.ToString());
+
+				if (clip == null)
+				{
+					Debug.LogError(clipType + " is not found.");
+					return;
+				}
+
+				_clips.Add(clipType, clip);
+			}
+
+			var prevPitch = _source.pitch;
+			
+			if (pitch >= 0) _source.pitch = pitch;
+			
+			_source.PlayOneShot(_clips[clipType]);
+		}
+	}
 }
