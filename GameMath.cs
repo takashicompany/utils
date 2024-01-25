@@ -77,5 +77,16 @@ namespace takashicompany.Unity
 			// 理論上はここに到達しないが、念のため最後のキーを返す
 			return dictionary.Last().Key;
 		}
+
+		/// <summary>
+		/// 内部的に辞書を再生成しているので、乱発に注意。多分そんなに問題になることはないと思うけど。
+		/// </summary>
+		
+		public static  (T, R) RandomKeyByWeight<T, R>(this IDictionary<T, (float, R)> dictionaryWithTuple)
+		{
+			var dictionary = dictionaryWithTuple.ToDictionary(pair => pair.Key, pair => pair.Value.Item1);
+			var result = RandomKeyByWeight(dictionary);
+			return (result, dictionaryWithTuple[result].Item2);
+		}
 	}
 }
