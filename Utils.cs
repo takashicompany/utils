@@ -202,6 +202,11 @@
 			return string.Format("<sprite name=\"{0}\">", spriteName);
 		}
 
+		public static string ToTMPColorTag(this string text, Color color)
+		{
+			return string.Format("<color=#{0}>{1}</color>", ColorUtility.ToHtmlStringRGBA(color), text);
+		}
+
 		public static string ToStringByItem<T>(this IEnumerable<T> items)
 		{
 			var str = "";

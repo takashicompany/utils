@@ -30,6 +30,8 @@ namespace takashicompany.Unity.UI
 
 		public RectTransform rectTransform => Get(() => _a.rectTransform, () => _b.rectTransform);
 
+		public MaskableGraphic maskableGraphic => Get(() => (MaskableGraphic)_a, () => _b);	// なんでキャストが必要なんだろう？
+
 		public TextWrapper(MaskableGraphic component) : base(component)
 		{
 			
