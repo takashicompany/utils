@@ -35,10 +35,13 @@ namespace takashicompany.Unity
 			_rigidbody.isKinematic = true;
 			_startPosition = transform.position;
 		}
+
 		public override void StartRecord()
 		{
 			transform.position = _rigidbody.position = _startPosition;
 			_rigidbody.isKinematic = false;
+
+			_rigidbody.maxAngularVelocity = _maxTorque.magnitude;
 
 			_rigidbody.AddForce(new Vector3(
 				Random.Range(_minPower.x, _maxPower.x),
@@ -53,6 +56,12 @@ namespace takashicompany.Unity
 			), ForceMode.Impulse);
 
 			base.StartRecord();
+		}
+
+		public override void StopRecord()
+		{
+			_rigidbody.isKinematic = true;
+			base.StopRecord();
 		}
 
 		public override void PlayLastClip()

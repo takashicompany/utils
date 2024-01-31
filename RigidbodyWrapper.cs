@@ -198,6 +198,12 @@ namespace takashicompany.Unity
 			get => Get(() => _a.isKinematic, () => _b.isKinematic);
 			set => Set(v => _a.isKinematic = v, v => _b.isKinematic = v, value);
 		}
+
+		public float maxAngularVelocity
+		{
+			get => Get(() => _a.maxAngularVelocity, () => 0f);
+			set => Set(v => _a.maxAngularVelocity = v, v => { }, value);
+		}
 		
 		public bool Is3D()
 		{

@@ -222,14 +222,14 @@ namespace takashicompany.Unity
 
 			EditorGUI.EndDisabledGroup();
 
-			if (instance.isRecording) EditorGUI.BeginDisabledGroup(!Application.isPlaying);
+			if (instance.isRecording || !Application.isPlaying) EditorGUI.BeginDisabledGroup(!Application.isPlaying);
 
 			if (GUILayout.Button("Play Last Clip"))
 			{
 				instance.PlayLastClip();
 			}
 
-			if (instance.isRecording) EditorGUI.EndDisabledGroup();
+			if (instance.isRecording || !Application.isPlaying) EditorGUI.EndDisabledGroup();
 
 			GUILayout.EndHorizontal();
 		}
