@@ -192,6 +192,12 @@ namespace takashicompany.Unity
 			get => Get<Quaternion>(() => _a.rotation, () => Quaternion.Euler(0, 0, _b.rotation));
 			set => Set(v => _a.rotation = v, v => _b.rotation = v.eulerAngles.z, value);
 		}
+
+		public bool isKinematic
+		{
+			get => Get(() => _a.isKinematic, () => _b.isKinematic);
+			set => Set(v => _a.isKinematic = v, v => _b.isKinematic = v, value);
+		}
 		
 		public bool Is3D()
 		{
@@ -206,9 +212,14 @@ namespace takashicompany.Unity
 		public Rigidbody d3 => _a;
 		public Rigidbody2D d2 => _b;
 
-		public void AddForce(Vector3 force)
+		public void AddForce(Vector3 force, ForceMode forceMode = ForceMode.Impulse)
 		{
-			Execute(() => _a.AddForce(force), () => _b.AddForce(force));
+			Execute(() => _a.AddForce(force, forceMode), () => _b.AddForce(force, forceMode == ForceMode.Impulse ? ForceMode2D.Impulse : ForceMode2D.Force));
+		}
+
+		public void AddTorque(Vector3 torque, ForceMode forceMode)
+		{
+			Execute(() => _a.AddTorque(torque, forceMode), () => _b.AddTorque(torque.z, forceMode == ForceMode.Impulse ? ForceMode2D.Impulse : ForceMode2D.Force));
 		}
 
 		public void Sleep()
