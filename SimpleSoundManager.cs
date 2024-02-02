@@ -90,7 +90,14 @@ namespace takashicompany.Unity
 
 			var prevPitch = _source.pitch;
 			
-			if (pitch >= 0) _source.pitch = pitch;
+			if (pitch >= 0)
+			{
+				_source.pitch = pitch;
+			}
+			else
+			{
+				_source.pitch = 1;
+			}
 			
 			_source.PlayOneShot(_clips[clipType]);
 		}
