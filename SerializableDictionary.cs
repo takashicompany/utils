@@ -103,6 +103,27 @@ namespace takashicompany.Unity
 			}
 		}
 
+		public SerializableDictionary()
+		{
+
+		}
+
+		public SerializableDictionary(IDictionary<K, V> dict)
+		{
+			foreach (var kvp in dict)
+			{
+				AddInternal(kvp.Key, kvp.Value);
+			}
+		}
+
+		public SerializableDictionary(IReadOnlyDictionary<K, V> dict)
+		{
+			foreach (var kvp in dict)
+			{
+				AddInternal(kvp.Key, kvp.Value);
+			}
+		}
+
 		public void Add(K key, V value)
 		{
 			if (_dict.ContainsKey(key))
