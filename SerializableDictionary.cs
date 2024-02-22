@@ -4,12 +4,12 @@ namespace takashicompany.Unity
 	using System.Collections.Generic;
 	using System.Linq;
 	using UnityEngine;
-	
+
 	/// <summary>
 	/// インスペクターで辞書を使えるようにした
 	/// </summary>
 	[System.Serializable]
-	public class SerializableDictionary<K, V>: IEnumerable<KeyValuePair<K, V>>, IDictionary<K, V>, IReadOnlyDictionary<K, V>
+	public class SerializableDictionary<K, V> : IEnumerable<KeyValuePair<K, V>>, IDictionary<K, V>, IReadOnlyDictionary<K, V>
 	{
 		[System.Serializable]
 		public class SdKeyValuePair
@@ -33,7 +33,7 @@ namespace takashicompany.Unity
 				_key = key;
 				_value = value;
 			}
-			
+
 			private SdKeyValuePair()
 			{
 
@@ -90,8 +90,8 @@ namespace takashicompany.Unity
 		{
 			get => _dict[key].value;
 
-			set 
-			{	
+			set
+			{
 				if (!_dict.ContainsKey(key))
 				{
 					Add(key, value);
@@ -124,6 +124,14 @@ namespace takashicompany.Unity
 			}
 		}
 
+		public SerializableDictionary(IEnumerable<KeyValuePair<K, V>> items)
+		{
+			foreach (var item in items)
+			{
+				AddInternal(item.Key, item.Value);
+			}
+		}
+
 		public void Add(K key, V value)
 		{
 			if (_dict.ContainsKey(key))
@@ -132,13 +140,13 @@ namespace takashicompany.Unity
 			}
 
 			AddInternal(key, value);
-			
+
 			return;
 		}
 
 		private void AddInternal(K key, V value)
 		{
-			var kvp =  new SdKeyValuePair(key, value);
+			var kvp = new SdKeyValuePair(key, value);
 
 			_dict.Add(key, kvp);
 			_list.Add(kvp);
@@ -248,7 +256,7 @@ namespace takashicompany.Unity
 		{
 			foreach (var kvp in self)
 			{
-				if(kvp.Key.HasFlag(flag))
+				if (kvp.Key.HasFlag(flag))
 				{
 					return true;
 				}
@@ -264,7 +272,7 @@ namespace takashicompany.Unity
 		{
 			foreach (var kvp in dict)
 			{
-				if(flag.HasFlag(kvp.Key))
+				if (flag.HasFlag(kvp.Key))
 				{
 					return true;
 				}
