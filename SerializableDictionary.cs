@@ -62,7 +62,10 @@ namespace takashicompany.Unity
 
 					foreach (var kvp in _list)
 					{
-						_dictInternal.Add(kvp.key, kvp);
+						if (!_dictInternal.ContainsKey(kvp.key))
+						{
+							_dictInternal.Add(kvp.key, kvp);
+						}
 					}
 				}
 
