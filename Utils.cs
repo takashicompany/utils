@@ -118,6 +118,16 @@
 		}
 #endregion
 
+#region Enum
+		public static IEnumerable<T> GetValues<T>() where T : System.Enum
+		{
+			foreach (var value in System.Enum.GetValues(typeof(T)))
+			{
+				yield return (T)value;
+			}
+		}
+#endregion
+
 #region ulong
 		public static ulong Pow(this ulong self, int pow)
 		{
