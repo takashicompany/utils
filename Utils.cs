@@ -3485,14 +3485,29 @@
 
 		private float _gridWidth => (float)Screen.width / (float)_width;
 		private float _gridHeight => (float)Screen.height / (float)_height;
+		private GUIStyle _style;
+		private float _fontSize = 0.05f;
 
-		public IMGrid(int width, int height)
+		public IMGrid()
+		{
+			
+		}
+
+		public IMGrid SetSize(int width, int height)
 		{
 			_width = width;
 			_height = height;
+			return this;
 		}
 
-		public void Foreach(ForeachDelegate callback)
+		public IMGrid SetFontSize(float size)
+		{
+			Init();
+			_style.fontSize = (int)(Mathf.Min(Screen.width, Screen.height) * size);
+			return this;
+		}
+
+		public IMGrid Foreach(ForeachDelegate callback)
 		{
 			for (var x = 0; x < _width; x++)
 			{
@@ -3501,13 +3516,32 @@
 					callback.Invoke(x, y);
 				}
 			}
+
+			return this;
 		}
 
-		public void Button(int x, int y, string label, System.Action onClick = null)
+		public IMGrid Button(int x, int y, string label, System.Action onClick)
 		{
-			if (GUI.Button(new Rect(_gridWidth * x, _gridHeight * y, _gridWidth, _gridHeight), label))
+			if (Button(x, y, label))
 			{
 				onClick?.Invoke();
+			}
+
+			return this;
+		}
+
+		public bool Button(int x, int y, string label)
+		{
+			Init();
+			_style.fontSize = (int)(Mathf.Min(Screen.width, Screen.height) * _fontSize);
+			return GUI.Button(new Rect(_gridWidth * x, _gridHeight * y, _gridWidth, _gridHeight), label, _style);
+		}
+
+		private void Init()
+		{
+			if (_style == null)
+			{
+				_style = new GUIStyle(GUI.skin.button);
 			}
 		}
 	}
