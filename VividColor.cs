@@ -20,9 +20,9 @@ namespace takashicompany.Unity
 
 		public static Color[] colors = new Color[]
 		{
-			blue,
-			green,
 			red,
+			green,
+			blue,
 			yellow,
 			pink,
 			lightGreen,
