@@ -3354,7 +3354,7 @@
 		{
 			return EqualityComparer<T>.Default.Equals(value, default(T));
 		}
-
+		
 		public static bool IsEquals<T>(this T value, T other)
 		{
 			return EqualityComparer<T>.Default.Equals(value, other);
