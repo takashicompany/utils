@@ -15,7 +15,8 @@ namespace takashicompany.Unity
 		IBeginDragHandler,
 		IDragHandler,
 		IEndDragHandler,
-		IPointerUpHandler
+		IPointerUpHandler,
+		IPointerClickHandler
 	{
 
 		public class EventData
@@ -41,6 +42,10 @@ namespace takashicompany.Unity
 		[Header("スクリーン座標からRayを生成するカメラ。未指定の場合はCamera.mainを使う")]
 		public new Camera camera;
 
+		public int vector3Index = 1;
+
+		public float targetPoint = 0;
+
 		public delegate void EventDelegate(EventData eventData);
 
 		public event EventDelegate onPointerDown;
@@ -48,6 +53,7 @@ namespace takashicompany.Unity
 		public event EventDelegate onDrag;
 		public event EventDelegate onEndDrag;
 		public event EventDelegate onPointerUp;
+		public event EventDelegate onPointerClick;
 
 		void IPointerDownHandler.OnPointerDown(PointerEventData pointerEvent)
 		{
@@ -89,6 +95,14 @@ namespace takashicompany.Unity
 			}
 		}
 
+		void IPointerClickHandler.OnPointerClick(PointerEventData pointerEvent)
+		{
+			if (TryCreateEvent(pointerEvent, out var eventData))
+			{
+				onPointerClick?.Invoke(eventData);
+			}
+		}
+
 		private bool TryCreateEvent(PointerEventData pointerEvent, out EventData eventData)
 		{
 			var camera = this.camera;
@@ -96,8 +110,8 @@ namespace takashicompany.Unity
 			if (camera == null) camera = Camera.main;
 
 			if (
-				camera.ScreenPointToRay(pointerEvent.pressPosition).TryGetPositionOnRay(1, 0, out var pressWorldPosition) &&
-				camera.ScreenPointToRay(pointerEvent.position).TryGetPositionOnRay(1, 0, out var worldPosition)
+				camera.ScreenPointToRay(pointerEvent.pressPosition).TryGetPositionOnRay(vector3Index, targetPoint, out var pressWorldPosition) &&
+				camera.ScreenPointToRay(pointerEvent.position).TryGetPositionOnRay(vector3Index, targetPoint, out var worldPosition)
 			)
 			{
 				eventData = new EventData();
