@@ -10,7 +10,6 @@ namespace takashicompany.Unity
 		private Dictionary<T, AudioClip> _clips = new Dictionary<T, AudioClip>();
 
 		private AudioSource _source;
-		public AudioSource source => _source;
 
 		private string _resourcesPath;
 
@@ -41,6 +40,11 @@ namespace takashicompany.Unity
 				_clips.Add(clipType, clip);
 			}
 
+			PlayOneShot(_clips[clipType], pitch);
+		}
+
+		public void PlayOneShot(AudioClip clip, float pitch = -1f)
+		{
 			var prevPitch = _source.pitch;
 			
 			if (pitch >= 0)
@@ -52,7 +56,13 @@ namespace takashicompany.Unity
 				_source.pitch = 1;
 			}
 			
-			_source.PlayOneShot(_clips[clipType]);
+			_source.PlayOneShot(clip);
+		}
+
+		public void Play(AudioClip clip)
+		{
+			_source.clip = clip;
+			_source.Play();
 		}
 	}
 
