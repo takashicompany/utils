@@ -25,7 +25,7 @@ namespace takashicompany.Unity
 			}
 		}
 
-		public void PlayOneShot(T clipType, float pitch = -1f)
+		private void LoadClip(T clipType)
 		{
 			if (!_clips.ContainsKey(clipType))
 			{
@@ -39,7 +39,11 @@ namespace takashicompany.Unity
 
 				_clips.Add(clipType, clip);
 			}
+		}
 
+		public void PlayOneShot(T clipType, float pitch = -1f)
+		{
+			LoadClip(clipType);
 			PlayOneShot(_clips[clipType], pitch);
 		}
 
@@ -59,9 +63,16 @@ namespace takashicompany.Unity
 			_source.PlayOneShot(clip);
 		}
 
+		public void Play(T clipType)
+		{
+			LoadClip(clipType);
+			Play(_clips[clipType]);
+		}
+
 		public void Play(AudioClip clip)
 		{
 			_source.clip = clip;
+			_source.loop = true;
 			_source.Play();
 		}
 	}
