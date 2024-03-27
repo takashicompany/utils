@@ -10,7 +10,7 @@
 	using DG.Tweening;
 	using Random = UnityEngine.Random;
 
-# if UNITY_EDITOR
+#if UNITY_EDITOR
 	using UnityEditor;
 
 #endif
@@ -18,10 +18,10 @@
 	[System.Flags]
 	public enum UpdateType
 	{
-		None		= 0b0,
-		Update		= 0b1,
-		LateUpdate	= 0b10,
-		FixedUpdate	= 0b100,
+		None = 0b0,
+		Update = 0b1,
+		LateUpdate = 0b10,
+		FixedUpdate = 0b100,
 	}
 
 	public static class Utils
@@ -63,7 +63,7 @@
 #endif
 		}
 
-#region Object
+		#region Object
 		public static T Instantiate<T>(this T obj, Transform parent) where T : UnityEngine.Object
 		{
 			return GameObject.Instantiate(obj, parent);
@@ -79,7 +79,7 @@
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
 			{
-				obj = UnityEditor.PrefabUtility.InstantiatePrefab(prefab, parent) as T;	// 動くかは未確認
+				obj = UnityEditor.PrefabUtility.InstantiatePrefab(prefab, parent) as T; // 動くかは未確認
 			}
 			if (obj == null)
 			{
@@ -90,16 +90,16 @@
 #endif
 			return obj;
 		}
-#endregion
+		#endregion
 
-#region int
+		#region int
 		public static int Pow(this int self, int pow)
 		{
 			var first = self;
 
 			for (int i = 1; i < pow; i++)
 			{
-				self *= first; 
+				self *= first;
 			}
 
 			return self;
@@ -116,9 +116,9 @@
 
 			return Mathf.RoundToInt(t / per);
 		}
-#endregion
+		#endregion
 
-#region Enum
+		#region Enum
 		public static IEnumerable<T> GetValues<T>() where T : System.Enum
 		{
 			foreach (var value in System.Enum.GetValues(typeof(T)))
@@ -126,23 +126,23 @@
 				yield return (T)value;
 			}
 		}
-#endregion
+		#endregion
 
-#region ulong
+		#region ulong
 		public static ulong Pow(this ulong self, int pow)
 		{
 			var first = self;
 
 			for (int i = 1; i < pow; i++)
 			{
-				self *= first; 
+				self *= first;
 			}
 
 			return self;
 		}
-#endregion
+		#endregion
 
-#region string
+		#region string
 
 		public static readonly string[] enclosedNumerics = { "①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩", "⑪", "⑫", "⑬", "⑭", "⑮", "⑯", "⑰", "⑱", "⑲", "⑳", "㉑", "㉒", "㉓", "㉔", "㉕", "㉖", "㉗", "㉘", "㉙", "㉚", "㉛", "㉜", "㉝", "㉞", "㉟", "㊱", "㊲", "㊳", "㊴", "㊵", "㊶", "㊷", "㊷", "㊸", "㊹", "㊺", "㊻", "㊼", "㊽", "㊾", "㊿" };
 
@@ -282,25 +282,25 @@
 
 			return result;
 		}
-		
-#endregion
 
-#region IList
+		#endregion
+
+		#region IList
 		public static T GetByValidIndex<T>(this IList<T> self, int index)
 		{
 			return self[Mathf.Abs(index) % self.Count];
 		}
-#endregion
+		#endregion
 
-#region IReadOnlyList
+		#region IReadOnlyList
 		public static T GetByValidIndex<T>(this IReadOnlyList<T> self, int index)
 		{
 			return self[Mathf.Abs(index) % self.Count];
 		}
-#endregion
+		#endregion
 
-#region Vector3
-		
+		#region Vector3
+
 		// オイラー角を用いてベクトルを回転させ、正規化したベクトルを返す関数
 		public static Vector3 RotateAndNormalize(this Vector3 vector, Vector3 eulerAngles)
 		{
@@ -319,9 +319,9 @@
 			return RotateAndNormalize(vector, eulerAngles);
 		}
 
-	#endregion
+		#endregion
 
-#region 多次元配列
+		#region 多次元配列
 
 		// 二次元配列の行を反転する拡張メソッド
 		public static T[,] TransposeColumns<T>(this T[,] inputArray)
@@ -363,7 +363,7 @@
 
 		public delegate T ConvertDelegate<F, T>(F from);
 
-		public static T[,] Convert<F,T>(this F[,] self, ConvertDelegate<F, T> convert)
+		public static T[,] Convert<F, T>(this F[,] self, ConvertDelegate<F, T> convert)
 		{
 			var result = new T[self.GetLength(0), self.GetLength(1)];
 
@@ -395,7 +395,7 @@
 			{
 				return false;
 			}
-			
+
 			return true;
 		}
 
@@ -452,7 +452,7 @@
 
 		public static void Foreach<T>(this T[,,] self, System.Action<Vector3Int, T> callback)
 		{
-			self.Foreach((x, y, z, item)=> callback?.Invoke(new Vector3Int(x, y, z), item));
+			self.Foreach((x, y, z, item) => callback?.Invoke(new Vector3Int(x, y, z), item));
 		}
 
 		public static void Foreach<T>(this T[,] self, System.Action<Vector2Int, T> callback)
@@ -479,7 +479,7 @@
 
 		public static void Foreach<T>(this T[,,] self, System.Func<Vector3Int, T, bool> callback)
 		{
-			self.Foreach((x, y, z, item)=> callback?.Invoke(new Vector3Int(x, y, z), item));
+			self.Foreach((x, y, z, item) => callback?.Invoke(new Vector3Int(x, y, z), item));
 		}
 
 		public delegate bool BareDelegate<T>(T target) where T : IEquatable<T>;
@@ -488,7 +488,7 @@
 		{
 			return self.IsBare(p, obj =>
 			{
-				return obj.Equals(default(T));		// nullとかだった時心配だわ
+				return obj.Equals(default(T));      // nullとかだった時心配だわ
 			});
 		}
 
@@ -507,7 +507,7 @@
 
 						var current = new Vector3Int(p.x + x, p.y + y, p.z + z);
 
-						if (!self.IsInBounds(p))	// 範囲外に触れているなら、むき出しとする
+						if (!self.IsInBounds(p))    // 範囲外に触れているなら、むき出しとする
 						{
 							return true;
 						}
@@ -516,7 +516,7 @@
 						{
 							return true;
 						}
- 					}
+					}
 				}
 			}
 
@@ -534,57 +534,57 @@
 			var main = self[from.x, from.y, from.z];
 
 			Search(from, 0);
-			
+
 			void Search(Vector3Int current, int step)
 			{
 				step++;
 
 				for (var x = -1; x <= 1; x++) for (var y = -1; y <= 1; y++) for (var z = -1; z <= 1; z++)
-				{
-					var target = new Vector3Int(current.x + x, current.y + y, current.z + z);
+						{
+							var target = new Vector3Int(current.x + x, current.y + y, current.z + z);
 
-					if (onlyOneDistance && Vector3Int.Distance(current, target) > 1)
-					{
-						continue;
-					}
+							if (onlyOneDistance && Vector3Int.Distance(current, target) > 1)
+							{
+								continue;
+							}
 
-					if (target == from)
-					{
-						continue;
-					}
+							if (target == from)
+							{
+								continue;
+							}
 
-					if (!self.IsInBounds(target))
-					{
-						continue;
-					}
+							if (!self.IsInBounds(target))
+							{
+								continue;
+							}
 
-					if (unconnecteds.Contains(target))
-					{
-						continue;
-					}
+							if (unconnecteds.Contains(target))
+							{
+								continue;
+							}
 
-					if (connectedWithSteps.ContainsKey(target))
-					{
-						continue;
-					}
+							if (connectedWithSteps.ContainsKey(target))
+							{
+								continue;
+							}
 
-					if (callback(main, self.Get(current), self.Get(target)))
-					{
-						connectedWithSteps.Add(target, step);
-						Search(target, step);
-					}
-					else
-					{
-						unconnecteds.Add(target);
-					}
-				}
+							if (callback(main, self.Get(current), self.Get(target)))
+							{
+								connectedWithSteps.Add(target, step);
+								Search(target, step);
+							}
+							else
+							{
+								unconnecteds.Add(target);
+							}
+						}
 			}
 
 			return connectedWithSteps;
 		}
-#endregion
+		#endregion
 
-#region Vector2Int
+		#region Vector2Int
 
 		public static readonly Vector2Int[] Vector2Directions = new Vector2Int[]
 		{
@@ -606,7 +606,7 @@
 		{
 			self.Foreach((x, y) => function(new Vector2Int(x, y)));
 		}
-		
+
 		public static HashSet<Vector2Int> CreateHashSet(this Vector2Int self)
 		{
 			var hashset = new HashSet<Vector2Int>();
@@ -615,7 +615,7 @@
 			{
 				hashset.Add(new Vector2Int(x, y));
 			});
-			
+
 			return hashset;
 		}
 
@@ -630,7 +630,7 @@
 			{
 				var current = point;
 				var d = Vector2Directions[i];
-				
+
 				current += d;
 
 				while (self.IsInBounds(current))
@@ -649,11 +649,11 @@
 			{
 				return false;
 			}
-			
+
 			return true;
 		}
 
-#endregion
+		#endregion
 
 		public static float GetAngleXZ(Vector3 start, Vector3 target)
 		{
@@ -666,12 +666,12 @@
 			Vector2 dt = target - start;
 			float rad = Mathf.Atan2(dt.x, dt.y);
 			float degree = rad * Mathf.Rad2Deg;
-			
-			if (degree < 0) 
+
+			if (degree < 0)
 			{
 				degree += 360;
 			}
-			
+
 			return degree;
 		}
 
@@ -731,7 +731,7 @@
 				out intersection
 			);
 		}
-		
+
 		/// <summary>
 		/// ベクトルABがあったとして、そこに点Pから下ろした垂線との交点を求めたい時に使う
 		/// https://sleepygamersmemo.blogspot.com/2019/03/perpendicular-foot-point.html
@@ -760,7 +760,7 @@
 			return a + k * ab;
 		}
 
-#region Path関係
+		#region Path関係
 
 		// 実装が古いのでコメントアウト
 
@@ -770,7 +770,7 @@
 		// public static Vector3 GetPathPointByDistance(this IList<Vector2> path, float distance, out int index)
 		// {
 		// 	var currentDistance = 0f;
-			
+
 		// 	for (int i = 1; i < path.Count; i++)
 		// 	{
 		// 		var prev = path[i - 1];
@@ -796,7 +796,7 @@
 		// 	// TODO ↑のVector2版と実装を共用にできないか
 
 		// 	var currentDistance = 0f;
-			
+
 		// 	for (int i = 1; i < path.Count; i++)
 		// 	{
 		// 		var prev = path[i - 1];
@@ -835,7 +835,7 @@
 			{
 				var head = path[i];
 				var tail = path[i + 1];
-				
+
 				var distance = Vector3.Distance(head, tail);
 
 				if (lengthOnProgress <= currentLength + distance)
@@ -893,14 +893,14 @@
 					distanceFromIndexOfPoint = distance - totalLength;
 					return i;
 				}
-				
+
 				totalLength += currentDistance;
 			}
 
 			distanceFromIndexOfPoint = distance - totalLength;
 			return path.Count - 1;
 		}
-		
+
 		/// <summary>
 		/// パスの中から最も点に近い位置を求める
 		/// </summary>
@@ -916,7 +916,7 @@
 
 			var distanceByStart = 0f;
 
-			for (int i = 0;i < path.Count - 1; i++)
+			for (int i = 0; i < path.Count - 1; i++)
 			{
 				var start = path[i];
 				var end = path[i + 1];
@@ -943,8 +943,8 @@
 			return result;
 		}
 
-#endregion
-		
+		#endregion
+
 		public static Vector3 ToX(this Vector3 self, float x)
 		{
 			self.x = x;
@@ -962,13 +962,13 @@
 			self.z = z;
 			return self;
 		}
-		
+
 		/// <summary>
 		/// ワールド座標上に対するキャンバス座標にTransformの位置を設定する。HPゲージなどのオーバレイ表示に向いてる。
 		/// </summary>
 		/// <param name="transform"></param>
 		/// <param name="worldPosition"></param>
-		public static  void AttachOnCanvas(this Transform transform, Vector3 worldPosition, Camera camera = null)
+		public static void AttachOnCanvas(this Transform transform, Vector3 worldPosition, Camera camera = null)
 		{
 			if (camera == null) camera = Camera.main;
 			var sp = camera.WorldToScreenPoint(worldPosition);
@@ -976,8 +976,8 @@
 			transform.localPosition = localPosition;
 		}
 
-#region TrajectoryCalculate
-		
+		#region TrajectoryCalculate
+
 		// http://takashicompany.hatenablog.com/entry/2015/03/06/200454
 
 		/// <summary>
@@ -1047,9 +1047,9 @@
 				return start + new Vector3(positionX, positionY, positionZ);
 			}
 		}
-#endregion
+		#endregion
 
-#region Color
+		#region Color
 		public static Color GetRandomColor()
 		{
 			return new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1), 1);
@@ -1066,9 +1066,9 @@
 			if (withAlpha) hex += self.a.ToString("X2");
 			return hex;
 		}
-#endregion
+		#endregion
 
-#region UnityUI
+		#region UnityUI
 		public static string WrapColorTag(this string text, Color color)
 		{
 			return "<color=#" + color.ColorToHex() + ">" + text + "</color>";
@@ -1078,9 +1078,9 @@
 		{
 			return "<size=" + size + ">" + text + "</size>";
 		}
-#endregion
+		#endregion
 
-#region  Vector3
+		#region  Vector3
 		/// <summary>
 		/// 四捨五入したV3Intを返す
 		/// </summary>
@@ -1114,7 +1114,7 @@
 		public static Quaternion LookAt(this Quaternion currentRotation, Vector3 from, Vector3 to, float delta)
 		{
 			var direction = to - from;
-			
+
 			if (direction.magnitude == 0)
 			{
 				return Quaternion.identity;
@@ -1124,10 +1124,10 @@
 			return Quaternion.Slerp(currentRotation, targetRotation, delta);
 		}
 
-#endregion
+		#endregion
 
-#region Vector3Int
-		
+		#region Vector3Int
+
 		public static bool Include(this Vector3Int self, Vector3Int target)
 		{
 			return 0 <= target.x && target.x < self.x && 0 <= target.y && target.y < self.y && 0 <= target.z && target.z < self.z;
@@ -1184,7 +1184,7 @@
 		{
 			return new Vector3(self.x, self.y, self.z);
 		}
-#region Bounds
+		#region Bounds
 
 		// ちょっとこの辺りどれぐらい正しいかは未検証
 		public static Bounds Rotate(this Bounds bounds, Quaternion rotation)
@@ -1210,9 +1210,9 @@
 			);
 		}
 
-#endregion
+		#endregion
 
-#region BoundsInt
+		#region BoundsInt
 		public static void Foreach(this BoundsInt b, System.Action<Vector3Int> function, bool includeMax = false)
 		{
 			for (var x = b.xMin; includeMax ? x <= b.xMax : x < b.xMax; x++)
@@ -1294,7 +1294,7 @@
 			return bounds;
 		}
 
-#endregion
+		#endregion
 
 		public static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
 		{
@@ -1354,7 +1354,7 @@
 
 						var current = new Vector3Int(p.x + x, p.y + y, p.z + z);
 
-						if (!bounds.IsInBounds(current))	// 範囲外に触れているなら、むき出しとする
+						if (!bounds.IsInBounds(current))    // 範囲外に触れているなら、むき出しとする
 						{
 							UnityEngine.Debug.Log($"out of bounds: {current}");
 							return true;
@@ -1365,7 +1365,7 @@
 							UnityEngine.Debug.Log($"not contains: {current}");
 							return true;
 						}
- 					}
+					}
 				}
 			}
 
@@ -1377,7 +1377,7 @@
 		// 	var crossGridSize = new Vector3Int(gridSize.x + 1, gridSize.y + 1, gridSize.z + 1);
 		// 	var centers = new Vector3[gridSize.x, gridSize.y, gridSize.z];
 		// 	var crosses = new Vector3[crossGridSize.x, crossGridSize.y, crossGridSize.z];
-			
+
 
 		// 	var endX = gridSize.x - 1;
 		// 	var endY = gridSize.y - 1;
@@ -1404,7 +1404,7 @@
 		// 		});
 
 		// 		crosses[v3int.x, v3int.y, v3int.z] = center - unitPerGrid / 2;
-				
+
 
 		// 		var isEndX = v3int.x == endX;
 		// 		var isEndY = v3int.y == endY;
@@ -1440,7 +1440,7 @@
 
 			segmentIndex = 0;
 			float accumulatedDistance = 0;
-			
+
 			for (int i = 0; i < path.Count - 1; i++)
 			{
 				int index = isReversed ? path.Count - i - 2 : i;
@@ -1466,7 +1466,7 @@
 		public static bool TryGetPositionAtDistance(this IList<Vector2> path, float distance, bool isReversed, out Vector2 position, out int segmentIndex)
 		{
 			// ChatGPTで書いた
-			
+
 			if (path == null || path.Count < 2)
 			{
 				segmentIndex = -1;
@@ -1476,7 +1476,7 @@
 
 			segmentIndex = 0;
 			float accumulatedDistance = 0;
-			
+
 			for (int i = 0; i < path.Count - 1; i++)
 			{
 				int index = isReversed ? path.Count - i - 1 : i;
@@ -1512,14 +1512,14 @@
 				-half.y * Mathf.Max(gridSize.y - 1, 0),
 				-half.z * Mathf.Max(gridSize.z - 1, 0)
 			);
-			
+
 			return start + new Vector3(unitPerGrid.x * gridPosition.x, unitPerGrid.y * gridPosition.y, unitPerGrid.z * gridPosition.z);
 		}
 
 		public static Vector2Int GetCellPosition(Vector2Int gridSize, Vector2 unitPerGrid, Vector2 position)
 		{
 			Vector3Int v3 = new Vector3Int(gridSize.x, gridSize.y, 0);
-			var result =  GetCellPosition(v3, (Vector3)unitPerGrid, (Vector3)position);
+			var result = GetCellPosition(v3, (Vector3)unitPerGrid, (Vector3)position);
 
 			return new Vector2Int(result.x, result.y);
 		}
@@ -1535,10 +1535,10 @@
 
 			// 原点から見た時の距離
 			var p = position - origin;
-			
+
 			return new Vector3Int((int)Mathf.Floor(p.x / cellSize.x), (int)Mathf.Floor(p.y / cellSize.y), (int)Mathf.Floor(p.z / cellSize.z));
 		}
-#endregion
+		#endregion
 
 		/// <summary>
 		/// 円周上の位置を返す関数
@@ -1553,7 +1553,7 @@
 
 			var rad2 = Mathf.PI * 2;
 
-			var perAngle = rad2 * cycle / (pointCount - 1);		// -1することで最後の点が始点と重なるようにしている
+			var perAngle = rad2 * cycle / (pointCount - 1);     // -1することで最後の点が始点と重なるようにしている
 
 			for (int i = 0; i < pointCount; i++)
 			{
@@ -1580,15 +1580,15 @@
 						continue;
 					}
 				}
-				
+
 				if (self.HasFlag(e))
 				{
 					yield return e;
 				}
 			}
 		}
-		
-#region リストをランダムで処理する
+
+		#region リストをランダムで処理する
 		public static int GetRandomIndex<T>(this IReadOnlyList<T> self)
 		{
 			return UnityEngine.Random.Range(0, self.Count);
@@ -1660,7 +1660,7 @@
 
 			var list = new List<T>();
 
-			while(myList.Count > 0)
+			while (myList.Count > 0)
 			{
 				list.Add(myList.PickRandom());
 			}
@@ -1671,7 +1671,7 @@
 		public static T[] GetRandom<T>(this IReadOnlyList<T> self, int count)
 		{
 			var result = new T[count];
-			
+
 			for (int i = 0; i < count; i++)
 			{
 				result[i] = self.GetRandom();
@@ -1679,9 +1679,9 @@
 
 			return result;
 		}
-#endregion
+		#endregion
 
-#region 配列
+		#region 配列
 		public static bool TryGet<T>(this IList<T> self, int index, out T result)
 		{
 			if (index < 0 || self.Count <= index)
@@ -1710,7 +1710,7 @@
 			}
 		}
 
-#endregion
+		#endregion
 
 		public static int IndexOf<T>(this IList<T> self, T item)
 		{
@@ -1771,7 +1771,7 @@
 			return result;
 		}
 
-#region Transform
+		#region Transform
 		public static void ToX(this Transform self, float x)
 		{
 			var p = self.position;
@@ -1820,13 +1820,13 @@
 			s[index] = p;
 			self.localScale = s;
 		}
-			
+
 		public static string GetNameWithHierarchy(this Transform self)
 		{
 			var str = self.name;
 
 			var current = self.parent;
-			
+
 			while (current != null)
 			{
 				str = current.name + "/" + str;
@@ -1870,9 +1870,9 @@
 			// 対象物へ回転する
 			transform.rotation = Quaternion.FromToRotation(Vector3.up, toDirection);
 		}
-#endregion
+		#endregion
 
-#region  RectTransform
+		#region  RectTransform
 
 		/// <summary>
 		/// アンカー側のマージンを基準にサイズを0 ~ 1で変化させる。左右で異なるマージンを設定する使い方はできない
@@ -1881,7 +1881,7 @@
 		public static void SimpleHorizontalGauge(this RectTransform self, float normalizedX)
 		{
 			var parent = self.parent as RectTransform;
-			
+
 			var width = parent.rect.width - Mathf.Lerp(self.offsetMin.x, self.offsetMax.x, self.pivot.x) * 2;
 
 			self.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width * normalizedX);
@@ -1900,9 +1900,28 @@
 		{
 			return self.TransformRect(self.rect);
 		}
-#endregion
 
-#region Component
+		public static Bounds ConvertRectTransformToLocalSpaceBounds(this RectTransform rectTransform, Vector2 localPosition, Vector2 size)
+		{
+			// ローカル空間での左下と右上の点を計算
+			Vector2 scaledSize = new Vector2(size.x * rectTransform.lossyScale.x, size.y * rectTransform.lossyScale.y);
+			Vector3 localBottomLeft = new Vector3(localPosition.x - (size.x * rectTransform.pivot.x), localPosition.y - (size.y * rectTransform.pivot.y), 0f);
+			Vector3 localTopRight = localBottomLeft + new Vector3(scaledSize.x, scaledSize.y, 0f);
+
+			// ワールド空間での左下と右上の点に変換
+			Vector3 worldBottomLeft = rectTransform.TransformPoint(localBottomLeft);
+			Vector3 worldTopRight = rectTransform.TransformPoint(localTopRight);
+
+			// ワールド空間でのBoundsを計算
+			Bounds bounds = new Bounds();
+			bounds.SetMinMax(worldBottomLeft, worldTopRight);
+
+			return bounds;
+		}
+
+		#endregion
+
+		#region Component
 
 		public static T GetComponentSelfOrInParent<T>(this Component self) where T : Component
 		{
@@ -1975,9 +1994,9 @@
 			return self.Select(c => c.gameObject.GetComponent<A>()).Where(c => c != null);
 		}
 
-#endregion
+		#endregion
 
-#region GameObject
+		#region GameObject
 		public static List<T> GetComponentsSelfAndChildren<T>(this GameObject self) where T : Component
 		{
 			var list = new List<T>();
@@ -1991,7 +2010,7 @@
 		public static void ChangeLayerWithChildren(this GameObject self, int layer)
 		{
 			self.layer = layer;
-			
+
 			foreach (Transform n in self.transform)
 			{
 				ChangeLayerWithChildren(n.gameObject, layer);
@@ -2020,8 +2039,8 @@
 		{
 			return !go.scene.isLoaded;
 		}
-		
-#endregion
+
+		#endregion
 
 		public static Color SetAlpha(this Color self, float alpha)
 		{
@@ -2183,7 +2202,7 @@
 			});
 		}
 
-#region SpriteRenderer
+		#region SpriteRenderer
 
 		public static Tweener DOFlash(this SpriteRenderer renderer, Color addColor, float addRatio, float duration)
 		{
@@ -2242,9 +2261,9 @@
 		{
 			renderer.material.SetAddRatio(ratio);
 		}
-#endregion
-	
-#region Dictionary
+		#endregion
+
+		#region Dictionary
 		/// <summary>
 		/// Dictionary<K, V>からDictionay<V, K>を生成する。
 		/// Valueがnullだったり値が被る場合は除外
@@ -2307,7 +2326,7 @@
 		}
 
 		public static V GetRandomValue<K, V>(this IDictionary<K, V> self)
-		{			
+		{
 			return self[self.GetRandomKey()];
 		}
 
@@ -2347,7 +2366,7 @@
 		{
 			if (self.ContainsKey(key))
 			{
-				self[key] += value; 
+				self[key] += value;
 			}
 			else
 			{
@@ -2432,9 +2451,9 @@
 			return dict;
 		}
 
-#endregion
+		#endregion
 
-#region Collider
+		#region Collider
 		public static Vector3 GetBottomPosition(this Collider self)
 		{
 			return new Vector3(self.bounds.center.x, self.bounds.min.y, self.bounds.center.z);
@@ -2444,9 +2463,9 @@
 		{
 			return Physics.Raycast(ray, out var hit, distance, layerMask, queryTriggerInteraction) && hit.collider == self;
 		}
-#endregion
+		#endregion
 
-#region  Collider2D
+		#region  Collider2D
 
 		public static void EnsureInsideBounds(this Collider2D collider, Bounds targetBounds)
 		{
@@ -2469,9 +2488,9 @@
 			return bounds;
 		}
 
-#endregion
+		#endregion
 
-#region LayerMask
+		#region LayerMask
 		// LayerMaskにレイヤーを追加する関数 by ChatGPT
 		public static LayerMask AddToLayerMask(this LayerMask original, params string[] layerNamesToAdd)
 		{
@@ -2487,14 +2506,14 @@
 			original.value = original.value & ~maskToRemove.value;
 			return original;
 		}
-	#endregion
+		#endregion
 
-		public static IEnumerable<T> FindAbove<T>(this Collider self, float height, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
+		public static IEnumerable<T> FindAbove<T>(this Collider self, float height, int layerMask, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
 		{
 			return Physics.OverlapBox(self.bounds.center + Vector3.up * self.bounds.size.y, self.bounds.extents, self.transform.rotation, layerMask, queryTriggerInteraction).Select(c => c.GetComponent<T>());
 		}
 
-		public static Collider[] Overlap(this BoxCollider self, int layerMask, QueryTriggerInteraction queryTriggerInteraction= QueryTriggerInteraction.UseGlobal)
+		public static Collider[] Overlap(this BoxCollider self, int layerMask, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
 		{
 			return Physics.OverlapBox(self.transform.position, self.size / 2, self.transform.rotation, layerMask, queryTriggerInteraction);
 		}
@@ -2516,16 +2535,16 @@
 			return (Vector2)RandomVector3(min, max);
 		}
 
-#region Vector2
+		#region Vector2
 		public static Vector2 RandomVector2(Vector2 center, float radius)
 		{
 			var d = new Vector2(Random.Range(-100f, 100f), Random.Range(-100f, 100f)).normalized;
 
-			return center + d * Random.Range(0f, radius); 
+			return center + d * Random.Range(0f, radius);
 		}
-#endregion
+		#endregion
 
-#region Vector3
+		#region Vector3
 
 		public static Vector3 RandomVector3FromZero(this Vector3 self)
 		{
@@ -2536,7 +2555,7 @@
 		{
 			return RandomVector3(-self, self);
 		}
-		
+
 		public static Vector3 RandomVector3(float min, float max)
 		{
 			return RandomVector3(new Vector3(min, min, min), new Vector3(max, max, max));
@@ -2584,9 +2603,9 @@
 			return rotation * vector;
 		}
 
-#endregion
+		#endregion
 
-#region Vector2Int
+		#region Vector2Int
 		public static Vector2Int RandomVector2Int(Vector2Int min, Vector2Int max)
 		{
 			return (Vector2Int)RandomVector3Int(((Vector3Int)min), ((Vector3Int)max));
@@ -2596,9 +2615,9 @@
 		{
 			return RandomVector2Int(Vector2Int.zero, max);
 		}
-#endregion
+		#endregion
 
-#region Vector3Int
+		#region Vector3Int
 		public static Vector3Int RandomVector3Int(Vector3Int min, Vector3Int max)
 		{
 			return new Vector3Int(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
@@ -2628,10 +2647,10 @@
 				} while (countY-- > 0);
 			} while (countZ-- > 0);
 		}
-#endregion
+		#endregion
 
-#region Rect
-		
+		#region Rect
+
 		public static Vector2 GetRandomPoint(this Rect rect, bool includeMax = false)
 		{
 			return new Vector2(
@@ -2640,9 +2659,9 @@
 			);
 		}
 
-#endregion
+		#endregion
 
-#region RectInt
+		#region RectInt
 
 		public static Vector2Int GetRandomPoint(this RectInt rect, bool includeMax = false)
 		{
@@ -2652,7 +2671,7 @@
 			);
 		}
 
-#endregion
+		#endregion
 
 		public static Quaternion RandomRotation()
 		{
@@ -2770,7 +2789,7 @@
 			for (int i = 0; i < list.Count; i++)
 			{
 				str += list[i].ToString();
-				
+
 				if (i - 1 < list.Count)
 				{
 					str += "\n";
@@ -2788,7 +2807,7 @@
 			return Resources.Load<T>(typeof(T).Name);
 		}
 
-#region Gizmos
+		#region Gizmos
 		public static void DrawGizmosWireCubeWithRotate(Vector3 center, Quaternion rotation, Vector3 size)
 		{
 			var matrix = Gizmos.matrix;
@@ -2811,7 +2830,7 @@
 		public static void DrawGizmosCross(Bounds bounds)
 		{
 			Gizmos.DrawLine(bounds.min, bounds.max);
-			var a = new Vector3(bounds.min.x, bounds.max.y,bounds.min.z);
+			var a = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
 			var b = new Vector3(bounds.max.x, bounds.min.y, bounds.max.z);
 			Gizmos.DrawCube(a, b);
 		}
@@ -2820,7 +2839,7 @@
 		{
 			Gizmos.DrawLine(point + Vector3.down * extents, point + Vector3.up * extents);
 			Gizmos.DrawLine(point + Vector3.left * extents, point + Vector3.right * extents);
-			Gizmos.DrawLine(point +	Vector3.back * extents, point + Vector3.forward * extents);
+			Gizmos.DrawLine(point + Vector3.back * extents, point + Vector3.forward * extents);
 		}
 
 		public static void DrawLineGizmos(this IList<Vector2> points)
@@ -2844,9 +2863,9 @@
 				Gizmos.DrawLine(current, next);
 			}
 		}
-#endregion
+		#endregion
 
-#region Animator
+		#region Animator
 		/// <summary>
 		/// AnimatorのHumanoidから名前で対応したTransformを取得する
 		/// </summary>
@@ -2860,7 +2879,7 @@
 				if (h.humanName == humanName)
 				{
 					var transforms = self.GetComponentsInChildren<Transform>(true);
-					
+
 					foreach (var t in transforms)
 					{
 						if (t.name == h.boneName)
@@ -2910,7 +2929,7 @@
 			self.Play(stateName, layerIndex);
 
 			yield return null;
-			
+
 			foreach (var normalizedWaitTime in normalizedWaitTimes)
 			{
 				while (self.GetCurrentAnimatorStateInfo(layerIndex).IsName(stateName) && self.GetCurrentAnimatorStateInfo(layerIndex).normalizedTime < normalizedWaitTime)
@@ -2919,7 +2938,7 @@
 				}
 
 				onComplete?.Invoke();
-			}			
+			}
 		}
 
 		/// <summary>
@@ -2937,13 +2956,13 @@
 		public static Coroutine InsertAnimation(this MonoBehaviour self, Animator animator, string stateName, int layerIndex = 0)
 		{
 			var stateInfo = animator.GetCurrentAnimatorStateInfo(layerIndex);
-			
+
 			var hash = stateInfo.fullPathHash;
 			var normalizedTime = stateInfo.normalizedTime;
 
 			animator.Play(stateName, layerIndex);
 			return self.StartCoroutine(CoInsert());
-			
+
 			IEnumerator CoInsert()
 			{
 				yield return null;
@@ -2999,14 +3018,14 @@
 			return list;
 		}
 
-#endregion
+		#endregion
 
-#region Vector2Int
+		#region Vector2Int
 
 		public static HashSet<Vector2Int> GetBorder(this IEnumerable<Vector2Int> points, bool diagonalCorner = false)
 		{
 			// HashSet.TryGetValueは.Net４.7.2から使えるらしいのでHashSetはむりぽ https://docs.microsoft.com/ja-jp/dotnet/api/system.collections.generic.hashset-1.trygetvalue?view=net-6.0#system-collections-generic-hashset-1-trygetvalue(-0-0@)
-			var map =  new Dictionary<Vector2Int, bool>();	//  new HashSet<Vector2Int>();
+			var map = new Dictionary<Vector2Int, bool>();   //  new HashSet<Vector2Int>();
 
 			foreach (var point in points)
 			{
@@ -3064,7 +3083,7 @@
 		public static HashSet<Vector2Int> GetInside(this IEnumerable<Vector2Int> points)
 		{
 			var results = new HashSet<Vector2Int>();
-			
+
 			var rect = points.GetRectInt();
 
 			var dict = new Dictionary<Vector2Int, bool>();
@@ -3106,18 +3125,18 @@
 			return results;
 		}
 
-		
-#endregion
+
+		#endregion
 
 
-#region LayerMask
+		#region LayerMask
 		public static bool Contains(this LayerMask layerMask, int layer)
 		{
 			return ((1 << layer) & layerMask) != 0;
 		}
-#endregion
+		#endregion
 
-#region NavMeshAgent
+		#region NavMeshAgent
 		public static bool IsReachedDestinationOrGaveUp(this UnityEngine.AI.NavMeshAgent self)
 		{
 
@@ -3134,7 +3153,7 @@
 
 			return false;
 		}
-#endregion
+		#endregion
 
 		public static Vector3Int ToV3IntXZ(this Vector2Int self)
 		{
@@ -3178,29 +3197,33 @@
 		public static bool IsSurrounding(this IList<Vector2> points, Vector2 target)
 		{
 			// https://www.nttpc.co.jp/technology/number_algorithm.html を参考に実装
-			
+
 			var wn = 0;
 
-			for(var i = 0; i < points.Count - 1; i++)
+			for (var i = 0; i < points.Count - 1; i++)
 			{
 				// 上向きの辺、下向きの辺によって処理が分かれる。
 				// 上向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、終点は含まない。(ルール1)
-				if ( (points[i].y <= target.y) && (points[i+1].y > target.y) ) {
+				if ((points[i].y <= target.y) && (points[i + 1].y > target.y))
+				{
 					// 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
 					// 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
-					var vt = (target.y - points[i].y) / (points[i+1].y - points[i].y);
-					if(target.x < (points[i].x + (vt * (points[i+1].x - points[i].x)))){
+					var vt = (target.y - points[i].y) / (points[i + 1].y - points[i].y);
+					if (target.x < (points[i].x + (vt * (points[i + 1].x - points[i].x))))
+					{
 						++wn;  //ここが重要。上向きの辺と交差した場合は+1
 					}
-				} 
+				}
 				// 下向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、始点は含まない。(ルール2)
-				else if ( (points[i].y > target.y) && (points[i+1].y <= target.y) ) {
+				else if ((points[i].y > target.y) && (points[i + 1].y <= target.y))
+				{
 					// 辺は点pよりも右側にある。ただし、重ならない。(ルール4)
 					// 辺が点pと同じ高さになる位置を特定し、その時のxの値と点pのxの値を比較する。
-					var vt = (target.y - points[i].y) / (points[i+1].y - points[i].y);
-					if(target.x < (points[i].x + (vt * (points[i+1].x - points[i].x)))){
+					var vt = (target.y - points[i].y) / (points[i + 1].y - points[i].y);
+					if (target.x < (points[i].x + (vt * (points[i + 1].x - points[i].x))))
+					{
 						--wn;  //ここが重要。下向きの辺と交差した場合は-1
-					}	
+					}
 				}
 				// ルール1,ルール2を確認することで、ルール3も確認できている。
 			}
@@ -3208,13 +3231,13 @@
 			return wn != 0;
 		}
 
-		public static bool  TryGetDirectionFromTouch(
+		public static bool TryGetDirectionFromTouch(
 			this Camera camera, Vector2 fromScreenPoint, Vector2 toScreenPoint, out Vector3 direction, float distance = 1000f, params string[] layerNames)
 		{
 			return TryGetDirectionFromTouch(camera, fromScreenPoint, toScreenPoint, out direction, LayerMask.GetMask(layerNames), distance);
 		}
 
-#region DOTween
+		#region DOTween
 
 		/// <summary>
 		/// DOMoveの際にそれぞれの軸毎に別のEaseを指定できるようにした関数。OnUpdateとSetTargetは使用済みです。
@@ -3233,10 +3256,10 @@
 
 				transform.position = p;
 			}).SetTarget(transform);
-		} 
-#endregion
+		}
+		#endregion
 
-#region Camera
+		#region Camera
 		public static bool TryGetDirectionFromTouch(
 			this Camera camera, Vector2 fromScreenPoint, Vector2 toScreenPoint, out Vector3 direction, LayerMask layerMask, float distance = 1000f)
 		{
@@ -3265,7 +3288,7 @@
 
 		public static Vector3 TryRectTransformToWorldPosition(this Camera camera, RectTransform rectTransform, float distance = 0)
 		{
-			Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.position);	// positionを好きに指定したいを考える
+			Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(camera, rectTransform.position);  // positionを好きに指定したいを考える
 			screenPoint.z = distance;
 			return camera.ScreenToWorldPoint(screenPoint);
 		}
@@ -3278,7 +3301,7 @@
 		public static Vector3 ConvertToCameraWorldPoint(this Graphic graphic, Camera camera)
 		{
 			// Check if Graphic and Camera are not null
-			if(graphic == null || camera == null)
+			if (graphic == null || camera == null)
 			{
 				// Debug.LogError("Graphic and/or Camera is null.");
 				return Vector3.zero;
@@ -3338,7 +3361,7 @@
 			return new Vector3[] { bottomLeft, bottomRight, topLeft, topRight };
 		}
 
-		public static void GetFrustumCorners(this Camera camera, float distance, 
+		public static void GetFrustumCorners(this Camera camera, float distance,
 			out Vector3 bottomLeft, out Vector3 bottomRight, out Vector3 topLeft, out Vector3 topRight)
 		{
 			bottomLeft = camera.ViewportToWorldPoint(new Vector3(0, 0, distance));
@@ -3347,19 +3370,19 @@
 			topRight = camera.ViewportToWorldPoint(new Vector3(1, 1, distance));
 		}
 
-#endregion
+		#endregion
 
-#region Generic
+		#region Generic
 		public static bool IsDefault<T>(T value)
 		{
 			return EqualityComparer<T>.Default.Equals(value, default(T));
 		}
-		
+
 		public static bool IsEquals<T>(this T value, T other)
 		{
 			return EqualityComparer<T>.Default.Equals(value, other);
 		}
-#endregion
+		#endregion
 
 		/// <summary>
 		/// Rayが仮想の高さの平面と交わる位置を返す
@@ -3406,7 +3429,7 @@
 			{
 				var target = eventData.pointerPressRaycast.gameObject.transform.position[vector3Index];
 				Ray ray = eventData.pressEventCamera.ScreenPointToRay(eventData.position);
-				
+
 				if (TryGetPositionOnRay(ray, vector3Index, target, out worldPosition))
 				{
 					return true;
@@ -3490,7 +3513,7 @@
 
 		public IMGrid()
 		{
-			
+
 		}
 
 		public IMGrid SetSize(int width, int height)
