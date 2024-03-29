@@ -1905,7 +1905,7 @@
 		{
 			// ローカル空間での左下と右上の点を計算
 			Vector2 scaledSize = new Vector2(size.x * rectTransform.lossyScale.x, size.y * rectTransform.lossyScale.y);
-			Vector3 localBottomLeft = new Vector3(localPosition.x - (size.x * rectTransform.pivot.x), localPosition.y - (size.y * rectTransform.pivot.y), 0f);
+			Vector3 localBottomLeft = new Vector3(localPosition.x/* - (size.x * rectTransform.pivot.x)*/, localPosition.y /*- (size.y * rectTransform.pivot.y)*/, 0f);
 			Vector3 localTopRight = localBottomLeft + new Vector3(scaledSize.x, scaledSize.y, 0f);
 
 			// ワールド空間での左下と右上の点に変換
@@ -1915,6 +1915,35 @@
 			// ワールド空間でのBoundsを計算
 			Bounds bounds = new Bounds();
 			bounds.SetMinMax(worldBottomLeft, worldTopRight);
+
+			return bounds;
+		}
+
+		/// <summary>
+		/// RectTransformからピクセルベースでワールド空間のBoundsを計算する。
+		/// </summary>
+		public static Bounds CreateWorldBounds(this RectTransform rectTransform, Vector3 offsetPositionFromAnchor, Vector3 size)
+		{
+			var bounds = new Bounds();
+			var min = rectTransform.TransformPoint(rectTransform.rect.min);
+			var max = rectTransform.TransformPoint(rectTransform.rect.max);
+
+			bounds.SetMinMax(min, max);
+
+			var sx = bounds.size.x / rectTransform.sizeDelta.x;
+			var sy = bounds.size.y / rectTransform.sizeDelta.y;
+
+			bounds.center = new Vector3(
+				bounds.center.x + sx * offsetPositionFromAnchor.x,
+				bounds.center.y + sy * offsetPositionFromAnchor.y,
+				bounds.center.z
+			);
+
+			bounds.size = new Vector3(
+				sx * size.x,
+				sy * size.y,
+				bounds.size.z
+			);
 
 			return bounds;
 		}
