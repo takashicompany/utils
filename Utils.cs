@@ -283,6 +283,21 @@
 			return result;
 		}
 
+		public static IEnumerable<Vector2Int> ToVector2Ints(this string[,] map, Func<string, Vector2Int, bool> func)
+		{
+			for (var y = 0; y < map.GetLength(1); y++)
+			{
+				for (var x = 0; x < map.GetLength(0); x++)
+				{
+					Debug.Log("x:" + x + " y:" + y + " map:" + map[x, y]);
+					if (func(map[x, y], new Vector2Int(x, y)))
+					{
+						yield return new Vector2Int(x, y);
+					}
+				}
+			}
+		}
+
 		#endregion
 
 		#region IList
@@ -2686,6 +2701,65 @@
 				Random.Range(rect.min.x, rect.max.x + (includeMax ? 1 : 0)),
 				Random.Range(rect.min.y, rect.max.y + (includeMax ? 1 : 0))
 			);
+		}
+
+		public static Rect Encapsulate(this Rect original, Rect other)
+		{
+			float minX = Mathf.Min(original.xMin, other.xMin);
+			float minY = Mathf.Min(original.yMin, other.yMin);
+			float maxX = Mathf.Max(original.xMax, other.xMax);
+			float maxY = Mathf.Max(original.yMax, other.yMax);
+
+			return new Rect(minX, minY, maxX - minX, maxY - minY);
+		}
+
+		public static Rect EncapsulateAll(this IEnumerable<Rect> rects)
+		{
+			bool hasValue = false;
+			Rect encapsulatedRect = new Rect();
+
+			foreach (var rect in rects)
+			{
+				if (!hasValue)
+				{
+					encapsulatedRect = rect;
+					hasValue = true;
+				}
+				else
+				{
+					encapsulatedRect = encapsulatedRect.Encapsulate(rect);
+				}
+			}
+
+			if (!hasValue)
+			{
+				// このケースは、rectsが空の場合に適用されます。
+				// 必要に応じて、適切なデフォルト値を返すか、例外を投げるかを決定してください。
+				return new Rect(); // ここではデフォルトのRectを返しています。
+			}
+
+			return encapsulatedRect;
+		}
+
+		public static Vector2 GetMaxSizeToFitInsideVector2(this Rect subject, Rect container)
+		{
+			// 小さい方のスケールを選択して、アスペクト比を保持しながらsubjectをスケール
+			float scale = subject.GetMaxSizeToFitInside(container);
+
+			// スケーリングされたsubjectの新しい大きさを計算
+			Vector2 scaledSize = new Vector2(subject.width * scale, subject.height * scale);
+
+			return scaledSize;
+		}
+
+		public static float GetMaxSizeToFitInside(this Rect subject, Rect container)
+		{
+			// containerの大きさに対してsubjectがどれだけスケールされるべきか計算
+			float widthScale = container.width / subject.width;
+			float heightScale = container.height / subject.height;
+
+			// 小さい方のスケールを選択して、アスペクト比を保持しながらsubjectをスケール
+			return Mathf.Min(widthScale, heightScale);
 		}
 
 		#endregion
