@@ -40,7 +40,11 @@ namespace takashicompany.Unity.Editor
 			string relativeFilePath = filePath.Replace("Assets", "blob/develop/Assets");
 			string finalUrl = Path.Combine(gitUrl, relativeFilePath).Replace("\\", "/");
 
-			Application.OpenURL(finalUrl);
+			// URLエンコードを適用
+			var finalUri = new System.Uri(finalUrl);
+			string encodedUrl = finalUri.AbsoluteUri;
+
+			Application.OpenURL(encodedUrl);
 		}
 
 		[MenuItem("Assets/Open in Github", true)]
