@@ -217,6 +217,11 @@
 			return string.Format("<color=#{0}>{1}</color>", ColorUtility.ToHtmlStringRGBA(color), text);
 		}
 
+		public static string ToTMPSizeTag(this string text, string size)
+		{
+			return string.Format("<size={0}>{1}</size>", size, text);
+		}
+
 		public static string ToStringByItem<T>(this IEnumerable<T> items)
 		{
 			var str = "";
