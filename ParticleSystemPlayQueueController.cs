@@ -114,5 +114,13 @@
 				_main.Play(true);
 			}
 		}
+
+		public void Stop(bool withChildren = true, ParticleSystemStopBehavior stopBehavior = ParticleSystemStopBehavior.StopEmitting)
+		{
+			if (_main != null)
+			{
+				_main.Stop(withChildren, stopBehavior);
+			}
+		}
 	}
 }
