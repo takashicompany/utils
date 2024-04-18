@@ -2283,6 +2283,37 @@
 			});
 		}
 
+		public static Tweener DOFade(this LineRenderer lineRenderer, float to, float duration)
+		{
+			var gradient = lineRenderer.colorGradient;
+			var keys = gradient.alphaKeys.ToArray();
+			var currents = keys.ToArray();
+			var t = 0f;
+			return DOTween.To(() => t, v => t = v, 1, duration).OnUpdate(() =>
+			{
+				for (var i = 0; i < keys.Length; i++)
+				{
+					currents[i].alpha = Mathf.Lerp(keys[i].alpha, to, t);
+				}
+
+				gradient.SetKeys(gradient.colorKeys, currents);
+				lineRenderer.colorGradient = gradient;
+			}).SetTarget(lineRenderer);
+		}
+
+		public static void SetAlphas(this LineRenderer lineRenderer, float alpha)
+		{
+			var gradient = lineRenderer.colorGradient;
+			var keys = gradient.alphaKeys.ToArray();
+			for (var i = 0; i < keys.Length; i++)
+			{
+				keys[i].alpha = alpha;
+			}
+
+			gradient.SetKeys(gradient.colorKeys, keys);
+			lineRenderer.colorGradient = gradient;
+		}
+
 		public static Tweener DOScale(this IList<Vector3> self, Vector3 center, float end, float duration)
 		{
 			var froms = self.ToArray();
@@ -3411,6 +3442,8 @@
 				transform.position = p;
 			}).SetTarget(transform);
 		}
+
+		
 		#endregion
 
 		#region Camera
