@@ -116,6 +116,52 @@
 
 			return Mathf.RoundToInt(t / per);
 		}
+
+		// この関数は配列の長さと引数indexを受け取り、中央からのオフセットに基づいて添字を返します。
+		public static int SelectIndexFromCenter(int length, int index)
+		{
+			int midPoint = length / 2; // 配列の中点を求める
+			int offsetIndex;
+
+			// 配列の要素数が偶数か奇数かによってロジックを分ける
+			if (length % 2 == 0)
+			{
+				// 偶数の場合
+				if (index % 2 == 0)
+				{
+					// indexが偶数の場合、中心から左へ移動
+					offsetIndex = midPoint - (index / 2 + 1);
+				}
+				else
+				{
+					// indexが奇数の場合、中心から右へ移動
+					offsetIndex = midPoint + (index / 2);
+				}
+			}
+			else
+			{
+				// 奇数の場合
+				if (index % 2 == 0)
+				{
+					// indexが偶数の場合、中心から左へ移動
+					offsetIndex = midPoint - index / 2;
+				}
+				else
+				{
+					// indexが奇数の場合、中心から右へ移動
+					offsetIndex = midPoint + index / 2;
+				}
+			}
+
+			// 範囲外のindexをチェック
+			if (offsetIndex < 0 || offsetIndex >= length)
+			{
+				throw new IndexOutOfRangeException("Index is out of range.");
+			}
+
+			return offsetIndex;
+		}
+
 		#endregion
 
 		#region Enum
