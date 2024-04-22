@@ -58,6 +58,12 @@ namespace takashicompany.Unity.UI
 			_bar.rectTransform.SimpleHorizontalGauge(r);
 		}
 
+		public void UpdateBar(double current, double max)
+		{
+			var r = Mathf.Clamp01((float)(current / max));
+			_bar.rectTransform.SimpleHorizontalGauge(r);
+		}
+
 		public void UpdateBarColor(Color color)
 		{
 			_bar.color = color;
