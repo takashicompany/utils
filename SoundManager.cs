@@ -22,6 +22,7 @@ namespace takashicompany.Unity
 			{
 				var go = new GameObject($"SoundManager{typeof(T).Name}");
 				_source = go.AddComponent<AudioSource>();
+				GameObject.DontDestroyOnLoad(go);
 			}
 		}
 
