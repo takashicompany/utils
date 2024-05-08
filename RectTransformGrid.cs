@@ -16,6 +16,7 @@ namespace takashicompany.Unity
 		private Vector2 _offset = Vector2.zero;
 
 		private Dictionary<Vector2Int, RectTransform> _cells = new ();
+		public IReadOnlyDictionary<Vector2Int, RectTransform> cells => _cells;
 
 		public bool Add(Vector2Int position,  RectTransform rectTransform)
 		{
