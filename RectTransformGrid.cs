@@ -13,7 +13,13 @@ namespace takashicompany.Unity
 		private Vector2 _cellSize = new Vector2(100, 100);
 
 		[SerializeField]
-		private Vector2 _offset = Vector2.zero;
+		private Vector2 _offsetForAll = Vector2.zero;
+
+		[SerializeField]
+		private Vector2 _offsetPerX = Vector2.zero;
+
+		[SerializeField]
+		private Vector2 _offsetPerY = Vector2.zero;
 
 		private Dictionary<Vector2Int, RectTransform> _cells = new ();
 		public IReadOnlyDictionary<Vector2Int, RectTransform> cells => _cells;
@@ -35,7 +41,7 @@ namespace takashicompany.Unity
 
 		private void UpdatePosition(Vector2Int position, RectTransform rectTransform)
 		{
-			rectTransform.anchoredPosition = new Vector2(_offset.x + position.x * _cellSize.x, _offset.y + position.y * _cellSize.y);
+			rectTransform.anchoredPosition = new Vector2(_offsetForAll.x + position.x * _cellSize.x, _offsetForAll.y + position.y * _cellSize.y);
 		}
 
 		public void Remove(Vector2Int position)
@@ -60,6 +66,7 @@ namespace takashicompany.Unity
 			_cells.Clear();
 		}
 
+		[ContextMenu("ToCenter")]
 		public void ToCenter()
 		{
 			// _cellsのkeyの最大値と最小値を取得
@@ -73,7 +80,12 @@ namespace takashicompany.Unity
 
 			foreach (var cell in _cells)
 			{
-				cell.Value.anchoredPosition = new Vector2(_offset.x + offset.x + cell.Key.x * _cellSize.x, _offset.y + offset.y + cell.Key.y * _cellSize.y);
+				var offsetPerX = new Vector2(_offsetPerX.x * cell.Key.x, _offsetPerX.y * cell.Key.x);
+				var offsetPerY = new Vector2(_offsetPerY.x * cell.Key.y, _offsetPerY.y * cell.Key.y);
+				cell.Value.anchoredPosition = new Vector2(
+					offsetPerX.x + offsetPerY.x + _offsetForAll.x + offset.x + cell.Key.x * _cellSize.x,
+					offsetPerX.y + offsetPerY.y + _offsetForAll.y + offset.y + cell.Key.y * _cellSize.y
+				);
 			}
 
 		}
