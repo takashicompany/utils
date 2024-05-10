@@ -27,14 +27,21 @@ namespace takashicompany.Unity
 			_defaultScale = transform.localScale;
 		}
 
+		private void Start()	// enable用
+		{
+
+		}
+
 		void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
 		{
+			if (!enabled) return;
 			transform.localScale = _pointerDownScale;
 		}
 
 		void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
 		{
 			Utils.Kill(ref _tween);
+			if (!enabled) return;
 			_tween = transform.DOScale(_defaultScale, _animationDuration).SetEase(_easeType);
 		}
 	}
