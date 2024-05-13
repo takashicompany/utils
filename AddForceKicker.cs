@@ -6,7 +6,7 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
-	public class AddForceKicker : MonoBehaviour
+	public class AddForceKicker : KeyDownKicker
 	{
 		private enum ForceType
 		{
@@ -17,15 +17,12 @@ namespace takashicompany.Unity
 			FromPosition,
 		}
 
-		[SerializeField, Header("発動するキー。このオブジェクトが無効状態だと入力を受け付けない。")]
-		private KeyCode _key = KeyCode.T;
-
 		[SerializeField, Header("力の種類")]
 		private ForceType _forceType;
 
 		[SerializeField, Header("力の方向 or 力の地点")]
 		private Vector3 _p = Vector3.up;
-		
+
 		[SerializeField, Header("力の大きさ")]
 		private float _force = 200f;
 
@@ -35,32 +32,32 @@ namespace takashicompany.Unity
 		[SerializeField, Header("力をかけたいオブジェクト。未指定ならこのGameObjectになる")]
 		private Rigidbody _rigidbody;
 
-		private void FixedUpdate()
+		protected override bool _runLateUpdate => false;
+		protected override bool _runFixedUpdate => true;
+
+		protected override void OnPressKey()
 		{
-			if (Input.GetKeyDown(_key))
+			if (_rigidbody == null)
 			{
+				_rigidbody = GetComponent<Rigidbody>();
+
 				if (_rigidbody == null)
 				{
-					_rigidbody = GetComponent<Rigidbody>();
-
-					if (_rigidbody == null)
-					{
-						_rigidbody = gameObject.AddComponent<Rigidbody>();
-					}
+					_rigidbody = gameObject.AddComponent<Rigidbody>();
 				}
+			}
 
-				if (_rigidbody != null)
+			if (_rigidbody != null)
+			{
+				switch (_forceType)
 				{
-					switch (_forceType)
-					{
-						case ForceType.Direction:
-							_rigidbody.AddForce(_p * _force, _forceMode);
-							break;
+					case ForceType.Direction:
+						_rigidbody.AddForce(_p * _force, _forceMode);
+						break;
 
-						case ForceType.FromPosition:
-							_rigidbody.AddForce((transform.position - _p).normalized * _force, _forceMode);
-							break;
-					}
+					case ForceType.FromPosition:
+						_rigidbody.AddForce((transform.position - _p).normalized * _force, _forceMode);
+						break;
 				}
 			}
 		}
@@ -72,7 +69,7 @@ namespace takashicompany.Unity
 			switch (_forceType)
 			{
 				case ForceType.Direction:
-					Gizmos.DrawRay(transform.position, transform.position +  (_p * _force) / 100f);
+					Gizmos.DrawRay(transform.position, transform.position + (_p * _force) / 100f);
 					Gizmos.DrawWireSphere(transform.position, 1f);
 					break;
 

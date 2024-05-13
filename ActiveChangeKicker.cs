@@ -5,11 +5,8 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
-	public class ActiveChangeKicker : MonoBehaviour
+	public class ActiveChangeKicker : KeyDownKicker
 	{
-		[SerializeField, Header("発動するキー。このオブジェクトが無効状態だと入力を受け付けない。")]
-		private KeyCode _key = KeyCode.A;
-
 		[SerializeField, Header("切り替えたい対象")]
 		private GameObject _target;
 
@@ -28,28 +25,25 @@ namespace takashicompany.Unity
 		[SerializeField, Header("変更方式")]
 		private ChangeType _changeType = ChangeType.ToToggle;
 
-		private void LateUpdate()
+		protected override void OnPressKey()
 		{
-			if (Input.GetKeyDown(_key))
+			if (_target == null)
 			{
-				if (_target == null)
-				{
-					Debug.LogError(name + "のtargetが設定されていませんぞ。");
-					return;
-				}
+				Debug.LogError(name + "のtargetが設定されていませんぞ。");
+				return;
+			}
 
-				switch (_changeType)
-				{
-					case ChangeType.ToActive:
-						_target.SetActive(true);
-						break;
-					case ChangeType.ToEnactive:
-						_target.SetActive(false);
-						break;
-					case ChangeType.ToToggle:
-						_target.SetActive(!_target.activeSelf);
-						break;
-				}
+			switch (_changeType)
+			{
+				case ChangeType.ToActive:
+					_target.SetActive(true);
+					break;
+				case ChangeType.ToEnactive:
+					_target.SetActive(false);
+					break;
+				case ChangeType.ToToggle:
+					_target.SetActive(!_target.activeSelf);
+					break;
 			}
 		}
 	}

@@ -5,7 +5,7 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
-	public class SoundKicker : MonoBehaviour
+	public class SoundKicker : KeyDownKicker
 	{
 		[System.Serializable]
 		private class Sound
@@ -25,9 +25,6 @@ namespace takashicompany.Unity
 		[SerializeField, Header("デフォルトの音量の係数")]
 		private float _volumeScale = 1f;
 
-		[SerializeField, Header("発動するキー。このオブジェクトが無効状態だと入力を受け付けない。")]
-		private KeyCode _key = KeyCode.S;
-
 		[SerializeField, Header("鳴らすSEの設定。複数設定が可能")]
 		private Sound[] _sounds;
 
@@ -39,14 +36,11 @@ namespace takashicompany.Unity
 			}
 		}
 
-		private void LateUpdate()
+		protected override void OnPressKey()
 		{
-			if (Input.GetKeyDown(_key))
+			foreach (var sound in _sounds)
 			{
-				foreach (var sound in _sounds)
-				{
-					StartCoroutine(Co(sound));
-				}
+				StartCoroutine(Co(sound));
 			}
 
 			IEnumerator Co(Sound sound)
