@@ -15,9 +15,6 @@ namespace takashicompany.Unity
 		private Vector3 _maxPower;
 
 		[SerializeField]
-		private ForceMode _powerForceMode = ForceMode.Impulse;
-
-		[SerializeField]
 		private Vector3 _minTorque;
 
 		[SerializeField]
