@@ -20,9 +20,6 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private Vector3 _maxTorque;
 
-		[SerializeField]
-		private ForceMode _torqueForceMode = ForceMode.Impulse;
-
 		private RigidbodyWrapper _rigidbody;
 		private Vector3 _startPosition;
 
