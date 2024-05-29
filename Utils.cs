@@ -1276,6 +1276,42 @@
 			);
 		}
 
+		public static void DrawWireCube(this Bounds bounds, Transform transform)
+		{
+			Vector3 localCenter = bounds.center;
+			Vector3 localSize = bounds.size;
+
+			// ローカル座標からワールド座標へ変換
+			Vector3 worldCenter = transform.TransformPoint(localCenter);
+			Vector3 worldSize = Vector3.Scale(localSize, transform.lossyScale);
+
+			// 8つの頂点を計算
+			Vector3 corner0 = transform.TransformPoint(localCenter + new Vector3(-worldSize.x, -worldSize.y, -worldSize.z) * 0.5f);
+			Vector3 corner1 = transform.TransformPoint(localCenter + new Vector3(worldSize.x, -worldSize.y, -worldSize.z) * 0.5f);
+			Vector3 corner2 = transform.TransformPoint(localCenter + new Vector3(worldSize.x, -worldSize.y, worldSize.z) * 0.5f);
+			Vector3 corner3 = transform.TransformPoint(localCenter + new Vector3(-worldSize.x, -worldSize.y, worldSize.z) * 0.5f);
+			Vector3 corner4 = transform.TransformPoint(localCenter + new Vector3(-worldSize.x, worldSize.y, -worldSize.z) * 0.5f);
+			Vector3 corner5 = transform.TransformPoint(localCenter + new Vector3(worldSize.x, worldSize.y, -worldSize.z) * 0.5f);
+			Vector3 corner6 = transform.TransformPoint(localCenter + new Vector3(worldSize.x, worldSize.y, worldSize.z) * 0.5f);
+			Vector3 corner7 = transform.TransformPoint(localCenter + new Vector3(-worldSize.x, worldSize.y, worldSize.z) * 0.5f);
+
+			// 線を描画
+			Gizmos.DrawLine(corner0, corner1);
+			Gizmos.DrawLine(corner1, corner2);
+			Gizmos.DrawLine(corner2, corner3);
+			Gizmos.DrawLine(corner3, corner0);
+
+			Gizmos.DrawLine(corner4, corner5);
+			Gizmos.DrawLine(corner5, corner6);
+			Gizmos.DrawLine(corner6, corner7);
+			Gizmos.DrawLine(corner7, corner4);
+
+			Gizmos.DrawLine(corner0, corner4);
+			Gizmos.DrawLine(corner1, corner5);
+			Gizmos.DrawLine(corner2, corner6);
+			Gizmos.DrawLine(corner3, corner7);
+		}
+
 		#endregion
 
 		#region BoundsInt
@@ -3443,7 +3479,7 @@
 			}).SetTarget(transform);
 		}
 
-		
+
 		#endregion
 
 		#region Camera
