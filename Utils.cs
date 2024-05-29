@@ -2253,6 +2253,31 @@
 			return seq;
 		}
 
+		public static Sequence DOMoveWithJump(
+			this Transform transform, Vector3 to, float duration, float height,
+			float heightTime = 0f,
+			Ease upEase = Ease.OutQuad, Ease downEase = Ease.InQuad)
+		{
+			var seq = DOTween.Sequence();
+
+			var s = DOTween.Sequence();
+			
+			var center = Vector3.Lerp(transform.position, to, 0.5f);
+			var heightPos = Vector3.Lerp(transform.position, to, heightTime);
+			center.y = heightPos.y + height;
+
+			var halfDuration = duration * 0.5f;
+
+			s.Append(transform.DOMoveX(center.x, halfDuration).SetEase(Ease.Linear));
+			s.Join(transform.DOMoveY(center.y, halfDuration).SetEase(upEase));
+			s.Join(transform.DOMoveZ(center.z, halfDuration).SetEase(Ease.Linear));
+			s.Append(transform.DOMoveX(to.x, halfDuration).SetEase(Ease.Linear));
+			s.Join(transform.DOMoveY(to.y, halfDuration).SetEase(downEase));
+			s.Join(transform.DOMoveZ(to.z, halfDuration).SetEase(Ease.Linear));
+			
+			return s;
+		}
+
 		public static Tweener DOEmmison(this Material self, Color color, float duration)
 		{
 			var c = self.GetEmmisionColor();
