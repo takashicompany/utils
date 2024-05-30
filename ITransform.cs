@@ -10,6 +10,16 @@ namespace takashicompany.Unity
 		Transform transform { get; }
 	}
 
+	public interface IRigidbody
+	{
+		Rigidbody rigidbody { get; }
+	}
+
+	public interface ICollider
+	{
+		Collider collider { get; }
+	}
+
 	public interface IGameObject
 	{
 		GameObject gameObject { get; }

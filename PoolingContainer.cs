@@ -16,7 +16,7 @@
 		/// </summary>
 		public void Prepare(int amount)
 		{
-			while(_pooled.Count < amount)
+			while (_pooled.Count < amount)
 			{
 				Generate();
 			}
@@ -41,7 +41,7 @@
 		}
 
 		public virtual void CollectAll()
-	 	{
+		{
 			foreach (var obj in _pooled)
 			{
 				Collect(obj);
@@ -54,7 +54,7 @@
 		}
 
 		public abstract bool IsUse(T obj);
-		
+
 		protected bool CanUse(T obj)
 		{
 			return !IsUse(obj);
@@ -80,14 +80,25 @@
 		[SerializeField]
 		protected T _prefab;
 
-		public T prefab => _prefab;
+		public T prefab => _prefab;	
+
+		[SerializeField, Header("生成時にPrefabの状態に近づけるか")]
+		protected bool _withFormat = true;
+
+		// TODO 2D対応
+		private bool _checkComponent;
+		private Rigidbody _prefabRigidbody;
+		private Collider _prefabCollider;
+
+		private Dictionary<T, Rigidbody> _rigidbodyDict = new ();
+		private Dictionary<T, Collider> _colliderDict = new ();
 
 		public virtual void Setup(T prefab, Transform container)
 		{
 			_prefab = prefab;
 			_container = container;
 		}
-		
+
 		protected override void Collect(T obj)
 		{
 			obj.transform.SetParent(_container);
@@ -95,6 +106,13 @@
 
 		protected override T Generate()
 		{
+			if (!_checkComponent)
+			{
+				_checkComponent = true;
+				_prefabRigidbody = _prefab.GetComponent<Rigidbody>();
+				_prefabCollider = _prefab.GetComponent<Collider>();
+			}
+
 			var obj = GameObject.Instantiate(_prefab, _container);
 			obj.name = _prefab.name + "_" + _pooled.Count;
 			obj.transform.localPosition = Vector3.zero;
@@ -102,6 +120,43 @@
 			_pooled.Add(obj);
 
 			Collect(obj);
+
+			return obj;
+		}
+
+		public override T Get()
+		{
+			var obj = base.Get();
+
+			if (_withFormat)
+			{
+				obj.transform.localPosition = prefab.transform.localPosition;
+				obj.transform.localRotation = prefab.transform.localRotation;
+				obj.transform.localScale = prefab.transform.localScale;
+
+				if (_prefabRigidbody != null)
+				{
+					if (!_rigidbodyDict.TryGetValue(obj, out var rigidbody))
+					{
+						rigidbody = obj.GetComponent<Rigidbody>();
+						_rigidbodyDict.Add(obj, rigidbody);
+					}
+
+					rigidbody.isKinematic = _prefabRigidbody.isKinematic;
+				}
+
+				if (_prefabCollider != null)
+				{
+					if (!_colliderDict.TryGetValue(obj, out var collider))
+					{
+						collider = obj.GetComponent<Collider>();
+						_colliderDict.Add(obj, collider);
+					}
+
+					collider.enabled = _prefabCollider.enabled;
+					collider.isTrigger = _prefabCollider.isTrigger;
+				}
+			}
 
 			return obj;
 		}
@@ -120,7 +175,7 @@
 			base.Collect(item);
 			item.gameObject.SetActive(false);
 		}
-		
+
 		public override bool IsUse(T obj)
 		{
 			return obj.gameObject.activeSelf;
@@ -131,10 +186,11 @@
 			obj.gameObject.SetActive(true);
 		}
 	}
-	
+
 
 	/// <summary>
-	/// Prefabを元にPoolingContainerを生成するクラス
+	/// Prefabを元にPoolingContainerを生成するクラス。
+	/// 渡したプレハブを元に再利用管理されていて待機済みのものがあるなら、それを使う。 
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public class ActivePoolingContainerPrefabBundle<T> where T : Component
@@ -147,19 +203,27 @@
 			_root = root;
 		}
 
-		public T GetOrInstantiate(T prefab)
+		public T GetOrInstantiate(T prefab, Transform parent = null)
 		{
 			if (!_containers.ContainsKey(prefab))
 			{
 				var pool = new ActivePoolingContainer<T>();
-				pool.Setup(prefab, _root);
+				pool.Setup(prefab, parent != null ? parent : _root);
 				_containers.Add(prefab, pool);
 			}
 
 			return _containers[prefab].Get();
 		}
 	}
-	
+
+	public class ActivePoolingContainerPrefabBundle : ActivePoolingContainerPrefabBundle<Component>
+	{
+		public ActivePoolingContainerPrefabBundle(Transform root) : base(root)
+		{
+			
+		}
+	}
+
 	/// <summary>
 	/// 複数のPoolingContainerを束ねるクラス
 	/// </summary>
