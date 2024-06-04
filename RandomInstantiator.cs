@@ -4,9 +4,9 @@ namespace takashicompany.Unity
 	using System.Collections.Generic;
 	using System.Linq;
 	using UnityEngine;
-    using UnityEngine.Events;
+	using UnityEngine.Events;
 
-    public class RandomInstantiator : MonoBehaviour
+	public class RandomInstantiator : MonoBehaviour
 	{
 		[SerializeField]
 		private GameObject[] _prefabs;
@@ -39,7 +39,7 @@ namespace takashicompany.Unity
 		private bool _manualInstantiate;
 
 		[SerializeField, Header("他のプログラムに複製したものを渡したい場合に使う")]
-		private UnityEvent<GameObject> _onInstantiate = new ();
+		private UnityEvent<GameObject> _onInstantiate = new();
 		public UnityEvent<GameObject> onInstantiate => _onInstantiate;
 
 		private void Awake()
