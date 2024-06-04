@@ -8,34 +8,34 @@ namespace takashicompany.Unity
 
 	public class RandomInstantiator : MonoBehaviour
 	{
-		[SerializeField]
+		[SerializeField, Header("生成したいオブジェクトのプレハブ。複数指定可能")]
 		private GameObject[] _prefabs;
 
-		[SerializeField]
+		[SerializeField, Header("生成したプレハブを置く階層")]
 		private Transform _parent;
 
-		[SerializeField]
+		[SerializeField, Header("生成する数の乱数最小値")]
 		private int _minAmount = 1;
 
-		[SerializeField]
+		[SerializeField, Header("生成する数の乱数最大値")]
 		private int _maxAmount = 10;
 
-		[SerializeField]
+		[SerializeField, Header("生成する範囲")]
 		private Bounds _bounds = new Bounds(Vector3.zero, Vector3.one * 10.0f);
 
-		[SerializeField]
+		[SerializeField, Header("生成するオブジェクトの回転の乱数最小値")]
 		private Vector3 _minRotation = Vector3.zero;
 
-		[SerializeField]
+		[SerializeField, Header("生成するオブジェクトの回転の乱数最大値")]
 		private Vector3 _maxRotation = Vector3.one * 360.0f;
 
-		[SerializeField]
+		[SerializeField, Header("生成するオブジェクトのスケールの乱数最小値")]
 		private Vector3 _minScale = Vector3.one * 0.5f;
 
-		[SerializeField]
+		[SerializeField, Header("生成するオブジェクトのスケールの乱数最大値")]
 		private Vector3 _maxScale = Vector3.one * 1.5f;
 
-		[SerializeField]
+		[SerializeField, Header("手動で生成を実行する場合はチェックをつける")]
 		private bool _manualInstantiate;
 
 		[SerializeField, Header("他のプログラムに複製したものを渡したい場合に使う")]
