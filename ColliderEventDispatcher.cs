@@ -8,6 +8,10 @@ namespace takashicompany.Unity
 
 	public class ColliderEventDispatcher : MonoBehaviour
 	{
+		private Collider _colliderInternal;
+		private Collider _collider => _colliderInternal ?? (_colliderInternal = GetComponent<Collider>());
+		public new Collider collider => _collider;
+
 		[SerializeField]
 		private UnityEvent<Collision> _onCollisionEnter = new ();
 		public UnityEvent<Collision> onCollisionEnter => _onCollisionEnter;
