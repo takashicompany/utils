@@ -74,7 +74,9 @@ namespace takashicompany.Unity.Editor
 			{
 				importer.textureType = TextureImporterType.Sprite;
 				importer.spriteImportMode = SpriteImportMode.Multiple;
+#pragma warning disable CS0618 // 型またはメンバーが旧型式です
 				importer.spritesheet = spriteDataList.ToArray();
+#pragma warning restore CS0618 // 型またはメンバーが旧型式です
 				EditorUtility.SetDirty(importer);
 				importer.SaveAndReimport();
 			}
