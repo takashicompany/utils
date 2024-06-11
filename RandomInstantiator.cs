@@ -78,7 +78,7 @@ namespace takashicompany.Unity
 			float y = Random.Range(center.y - size.y * 0.5f, center.y + size.y * 0.5f);
 			float z = Random.Range(center.z - size.z * 0.5f, center.z + size.z * 0.5f);
 
-			return new Vector3(x, y, z);
+			return transform.TransformPoint(new Vector3(x, y, z));
 		}
 
 		private void OnDrawGizmos()
