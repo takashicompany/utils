@@ -35,6 +35,9 @@ namespace takashicompany.Unity
 		[SerializeField, Header("生成するオブジェクトのスケールの乱数最大値")]
 		private Vector3 _maxScale = Vector3.one * 1.5f;
 
+		[SerializeField, Header("オブジェクトが有効になってからn秒後に生成を開始する")]
+		private float _delay = 0f;
+
 		[SerializeField, Header("手動で生成を実行する場合はチェックをつける")]
 		private bool _manualInstantiate;
 
@@ -42,10 +45,17 @@ namespace takashicompany.Unity
 		private UnityEvent<GameObject> _onInstantiate = new();
 		public UnityEvent<GameObject> onInstantiate => _onInstantiate;
 
-		private void Awake()
+		private void OnEnable()
 		{
-			if (!_manualInstantiate)
+			if (!_manualInstantiate) StartCoroutine(CoExecute());
+
+			IEnumerator CoExecute()
 			{
+				if (_delay > 0)
+				{
+					yield return new WaitForSeconds(_delay);
+				}
+
 				InstantiateAll();
 			}
 		}
