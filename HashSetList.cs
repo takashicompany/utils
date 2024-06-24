@@ -7,7 +7,7 @@ namespace takashicompany.Unity
 	/// HashSetとListを併用したリスト。同じインスタンスを許容しない & 入れた順番が保持される
 	/// </summary>
 	[System.Serializable]
-	public class HashSetList<T> : IList<T>
+	public class HashSetList<T> : IList<T>, IReadOnlyList<T>
 	{
 		private HashSet<T> _hashSetInternal;
 		private HashSet<T> _hashSet
