@@ -2253,18 +2253,14 @@
 			return seq;
 		}
 
-		public static Sequence DOMoveWithJump(
-			this Transform transform, Vector3 to, float duration, float height,
-			float heightTime = 0f,
-			Ease upEase = Ease.OutQuad, Ease downEase = Ease.InQuad)
+		public static Sequence DOMoveWithJumpByHighestPoint(
+			this Transform transform, Vector3 to, float duration, float jumpHeight, Ease upEase = Ease.OutQuad, Ease downEase = Ease.InQuad)
 		{
-			var seq = DOTween.Sequence();
-
 			var s = DOTween.Sequence();
 			
 			var center = Vector3.Lerp(transform.position, to, 0.5f);
-			var heightPos = Vector3.Lerp(transform.position, to, heightTime);
-			center.y = heightPos.y + height;
+			var maxY = Mathf.Max(transform.position.y, to.y) + jumpHeight;
+			center.y = maxY;
 
 			var halfDuration = duration * 0.5f;
 
