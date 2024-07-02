@@ -5,10 +5,10 @@ namespace takashicompany.Unity.Editor
 	using System.IO;
 	using System.Text.RegularExpressions;
 
-	public static class OpenInGithub
+	public static class OpenInGitHub
 	{
-		[MenuItem("Assets/Open in Github", false, 1000)]
-		private static void OpenFileInGithub()
+		[MenuItem("Assets/Open in GitHub", false, 1000)]
+		private static void OpenFileInGitHub()
 		{
 			string filePath = AssetDatabase.GetAssetPath(Selection.activeObject);
 			if (string.IsNullOrEmpty(filePath))
@@ -48,7 +48,7 @@ namespace takashicompany.Unity.Editor
 		}
 
 		[MenuItem("Assets/Open in Github", true)]
-		private static bool OpenFileInGithubValidation()
+		private static bool OpenFileInGitHubValidation()
 		{
 			// This function provides a condition to whether show or not the menu item.
 			return Selection.activeObject != null && AssetDatabase.Contains(Selection.activeObject);
