@@ -11,6 +11,12 @@ namespace takashicompany.Unity
 		[Header("PlayOnAwakeが有効ならオブジェクトの有効/無効で再生をする")]
 		private ParticleSystem _particleSystem;
 
+		[SerializeField, Header("再生回数。")]
+		private int _playCount = 1;
+
+		[SerializeField, Header("再生する間隔")]
+		private float _interval = 0.1f;
+
 		protected override void OnPressKey()
 		{
 			if (_particleSystem == null)
@@ -27,6 +33,20 @@ namespace takashicompany.Unity
 				else
 				{
 					_particleSystem.Play();
+				}
+
+				if (_playCount > 1)
+				{
+					StartCoroutine(CoPlay());
+				}
+
+				IEnumerator CoPlay()
+				{
+					for (int i = 1; i < _playCount; i++)
+					{
+						yield return new WaitForSeconds(_interval);
+						_particleSystem.Play();
+					}
 				}
 			}
 		}
