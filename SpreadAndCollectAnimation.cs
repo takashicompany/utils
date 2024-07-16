@@ -36,7 +36,7 @@ namespace takashicompany.Unity
 
 				Vector3 scatterPosition =  Random.insideUnitCircle.normalized * Random.Range(minSpreadDistance, maxSpreadDistance);
 
-				var tween = image.transform.DOLocalMove(image.transform.localPosition + scatterPosition, 0.25f).SetEase(Ease.OutCubic);
+				var tween = image.transform.DOLocalMove(image.transform.localPosition + scatterPosition, Random.Range(0.15f, 0.35f)).SetEase(Ease.OutCubic);
 
 				if (i == 0)
 				{
@@ -53,7 +53,7 @@ namespace takashicompany.Unity
 			
 			foreach (var image in list)
 			{
-				var tween = image.transform.DOMove(worldDestination, 0.25f).SetEase(Ease.InCubic).OnComplete(() =>
+				var tween = image.transform.DOMove(worldDestination, Random.Range(0.15f, 0.35f)).SetEase(Ease.InCubic).OnComplete(() =>
 				{
 					image.gameObject.SetActive(false);
 				});
