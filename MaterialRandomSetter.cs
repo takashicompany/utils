@@ -69,7 +69,6 @@ namespace takashicompany.Unity
 			{
 				if (_materialLists[i].TryGetMaterial(out var material))
 				{
-					Debug.Log(material.name);
 					materials[i] = material;
 				}
 			}
