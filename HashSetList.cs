@@ -1,5 +1,6 @@
 namespace takashicompany.Unity
 {
+	using System;
 	using System.Collections;
 	using System.Collections.Generic;
 
@@ -127,6 +128,11 @@ namespace takashicompany.Unity
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return _list.GetEnumerator();
+		}
+
+		public void Sort(Comparison<T> comparison)
+		{
+			_list.Sort(comparison);
 		}
 	}
 }
