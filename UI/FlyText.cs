@@ -25,11 +25,16 @@ namespace takashicompany.Unity.UI
 				this.instance = instance;
 			}
 
-			public Tweener Appear(Vector2 screenPosition, float duration = 0.35f)
+			public Sequence Appear(Vector2 screenPosition, float duration = 0.35f)
 			{
 				var localPoint = ScreenPointToRectTransformPoint(screenPosition, instance.rectTransform, instance.maskableGraphic.canvas);
 				instance.rectTransform.anchoredPosition = localPoint;
-				return instance.rectTransform.DOScale(1f, duration).SetEase(Ease.OutBack).From(0);
+				var seq = DOTween.Sequence();
+
+				seq.Append(instance.rectTransform.DOScale(1f, duration).SetEase(Ease.OutBack).From(0));
+				seq.Join(instance.rectTransform.DOAnchorPosY(localPoint.y + 100, 2f).SetEase(Ease.Linear));
+				seq.Join(instance.DOFade(0, 2f).SetEase(Ease.InExpo));
+				return seq;
 			}
 
 			public Sequence MoveAndDisappear(Vector3 worldPosition, float duration = 0.25f)
@@ -50,8 +55,15 @@ namespace takashicompany.Unity.UI
 		{
 			var instance = _pool.Get();
 			instance.text = message;
+			instance.color = Color.white;
+			instance.rectTransform.SetAsLastSibling();
 
 			return new Text(this, instance);
+		}
+
+		public void CollectAll()
+		{
+			_pool.CollectAll();
 		}
 		
 		// ToastMessage.csからコピペしてきた
