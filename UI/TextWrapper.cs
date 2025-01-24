@@ -56,5 +56,40 @@ namespace takashicompany.Unity.UI
 		{
 			Set(v => _a.color = new Color(_a.color.r, _a.color.g, _a.color.b, v), v => _b.color = new Color(_b.color.r, _b.color.g, _b.color.b, v), a);
 		}
+
+		public class PoolingContainer : PoolingContainer<TextWrapper>
+		{
+			private TextWrapper _prefab;
+			private Transform _parent;
+
+			public PoolingContainer(TextWrapper prefab, Transform parent)
+			{
+				_prefab = prefab;
+				_parent = parent;
+			}
+
+			public override bool IsUse(TextWrapper obj)
+			{
+				return obj.gameObject.activeSelf;
+			}
+
+			protected override void Collect(TextWrapper obj)
+			{
+				obj.gameObject.SetActive(false);
+			}
+
+			protected override TextWrapper Generate()
+			{
+				var obj = GameObject.Instantiate(_prefab.gameObject, _parent);
+				var textWrapper = new TextWrapper(obj.GetComponent<MaskableGraphic>());
+				textWrapper.gameObject.SetActive(false);
+				return textWrapper;
+			}
+
+			protected override void Use(TextWrapper obj)
+			{
+				obj.gameObject.SetActive(true);
+			}
+		}
 	}
 }
