@@ -8,8 +8,7 @@ namespace takashicompany.Unity
 
 	public abstract class HoverWindow : MonoBehaviour
 	{
-		private RectTransform _internalRectTransform;
-		public RectTransform rectTransform => _internalRectTransform ?? (_internalRectTransform = GetComponent<RectTransform>());
+		public RectTransform rectTransform => (RectTransform)transform;
 
 		private GameObject _caller;
 
@@ -34,6 +33,44 @@ namespace takashicompany.Unity
 
 			_caller = null;
 			gameObject.SetActive(false);
+		}
+
+		private Vector2 _margin = Vector2.one * 50;
+
+		public void AutoPlace()
+		{
+			// 画面からはみ出ないように位置を調整する
+			
+			var canvas = GetComponentInParent<Canvas>();
+			var canvasRect = canvas.GetComponent<RectTransform>();
+
+			var left = rectTransform.anchoredPosition.x - rectTransform.sizeDelta.x / 2;
+
+			if (left < -canvasRect.sizeDelta.x / 2 + _margin.x)
+			{
+				rectTransform.anchoredPosition += new Vector2(-canvasRect.sizeDelta.x / 2 - left + _margin.x, 0);
+			}
+
+			var right = rectTransform.anchoredPosition.x + rectTransform.sizeDelta.x / 2;
+
+			if (right > canvasRect.sizeDelta.x / 2 - _margin.x)
+			{
+				rectTransform.anchoredPosition -= new Vector2(right - canvasRect.sizeDelta.x / 2 - _margin.x, 0);
+			}
+
+			var top = rectTransform.anchoredPosition.y + rectTransform.sizeDelta.y / 2;
+
+			if (top > canvasRect.sizeDelta.y / 2 - _margin.y)
+			{
+				rectTransform.anchoredPosition -= new Vector2(0, top - canvasRect.sizeDelta.y / 2 - _margin.y);
+			}
+
+			var bottom = rectTransform.anchoredPosition.y - rectTransform.sizeDelta.y / 2;
+
+			if (bottom < -canvasRect.sizeDelta.y / 2 + _margin.y)
+			{
+				rectTransform.anchoredPosition += new Vector2(0, -canvasRect.sizeDelta.y / 2 - bottom + _margin.y);
+			}
 		}
 	}
 
