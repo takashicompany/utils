@@ -349,6 +349,16 @@
 			}
 		}
 
+		/// <summary>
+		/// 文字列を色に変換する
+		/// </summary>
+		/// <param name="htmlString">16進数の場合は先頭に#をつける</param>
+		public static Color ToColor(this string htmlString)
+		{
+			ColorUtility.TryParseHtmlString(htmlString, out var color);
+			return color;
+		}
+
 		#endregion
 
 		#region IList
