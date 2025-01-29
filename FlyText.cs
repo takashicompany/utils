@@ -27,7 +27,7 @@ namespace takashicompany.Unity
 
 			public Sequence Appear(Vector2 screenPosition, float duration = 0.35f)
 			{
-				var localPoint = ScreenPointToRectTransformPoint(screenPosition, instance.rectTransform, instance.maskableGraphic.canvas);
+				var localPoint = Utils.ScreenPointToRectTransformPoint(screenPosition, instance.rectTransform, instance.maskableGraphic.canvas);
 				instance.rectTransform.anchoredPosition = localPoint;
 				var seq = DOTween.Sequence();
 
@@ -64,30 +64,6 @@ namespace takashicompany.Unity
 		public void CollectAll()
 		{
 			_pool.CollectAll();
-		}
-		
-		// ToastMessage.csからコピペしてきた
-		private static Vector2 ScreenPointToRectTransformPoint(Vector2 screenPoint, RectTransform rectTransform, Canvas canvas)
-		{
-			Vector2 localPoint;
-
-			switch (canvas.renderMode)
-			{
-				case RenderMode.ScreenSpaceOverlay:
-				case RenderMode.ScreenSpaceCamera:
-					RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPoint, canvas.worldCamera, out localPoint);
-					break;
-				case RenderMode.WorldSpace:
-					Vector3 worldPoint = canvas.worldCamera.ScreenToWorldPoint(screenPoint);
-					rectTransform.InverseTransformPoint(worldPoint);
-					localPoint = new Vector2(worldPoint.x, worldPoint.y);
-					break;
-				default:
-					localPoint = Vector2.zero;
-					break;
-			}
-
-			return localPoint;
 		}
 	}
 }

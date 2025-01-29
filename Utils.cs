@@ -2050,6 +2050,30 @@
 			return bounds;
 		}
 
+		// ToastMessage.csからコピペしてきた
+		public static Vector2 ScreenPointToRectTransformPoint(Vector2 screenPoint, RectTransform rectTransform, Canvas canvas)
+		{
+			Vector2 localPoint;
+
+			switch (canvas.renderMode)
+			{
+				case RenderMode.ScreenSpaceOverlay:
+				case RenderMode.ScreenSpaceCamera:
+					RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPoint, canvas.worldCamera, out localPoint);
+					break;
+				case RenderMode.WorldSpace:
+					Vector3 worldPoint = canvas.worldCamera.ScreenToWorldPoint(screenPoint);
+					rectTransform.InverseTransformPoint(worldPoint);
+					localPoint = new Vector2(worldPoint.x, worldPoint.y);
+					break;
+				default:
+					localPoint = Vector2.zero;
+					break;
+			}
+
+			return localPoint;
+		}
+
 		#endregion
 
 		#region Component
