@@ -1,4 +1,4 @@
-namespace takashicompany.Unity.UI
+namespace takashicompany.Unity
 {
 	using UnityEngine;
 	using UnityEngine.UI;
