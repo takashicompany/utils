@@ -44,6 +44,29 @@ namespace takashicompany.Unity
 			var canvas = GetComponentInParent<Canvas>();
 			var canvasRect = canvas.GetComponent<RectTransform>();
 
+			var ap = rectTransform.anchoredPosition;
+			var size = rectTransform.sizeDelta;
+
+			if (ap.x < 0)
+			{
+				ap.x += size.x / 2;
+			}
+			else
+			{
+				ap.x -= size.x / 2;
+			}
+
+			if (ap.y < 0)
+			{
+				ap.y += size.y / 2;
+			}
+			else
+			{
+				ap.y -= size.y / 2;
+			}
+
+			rectTransform.anchoredPosition = ap;
+
 			var left = rectTransform.anchoredPosition.x - rectTransform.sizeDelta.x / 2;
 
 			if (left < -canvasRect.sizeDelta.x / 2 + _margin.x)
