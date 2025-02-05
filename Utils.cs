@@ -1748,11 +1748,7 @@
 			}
 			else
 			{
-				if (self.Count < amount)
-				{
-					throw new System.Exception("amount is too large");
-				}
-
+				
 				var count = 0;
 
 				while (count < amount && self.Count > 0)
