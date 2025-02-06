@@ -71,7 +71,28 @@ namespace takashicompany.Unity
 				tweeners.Add(t);
 			}
 
-			return tweeners;
+		return tweeners;
+		}
+	}
+
+	public class TransformParentKeeper
+	{
+		private Transform _transform;
+		private Transform _parent;
+		private int _index;
+
+		public TransformParentKeeper(Transform transform)
+		{
+			_transform = transform;
+			_parent = transform.parent;
+			_index = transform.GetSiblingIndex();
+		}
+
+		public void Restore(bool withIndex = true)
+		{
+			_transform.SetParent(_parent);
+
+			if (withIndex) _transform.SetSiblingIndex(_index);
 		}
 	}
 }
