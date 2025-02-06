@@ -92,6 +92,26 @@
 		}
 		#endregion
 
+		#region MemberInfo
+		public static A GetAttribute<T, A>(this T code) where T : Enum where A : Attribute
+		{
+			var type = code.GetType();
+			var memberInfo = type.GetMember(code.ToString());
+			if (memberInfo.Length > 0)
+			{
+				var attributes = memberInfo[0].GetCustomAttributes(typeof(A), false);
+				if (attributes.Length > 0)
+				{
+					// 最初に見つかった MyDescriptionAttribute の Description プロパティを返す
+					var attr = (A)attributes[0];
+					return attr;
+				}
+			}
+
+			return null;
+		}
+		#endregion
+
 		#region int
 		public static int Pow(this int self, int pow)
 		{
