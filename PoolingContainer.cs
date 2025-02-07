@@ -93,9 +93,14 @@
 		private Dictionary<T, Rigidbody> _rigidbodyDict = new ();
 		private Dictionary<T, Collider> _colliderDict = new ();
 
-		public virtual void Setup(T prefab, Transform container)
+		public virtual void SetPrefab(T prefab)
 		{
 			_prefab = prefab;
+		}
+
+		public virtual void Setup(T prefab, Transform container)
+		{
+			SetPrefab(prefab);
 			_container = container;
 		}
 
