@@ -1782,7 +1782,7 @@
 			}
 		}
 
-		public static List<T> GetRandomSorted<T>(this IReadOnlyList<T> self)
+		public static List<T> GenerateRandomSort<T>(this IReadOnlyList<T> self)
 		{
 			var myList = new List<T>(self);
 
