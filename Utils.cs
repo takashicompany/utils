@@ -1768,7 +1768,7 @@
 			}
 			else
 			{
-				
+
 				var count = 0;
 
 				while (count < amount && self.Count > 0)
@@ -2100,6 +2100,195 @@
 			return localPoint;
 		}
 
+		
+		/// <summary>
+		/// rectTransformをclampRectTransform内に収めるように位置を調整する。
+		/// </summary>
+		public static RectTransform Clamp(this RectTransform rectTransform, RectTransform clampRectTransform, Vector2 margin)
+		{
+			var myWorldRect = rectTransform.GetWorldRect();
+			var clampWorldRect = clampRectTransform.GetWorldRect();
+
+			// marginのことは一旦考えなくてOK。
+
+			if (myWorldRect.xMin < clampWorldRect.xMin)
+			{
+				rectTransform.position = new Vector3(rectTransform.position.x + (clampWorldRect.xMin - myWorldRect.xMin), rectTransform.position.y, rectTransform.position.z);
+			}
+			else if (myWorldRect.xMax > clampWorldRect.xMax)
+			{
+				rectTransform.position = new Vector3(rectTransform.position.x - (myWorldRect.xMax - clampWorldRect.xMax), rectTransform.position.y, rectTransform.position.z);
+			}
+
+			if (myWorldRect.yMin < clampWorldRect.yMin)
+			{
+				rectTransform.position = new Vector3(rectTransform.position.x, rectTransform.position.y + (clampWorldRect.yMin - myWorldRect.yMin), rectTransform.position.z);
+			}
+			else if (myWorldRect.yMax > clampWorldRect.yMax)
+			{
+				rectTransform.position = new Vector3(rectTransform.position.x, rectTransform.position.y - (myWorldRect.yMax - clampWorldRect.yMax), rectTransform.position.z);
+			}
+
+			var clampLocalRect = rectTransform.InverseTransformRect(clampWorldRect);
+
+			var myLocalRect = rectTransform.rect;
+
+			if (myLocalRect.xMin < clampLocalRect.xMin + margin.x)
+			{
+				rectTransform.localPosition = new Vector3(rectTransform.localPosition.x + (clampLocalRect.xMin + margin.x - myLocalRect.xMin), rectTransform.localPosition.y, rectTransform.localPosition.z);
+			}
+			else if (myLocalRect.xMax > clampLocalRect.xMax - margin.x)
+			{
+				rectTransform.localPosition = new Vector3(rectTransform.localPosition.x - (myLocalRect.xMax - clampLocalRect.xMax + margin.x), rectTransform.localPosition.y, rectTransform.localPosition.z);
+			}
+
+			if (myLocalRect.yMin < clampLocalRect.yMin + margin.y)
+			{
+				rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, rectTransform.localPosition.y + (clampLocalRect.yMin + margin.y - myLocalRect.yMin), rectTransform.localPosition.z);
+			}
+			else if (myLocalRect.yMax > clampLocalRect.yMax - margin.y)
+			{
+				rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, rectTransform.localPosition.y - (myLocalRect.yMax - clampLocalRect.yMax + margin.y), rectTransform.localPosition.z);
+			}
+
+			return rectTransform;
+		}
+
+		// AIとの合作だけど良くない実装なので消した
+		// public static void Clamp(this RectTransform rectTransform, RectTransform canvasRect)
+		// {
+		// 	Vector2 margin = Vector2.one * 50;
+		// 	rectTransform.ClampV2(canvasRect, margin);
+		// }
+
+		// public static void Clamp(this RectTransform rectTransform, RectTransform canvasRect, Vector2 margin)
+		// {
+		// 	rectTransform.ClampV2(canvasRect, margin);
+		// 	return;
+
+		// 	if (rectTransform == null || canvasRect == null)
+		// 	{
+		// 		Debug.LogWarning("RectTransform or canvasRect is null.");
+		// 		return;
+		// 	}
+
+		// 	if (rectTransform.parent != canvasRect)
+		// 	{
+
+		// 		// ワールド座標 → canvasRect のローカル座標へ変換
+		// 		Vector3 worldPos = rectTransform.position;
+		// 		Vector3 localPos = canvasRect.InverseTransformPoint(worldPos);
+
+		// 		// lossyScale を考慮した見た目上の幅・高さ
+		// 		Vector3 scale = rectTransform.lossyScale;
+		// 		float width = rectTransform.rect.width * scale.x;
+		// 		float height = rectTransform.rect.height * scale.y;
+
+		// 		// rectTransform 側の pivot (例: (0, 0)なら左下、(0.5, 0.5)なら中心)
+		// 		// pivot により「localPos が要素のどの位置を示すか」が変わるので、その分をオフセット計算
+		// 		//   pivotOffsetX = pivot.x * width
+		// 		//   left = localPos.x - pivotOffsetX
+		// 		float pivotOffsetX = rectTransform.pivot.x * width;
+		// 		float pivotOffsetY = rectTransform.pivot.y * height;
+
+		// 		// 子要素の左端, 右端, 下端, 上端を求める
+		// 		float left = localPos.x - pivotOffsetX;
+		// 		float right = left + width;
+		// 		float bottom = localPos.y - pivotOffsetY;
+		// 		float top = bottom + height;
+
+		// 		// Canvas の幅・高さ
+		// 		float canvasW = canvasRect.rect.width;
+		// 		float canvasH = canvasRect.rect.height;
+
+		// 		// Canvas 側の pivot も考慮した「ローカル座標での左端～右端」(上下も同様)
+		// 		float canvasLeft = -canvasW * canvasRect.pivot.x + margin.x;
+		// 		float canvasRight = canvasW * (1f - canvasRect.pivot.x) - margin.x;
+		// 		float canvasBottom = -canvasH * canvasRect.pivot.y + margin.y;
+		// 		float canvasTop = canvasH * (1f - canvasRect.pivot.y) - margin.y;
+
+		// 		// はみ出しチェック & 修正
+		// 		if (left < canvasLeft)
+		// 		{
+		// 			// left と canvasLeft の差を加算する
+		// 			localPos.x += (canvasLeft - left);
+		// 		}
+		// 		else if (right > canvasRight)
+		// 		{
+		// 			localPos.x -= (right - canvasRight);
+		// 		}
+
+		// 		if (bottom < canvasBottom)
+		// 		{
+		// 			localPos.y += (canvasBottom - bottom);
+		// 		}
+		// 		else if (top > canvasTop)
+		// 		{
+		// 			localPos.y -= (top - canvasTop);
+		// 		}
+
+		// 		// 修正したローカル座標 → ワールド座標に戻して反映
+		// 		rectTransform.position = canvasRect.TransformPoint(localPos);
+
+		// 	}
+		// 	else
+		// 	{
+
+		// 		// 画面からはみ出ないように位置を調整する
+
+		// 		var ap = rectTransform.anchoredPosition;
+		// 		var size = rectTransform.sizeDelta;
+
+		// 		if (ap.x < 0)
+		// 		{
+		// 			ap.x += size.x / 2;
+		// 		}
+		// 		else
+		// 		{
+		// 			ap.x -= size.x / 2;
+		// 		}
+
+		// 		if (ap.y < 0)
+		// 		{
+		// 			ap.y += size.y / 2;
+		// 		}
+		// 		else
+		// 		{
+		// 			ap.y -= size.y / 2;
+		// 		}
+
+		// 		rectTransform.anchoredPosition = ap;
+
+		// 		var left = rectTransform.anchoredPosition.x - rectTransform.sizeDelta.x / 2;
+
+		// 		if (left < -canvasRect.sizeDelta.x / 2 + margin.x)
+		// 		{
+		// 			rectTransform.anchoredPosition += new Vector2(-canvasRect.sizeDelta.x / 2 - left + margin.x, 0);
+		// 		}
+
+		// 		var right = rectTransform.anchoredPosition.x + rectTransform.sizeDelta.x / 2;
+
+		// 		if (right > canvasRect.sizeDelta.x / 2 - margin.x)
+		// 		{
+		// 			rectTransform.anchoredPosition -= new Vector2(right - canvasRect.sizeDelta.x / 2 - margin.x, 0);
+		// 		}
+
+		// 		var top = rectTransform.anchoredPosition.y + rectTransform.sizeDelta.y / 2;
+
+		// 		if (top > canvasRect.sizeDelta.y / 2 - margin.y)
+		// 		{
+		// 			rectTransform.anchoredPosition -= new Vector2(0, top - canvasRect.sizeDelta.y / 2 - margin.y);
+		// 		}
+
+		// 		var bottom = rectTransform.anchoredPosition.y - rectTransform.sizeDelta.y / 2;
+
+		// 		if (bottom < -canvasRect.sizeDelta.y / 2 + margin.y)
+		// 		{
+		// 			rectTransform.anchoredPosition += new Vector2(0, -canvasRect.sizeDelta.y / 2 - bottom + margin.y);
+		// 		}
+		// 	}
+		// }
+
 		#endregion
 
 		#region Component
@@ -2307,7 +2496,7 @@
 			this Transform transform, Vector3 to, float duration, float jumpHeight, Ease upEase = Ease.OutQuad, Ease downEase = Ease.InQuad)
 		{
 			var s = DOTween.Sequence();
-			
+
 			var center = Vector3.Lerp(transform.position, to, 0.5f);
 			var maxY = Mathf.Max(transform.position.y, to.y) + jumpHeight;
 			center.y = maxY;
@@ -2320,7 +2509,7 @@
 			s.Append(transform.DOMoveX(to.x, halfDuration).SetEase(Ease.Linear));
 			s.Join(transform.DOMoveY(to.y, halfDuration).SetEase(downEase));
 			s.Join(transform.DOMoveZ(to.z, halfDuration).SetEase(Ease.Linear));
-			
+
 			return s;
 		}
 

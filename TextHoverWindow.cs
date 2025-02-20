@@ -67,33 +67,7 @@ namespace takashicompany.Unity
 
 			rectTransform.anchoredPosition = ap;
 
-			var left = rectTransform.anchoredPosition.x - rectTransform.sizeDelta.x / 2;
-
-			if (left < -canvasRect.sizeDelta.x / 2 + _margin.x)
-			{
-				rectTransform.anchoredPosition += new Vector2(-canvasRect.sizeDelta.x / 2 - left + _margin.x, 0);
-			}
-
-			var right = rectTransform.anchoredPosition.x + rectTransform.sizeDelta.x / 2;
-
-			if (right > canvasRect.sizeDelta.x / 2 - _margin.x)
-			{
-				rectTransform.anchoredPosition -= new Vector2(right - canvasRect.sizeDelta.x / 2 - _margin.x, 0);
-			}
-
-			var top = rectTransform.anchoredPosition.y + rectTransform.sizeDelta.y / 2;
-
-			if (top > canvasRect.sizeDelta.y / 2 - _margin.y)
-			{
-				rectTransform.anchoredPosition -= new Vector2(0, top - canvasRect.sizeDelta.y / 2 - _margin.y);
-			}
-
-			var bottom = rectTransform.anchoredPosition.y - rectTransform.sizeDelta.y / 2;
-
-			if (bottom < -canvasRect.sizeDelta.y / 2 + _margin.y)
-			{
-				rectTransform.anchoredPosition += new Vector2(0, -canvasRect.sizeDelta.y / 2 - bottom + _margin.y);
-			}
+			rectTransform.Clamp(canvasRect, _margin);
 		}
 	}
 
