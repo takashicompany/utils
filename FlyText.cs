@@ -46,6 +46,9 @@ namespace takashicompany.Unity
 			}
 		}
 
+		[SerializeField]
+		private ActivePoolingContainer<Image> _imagePool;
+
 		private void Awake()
 		{
 			_pool = new TextWrapper.PoolingContainer(_textPrefab, transform);
@@ -61,9 +64,30 @@ namespace takashicompany.Unity
 			return new Text(this, instance);
 		}
 
-		public void CollectAll()
+		public void CollectTextAll()
 		{
 			_pool.CollectAll();
 		}
+
+		public Sequence FlyImage(Image from, Vector3 to, float duration = 0.25f)
+		{
+			var image = _imagePool.Get();
+			image.sprite = from.sprite;
+			image.rectTransform.position = from.rectTransform.position;
+			image.rectTransform.localScale = from.rectTransform.localScale;
+			image.rectTransform.SetAsLastSibling();
+
+			var seq = DOTween.Sequence();
+			
+			seq.Append(image.rectTransform.DOMove(to, 0.25f));
+			seq.AppendCallback(() =>
+			{
+				image.gameObject.SetActive(false);
+			});
+
+			return seq;
+		}
+
+
 	}
 }
