@@ -34,6 +34,10 @@ namespace takashicompany.Unity
 				seq.Append(instance.rectTransform.DOScale(1f, duration).SetEase(Ease.OutBack).From(0));
 				seq.Join(instance.rectTransform.DOAnchorPosY(localPoint.y + 100, 2f).SetEase(Ease.Linear));
 				seq.Join(instance.DOFade(0, 2f).SetEase(Ease.InExpo));
+				seq.AppendCallback(() =>
+				{
+					instance.gameObject.SetActive(false);
+				});
 				return seq;
 			}
 
