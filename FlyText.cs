@@ -25,14 +25,16 @@ namespace takashicompany.Unity
 				this.instance = instance;
 			}
 
-			public Sequence Appear(Vector2 screenPosition, float duration = 0.35f)
+			public Sequence AppearAndUp(Vector2 screenPosition, float duration = 0.35f)
 			{
 				
 				var localPoint = Utils.ScreenPointToRectTransformPoint(screenPosition, instance.rectTransform.parent as RectTransform, instance.maskableGraphic.canvas);
 				instance.rectTransform.anchoredPosition = localPoint;
 				var seq = DOTween.Sequence();
-
+				var c = instance.color;
+				c.a = 0.5f;
 				seq.Append(instance.rectTransform.DOScale(1f, duration).SetEase(Ease.OutBack).From(0));
+				seq.Join(instance.rectTransform.DOAnchorPosX(localPoint.x + Random.Range(-50, 50), duration).SetEase(Ease.Linear));
 				seq.Join(instance.rectTransform.DOAnchorPosY(localPoint.y + 100, 2f).SetEase(Ease.Linear));
 				seq.Join(instance.DOFade(0, 2f).SetEase(Ease.InExpo));
 				seq.AppendCallback(() =>
@@ -41,6 +43,27 @@ namespace takashicompany.Unity
 				});
 				return seq;
 			}
+
+			public Sequence AppearAndAlpha(Vector2 screenPosition, float duration = 0.35f)
+			{
+				var localPoint = Utils.ScreenPointToRectTransformPoint(screenPosition, instance.rectTransform.parent as RectTransform, instance.maskableGraphic.canvas);
+				instance.rectTransform.anchoredPosition = localPoint;
+				var seq = DOTween.Sequence();
+
+				seq.Append(instance.rectTransform.DOScale(1f, duration).SetEase(Ease.OutBack).From(0));
+				seq.Join(instance.rectTransform.DOAnchorPosX(localPoint.x + Random.Range(-50, 50), 0.5f).SetEase(Ease.Linear));
+				seq.Join(instance.rectTransform.DOAnchorPosY(localPoint.y + Random.Range(50, 100), 0.5f).SetEase(Ease.Linear));
+				seq.AppendInterval(Random.Range(0.3f, 0.7f));
+				seq.Append(instance.rectTransform.DOScale(3f, 0.2f));
+				seq.Join(instance.DOFade(0, 0.25f).SetEase(Ease.InQuad));
+			
+				seq.AppendCallback(() =>
+				{
+					instance.gameObject.SetActive(false);
+				});
+				return seq;
+			}
+
 
 			public Sequence MoveAndDisappear(Vector3 worldPosition, float duration = 0.25f)
 			{
