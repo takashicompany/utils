@@ -29,6 +29,7 @@
 			if (obj == null)
 			{
 				obj = Generate();
+				_pooled.Add(obj);
 			}
 			else
 			{
@@ -122,7 +123,6 @@
 			obj.name = _prefab.name + "_" + _pooled.Count;
 			obj.transform.localPosition = Vector3.zero;
 			obj.transform.localScale = _prefab.transform.localScale;
-			_pooled.Add(obj);
 
 			Collect(obj);
 
