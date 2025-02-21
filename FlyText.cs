@@ -27,7 +27,8 @@ namespace takashicompany.Unity
 
 			public Sequence Appear(Vector2 screenPosition, float duration = 0.35f)
 			{
-				var localPoint = Utils.ScreenPointToRectTransformPoint(screenPosition, instance.rectTransform, instance.maskableGraphic.canvas);
+				
+				var localPoint = Utils.ScreenPointToRectTransformPoint(screenPosition, instance.rectTransform.parent as RectTransform, instance.maskableGraphic.canvas);
 				instance.rectTransform.anchoredPosition = localPoint;
 				var seq = DOTween.Sequence();
 
