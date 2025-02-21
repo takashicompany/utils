@@ -3855,6 +3855,20 @@
 
 		#endregion
 
+		#region LineRenderer
+		public static float GetLineLength(this LineRenderer lineRenderer)
+		{
+			float length = 0;
+
+			for (int i = 1; i < lineRenderer.positionCount; i++)
+			{
+				length += Vector3.Distance(lineRenderer.GetPosition(i - 1), lineRenderer.GetPosition(i));
+			}
+
+			return length;
+		}
+		#endregion
+
 		#region Generic
 		public static bool IsDefault<T>(T value)
 		{
