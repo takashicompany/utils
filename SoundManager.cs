@@ -9,28 +9,40 @@ namespace takashicompany.Unity
 	{
 		private Dictionary<T, AudioClip> _clips = new Dictionary<T, AudioClip>();
 
-		private AudioSource _source;
+		private Dictionary<int, AudioSource> _sources = new ();
 
 		private string _resourcesPath;
 
 		public SoundManager(string resourcesPath = "")
 		{
 			_resourcesPath = resourcesPath;
-			_source = GameObject.FindObjectOfType<AudioSource>();
+			AddAudioSource(0);
+		}
 
-			if (_source == null)
+		public AudioSource AddAudioSource(int index)
+		{
+			if (_sources.ContainsKey(index))	// ここの実装、ちょっと冗長になっているな。
 			{
-				var go = new GameObject($"SoundManager{typeof(T).Name}");
-				_source = go.AddComponent<AudioSource>();
-				GameObject.DontDestroyOnLoad(go);
+				return _sources[index];
 			}
+
+			var go = new GameObject($"SoundManager{typeof(T).Name}_{index}");
+			var source = go.AddComponent<AudioSource>();
+			_sources.Add(index, source);
+			GameObject.DontDestroyOnLoad(go);
+			return source;
+		}
+
+		protected virtual string BuildPath(T clipType)
+		{
+			return _resourcesPath + clipType.ToString();
 		}
 
 		private void LoadClip(T clipType)
 		{
 			if (!_clips.ContainsKey(clipType))
 			{
-				var clip = Resources.Load<AudioClip>(_resourcesPath + clipType.ToString());
+				var clip = Resources.Load<AudioClip>(BuildPath(clipType));
 
 				if (clip == null)
 				{
@@ -42,39 +54,52 @@ namespace takashicompany.Unity
 			}
 		}
 
-		public void PlayOneShot(T clipType, float pitch = -1f)
+		public void PlayOneShot(T clipType, float pitch = -1f, int index = 0)
 		{
 			LoadClip(clipType);
 			PlayOneShot(_clips[clipType], pitch);
 		}
 
-		public void PlayOneShot(AudioClip clip, float pitch = -1f)
+		public void PlayOneShot(AudioClip clip, float pitch = -1f, int index = 0)
 		{
-			var prevPitch = _source.pitch;
+			var source = GetAudioSource(index);
+			var prevPitch = source.pitch;
 			
 			if (pitch >= 0)
 			{
-				_source.pitch = pitch;
+				source.pitch = pitch;
 			}
 			else
 			{
-				_source.pitch = 1;
+				source.pitch = 1;
 			}
 			
-			_source.PlayOneShot(clip);
+			source.PlayOneShot(clip);
 		}
 
-		public void Play(T clipType)
+		public void Play(T clipType, bool loop, int index = 0)
 		{
 			LoadClip(clipType);
-			Play(_clips[clipType]);
+			Play(_clips[clipType], loop, index);
 		}
 
-		public void Play(AudioClip clip)
+		public void Play(AudioClip clip, bool loop,  int index = 0)
 		{
-			_source.clip = clip;
-			_source.loop = true;
-			_source.Play();
+			var source = GetAudioSource(index);
+
+			source.clip = clip;
+			source.loop = loop;
+			source.Play();
+		}
+
+		public AudioSource GetAudioSource(int index = 0)
+		{
+			if (!_sources.ContainsKey(index))
+			{
+				return AddAudioSource(index);
+			}
+
+			return _sources[index];
 		}
 	}
 
