@@ -3739,6 +3739,24 @@
 			}).SetTarget(transform);
 		}
 
+		/// <summary>
+		/// DOAnchorPosの際にそれぞれの軸毎に別のEaseを指定できるようにした関数。OnUpdateとSetTargetは使用済みです。
+		/// </summary> 
+		public static Tweener DOAnchorPos(this RectTransform rectTransform, Vector2 to, float duration, Ease easeX, Ease easeY)
+		{
+			var from = rectTransform.anchoredPosition;
+			var current = 0f;
+			return DOTween.To(() => current, v => current = v, 1, duration).OnUpdate(() =>
+			{
+				var p = new Vector2(
+					DOVirtual.EasedValue(from.x, to.x, current, easeX),
+					DOVirtual.EasedValue(from.y, to.y, current, easeY)
+				);
+
+				rectTransform.anchoredPosition = p;
+			}).SetTarget(rectTransform);
+		} 
+
 
 		#endregion
 

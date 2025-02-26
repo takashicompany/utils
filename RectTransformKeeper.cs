@@ -45,6 +45,11 @@ namespace takashicompany.Unity
 				return _rectTransform.DOAnchorPos(_anchoredPosition, duration);
 			}
 
+			public Tweener MoveAnchorPosition(float duration, Ease easeX, Ease easeY)
+			{
+				return _rectTransform.DOAnchorPos(_anchoredPosition, duration, easeX, easeY);
+			}
+
 			public Tweener PlaySizeDelta(float duration)
 			{
 				return _rectTransform.DOSizeDelta(_sizeDelta, duration);
