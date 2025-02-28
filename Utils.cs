@@ -3755,8 +3755,7 @@
 
 				rectTransform.anchoredPosition = p;
 			}).SetTarget(rectTransform);
-		} 
-
+		}
 
 		#endregion
 
