@@ -24,8 +24,18 @@ namespace takashicompany.Unity
 			UpdateText();
 		}
 
+		protected virtual void Start()
+		{
+			// Inspectorビューにenableのチェックを出すために定義しただけ。継承して使ってもいいけど。
+		}
+
 		protected virtual void UpdateText()
 		{
+			if (!enabled)
+			{
+				return;
+			}
+
 			if (_text != null)
 			{
 				_text.text = GetString();
@@ -60,12 +70,21 @@ namespace takashicompany.Unity
 		{
 			serializedObject.Update();
 
-			EditorGUI.BeginChangeCheck();
-			EditorGUILayout.PropertyField(_keyProperty);
-			if (EditorGUI.EndChangeCheck())
+			LanguageText targetScript = (LanguageText)target;
+
+			if (targetScript.enabled)
 			{
-				serializedObject.ApplyModifiedProperties();
-				ApplyTextUpdate();
+				EditorGUI.BeginChangeCheck();
+				EditorGUILayout.PropertyField(_keyProperty);
+				if (EditorGUI.EndChangeCheck())
+				{
+					serializedObject.ApplyModifiedProperties();
+					ApplyTextUpdate();
+				}
+			}
+			else
+			{
+				EditorGUILayout.HelpBox("コンポーネントが無効になっています。", MessageType.Warning);
 			}
 		}
 
