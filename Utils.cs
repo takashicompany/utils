@@ -110,6 +110,21 @@
 
 			return null;
 		}
+
+		public static IEnumerator<A> GetAttributes<T, A>(this T code) where T : Enum where A : Attribute
+		{
+			var type = code.GetType();
+			var memberInfo = type.GetMember(code.ToString());
+			if (memberInfo.Length > 0)
+			{
+				var attributes = memberInfo[0].GetCustomAttributes(typeof(A), false);
+				
+				foreach (var attribute in attributes)
+				{
+					yield return (A)attribute;
+				}
+			}
+		}
 		#endregion
 
 		#region int
