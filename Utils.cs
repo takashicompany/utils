@@ -3983,6 +3983,33 @@
 			return false;
 		}
 
+		public static bool IsLeftClick(this PointerEventData eventData)
+		{
+			return eventData.button == PointerEventData.InputButton.Left;
+		}
+
+		public static bool IsRightClick(this PointerEventData eventData)
+		{
+			return eventData.button == PointerEventData.InputButton.Right;
+		}
+
+		public static bool AddRange<T>(this HashSet<T> self, IEnumerable<T> collection)
+		{
+			return self.Add(collection);
+		}
+
+		public static bool Add<T>(this HashSet<T> self, IEnumerable<T> collection)
+		{
+			var result = true;
+
+			foreach (var item in collection)
+			{
+				result &= self.Add(item);
+			}
+
+			return result;
+		}
+
 
 		public static class CustomDebug
 		{

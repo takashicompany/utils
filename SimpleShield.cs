@@ -12,6 +12,11 @@ namespace takashicompany.Unity
 	{
 		private HashSet<object> _objects = new ();
 
+		public bool IsActive()
+		{
+			return gameObject.activeSelf;
+		}
+
 		private void Update()
 		{
 			if (_objects.Count == 0)
