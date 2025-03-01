@@ -8,6 +8,8 @@
 	using UnityEngine.UI;
 	using UnityEngine.EventSystems;
 	using DG.Tweening;
+	using DG.Tweening.Core;
+	using DG.Tweening.Plugins.Options;
 	using Random = UnityEngine.Random;
 
 #if UNITY_EDITOR
@@ -3770,6 +3772,19 @@
 
 				rectTransform.anchoredPosition = p;
 			}).SetTarget(rectTransform);
+		}
+
+		/// <summary>
+		/// DOScaleをした時にOnUpdateでLayoutRebuilder.ForceRebuildLayoutImmediateを呼ぶ関数。OnUpdateは使用済みとなる。主にLayoutGroupのuseChildScaleをアニメで使う場合。
+		/// </summary>		
+		public static TweenerCore<Vector3, Vector3, VectorOptions> DOScaleWithRebuildOnUpdate(this RectTransform rectTransform, Vector3 to, float duration)
+		{
+			return rectTransform.DOScale(to, duration).OnUpdate(() => LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform.parent as RectTransform));
+		}
+
+		public static TweenerCore<Vector3, Vector3, VectorOptions> DOScaleWithRebuildOnUpdate(this RectTransform rectTransform, float to, float duration)
+		{
+			return rectTransform.DOScale(to, duration).OnUpdate(() => LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform.parent as RectTransform));
 		}
 
 		#endregion
