@@ -1758,6 +1758,18 @@
 		// 	return (T)(self[self.GetRandomIndex()]);
 		// }
 
+		public static T GetRandom<T>(this IEnumerable<T> self)
+		{
+			var max = self.Count();
+
+			if (max == 0)
+			{
+				return default(T);
+			}
+
+			return self.ElementAt(UnityEngine.Random.Range(0, max));
+		}
+
 		public static T GetRandom<T>(this IReadOnlyList<T> self)
 		{
 			return self[self.GetRandomIndex()];
