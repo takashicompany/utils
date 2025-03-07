@@ -9,13 +9,13 @@ namespace takashicompany.Unity
 	[AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
 	public class StringStringAttribute : Attribute
 	{
-		public string name { get; }
+		public string key { get; }
 
 		public string value { get; }
 
-		public StringStringAttribute(string name, string value)
+		public StringStringAttribute(string key, string value)
 		{
-			this.name = name;
+			this.key = key;
 			this.value = value;
 		}
 	}
