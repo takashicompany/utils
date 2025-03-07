@@ -120,7 +120,7 @@
 			if (memberInfo.Length > 0)
 			{
 				var attributes = memberInfo[0].GetCustomAttributes(typeof(A), false);
-				
+
 				foreach (var attribute in attributes)
 				{
 					yield return (A)attribute;
@@ -1916,6 +1916,32 @@
 			return result;
 		}
 
+		/// <summary>
+		/// ランダムで一つを選択する。その際に確率を考慮する
+		/// </summary>
+		public static T GetRandomWithWeight<T>(this IEnumerable<T> list, Func<T, float> weightSelector)
+		{
+			if (list == null) throw new ArgumentNullException(nameof(list));
+			if (!list.Any()) throw new ArgumentException("List cannot be null or empty.", nameof(list));
+
+			float totalWeight = list.Sum(weightSelector);
+			if (totalWeight <= 0) throw new ArgumentException("Total weight must be greater than zero.");
+
+			float randomValue = Random.value * totalWeight;
+			float cumulative = 0f;
+
+			foreach (var item in list)
+			{
+				cumulative += weightSelector(item);
+				if (randomValue < cumulative)
+				{
+					return item;
+				}
+			}
+
+			throw new InvalidOperationException("No item was selected. This should never happen.");
+		}
+
 		#region Transform
 		public static void ToX(this Transform self, float x)
 		{
@@ -2117,7 +2143,7 @@
 			return localPoint;
 		}
 
-		
+
 		/// <summary>
 		/// rectTransformをclampRectTransform内に収めるように位置を調整する。
 		/// </summary>
