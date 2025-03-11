@@ -3066,6 +3066,17 @@
 			return desiredVector;
 		}
 
+		/// <summary>
+		/// 指定した軸を中心にベクトルを回転させる拡張メソッド
+		/// </summary>
+		/// <param name="vector">回転させるベクトル</param>
+		/// <param name="angle">回転角度（度単位）</param>
+		/// <param name="axis">回転軸</param>
+		/// <returns>回転後のベクトル</returns>
+		public static Vector3 RotateAroundAxis(this Vector3 vector, float angle, Vector3 axis)
+		{
+			return Quaternion.AngleAxis(angle, axis) * vector;
+		}
 
 		/// <summary>
 		/// とあるベクトルに対して角度をつけたベクトル
