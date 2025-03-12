@@ -1359,6 +1359,59 @@
 			Gizmos.DrawLine(corner3, corner7);
 		}
 
+		public static Vector3 GetPositionOfGridCenter(this Bounds bounds, Vector3Int divisions, int x, int y, int z)
+		{
+			if (divisions.x <= 0 || divisions.y <= 0 || divisions.z <= 0) return bounds.center; // 無効な分割数なら元の中心を返す
+
+			Vector3 sizePerDivision = new Vector3(
+				bounds.size.x / divisions.x,
+				bounds.size.y / divisions.y,
+				bounds.size.z / divisions.z
+			);
+
+			Vector3 min = bounds.min;
+
+			// 指定した (x, y, z) に対応する小分け区域の中心を計算
+			Vector3 center = new Vector3(
+				min.x + (x + 0.5f) * sizePerDivision.x,
+				min.y + (y + 0.5f) * sizePerDivision.y,
+				min.z + (z + 0.5f) * sizePerDivision.z
+			);
+
+			return center;
+		}
+
+		public static Vector3Int? GetGridPosition(this Bounds bounds, Vector3Int divisions, Vector3 point, bool clamp = false)
+		{
+			if (divisions.x <= 0 || divisions.y <= 0 || divisions.z <= 0) return null; // 無効な分割数ならnullを返す
+
+			Vector3 min = bounds.min;
+			Vector3 sizePerDivision = new Vector3(
+				bounds.size.x / divisions.x,
+				bounds.size.y / divisions.y,
+				bounds.size.z / divisions.z
+			);
+
+			// 各軸ごとに区画インデックスを計算
+			int x = Mathf.FloorToInt((point.x - min.x) / sizePerDivision.x);
+			int y = Mathf.FloorToInt((point.y - min.y) / sizePerDivision.y);
+			int z = Mathf.FloorToInt((point.z - min.z) / sizePerDivision.z);
+
+			// 範囲外処理
+			if (clamp)
+			{
+				x = Mathf.Clamp(x, 0, divisions.x - 1);
+				y = Mathf.Clamp(y, 0, divisions.y - 1);
+				z = Mathf.Clamp(z, 0, divisions.z - 1);
+			}
+			else
+			{
+				if (x < 0 || x >= divisions.x || y < 0 || y >= divisions.y || z < 0 || z >= divisions.z) return null; // 範囲外ならnull
+			}
+
+			return new Vector3Int(x, y, z);
+		}
+
 		#endregion
 
 		#region BoundsInt
@@ -2207,6 +2260,20 @@
 			}
 
 			return rectTransform;
+		}
+
+		public static Vector2Int GetGridPosition(this GridLayoutGroup grid, Transform child)
+		{
+			RectTransform rectTransform = grid.GetComponent<RectTransform>();
+			if (rectTransform == null || child.parent != rectTransform) return new Vector2Int(-1, -1);
+
+			int index = child.GetSiblingIndex();
+			int columns = Mathf.Max(1, Mathf.FloorToInt(rectTransform.rect.width / grid.cellSize.x));
+
+			int x = index % columns;
+			int y = index / columns;
+
+			return new Vector2Int(x, y);
 		}
 
 		// AIとの合作だけど良くない実装なので消した
