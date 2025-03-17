@@ -15,6 +15,7 @@ namespace takashicompany.Unity
 
 		private Dictionary<string, int> _langIndex = new Dictionary<string, int>();
 		private Dictionary<string, int> _keyIndex = new Dictionary<string, int>();
+		public IEnumerable<string> keys => _keyIndex.Keys;
 
 		public Localization(TextAsset csvFile) : base(csvFile)
 		{

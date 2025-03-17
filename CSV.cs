@@ -40,7 +40,12 @@ namespace takashicompany.Unity
 			{
 				string line = reader.ReadLine();
 				List<string> parsedLine = ParseCSVLine(line);
-				data.Add(parsedLine);
+				
+				// 空の行を無視する
+				if (parsedLine.Count > 0 && parsedLine.Exists(value => !string.IsNullOrWhiteSpace(value)))
+				{
+					data.Add(parsedLine);
+				}
 			}
 
 			return data;
