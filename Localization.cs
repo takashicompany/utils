@@ -63,5 +63,10 @@ namespace takashicompany.Unity
 
 			return _raw[keyIndex][langIndex];
 		}
+
+		public bool HasKey(string key)
+		{
+			return _keyIndex.ContainsKey(key);
+		}
 	}
 }
