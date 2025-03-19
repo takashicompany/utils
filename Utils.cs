@@ -398,15 +398,32 @@
 
 		#endregion
 
+		#region  IEnumeralbe
+		public static T GetByValidIndex<T>(this IEnumerable<T> self, int index)
+		{
+			// https://ufcpp.net/blog/2024/3/ilist-inherites-from-ireadonlylist/
+			switch (self)
+			{
+				case IList<T> list:
+					return list.GetByValidIndex(index);
+
+				case IReadOnlyList<T> list:
+					return list.GetByValidIndex(index);
+			}
+
+			return self.ElementAt(Mathf.Abs(index) % self.Count());
+		}
+		#endregion
+
 		#region IList
-		public static T GetByValidIndex<T>(this IList<T> self, int index)
+		private static T GetByValidIndex<T>(this IList<T> self, int index)
 		{
 			return self[Mathf.Abs(index) % self.Count];
 		}
 		#endregion
 
 		#region IReadOnlyList
-		public static T GetByValidIndex<T>(this IReadOnlyList<T> self, int index)
+		private static T GetByValidIndex<T>(this IReadOnlyList<T> self, int index)
 		{
 			return self[Mathf.Abs(index) % self.Count];
 		}
