@@ -77,7 +77,6 @@ namespace takashicompany.Unity
 			// コンテナ(自身のRectTransform)が実際に使える横幅
 			float parentWidth = rectTransform.rect.width;
 			float currentX = 0f;
-			float currentRowHeight = 0f;
 
 			// 新しい行を作る
 			RowInfo currentRow = new RowInfo
