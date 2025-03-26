@@ -1073,6 +1073,46 @@
 			return result;
 		}
 
+		/// <summary>
+		/// 指定された平面上に円状の点を生成する。
+		/// </summary>
+		/// <param name="plane">0: YZ, 1: XZ, 2: XY</param>
+		/// <param name="pointCount">円周上の点の数</param>
+		/// <param name="radius">円の半径</param>
+		/// <returns>Vector3の列挙型（円周上の座標）</returns>
+		public static IEnumerable<Vector3> CreateCirclePoints(int plane, int pointCount, float radius)
+		{
+			if (pointCount <= 0)
+			{
+				yield break;
+			}
+
+			float angleStep = 2 * Mathf.PI / pointCount;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float angle = i * angleStep;
+				float x = Mathf.Cos(angle) * radius;
+				float y = Mathf.Sin(angle) * radius;
+
+				switch (plane)
+				{
+					case 0: // YZ平面
+						yield return new Vector3(0, x, y);
+						break;
+					case 1: // XZ平面
+						yield return new Vector3(x, 0, y);
+						break;
+					case 2: // XY平面
+						yield return new Vector3(x, y, 0);
+						break;
+					default:
+						Debug.LogWarning("無効な平面指定: " + plane);
+						yield break;
+				}
+			}
+		}
+
 		#endregion
 
 		public static Vector3 ToX(this Vector3 self, float x)
