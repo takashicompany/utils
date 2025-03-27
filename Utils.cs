@@ -1198,7 +1198,7 @@
 			for (int i = 0; i < pointCount; i++)
 			{
 				float t = (float)i / (pointCount - 1);
-				float x = t * length;
+				float x = (t - 0.5f) * length; // -length/2 ～ +length/2 に調整
 				float y = Mathf.Sin(2 * Mathf.PI * frequency * t + angleOffset * Mathf.Deg2Rad) * amplitude;
 
 				yield return ProjectToPlane(plane, x, y);
@@ -1334,40 +1334,40 @@
 		}
 
 		public static IEnumerable<Vector3> CreateHypotrochoid(int plane, int pointCount, float bigRadius, float smallRadius, float offset, float angleOffset = 0f)
-{
-	if (pointCount <= 0) yield break;
+		{
+			if (pointCount <= 0) yield break;
 
-	for (int i = 0; i < pointCount; i++)
-	{
-		float t = 2 * Mathf.PI * i / pointCount;
-		float angle = t + angleOffset * Mathf.Deg2Rad;
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
 
-		float R = bigRadius;
-		float r = smallRadius;
-		float d = offset;
+				float R = bigRadius;
+				float r = smallRadius;
+				float d = offset;
 
-		float x = (R - r) * Mathf.Cos(angle) + d * Mathf.Cos((R - r) / r * angle);
-		float y = (R - r) * Mathf.Sin(angle) - d * Mathf.Sin((R - r) / r * angle);
+				float x = (R - r) * Mathf.Cos(angle) + d * Mathf.Cos((R - r) / r * angle);
+				float y = (R - r) * Mathf.Sin(angle) - d * Mathf.Sin((R - r) / r * angle);
 
-		yield return ProjectToPlane(plane, x, y);
-	}
-}
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
 
-public static IEnumerable<Vector3> CreateTrefoilKnot(int plane, int pointCount, float radius, float angleOffset = 0f)
-{
-	if (pointCount <= 0) yield break;
+		public static IEnumerable<Vector3> CreateTrefoilKnot(int plane, int pointCount, float radius, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
 
-	for (int i = 0; i < pointCount; i++)
-	{
-		float t = 2 * Mathf.PI * i / pointCount;
-		float angle = t + angleOffset * Mathf.Deg2Rad;
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
 
-		float x = radius * (Mathf.Sin(angle) + 2 * Mathf.Sin(2 * angle));
-		float y = radius * (Mathf.Cos(angle) - 2 * Mathf.Cos(2 * angle));
+				float x = radius * (Mathf.Sin(angle) + 2 * Mathf.Sin(2 * angle));
+				float y = radius * (Mathf.Cos(angle) - 2 * Mathf.Cos(2 * angle));
 
-		yield return ProjectToPlane(plane, x, y);
-	}
-}
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
 
 
 		private static Vector3 ProjectToPlane(int plane, float x, float y)
@@ -1736,6 +1736,19 @@ public static IEnumerable<Vector3> CreateTrefoilKnot(int plane, int pointCount, 
 			}
 
 			return new Vector3Int(x, y, z);
+		}
+
+		public static bool Contains(this Bounds bounds, IEnumerable<Vector3> points)
+		{
+			foreach (var p in points)
+			{
+				if (!bounds.Contains(p))
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		#endregion
