@@ -1209,14 +1209,30 @@
 		{
 			if (pointCount <= 1) yield break;
 
+			List<Vector2> points = new List<Vector2>();
+
 			for (int i = 0; i < pointCount; i++)
 			{
 				float t = (float)i / (pointCount - 1);
 				float angle = (Mathf.Lerp(startAngle, endAngle, t) + angleOffset - 90f) * Mathf.Deg2Rad;
 				float x = Mathf.Cos(angle) * radius;
 				float y = Mathf.Sin(angle) * radius;
+				points.Add(new Vector2(x, y));
+			}
 
-				yield return ProjectToPlane(plane, x, y);
+			// 中心点（バウンディングボックスの中央）を求めて原点に平行移動
+			Vector2 min = points[0];
+			Vector2 max = points[0];
+			foreach (var p in points)
+			{
+				min = Vector2.Min(min, p);
+				max = Vector2.Max(max, p);
+			}
+			Vector2 center = (min + max) / 2f;
+
+			foreach (var p in points)
+			{
+				yield return ProjectToPlane(plane, p.x - center.x, p.y - center.y);
 			}
 		}
 
