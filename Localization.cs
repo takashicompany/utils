@@ -15,6 +15,7 @@ namespace takashicompany.Unity
 
 		private Dictionary<string, int> _langIndex = new Dictionary<string, int>();
 		private Dictionary<string, int> _keyIndex = new Dictionary<string, int>();
+		private Dictionary<Language, int> _langIndexEnum = new Dictionary<Language, int>();
 		public IEnumerable<string> keys => _keyIndex.Keys;
 
 		private const string _prefsKey = "TC_Localization_Language";
@@ -37,8 +38,21 @@ namespace takashicompany.Unity
 			}
 		}
 
+		/// <summary>
+		/// enumのintではないものを使いたい場合に使う
+		/// </summary>
+		public void SetLanguageIndex(Language language, int index)
+		{
+			_langIndexEnum[language] = index;
+		}
+
 		public string Get(string key, Language lang)
 		{
+			if (_langIndexEnum.ContainsKey(lang))
+			{
+				return Get(key, _langIndexEnum[lang]);
+			}
+
 			return Get(key, ((int)lang) + 1);   // 1列目はキーなので+1
 		}
 
