@@ -3557,6 +3557,67 @@
 				} while (countY-- > 0);
 			} while (countZ-- > 0);
 		}
+
+		/// <summary>
+		/// 各軸の回転ステップを Vector3Int(x, y, z) で指定し、整数のみで回転
+		/// </summary>
+		/// <param name="source">回転対象</param>
+		/// <param name="center">回転の中心座標</param>
+		/// <param name="rotation">各軸の回転ステップ（0～3）</param>
+		public static IEnumerable<Vector3Int> RotateAround90(
+			this IEnumerable<Vector3Int> source,
+			Vector3Int center,
+			Vector3Int rotation)
+		{
+			int xSteps = ((rotation.x % 4) + 4) % 4;
+			int ySteps = ((rotation.y % 4) + 4) % 4;
+			int zSteps = ((rotation.z % 4) + 4) % 4;
+
+			foreach (var point in source)
+			{
+				Vector3Int offset = point - center;
+				Vector3Int rotated = offset;
+
+				if (xSteps != 0) rotated = RotateX(rotated, xSteps);
+				if (ySteps != 0) rotated = RotateY(rotated, ySteps);
+				if (zSteps != 0) rotated = RotateZ(rotated, zSteps);
+
+				yield return rotated + center;
+			}
+
+			Vector3Int RotateX(Vector3Int v, int s)
+			{
+				switch (s)
+				{
+					case 1: return new Vector3Int(v.x, -v.z, v.y);
+					case 2: return new Vector3Int(v.x, -v.y, -v.z);
+					case 3: return new Vector3Int(v.x, v.z, -v.y);
+					default: return v;
+				}
+			}
+
+			Vector3Int RotateY(Vector3Int v, int s)
+			{
+				switch (s)
+				{
+					case 1: return new Vector3Int(v.z, v.y, -v.x);
+					case 2: return new Vector3Int(-v.x, v.y, -v.z);
+					case 3: return new Vector3Int(-v.z, v.y, v.x);
+					default: return v;
+				}
+			}
+
+			Vector3Int RotateZ(Vector3Int v, int s)
+			{
+				switch (s)
+				{
+					case 1: return new Vector3Int(-v.y, v.x, v.z);
+					case 2: return new Vector3Int(-v.x, -v.y, v.z);
+					case 3: return new Vector3Int(v.y, -v.x, v.z);
+					default: return v;
+				}
+			}
+		}
 		#endregion
 
 		#region Rect
