@@ -3363,49 +3363,7 @@
 			return Physics.Raycast(ray, out var hit, distance, layerMask, queryTriggerInteraction) && hit.collider == self;
 		}
 
-		/// <summary>
-		/// 指定のTrasnformの子供のColliderを全て取得し、指定のセルサイズでグリッド化してHashSetに格納する
-		/// </summary>
-		public static HashSet<Vector3Int> GetCells(this Transform transform, Vector3 cellSize)
-		{
-			var result = new HashSet<Vector3Int>();
-			var colliders = transform.GetComponentsInChildren<Collider>();
-
-			foreach (var col in colliders)
-			{
-				Bounds worldBounds = col.bounds;
-
-				// ローカル空間に変換
-				Vector3 localMin = transform.InverseTransformPoint(worldBounds.min);
-				Vector3 localMax = transform.InverseTransformPoint(worldBounds.max);
-
-				Vector3 localBoundsMin = Vector3.Min(localMin, localMax);
-				Vector3 localBoundsMax = Vector3.Max(localMin, localMax);
-
-				Vector3Int minCell = Vector3Int.FloorToInt(Vector3.Scale(localBoundsMin, new Vector3(1 / cellSize.x, 1 / cellSize.y, 1 / cellSize.z)))/* - Vector3Int.one*/;
-				Vector3Int maxCell = Vector3Int.FloorToInt(Vector3.Scale(localBoundsMax, new Vector3(1 / cellSize.x, 1 / cellSize.y, 1 / cellSize.z))) + Vector3Int.one;
-
-				for (int x = minCell.x; x <= maxCell.x; x++)
-				{
-					for (int y = minCell.y; y <= maxCell.y; y++)
-					{
-						for (int z = minCell.z; z <= maxCell.z; z++)
-						{
-							// セルの中心点をローカル座標からワールド座標に変換してOverlapBoxで確認
-							Vector3 localCenter = new Vector3(x, y, z);
-							Vector3 worldCenter = transform.TransformPoint(Vector3.Scale(localCenter, cellSize));
-							Vector3 worldHalfExtents = Vector3.Scale(cellSize, transform.lossyScale) * 0.5f;
-							if (Physics.OverlapBox(worldCenter, worldHalfExtents, transform.rotation).Length > 0)
-							{
-								result.Add(new Vector3Int(x, y, z));
-							}
-						}
-					}
-				}
-			}
-
-			return result;
-		}
+		
 		#endregion
 
 		#region  Collider2D
