@@ -68,10 +68,17 @@ namespace takashicompany.Unity
 
 		public void Add(T item)
 		{
+			TryAdd(item);
+		}
+
+		public bool TryyAdd(T item)
+		{
 			if (_hashSet.Add(item))
 			{
 				_list.Add(item);
+				return true;
 			}
+			return false;
 		}
 
 		public void Clear()
