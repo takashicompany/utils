@@ -1767,6 +1767,26 @@
 			return true;
 		}
 
+		public static Bounds Merge(this IEnumerable<Bounds> bounds)
+		{
+			var mergedBounds = new Bounds();
+
+			var count = 0;
+
+			foreach (var b in bounds)
+			{
+				if (count == 0)
+				{
+					mergedBounds = b;
+				}
+
+				mergedBounds.Encapsulate(b);
+				count++;
+			}
+
+			return mergedBounds;
+		}
+
 		#endregion
 
 		#region BoundsInt
