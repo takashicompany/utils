@@ -1639,6 +1639,16 @@
 		{
 			return new Vector3(self.x, self.y, self.z);
 		}
+
+		public static Vector3Int ToAxisMask(this Vector3Int self)
+		{
+			return new Vector3Int(
+				self.x != 0 ? 1 : 0,
+				self.y != 0 ? 1 : 0,
+				self.z != 0 ? 1 : 0
+			);
+		}
+
 		#region Bounds
 
 		// ちょっとこの辺りどれぐらい正しいかは未検証
@@ -1873,7 +1883,7 @@
 
 		#endregion
 
-		public static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
+		public static BoundsInt GetBoundsIntZero(this IEnumerable<Vector3Int> points)
 		{
 			var min = new Vector3Int(int.MaxValue, int.MaxValue, int.MaxValue);
 			var max = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
@@ -1890,6 +1900,35 @@
 			}
 
 			return new BoundsInt(min, max - min);
+		}
+
+		/// <summary>
+		/// 点群を必ず含む軸アラインドの BoundsInt を返す（最大点をインクルーシブに扱う）。
+		/// 例: points が 1 点だけでも size は (1,1,1) になる。
+		/// </summary>
+		public static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
+		{
+			var hasPoint = false;
+			var min = new Vector3Int(int.MaxValue, int.MaxValue, int.MaxValue);
+			var max = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
+
+			foreach (var p in points)
+			{
+				hasPoint = true;
+
+				if (p.x < min.x) min.x = p.x;
+				if (p.y < min.y) min.y = p.y;
+				if (p.z < min.z) min.z = p.z;
+
+				if (p.x > max.x) max.x = p.x;
+				if (p.y > max.y) max.y = p.y;
+				if (p.z > max.z) max.z = p.z;
+			}
+
+			if (!hasPoint) throw new ArgumentException("The collection is empty.", nameof(points));
+
+			// +Vector3Int.one で最大点を含め、size を 1 以上にする
+			return new BoundsInt(min, max - min + Vector3Int.one);
 		}
 
 		public static IEnumerable<Vector3Int> GetBarePoints(this IEnumerable<Vector3Int> points)
@@ -1916,7 +1955,7 @@
 
 		public static bool IsBare(this IEnumerable<Vector3Int> points, Vector3Int p)
 		{
-			var bounds = points.GetBoundsInt();
+			var bounds = points.GetBoundsIntZero();
 
 			for (var x = -1; x <= 1; x++)
 			{
@@ -3383,7 +3422,7 @@
 			return Physics.Raycast(ray, out var hit, distance, layerMask, queryTriggerInteraction) && hit.collider == self;
 		}
 
-		
+
 		#endregion
 
 		#region  Collider2D
