@@ -11,6 +11,9 @@ namespace takashicompany.Unity
 	/// </summary>
 	public class TouchToPlane :
 		MonoBehaviour,
+		IPointerEnterHandler,
+		IPointerMoveHandler,
+		IPointerExitHandler,
 		IPointerDownHandler,
 		IBeginDragHandler,
 		IDragHandler,
@@ -48,12 +51,39 @@ namespace takashicompany.Unity
 
 		public delegate void EventDelegate(EventData eventData);
 
+		public event EventDelegate onPointerEnter;
+		public event EventDelegate onPointerMove;
+		public event EventDelegate onPointerExit;
 		public event EventDelegate onPointerDown;
 		public event EventDelegate onBeginDrag;
 		public event EventDelegate onDrag;
 		public event EventDelegate onEndDrag;
 		public event EventDelegate onPointerUp;
 		public event EventDelegate onPointerClick;
+
+		void IPointerEnterHandler.OnPointerEnter(PointerEventData pointerEvent)
+		{
+			if (TryCreateEvent(pointerEvent, out var eventData))
+			{
+				onPointerEnter?.Invoke(eventData);
+			}
+		}
+
+		void IPointerMoveHandler.OnPointerMove(PointerEventData pointerEvent)
+		{
+			if (TryCreateEvent(pointerEvent, out var eventData))
+			{
+				onPointerMove?.Invoke(eventData);
+			}
+		}
+
+		void IPointerExitHandler.OnPointerExit(PointerEventData pointerEvent)
+		{
+			if (TryCreateEvent(pointerEvent, out var eventData))
+			{
+				onPointerExit?.Invoke(eventData);
+			}
+		}
 
 		void IPointerDownHandler.OnPointerDown(PointerEventData pointerEvent)
 		{

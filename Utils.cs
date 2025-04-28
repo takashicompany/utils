@@ -1073,6 +1073,331 @@
 			return result;
 		}
 
+		public static IEnumerable<Vector3> CreateCirclePoints(int plane, int pointCount, float radius, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			float angleStep = 360f / pointCount;
+			float startAngle = -90f + angleOffset;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float angle = (startAngle + i * angleStep) * Mathf.Deg2Rad;
+				float x = Mathf.Cos(angle) * radius;
+				float y = Mathf.Sin(angle) * radius;
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateRegularPolygon(int plane, int sides, float radius, float angleOffset = 0f)
+		{
+			if (sides < 3) yield break;
+
+			float angleStep = 360f / sides;
+			float startAngle = -90f + angleOffset;
+
+			for (int i = 0; i < sides; i++)
+			{
+				float angle = (startAngle + i * angleStep) * Mathf.Deg2Rad;
+				float x = Mathf.Cos(angle) * radius;
+				float y = Mathf.Sin(angle) * radius;
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateTriangle(int plane, float radius, float angleOffset = 0f)
+		{
+			int sides = 3;
+			float angleStep = 360f / sides;
+			float startAngle = -270f + angleOffset;
+
+			for (int i = 0; i < sides; i++)
+			{
+				float angle = (startAngle + i * angleStep) * Mathf.Deg2Rad;
+				float x = Mathf.Cos(angle) * radius;
+				float y = Mathf.Sin(angle) * radius;
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateStar(int plane, int points, float outerRadius, float innerRadius, float angleOffset = 0f)
+		{
+			if (points < 2) yield break;
+
+			float angleStep = 180f / points;
+			float startAngle = -270f + angleOffset;
+
+			for (int i = 0; i < points * 2; i++)
+			{
+				float angle = (startAngle + i * angleStep) * Mathf.Deg2Rad;
+				float r = (i % 2 == 0) ? outerRadius : innerRadius;
+				float x = Mathf.Cos(angle) * r;
+				float y = Mathf.Sin(angle) * r;
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateHeart(int plane, int pointCount, float radius, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			float scale = radius / 18f;
+			float offset = angleOffset * Mathf.Deg2Rad;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = offset + 2 * Mathf.PI * i / pointCount;
+				float x = 16 * Mathf.Pow(Mathf.Sin(t), 3);
+				float y = 13 * Mathf.Cos(t) - 5 * Mathf.Cos(2 * t) - 2 * Mathf.Cos(3 * t) - Mathf.Cos(4 * t);
+
+				yield return ProjectToPlane(plane, x * scale, y * scale);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateSpiral(int plane, int pointCount, float radius, float turns = 3f, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			float totalAngle = 360f * turns;
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = (float)i / (pointCount - 1);
+				float angle = (angleOffset - 90f + t * totalAngle) * Mathf.Deg2Rad;
+				float r = radius * t;
+				float x = Mathf.Cos(angle) * r;
+				float y = Mathf.Sin(angle) * r;
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateRoseCurve(int plane, int pointCount, float radius, int petalCount = 4, float angleOffset = 0f)
+		{
+			if (pointCount <= 0 || petalCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
+				float r = radius * Mathf.Cos(petalCount * angle);
+				float x = Mathf.Cos(angle) * r;
+				float y = Mathf.Sin(angle) * r;
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateSineWave(int plane, int pointCount, float length, float amplitude, float frequency = 1f, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = (float)i / (pointCount - 1);
+				float x = (t - 0.5f) * length; // -length/2 ～ +length/2 に調整
+				float y = Mathf.Sin(2 * Mathf.PI * frequency * t + angleOffset * Mathf.Deg2Rad) * amplitude;
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateArc(int plane, int pointCount, float radius, float startAngle, float endAngle, float angleOffset = 0f)
+		{
+			if (pointCount <= 1) yield break;
+
+			List<Vector2> points = new List<Vector2>();
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = (float)i / (pointCount - 1);
+				float angle = (Mathf.Lerp(startAngle, endAngle, t) + angleOffset - 90f) * Mathf.Deg2Rad;
+				float x = Mathf.Cos(angle) * radius;
+				float y = Mathf.Sin(angle) * radius;
+				points.Add(new Vector2(x, y));
+			}
+
+			// 中心点（バウンディングボックスの中央）を求めて原点に平行移動
+			Vector2 min = points[0];
+			Vector2 max = points[0];
+			foreach (var p in points)
+			{
+				min = Vector2.Min(min, p);
+				max = Vector2.Max(max, p);
+			}
+			Vector2 center = (min + max) / 2f;
+
+			foreach (var p in points)
+			{
+				yield return ProjectToPlane(plane, p.x - center.x, p.y - center.y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateCardioid(int plane, int pointCount, float radius, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
+				float r = radius * (1 - Mathf.Sin(angle));
+				float x = r * Mathf.Cos(angle);
+				float y = r * Mathf.Sin(angle);
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateLimacon(int plane, int pointCount, float radius, float innerFactor = 0.5f, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
+				float r = radius * (1 + innerFactor * Mathf.Cos(angle));
+				float x = r * Mathf.Cos(angle);
+				float y = r * Mathf.Sin(angle);
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateHarmonicCurve(int plane, int pointCount, float radius, float frequency = 2f, float amplitude = 0.5f, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = (float)i / (pointCount - 1);
+				float x = Mathf.Lerp(-radius, radius, t);
+				float y = Mathf.Sin(t * Mathf.PI * frequency + angleOffset * Mathf.Deg2Rad) * amplitude * radius;
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateInfinityCurve(int plane, int pointCount, float radius, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
+				float x = radius * Mathf.Sin(angle);
+				float y = radius * Mathf.Sin(angle) * Mathf.Cos(angle);
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateClover(int plane, int pointCount, float radius, int leaves = 3, float angleOffset = 0f)
+		{
+			if (pointCount <= 0 || leaves <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
+				float r = radius * Mathf.Sin(leaves * angle);
+				float x = r * Mathf.Cos(angle);
+				float y = r * Mathf.Sin(angle);
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateDoubleLemniscate(int plane, int pointCount, float radius, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
+				float r = radius * Mathf.Sqrt(Mathf.Abs(Mathf.Cos(2 * angle)));
+				float x = r * Mathf.Cos(angle);
+				float y = r * Mathf.Sin(angle);
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateButterflyCurve(int plane, int pointCount, float radius, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 12 * Mathf.PI * i / (pointCount - 1);
+				float angle = t + angleOffset * Mathf.Deg2Rad;
+
+				float r = radius * (Mathf.Exp(Mathf.Sin(angle))
+						  - 2 * Mathf.Cos(4 * angle)
+						  + Mathf.Pow(Mathf.Sin((2 * angle - Mathf.PI) / 24), 5));
+
+				float x = r * Mathf.Cos(angle);
+				float y = r * Mathf.Sin(angle);
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateHypotrochoid(int plane, int pointCount, float bigRadius, float smallRadius, float offset, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
+
+				float R = bigRadius;
+				float r = smallRadius;
+				float d = offset;
+
+				float x = (R - r) * Mathf.Cos(angle) + d * Mathf.Cos((R - r) / r * angle);
+				float y = (R - r) * Mathf.Sin(angle) - d * Mathf.Sin((R - r) / r * angle);
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+		public static IEnumerable<Vector3> CreateTrefoilKnot(int plane, int pointCount, float radius, float angleOffset = 0f)
+		{
+			if (pointCount <= 0) yield break;
+
+			for (int i = 0; i < pointCount; i++)
+			{
+				float t = 2 * Mathf.PI * i / pointCount;
+				float angle = t + angleOffset * Mathf.Deg2Rad;
+
+				float x = radius * (Mathf.Sin(angle) + 2 * Mathf.Sin(2 * angle));
+				float y = radius * (Mathf.Cos(angle) - 2 * Mathf.Cos(2 * angle));
+
+				yield return ProjectToPlane(plane, x, y);
+			}
+		}
+
+
+		private static Vector3 ProjectToPlane(int plane, float x, float y)
+		{
+			switch (plane)
+			{
+				case 0: return new Vector3(0, x, y);     // YZ
+				case 1: return new Vector3(x, 0, y);     // XZ
+				case 2: return new Vector3(x, y, 0);     // XY
+				default: return Vector3.zero;
+			}
+		}
+
+
 		#endregion
 
 		public static Vector3 ToX(this Vector3 self, float x)
@@ -1427,6 +1752,19 @@
 			}
 
 			return new Vector3Int(x, y, z);
+		}
+
+		public static bool Contains(this Bounds bounds, IEnumerable<Vector3> points)
+		{
+			foreach (var p in points)
+			{
+				if (!bounds.Contains(p))
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		#endregion
@@ -3218,6 +3556,67 @@
 					} while (countX-- > 0);
 				} while (countY-- > 0);
 			} while (countZ-- > 0);
+		}
+
+		/// <summary>
+		/// 各軸の回転ステップを Vector3Int(x, y, z) で指定し、整数のみで回転
+		/// </summary>
+		/// <param name="source">回転対象</param>
+		/// <param name="center">回転の中心座標</param>
+		/// <param name="rotation">各軸の回転ステップ（0～3）</param>
+		public static IEnumerable<Vector3Int> RotateAround90(
+			this IEnumerable<Vector3Int> source,
+			Vector3Int center,
+			Vector3Int rotation)
+		{
+			int xSteps = ((rotation.x % 4) + 4) % 4;
+			int ySteps = ((rotation.y % 4) + 4) % 4;
+			int zSteps = ((rotation.z % 4) + 4) % 4;
+
+			foreach (var point in source)
+			{
+				Vector3Int offset = point - center;
+				Vector3Int rotated = offset;
+
+				if (xSteps != 0) rotated = RotateX(rotated, xSteps);
+				if (ySteps != 0) rotated = RotateY(rotated, ySteps);
+				if (zSteps != 0) rotated = RotateZ(rotated, zSteps);
+
+				yield return rotated + center;
+			}
+
+			Vector3Int RotateX(Vector3Int v, int s)
+			{
+				switch (s)
+				{
+					case 1: return new Vector3Int(v.x, -v.z, v.y);
+					case 2: return new Vector3Int(v.x, -v.y, -v.z);
+					case 3: return new Vector3Int(v.x, v.z, -v.y);
+					default: return v;
+				}
+			}
+
+			Vector3Int RotateY(Vector3Int v, int s)
+			{
+				switch (s)
+				{
+					case 1: return new Vector3Int(v.z, v.y, -v.x);
+					case 2: return new Vector3Int(-v.x, v.y, -v.z);
+					case 3: return new Vector3Int(-v.z, v.y, v.x);
+					default: return v;
+				}
+			}
+
+			Vector3Int RotateZ(Vector3Int v, int s)
+			{
+				switch (s)
+				{
+					case 1: return new Vector3Int(-v.y, v.x, v.z);
+					case 2: return new Vector3Int(-v.x, -v.y, v.z);
+					case 3: return new Vector3Int(v.y, -v.x, v.z);
+					default: return v;
+				}
+			}
 		}
 		#endregion
 
