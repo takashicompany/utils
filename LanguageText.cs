@@ -29,7 +29,7 @@ namespace takashicompany.Unity
 			// Inspectorビューにenableのチェックを出すために定義しただけ。継承して使ってもいいけど。
 		}
 
-		protected virtual void UpdateText()
+		public virtual void UpdateText()
 		{
 			if (!enabled)
 			{

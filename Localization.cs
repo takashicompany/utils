@@ -5,6 +5,23 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
+	public static class LocalizationExtensions
+	{
+		public static string GetLabel(this Localization.Language lang)
+		{
+			switch (lang)
+			{
+				case Localization.Language.Japanese:
+					return "日本語";
+
+				case Localization.Language.English:
+					return "English";
+			}
+
+			return lang.ToString();
+		}
+	}
+
 	public class Localization : CSV
 	{
 		public enum Language
