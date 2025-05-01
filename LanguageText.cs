@@ -24,6 +24,11 @@ namespace takashicompany.Unity
 			UpdateText();
 		}
 
+		protected virtual void OnEnable()
+		{
+			UpdateText();
+		}
+
 		protected virtual void Start()
 		{
 			// Inspectorビューにenableのチェックを出すために定義しただけ。継承して使ってもいいけど。
