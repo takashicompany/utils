@@ -38,7 +38,7 @@ namespace takashicompany.Unity
 			return _resourcesPath + clipType.ToString();
 		}
 
-		private void LoadClip(T clipType)
+		public void LoadClip(T clipType)
 		{
 			if (!_clips.ContainsKey(clipType))
 			{
@@ -109,6 +109,24 @@ namespace takashicompany.Unity
 			}
 
 			return _sources[index];
+		}
+	}
+
+	public class SoundManagerEnum<T> : SoundManager<T> where T : System.Enum
+	{
+		public SoundManagerEnum(string resourcesPath = "") : base(resourcesPath)
+		{
+
+		}
+
+		public void LoadAll()
+		{
+			var enumType = typeof(T);
+			
+			foreach (T val in System.Enum.GetValues(enumType))
+			{
+				LoadClip(val);
+			}
 		}
 	}
 
