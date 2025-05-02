@@ -92,6 +92,15 @@ namespace takashicompany.Unity
 			source.Play();
 		}
 
+		public void Stop(int index = 0)
+		{
+			if (_sources.ContainsKey(index))
+			{
+				var source = _sources[index];
+				source.Stop();
+			}
+		}
+
 		public AudioSource GetAudioSource(int index = 0)
 		{
 			if (!_sources.ContainsKey(index))
