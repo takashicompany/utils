@@ -114,9 +114,19 @@ namespace takashicompany.Unity
 		}
 
 #if UNITY_EDITOR
-		private const string menuPath = "翻訳/言語を切り替え/";
-		private const string menuPathJapanese = menuPath + "日本語";
-		private const string menuPathEnglish = menuPath + "英語";
+		private const string menuPath = "翻訳/";
+		private const string menuPathReset = menuPath + "言語設定をリセット";
+		private const string menuPathSwitchLanguage = menuPath + "言語を切り替え/";
+		private const string menuPathJapanese = menuPathSwitchLanguage + "日本語";
+		private const string menuPathEnglish = menuPathSwitchLanguage + "英語";
+
+		[UnityEditor.MenuItem(menuPathReset)]
+		private static void ResetLanguage()
+		{
+			PlayerPrefs.DeleteKey(_prefsKey);
+			PlayerPrefs.Save();
+			Debug.Log("言語設定をリセットしました。");
+		}
 
 		[UnityEditor.MenuItem(menuPathJapanese, true)]
 		private static bool JapaneseValidate()
