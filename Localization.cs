@@ -111,6 +111,7 @@ namespace takashicompany.Unity
 		public static void SetLanguage(Language lang)
 		{
 			PlayerPrefs.SetInt(_prefsKey, (int)lang);
+			PlayerPrefs.Save();
 		}
 
 #if UNITY_EDITOR
