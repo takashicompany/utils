@@ -14,6 +14,12 @@ namespace takashicompany.Unity
 
 		private TextWrapper.PoolingContainer _pool;
 
+		public enum AnimationType
+		{
+			AppearAndUp,
+			AppearAndAlpha,
+		}
+
 		public class Text
 		{
 			private FlyText _flyText;
@@ -23,6 +29,19 @@ namespace takashicompany.Unity
 			{
 				_flyText = flyText;
 				this.instance = instance;
+			}
+
+			public Sequence Appear(Vector2 screenPosition, AnimationType moveType, float duration = 0.35f)
+			{
+				switch (moveType)
+				{
+					case AnimationType.AppearAndUp:
+						return AppearAndUp(screenPosition, duration);
+					case AnimationType.AppearAndAlpha:
+						return AppearAndAlpha(screenPosition, duration);
+					default:
+						throw new System.NotImplementedException();
+				}
 			}
 
 			public Sequence AppearAndUp(Vector2 screenPosition, float duration = 0.35f)
