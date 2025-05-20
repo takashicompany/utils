@@ -1,5 +1,6 @@
 namespace takashicompany.Unity
 {
+	using System;
 	using System.Collections;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -69,6 +70,55 @@ namespace takashicompany.Unity
 		public bool HasKey(string key)
 		{
 			return _keyIndex.ContainsKey(key);
+		}
+
+		public virtual System.Text.StringBuilder CopyLanguageKeysToClipboard(bool ignoreAlreadyCSV, IEnumerable<Type> enumTypes, IEnumerable<Type> formatTypes)
+		{
+			System.Text.StringBuilder sb = new ();
+
+			var keyNames = new List<string>();
+
+			foreach (var enumType in enumTypes)
+			{
+				var names = Enum.GetNames(enumType).Select(key => $"{key}\t").ToList(); // 2列目は空白
+				keyNames.AddRange(names);
+			}
+
+			if (ignoreAlreadyCSV)
+			{
+				keyNames = keyNames.Where(k => !keys.Contains(k.Split('\t')[0])).ToList();
+			}
+
+			if (keyNames.Count > 0) sb.AppendLine(string.Join("\n", keyNames));
+
+			foreach (var formatType in formatTypes)
+			{
+				var formatFields = formatType.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
+					.Where(f => f.FieldType == typeof(string))
+					.Select(f => $"{f.Name}\t")
+					.ToList();
+
+				var formatProperties = formatType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
+					.Where(p => p.PropertyType == typeof(string))
+					.Select(p => $"{p.Name}\t")
+					.ToList();
+
+				if (ignoreAlreadyCSV)
+				{
+					formatFields = formatFields.Where(f => !keys.Contains(f.Split('\t')[0])).ToList();
+					formatProperties = formatProperties.Where(p => !keys.Contains(p.Split('\t')[0])).ToList();
+				}
+
+				if (formatFields.Count > 0 || formatProperties.Count > 0) sb.AppendLine(string.Join("\n", formatFields.Concat(formatProperties)));
+			}
+
+			
+			// クリップボードにコピー
+			UnityEditor.EditorGUIUtility.systemCopyBuffer = sb.ToString();
+
+			Debug.Log("Languageのキー一覧をクリップボードにコピーしました。\n" + sb.ToString());
+
+			return sb;
 		}
 
 		public static Language GetLanguage()
