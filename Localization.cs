@@ -6,6 +6,23 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
+	public static class LocalizationExtensions
+	{
+		public static string GetLabel(this Localization.Language lang)
+		{
+			switch (lang)
+			{
+				case Localization.Language.Japanese:
+					return "日本語";
+
+				case Localization.Language.English:
+					return "English";
+			}
+
+			return lang.ToString();
+		}
+	}
+
 	public class Localization : CSV
 	{
 		public enum Language
@@ -16,6 +33,7 @@ namespace takashicompany.Unity
 
 		private Dictionary<string, int> _langIndex = new Dictionary<string, int>();
 		private Dictionary<string, int> _keyIndex = new Dictionary<string, int>();
+		private Dictionary<Language, int> _langIndexEnum = new Dictionary<Language, int>();
 		public IEnumerable<string> keys => _keyIndex.Keys;
 
 		private const string _prefsKey = "TC_Localization_Language";
@@ -38,8 +56,21 @@ namespace takashicompany.Unity
 			}
 		}
 
+		/// <summary>
+		/// enumのintではないものを使いたい場合に使う
+		/// </summary>
+		public void SetLanguageIndex(Language language, int index)
+		{
+			_langIndexEnum[language] = index;
+		}
+
 		public string Get(string key, Language lang)
 		{
+			if (_langIndexEnum.ContainsKey(lang))
+			{
+				return Get(key, _langIndexEnum[lang]);
+			}
+
 			return Get(key, ((int)lang) + 1);   // 1列目はキーなので+1
 		}
 
@@ -130,12 +161,23 @@ namespace takashicompany.Unity
 		public static void SetLanguage(Language lang)
 		{
 			PlayerPrefs.SetInt(_prefsKey, (int)lang);
+			PlayerPrefs.Save();
 		}
 
 #if UNITY_EDITOR
-		private const string menuPath = "翻訳/言語を切り替え/";
-		private const string menuPathJapanese = menuPath + "日本語";
-		private const string menuPathEnglish = menuPath + "英語";
+		private const string menuPath = "翻訳/";
+		private const string menuPathReset = menuPath + "言語設定をリセット";
+		private const string menuPathSwitchLanguage = menuPath + "言語を切り替え/";
+		private const string menuPathJapanese = menuPathSwitchLanguage + "日本語";
+		private const string menuPathEnglish = menuPathSwitchLanguage + "英語";
+
+		[UnityEditor.MenuItem(menuPathReset)]
+		private static void ResetLanguage()
+		{
+			PlayerPrefs.DeleteKey(_prefsKey);
+			PlayerPrefs.Save();
+			Debug.Log("言語設定をリセットしました。");
+		}
 
 		[UnityEditor.MenuItem(menuPathJapanese, true)]
 		private static bool JapaneseValidate()
