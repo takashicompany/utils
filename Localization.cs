@@ -117,11 +117,11 @@ namespace takashicompany.Unity
 
 #if UNITY_EDITOR
 
+		private const string csvSeparator = "\t";
+
 		public virtual System.Text.StringBuilder CopyLanguageKeysToClipboard(bool ignoreAlreadyCSV, IEnumerable<Type> enumTypes, IEnumerable<Type> formatTypes)
 		{
 			System.Text.StringBuilder sb = new();
-
-			
 
 			if (enumTypes != null)
 			{
@@ -129,13 +129,13 @@ namespace takashicompany.Unity
 
 				foreach (var enumType in enumTypes)
 				{
-					var names = Enum.GetNames(enumType).Select(key => $"{key}\t").ToList(); // 2列目は空白
+					var names = Enum.GetNames(enumType).Select(key => $"{key}{csvSeparator}").ToList(); // 2列目は空白
 					enumNames.AddRange(names);
 				}
 
 				if (ignoreAlreadyCSV)
 				{
-					enumNames = enumNames.Where(k => !keys.Contains(k.Split('\t')[0])).ToList();
+					enumNames = enumNames.Where(k => !keys.Contains(k.Split(csvSeparator)[0])).ToList();
 				}
 
 				if (enumNames.Count > 0) sb.AppendLine(string.Join("\n", enumNames));
@@ -157,8 +157,8 @@ namespace takashicompany.Unity
 
 					if (ignoreAlreadyCSV)
 					{
-						formatFields = formatFields.Where(f => !keys.Contains(f.Split('\t')[0])).ToList();
-						formatProperties = formatProperties.Where(p => !keys.Contains(p.Split('\t')[0])).ToList();
+						formatFields = formatFields.Where(f => !keys.Contains(f.Split(csvSeparator)[0])).ToList();
+						formatProperties = formatProperties.Where(p => !keys.Contains(p.Split(csvSeparator)[0])).ToList();
 					}
 
 					if (formatFields.Count > 0 || formatProperties.Count > 0) sb.AppendLine(string.Join("\n", formatFields.Concat(formatProperties)));
