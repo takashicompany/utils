@@ -5,6 +5,7 @@ namespace takashicompany.Unity
 	using System.Collections.Generic;
 	using System.Linq;
 	using UnityEngine;
+	using DG.Tweening;
 
 	public static class GameMath
 	{
@@ -104,40 +105,41 @@ namespace takashicompany.Unity
 		}
 
 		/// <summary>
-		/// 周期付き線形補間列の “index 番目” を計算して返します。<br/>
-		/// ─ 各周期は「周期始点 → 周期終点 (始点×<paramref name="endMultiplier"/>)」を
-		///   <paramref name="segmentCount"/> 等分で線形補間します。<br/>
-		/// ─ 周期終了後、次周期の始点は「周期終点×<paramref name="recycleFactor"/>」。<br/>
-		/// 例：start=2, endMultiplier=2, segmentCount=3, recycleFactor=0.75 → 2, 3, 4, 3, 4.5, 6 …<br/>
+		/// DOTween の <see cref="Ease"/> で補間カーブを選べる周期関数。<br/>
+		/// ・各周期は「始点 → 始点×<paramref name="endMultiplier"/>」を <paramref name="segmentCount"/> 等分で補間。<br/>
+		/// ・周期終了後、次周期の始点は「周期終点×<paramref name="recycleFactor"/>」。<br/>
+		/// ・補間には <see cref="DOVirtual.EasedValue(float,float,float,Ease)"/> を使用。<br/>
+		/// <br/>例: start=2, endMult=2, seg=3, rec=0.75, ease=Ease.OutBounce → 2,3.5,4,3,4.8,6 …
 		/// </summary>
-		/// <param name="startValue">最初の始点値 (例: 2)</param>
-		/// <param name="endMultiplier">周期終点を決める倍率 (例: 2 → 始点×2 が終点)</param>
-		/// <param name="segmentCount">周期を何分割するか (>=1)</param>
-		/// <param name="recycleFactor">終点を次周期始点に縮小／拡大する倍率 (例: 0.75)</param>
-		/// <param name="index">求めたいインデックス (0 以上)</param>
-		/// <returns>指定インデックスに対応する値</returns>
+		/// <param name="startValue">最初の始点値</param>
+		/// <param name="endMultiplier">周期終点を決める倍率</param>
+		/// <param name="segmentCount">周期分割数 (>=1)</param>
+		/// <param name="recycleFactor">周期終点から次周期始点を得る倍率</param>
+		/// <param name="index">0 からのインデックス</param>
+		/// <param name="ease">DOTween の Ease 種別 (既定 Linear)</param>
+		/// <returns><paramref name="index"/> 番目の値</returns>
 		public static float CalculatePeriodicValue
 		(
 			float startValue,
 			float endMultiplier,
 			int segmentCount,
 			float recycleFactor,
-			int index
+			int index,
+			Ease ease = Ease.Linear
 		)
 		{
 			if (segmentCount < 1) throw new System.ArgumentOutOfRangeException(nameof(segmentCount));
 			if (index < 0) throw new System.ArgumentOutOfRangeException(nameof(index));
 
-			int cycle = index / segmentCount;                       // 何周期目か
-			int pos = index % segmentCount;                       // 周期内位置
-			float cycleStart = startValue *
-							   Mathf.Pow(endMultiplier * recycleFactor, cycle); // 今周期始点
+			int cycle = index / segmentCount;                          // 何周期目か
+			int pos = index % segmentCount;                          // 周期内位置
+			float cycleStart = startValue * Mathf.Pow(endMultiplier * recycleFactor, cycle);
 
-			if (segmentCount == 1) return cycleStart;                      // 分割1なら補間不要
+			if (segmentCount == 1) return cycleStart;                         // 分割数 1 → 補間不要
 
-			float cycleEnd = cycleStart * endMultiplier;                   // 今周期終点
-			float t = (float)pos / (segmentCount - 1);              // 0〜1
-			return Mathf.Lerp(cycleStart, cycleEnd, t);                    // 線形補間
+			float cycleEnd = cycleStart * endMultiplier;                      // 周期終点
+			float t = (float)pos / (segmentCount - 1);                 // 0〜1
+			return DOVirtual.EasedValue(cycleStart, cycleEnd, t, ease);       // DOTween 補間
 		}
 	}
 }
