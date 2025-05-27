@@ -4,17 +4,17 @@ namespace takashicompany.Unity
 	using System.Collections.Generic;
 	using System.Linq;
 	using UnityEngine;
-	
+
 	[System.Flags]
 	public enum V3IntDirection
 	{
-		None	= 0b0,
-		Left	= 0b1,
-		Right	= 0b10,
-		Down	= 0b100,
-		Up		= 0b1000,
-		Back	= 0b10000,
-		Forward	= 0b100000,
+		None = 0b0,
+		Left = 0b1,
+		Right = 0b10,
+		Down = 0b100,
+		Up = 0b1000,
+		Back = 0b10000,
+		Forward = 0b100000,
 	}
 
 	public static class V3IntDirectionExtensions
@@ -74,11 +74,19 @@ namespace takashicompany.Unity
 			return direction.ToValue() > 0;
 		}
 
-		public static Vector3Int GetEnd(this BoundsInt boundsInt, V3IntDirection direction)
+		public static int ToSign(this V3IntDirection direction)
 		{
-			Vector3Int center = new Vector3Int(Mathf.FloorToInt(boundsInt.center.x), Mathf.FloorToInt(boundsInt.center.y), Mathf.FloorToInt(boundsInt.center.z));
+			return direction.ToValue();
+		}
 
-			var minOrMax = direction.IsPlus() ? boundsInt.max : boundsInt.min;
+		/// <summary>
+		/// BoundsIntからその方向の外側の点を返す。中心はmin + size / 2したもの。
+		/// </summary>
+		public static Vector3Int GetOuterPoint(this BoundsInt boundsInt, V3IntDirection direction)
+		{
+			Vector3Int center = boundsInt.min + boundsInt.size / 2; // 整数除算
+
+			var minOrMax = direction.IsPlus() ? boundsInt.max : boundsInt.min - Vector3Int.one;
 
 			center[direction.ToIndex()] = minOrMax[direction.ToIndex()];
 
