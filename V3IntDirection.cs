@@ -92,5 +92,19 @@ namespace takashicompany.Unity
 
 			return center;
 		}
+
+		public static V3IntDirection Reverse(this V3IntDirection direction)
+		{
+			switch (direction)
+			{
+				case V3IntDirection.Left: return V3IntDirection.Right;
+				case V3IntDirection.Right: return V3IntDirection.Left;
+				case V3IntDirection.Down: return V3IntDirection.Up;
+				case V3IntDirection.Up: return V3IntDirection.Down;
+				case V3IntDirection.Back: return V3IntDirection.Forward;
+				case V3IntDirection.Forward: return V3IntDirection.Back;
+				default: return direction; // Noneの場合はそのまま返す
+			}
+		}
 	}
 }
