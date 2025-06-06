@@ -28,6 +28,21 @@
 
 	public static class Utils
 	{
+		public static string GeneratePathByPersistent(string fileName)
+		{
+			var path = Application.persistentDataPath;
+#if UNITY_EDITOR
+			path = System.IO.Path.GetFullPath(".");
+			path = System.IO.Path.Combine(path, "persistent-data");
+			if (!System.IO.Directory.Exists(path))
+			{
+				System.IO.Directory.CreateDirectory(path);
+			}
+#endif
+			path = System.IO.Path.Combine(path, fileName);
+			return path;
+		}
+
 		public static bool IsUpdate(this UpdateType updateType)
 		{
 			return updateType.HasFlag(UpdateType.Update);
