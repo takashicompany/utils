@@ -1906,6 +1906,35 @@
 			return mergedBounds;
 		}
 
+		public static Bounds GetBounds(this IEnumerable<Vector3Int> points, Vector3 sizePerCell)
+		{
+			if (points == null) throw new ArgumentNullException(nameof(points));
+
+			bool hasBounds = false;
+			Bounds result = default;
+
+			foreach (var point in points)
+			{
+				// セル中心をワールド座標に換算
+				Vector3 center = Vector3.Scale(point, sizePerCell);
+
+				// セルそのものの大きさを持つ Bounds
+				Bounds cellBounds = new Bounds(center, sizePerCell);
+
+				if (!hasBounds)
+				{
+					result = cellBounds;
+					hasBounds = true;
+				}
+				else
+				{
+					result.Encapsulate(cellBounds);
+				}
+			}
+
+			return result; // points が空なら center = (0,0,0), size = (0,0,0)
+		}
+
 		#endregion
 
 		#region BoundsInt
