@@ -2609,6 +2609,26 @@
 			self.localScale = s;
 		}
 
+		public static void SetWorldScale(this Transform transform, Vector3 worldScale)
+		{
+			if (transform == null) return;
+
+			if (transform.parent == null)
+			{
+				transform.localScale = worldScale;
+				return;
+			}
+
+			Vector3 parentScale = transform.parent.lossyScale;
+
+			transform.localScale = new Vector3(
+				parentScale.x != 0f ? worldScale.x / parentScale.x : 0f,
+				parentScale.y != 0f ? worldScale.y / parentScale.y : 0f,
+				parentScale.z != 0f ? worldScale.z / parentScale.z : 0f
+			);
+		}
+
+
 		public static string GetNameWithHierarchy(this Transform self)
 		{
 			var str = self.name;
