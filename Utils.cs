@@ -28,6 +28,21 @@
 
 	public static class Utils
 	{
+		public static string GeneratePathByPersistent(string fileName)
+		{
+			var path = Application.persistentDataPath;
+#if UNITY_EDITOR
+			path = System.IO.Path.GetFullPath(".");
+			path = System.IO.Path.Combine(path, "persistent-data");
+			if (!System.IO.Directory.Exists(path))
+			{
+				System.IO.Directory.CreateDirectory(path);
+			}
+#endif
+			path = System.IO.Path.Combine(path, fileName);
+			return path;
+		}
+
 		public static bool IsUpdate(this UpdateType updateType)
 		{
 			return updateType.HasFlag(UpdateType.Update);
@@ -1639,6 +1654,125 @@
 		{
 			return new Vector3(self.x, self.y, self.z);
 		}
+
+		public static int GetIndexSingle(this Vector3Int self)
+		{
+			Debug.Assert(self.ToAxisMask().magnitude == 1, "複数の軸が指定されています。");
+			if (self.x != 0) return 0;
+			if (self.y != 0) return 1;
+			if (self.z != 0) return 2;
+
+			throw new InvalidOperationException("指定されたベクトルは、いずれの軸も 0 です。");
+		}
+
+		/// <summary>
+		/// Vector3Int の各成分が 0 でない場合は 1 に変換する。
+		/// </summary>
+		public static Vector3Int ToAxisMask(this Vector3Int self)
+		{
+			return new Vector3Int(
+				self.x != 0 ? 1 : 0,
+				self.y != 0 ? 1 : 0,
+				self.z != 0 ? 1 : 0
+			);
+		}
+
+		/// <summary>
+		/// Vector3Int 同士の演算のみで、direction 方向へ最も突き出た点を返す。
+		/// </summary>
+		public static Vector3Int MaxInDirection(this IEnumerable<Vector3Int> source, Vector3Int direction)
+		{
+			if (source == null) throw new ArgumentNullException(nameof(source));
+			using var e = source.GetEnumerator();
+			if (!e.MoveNext()) throw new InvalidOperationException("source contains no elements.");
+
+			// --- ローカル関数でドット積を計算 ---
+			static int Dot(in Vector3Int a, in Vector3Int b) =>
+				a.x * b.x + a.y * b.y + a.z * b.z;
+			// ----------------------------------
+
+			Vector3Int best = e.Current;
+			int bestDot = Dot(best, direction);
+
+			while (e.MoveNext())
+			{
+				int dot = Dot(e.Current, direction);
+				if (dot > bestDot)
+				{
+					bestDot = dot;
+					best = e.Current;
+				}
+			}
+
+			return best;
+		}
+
+		/// <summary>
+		/// 点集合すべてを含む BoundsInt を返す。
+		/// （BoundsInt は position を最小座標、size を max 近傍排他的にとる仕様）
+		/// </summary>
+		/// <exception cref="ArgumentNullException">source が null</exception>
+		/// <exception cref="InvalidOperationException">source が空</exception>
+		public static BoundsInt ToBoundsInt(this IEnumerable<Vector3Int> source)
+		{
+			if (source == null) throw new ArgumentNullException(nameof(source));
+			using var e = source.GetEnumerator();
+			if (!e.MoveNext()) throw new InvalidOperationException("source contains no elements.");
+
+			Vector3Int min = e.Current;
+			Vector3Int max = e.Current;
+
+			while (e.MoveNext())
+			{
+				Vector3Int p = e.Current;
+				if (p.x < min.x) min.x = p.x;
+				if (p.y < min.y) min.y = p.y;
+				if (p.z < min.z) min.z = p.z;
+
+				if (p.x > max.x) max.x = p.x;
+				if (p.y > max.y) max.y = p.y;
+				if (p.z > max.z) max.z = p.z;
+			}
+
+			Vector3Int size = (max - min) + Vector3Int.one; // max を含むため +1
+			return new BoundsInt(min, size);
+		}
+
+		/// <summary>
+		/// ignoreAxis 以外の 2 軸のうち一方が 0 でなければ、
+		/// もう一方の軸インデックスを返す拡張メソッド。
+		/// </summary>
+		/// <param name="v">対象ベクトル</param>
+		/// <param name="ignoreAxis">無視する軸 (0:x, 1:y, 2:z)。既定値 1</param>
+		/// <returns>0〜2 の軸インデックス</returns>
+		/// <exception cref="ArgumentOutOfRangeException">ignoreAxis が 0–2 以外</exception>
+		/// <exception cref="ArgumentException">関連 2 軸とも 0 の場合</exception>
+		public static int GetPairedAxis(this Vector3Int v, int ignoreAxis = 1)
+		{
+			switch (ignoreAxis)
+			{
+				case 0:                         // x を無視
+					if (v.y != 0) return 2;     // y が非ゼロ → z
+					if (v.z != 0) return 1;     // z が非ゼロ → y
+					break;
+
+				case 1:                         // y を無視
+					if (v.z != 0) return 0;     // z が非ゼロ → x
+					if (v.x != 0) return 2;     // x が非ゼロ → z
+					break;
+
+				case 2:                         // z を無視
+					if (v.x != 0) return 1;     // x が非ゼロ → y
+					if (v.y != 0) return 0;     // y が非ゼロ → x
+					break;
+
+				default:
+					throw new ArgumentOutOfRangeException(nameof(ignoreAxis), "Axis must be 0, 1, or 2.");
+			}
+
+			throw new ArgumentException("Both relevant axes are zero.", nameof(v));
+		}
+
 		#region Bounds
 
 		// ちょっとこの辺りどれぐらい正しいかは未検証
@@ -1767,6 +1901,26 @@
 			return true;
 		}
 
+		public static Bounds Merge(this IEnumerable<Bounds> bounds)
+		{
+			var mergedBounds = new Bounds();
+
+			var count = 0;
+
+			foreach (var b in bounds)
+			{
+				if (count == 0)
+				{
+					mergedBounds = b;
+				}
+
+				mergedBounds.Encapsulate(b);
+				count++;
+			}
+
+			return mergedBounds;
+		}
+		
 		#endregion
 
 		#region BoundsInt
@@ -1853,7 +2007,7 @@
 
 		#endregion
 
-		public static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
+		public static BoundsInt GetBoundsIntZero(this IEnumerable<Vector3Int> points)
 		{
 			var min = new Vector3Int(int.MaxValue, int.MaxValue, int.MaxValue);
 			var max = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
@@ -1870,6 +2024,35 @@
 			}
 
 			return new BoundsInt(min, max - min);
+		}
+
+		/// <summary>
+		/// 点群を必ず含む軸アラインドの BoundsInt を返す（最大点をインクルーシブに扱う）。
+		/// 例: points が 1 点だけでも size は (1,1,1) になる。
+		/// </summary>
+		public static BoundsInt GetBoundsInt(this IEnumerable<Vector3Int> points)
+		{
+			var hasPoint = false;
+			var min = new Vector3Int(int.MaxValue, int.MaxValue, int.MaxValue);
+			var max = new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
+
+			foreach (var p in points)
+			{
+				hasPoint = true;
+
+				if (p.x < min.x) min.x = p.x;
+				if (p.y < min.y) min.y = p.y;
+				if (p.z < min.z) min.z = p.z;
+
+				if (p.x > max.x) max.x = p.x;
+				if (p.y > max.y) max.y = p.y;
+				if (p.z > max.z) max.z = p.z;
+			}
+
+			if (!hasPoint) throw new ArgumentException("The collection is empty.", nameof(points));
+
+			// +Vector3Int.one で最大点を含め、size を 1 以上にする
+			return new BoundsInt(min, max - min + Vector3Int.one);
 		}
 
 		public static IEnumerable<Vector3Int> GetBarePoints(this IEnumerable<Vector3Int> points)
@@ -1896,7 +2079,7 @@
 
 		public static bool IsBare(this IEnumerable<Vector3Int> points, Vector3Int p)
 		{
-			var bounds = points.GetBoundsInt();
+			var bounds = points.GetBoundsIntZero();
 
 			for (var x = -1; x <= 1; x++)
 			{
@@ -3362,6 +3545,8 @@
 		{
 			return Physics.Raycast(ray, out var hit, distance, layerMask, queryTriggerInteraction) && hit.collider == self;
 		}
+
+
 		#endregion
 
 		#region  Collider2D

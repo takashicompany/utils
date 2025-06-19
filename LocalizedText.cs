@@ -12,7 +12,7 @@ namespace takashicompany.Unity
 	using UnityEngine.SceneManagement;
 #endif
 
-	public abstract class LanguageText : MonoBehaviour
+	public abstract class LocalizedText : MonoBehaviour
 	{
 		protected Text _text;
 		protected TextMeshProUGUI _textMeshPro;
@@ -24,12 +24,17 @@ namespace takashicompany.Unity
 			UpdateText();
 		}
 
+		protected virtual void OnEnable()
+		{
+			UpdateText();
+		}
+
 		protected virtual void Start()
 		{
 			// Inspectorビューにenableのチェックを出すために定義しただけ。継承して使ってもいいけど。
 		}
 
-		protected virtual void UpdateText()
+		public virtual void UpdateText()
 		{
 			if (!enabled)
 			{
@@ -49,14 +54,14 @@ namespace takashicompany.Unity
 		public abstract string GetString();
 	}
 
-	public abstract class LanguageText<T> : LanguageText where T : System.Enum
+	public abstract class LocalizedText<T> : LocalizedText where T : System.Enum
 	{
 		[SerializeField]
 		protected T _key;
 	}
 
 #if UNITY_EDITOR
-	[CustomEditor(typeof(LanguageText<>), true)] // 継承クラスにも適用
+	[CustomEditor(typeof(LocalizedText<>), true)] // 継承クラスにも適用
 	public class LanguageTextEditor : UnityEditor.Editor
 	{
 		private SerializedProperty _keyProperty;
@@ -70,7 +75,7 @@ namespace takashicompany.Unity
 		{
 			serializedObject.Update();
 
-			LanguageText targetScript = (LanguageText)target;
+			LocalizedText targetScript = (LocalizedText)target;
 
 			if (targetScript.enabled)
 			{
@@ -90,7 +95,7 @@ namespace takashicompany.Unity
 
 		private void ApplyTextUpdate()
 		{
-			LanguageText targetScript = (LanguageText)target;
+			LocalizedText targetScript = (LocalizedText)target;
 			Undo.RecordObject(targetScript, "Change Language Key");
 
 			// TextまたはTextMeshProUGUIを直接更新
