@@ -4454,7 +4454,7 @@
 
 		#region LayoutGroup
 
-		public static IEnumerable<Tweener> DOLayout(this LayoutGroup layoutGroup, float duration, Ease ease = Ease.Linear)
+		public static void DOLayout(this LayoutGroup layoutGroup, float duration, Ease ease = Ease.Linear)
 		{
 			var before = new Dictionary<Transform, Vector3>();
 
@@ -4474,13 +4474,13 @@
 			}
 			
 			layoutGroup.enabled = false;
-			
+
 			foreach (Transform t in layoutGroup.transform)
 			{
 				if (before.TryGetValue(t, out var beforePos) && after.TryGetValue(t, out var afterPos))
 				{
 					var tween = t.DOMove(afterPos, duration).SetEase(ease).From(beforePos);
-					yield return tween;
+					// yield return tween;
 				}
 			}
 		}
