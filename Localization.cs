@@ -38,6 +38,8 @@ namespace takashicompany.Unity
 
 		private const string _prefsKey = "TC_Localization_Language";
 
+		public static Language defaultLanguage = Language.English;
+
 		public Localization(TextAsset csvFile) : base(csvFile)
 		{
 			var langs = _raw[0].ToArray();
@@ -105,7 +107,7 @@ namespace takashicompany.Unity
 
 		public static Language GetLanguage()
 		{
-			var lang = PlayerPrefs.GetInt(_prefsKey, (int)Language.English);
+			var lang = PlayerPrefs.GetInt(_prefsKey, (int)defaultLanguage);
 			return (Language)lang;
 		}
 
