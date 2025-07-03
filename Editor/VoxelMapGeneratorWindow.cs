@@ -12,7 +12,7 @@ namespace takashicompany.Unity.Editor
         private string _saveFileName = "VoxelMap";
         private string _savePath = "";
         
-        [MenuItem("TS Utils/2Dマップ生成")]
+        [MenuItem("TC Utils/2Dマップ生成")]
         public static void ShowWindow()
         {
             GetWindow<VoxelMapGeneratorWindow>("2Dマップ生成ツール");
@@ -59,21 +59,10 @@ namespace takashicompany.Unity.Editor
             _generator.seaColor = EditorGUILayout.ColorField("海の色", _generator.seaColor);
             _generator.landLowColor = EditorGUILayout.ColorField("低地の色", _generator.landLowColor);
             _generator.landHighColor = EditorGUILayout.ColorField("高地の色", _generator.landHighColor);
-            _generator.portColor = EditorGUILayout.ColorField("港の色", _generator.portColor);
             
             EditorGUI.indentLevel--;
             EditorGUILayout.Space();
             
-            // 港設定
-            EditorGUILayout.LabelField("港設定", EditorStyles.boldLabel);
-            EditorGUI.indentLevel++;
-            
-            _generator.maxPorts = EditorGUILayout.IntField("最大港数", _generator.maxPorts);
-            _generator.portsPerIsland = EditorGUILayout.IntField("島あたりの港数", _generator.portsPerIsland);
-            _generator.portSpacing = EditorGUILayout.IntField("港の間隔", _generator.portSpacing);
-            
-            EditorGUI.indentLevel--;
-            EditorGUILayout.Space();
             
             // プレビュー領域
             if (_generator.tex != null)
