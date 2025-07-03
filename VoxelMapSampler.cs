@@ -130,12 +130,12 @@ namespace takashicompany.Unity
 		public int portSpacing = 6;
 
 		// internal
-		private IVoxelMap.Code[,] _map;
-		private float[,] _heights;
-		private bool[,] _ports;
-		private Texture2D _tex; public Texture2D tex => _tex;
-		private SeamlessNoise _noise;
-		private Vector4[] _octaveRot;
+		protected IVoxelMap.Code[,] _map;
+		protected float[,] _heights;
+		protected bool[,] _ports;
+		protected Texture2D _tex; public Texture2D tex => _tex;
+		protected SeamlessNoise _noise;
+		protected Vector4[] _octaveRot;
 		private readonly int[] _dx = { 1, -1, 0, 0 };
 		private readonly int[] _dz = { 0, 0, 1, -1 };
 
