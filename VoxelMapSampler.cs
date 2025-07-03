@@ -391,7 +391,7 @@ namespace takashicompany.Unity
 		}
 	}
 
-	internal sealed class SeamlessNoise
+	public sealed class SeamlessNoise
 	{
 		private readonly float[] off = new float[8];
 		public SeamlessNoise(int seed) { var rng = new System.Random(seed); for (int i = 0; i < 8; i++) off[i] = (float)rng.NextDouble() * 512f; }
