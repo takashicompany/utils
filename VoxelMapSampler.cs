@@ -253,7 +253,7 @@ namespace takashicompany.Unity
 		}
 
 		// ---- Paint ----
-		private void Paint()
+		protected virtual void Paint()
 		{
 			for (int z = 0; z < height; z++) for (int x = 0; x < width; x++)
 				{
