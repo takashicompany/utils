@@ -396,6 +396,22 @@
 			return color;
 		}
 
+		/// <summary>
+		/// 最初に一文字がアルファベットの小文字だった場合、大文字に変換したものを返す。
+		/// </summary>
+		public static string CapitalizeFirstIfLowercase(this string str)
+		{
+			if (str == null) return null;
+
+			char[] chars = str.ToCharArray();
+			if (chars.Length > 0 && chars[0] >= 'a' && chars[0] <= 'z')
+			{
+				chars[0] = char.ToUpperInvariant(chars[0]);
+			}
+			return new string(chars); // 常に新しいインスタンスを生成して返す
+		}
+
+
 		#endregion
 
 		#region  IEnumeralbe
