@@ -411,6 +411,21 @@
 			return new string(chars); // 常に新しいインスタンスを生成して返す
 		}
 
+		public static string AppendAndLineBreakIfNotEmpty(this string str, string append)
+		{
+			if (string.IsNullOrEmpty(str))
+			{
+				return append;
+			}
+
+			if (string.IsNullOrEmpty(append))
+			{
+				return str;
+			}
+
+			return str + "\n" + append;
+		}
+
 
 		#endregion
 
