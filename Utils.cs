@@ -4710,6 +4710,30 @@
 		}
 		#endregion
 
+		#region SaveData
+		public static string GeneratePathByPersistent(string fileName)
+		{
+			var path = Application.persistentDataPath;
+#if UNITY_EDITOR
+			path = System.IO.Path.GetFullPath(".");
+			path = System.IO.Path.Combine(path, "persistent-data");
+			if (!System.IO.Directory.Exists(path))
+			{
+				System.IO.Directory.CreateDirectory(path);
+			}
+#endif
+			path = System.IO.Path.Combine(path, fileName);
+
+			var directory = System.IO.Path.GetDirectoryName(path);
+			if (!System.IO.Directory.Exists(directory))
+			{
+				System.IO.Directory.CreateDirectory(directory);
+			}
+
+			return path;
+		}
+		#endregion
+
 		/// <summary>
 		/// Rayが仮想の高さの平面と交わる位置を返す
 		/// </summary>

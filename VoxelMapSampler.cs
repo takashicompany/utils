@@ -311,7 +311,7 @@ namespace takashicompany.Unity
 		private void GenerateAndSave()
 		{
 			_map.Generate();
-			_map.SavePNG(SaveData.GeneratePathByPersistent("VoxelMap.png"));
+			_map.SavePNG(Utils.GeneratePathByPersistent("VoxelMap.png"));
 		}
 
 
