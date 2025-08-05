@@ -42,11 +42,12 @@ namespace takashicompany.Unity
 		{
 			if (!_clips.ContainsKey(clipType))
 			{
-				var clip = Resources.Load<AudioClip>(BuildPath(clipType));
+				var path = BuildPath(clipType);
+				var clip = Resources.Load<AudioClip>(path);
 
 				if (clip == null)
 				{
-					Debug.LogError(clipType + " is not found.");
+					Debug.LogError(path + " が見つかりません。");
 					return;
 				}
 

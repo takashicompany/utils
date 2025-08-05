@@ -130,12 +130,12 @@ namespace takashicompany.Unity
 		public int portSpacing = 6;
 
 		// internal
-		private IVoxelMap.Code[,] _map;
-		private float[,] _heights;
-		private bool[,] _ports;
-		private Texture2D _tex; public Texture2D tex => _tex;
-		private SeamlessNoise _noise;
-		private Vector4[] _octaveRot;
+		protected IVoxelMap.Code[,] _map;
+		protected float[,] _heights;
+		protected bool[,] _ports;
+		protected Texture2D _tex; public Texture2D tex => _tex;
+		protected SeamlessNoise _noise;
+		protected Vector4[] _octaveRot;
 		private readonly int[] _dx = { 1, -1, 0, 0 };
 		private readonly int[] _dz = { 0, 0, 1, -1 };
 
@@ -253,7 +253,7 @@ namespace takashicompany.Unity
 		}
 
 		// ---- Paint ----
-		private void Paint()
+		protected virtual void Paint()
 		{
 			for (int z = 0; z < height; z++) for (int x = 0; x < width; x++)
 				{
@@ -391,7 +391,7 @@ namespace takashicompany.Unity
 		}
 	}
 
-	internal sealed class SeamlessNoise
+	public sealed class SeamlessNoise
 	{
 		private readonly float[] off = new float[8];
 		public SeamlessNoise(int seed) { var rng = new System.Random(seed); for (int i = 0; i < 8; i++) off[i] = (float)rng.NextDouble() * 512f; }

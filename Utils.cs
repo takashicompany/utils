@@ -28,21 +28,6 @@
 
 	public static class Utils
 	{
-		public static string GeneratePathByPersistent(string fileName)
-		{
-			var path = Application.persistentDataPath;
-#if UNITY_EDITOR
-			path = System.IO.Path.GetFullPath(".");
-			path = System.IO.Path.Combine(path, "persistent-data");
-			if (!System.IO.Directory.Exists(path))
-			{
-				System.IO.Directory.CreateDirectory(path);
-			}
-#endif
-			path = System.IO.Path.Combine(path, fileName);
-			return path;
-		}
-
 		public static bool IsUpdate(this UpdateType updateType)
 		{
 			return updateType.HasFlag(UpdateType.Update);
@@ -410,6 +395,37 @@
 			ColorUtility.TryParseHtmlString(htmlString, out var color);
 			return color;
 		}
+
+		/// <summary>
+		/// 最初に一文字がアルファベットの小文字だった場合、大文字に変換したものを返す。
+		/// </summary>
+		public static string CapitalizeFirstIfLowercase(this string str)
+		{
+			if (str == null) return null;
+
+			char[] chars = str.ToCharArray();
+			if (chars.Length > 0 && chars[0] >= 'a' && chars[0] <= 'z')
+			{
+				chars[0] = char.ToUpperInvariant(chars[0]);
+			}
+			return new string(chars); // 常に新しいインスタンスを生成して返す
+		}
+
+		public static string AppendAndLineBreakIfNotEmpty(this string str, string append)
+		{
+			if (string.IsNullOrEmpty(str))
+			{
+				return append;
+			}
+
+			if (string.IsNullOrEmpty(append))
+			{
+				return str;
+			}
+
+			return str + "\n" + append;
+		}
+
 
 		#endregion
 
@@ -1920,7 +1936,36 @@
 
 			return mergedBounds;
 		}
-		
+
+		public static Bounds GetBounds(this IEnumerable<Vector3Int> points, Vector3 sizePerCell)
+		{
+			if (points == null) throw new ArgumentNullException(nameof(points));
+
+			bool hasBounds = false;
+			Bounds result = default;
+
+			foreach (var point in points)
+			{
+				// セル中心をワールド座標に換算
+				Vector3 center = Vector3.Scale(point, sizePerCell);
+
+				// セルそのものの大きさを持つ Bounds
+				Bounds cellBounds = new Bounds(center, sizePerCell);
+
+				if (!hasBounds)
+				{
+					result = cellBounds;
+					hasBounds = true;
+				}
+				else
+				{
+					result.Encapsulate(cellBounds);
+				}
+			}
+
+			return result; // points が空なら center = (0,0,0), size = (0,0,0)
+		}
+
 		#endregion
 
 		#region BoundsInt
@@ -2594,6 +2639,26 @@
 			s[index] = p;
 			self.localScale = s;
 		}
+
+		public static void SetWorldScale(this Transform transform, Vector3 worldScale)
+		{
+			if (transform == null) return;
+
+			if (transform.parent == null)
+			{
+				transform.localScale = worldScale;
+				return;
+			}
+
+			Vector3 parentScale = transform.parent.lossyScale;
+
+			transform.localScale = new Vector3(
+				parentScale.x != 0f ? worldScale.x / parentScale.x : 0f,
+				parentScale.y != 0f ? worldScale.y / parentScale.y : 0f,
+				parentScale.z != 0f ? worldScale.z / parentScale.z : 0f
+			);
+		}
+
 
 		public static string GetNameWithHierarchy(this Transform self)
 		{
@@ -4677,6 +4742,30 @@
 		public static bool IsEquals<T>(this T value, T other)
 		{
 			return EqualityComparer<T>.Default.Equals(value, other);
+		}
+		#endregion
+
+		#region SaveData
+		public static string GeneratePathByPersistent(string fileName)
+		{
+			var path = Application.persistentDataPath;
+#if UNITY_EDITOR
+			path = System.IO.Path.GetFullPath(".");
+			path = System.IO.Path.Combine(path, "persistent-data");
+			if (!System.IO.Directory.Exists(path))
+			{
+				System.IO.Directory.CreateDirectory(path);
+			}
+#endif
+			path = System.IO.Path.Combine(path, fileName);
+
+			var directory = System.IO.Path.GetDirectoryName(path);
+			if (!System.IO.Directory.Exists(directory))
+			{
+				System.IO.Directory.CreateDirectory(directory);
+			}
+
+			return path;
 		}
 		#endregion
 

@@ -92,5 +92,121 @@ namespace takashicompany.Unity
 
 			return center;
 		}
+
+		public static V3IntDirection Reverse(this V3IntDirection direction)
+		{
+			switch (direction)
+			{
+				case V3IntDirection.Left: return V3IntDirection.Right;
+				case V3IntDirection.Right: return V3IntDirection.Left;
+				case V3IntDirection.Down: return V3IntDirection.Up;
+				case V3IntDirection.Up: return V3IntDirection.Down;
+				case V3IntDirection.Back: return V3IntDirection.Forward;
+				case V3IntDirection.Forward: return V3IntDirection.Back;
+				default: return direction; // Noneの場合はそのまま返す
+			}
+		}
+
+		public static bool TryToXZ(this KeyCode keyCode, out V3IntDirection direction)
+		{
+			switch (keyCode)
+			{
+				case KeyCode.LeftArrow:
+				case KeyCode.A:
+					direction = V3IntDirection.Left;
+					return true;
+
+				case KeyCode.RightArrow:
+				case KeyCode.D:
+					direction = V3IntDirection.Right;
+					return true;
+
+				case KeyCode.DownArrow:
+				case KeyCode.S:
+					direction = V3IntDirection.Back;
+					return true;
+
+				case KeyCode.UpArrow:
+				case KeyCode.W:
+					direction = V3IntDirection.Forward;
+					return true;
+			}
+
+			direction = V3IntDirection.None;
+			return false;
+		}
+
+		public static bool GetKey(this V3IntDirection direction)
+		{
+			switch (direction)
+			{
+				case V3IntDirection.Left:
+					return Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
+				case V3IntDirection.Right:
+					return Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
+
+				// yとzは上下の入力とする
+
+				case V3IntDirection.Down:
+				case V3IntDirection.Back:
+					return Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
+				
+				case V3IntDirection.Up:
+				case V3IntDirection.Forward:
+					return Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
+
+				default:
+					return false;
+			}
+		}
+
+		public static bool GetKeyDown(this V3IntDirection direction)
+		{
+			switch (direction)
+			{
+				case V3IntDirection.Left:
+					return Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A);
+				case V3IntDirection.Right:
+					return Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D);
+
+				// yとzは上下の入力とする
+
+				case V3IntDirection.Down:
+				case V3IntDirection.Back:
+					return Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S);
+				
+				case V3IntDirection.Up:
+				case V3IntDirection.Forward:
+					return Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W);
+
+				default:
+					return false;
+			}
+		}
+
+		public static bool GetKeyUp(this V3IntDirection direction)
+		{
+			switch (direction)
+			{
+				case V3IntDirection.Left:
+					return Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A);
+				case V3IntDirection.Right:
+					return Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D);
+
+				// yとzは上下の入力とする
+
+				case V3IntDirection.Down:
+				case V3IntDirection.Back:
+					return Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S);
+				
+				case V3IntDirection.Up:
+				case V3IntDirection.Forward:
+					return Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W);
+
+				default:
+					return false;
+			}
+		}
+		
 	}
 }

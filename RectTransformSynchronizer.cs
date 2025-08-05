@@ -27,6 +27,19 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private bool _syncPivot = true;
 
+		[Header("Padding Settings")]
+		[SerializeField]
+		private float _paddingLeft = 0f;
+
+		[SerializeField]
+		private float _paddingTop = 0f;
+
+		[SerializeField]
+		private float _paddingRight = 0f;
+
+		[SerializeField]
+		private float _paddingBottom = 0f;
+
 		private RectTransform _rectTransform;
 
 		private void Start()
@@ -55,11 +68,40 @@ namespace takashicompany.Unity
 			if (_target != null && _rectTransform != null)
 			{
 				// 参照元のRectTransformからサイズと位置をコピー
-				if (_syncAnchoredPosition) _rectTransform.anchoredPosition = _target.anchoredPosition;
-				if (_syncSizeDelta) _rectTransform.sizeDelta = _target.sizeDelta;
 				if (_syncAnchorMin) _rectTransform.anchorMin = _target.anchorMin;
 				if (_syncAnchorMax) _rectTransform.anchorMax = _target.anchorMax;
 				if (_syncPivot) _rectTransform.pivot = _target.pivot;
+				
+				if (_syncSizeDelta)
+				{
+					var targetSizeDelta = _target.sizeDelta;
+					var paddedSizeDelta = new Vector2(
+						targetSizeDelta.x - _paddingLeft - _paddingRight,
+						targetSizeDelta.y - _paddingTop - _paddingBottom
+					);
+					_rectTransform.sizeDelta = paddedSizeDelta;
+				}
+				
+				if (_syncAnchoredPosition)
+				{
+					var basePosition = _target.anchoredPosition;
+					
+					// paddingによるサイズ変更に応じて位置を補正
+					if (_syncSizeDelta)
+					{
+						var pivot = _rectTransform.pivot;
+						var positionOffset = new Vector2(
+							_paddingLeft - _paddingRight * (1f - pivot.x * 2f),
+							_paddingBottom - _paddingTop * (1f - pivot.y * 2f)
+						) * 0.5f;
+						
+						_rectTransform.anchoredPosition = basePosition + positionOffset;
+					}
+					else
+					{
+						_rectTransform.anchoredPosition = basePosition;
+					}
+				}
 			}
 		}
 	}
