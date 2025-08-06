@@ -4517,6 +4517,41 @@
 			return TryGetDirectionFromTouch(camera, fromScreenPoint, toScreenPoint, out direction, LayerMask.GetMask(layerNames), distance);
 		}
 
+		#region LayoutGroup
+
+		public static void DOLayout(this LayoutGroup layoutGroup, float duration, Ease ease = Ease.Linear)
+		{
+			var before = new Dictionary<Transform, Vector3>();
+
+			foreach (Transform t in layoutGroup.transform)
+			{
+				before.Add(t, t.position);
+			}
+
+			layoutGroup.enabled = true;
+			LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.transform as RectTransform);
+
+			var after = new Dictionary<Transform, Vector3>();
+			
+			foreach (Transform t in layoutGroup.transform)
+			{
+				after.Add(t, t.position);
+			}
+			
+			layoutGroup.enabled = false;
+
+			foreach (Transform t in layoutGroup.transform)
+			{
+				if (before.TryGetValue(t, out var beforePos) && after.TryGetValue(t, out var afterPos))
+				{
+					var tween = t.DOMove(afterPos, duration).SetEase(ease).From(beforePos);
+					// yield return tween;
+				}
+			}
+		}
+
+		#endregion
+
 		#region DOTween
 
 		/// <summary>
