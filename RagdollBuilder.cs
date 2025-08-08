@@ -446,7 +446,7 @@ namespace takashicompany.Unity
 					box.size = bounds.size;
 
 					bounds = Clip(GetBreastBounds(middleSpine), middleSpine, middleSpine, true);
-					middleSpine.gameObject.AddComponent<BoxCollider>();	// box = Undo.AddComponent<BoxCollider>(middleSpine.gameObject);
+					box = middleSpine.gameObject.AddComponent<BoxCollider>();	// box = Undo.AddComponent<BoxCollider>(middleSpine.gameObject);
 					box.center = bounds.center;
 					box.size = bounds.size;
 				}
