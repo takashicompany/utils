@@ -490,5 +490,43 @@ namespace takashicompany.Unity
 				sphere.center = center;
 			}
 		}
+
+		[SerializeField]
+		private bool flipForward = false;
+
+		[SerializeField]
+		private float totalMass = 50.0f;
+
+		[SerializeField]
+		private float strength = 0.5f;
+
+		[SerializeField]
+		private bool buildOnStart = false;
+
+		private void Start()
+		{
+			if (buildOnStart)
+			{
+				Build();
+			}
+		}
+
+		[ContextMenu(nameof(Build))]
+		public void Build()
+		{
+			Animator animator = GetComponent<Animator>();
+			if (animator == null)
+			{
+				Debug.LogError("RagdollBuilder requires an Animator component on the GameObject.");
+				return;
+			}
+
+			Processor processor = new Processor(animator);
+			processor.flipForward = flipForward;
+			processor.totalMass = totalMass;
+			processor.strength = strength;
+
+			processor.Build();
+		}
 	}
 }
