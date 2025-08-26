@@ -17,6 +17,9 @@ namespace takashicompany.Unity
 
 				case Localization.Language.English:
 					return "English";
+					
+				case Localization.Language.SimplifiedChinese:
+					return "简体中文";
 			}
 
 			return lang.ToString();
@@ -29,6 +32,7 @@ namespace takashicompany.Unity
 		{
 			Japanese = 0,
 			English = 1,
+			SimplifiedChinese = 2,
 		}
 
 		private Dictionary<string, int> _langIndex = new Dictionary<string, int>();
@@ -181,6 +185,7 @@ namespace takashicompany.Unity
 		private const string menuPathSwitchLanguage = menuPath + "言語を切り替え/";
 		private const string menuPathJapanese = menuPathSwitchLanguage + "日本語";
 		private const string menuPathEnglish = menuPathSwitchLanguage + "英語";
+		private const string menuPathSimplifiedChinese = menuPathSwitchLanguage + "簡体中文";
 
 		[UnityEditor.MenuItem(menuPathReset)]
 		private static void ResetLanguage()
@@ -214,6 +219,19 @@ namespace takashicompany.Unity
 		private static void English()
 		{
 			SetLanguage(Language.English);
+		}
+
+		[UnityEditor.MenuItem(menuPathSimplifiedChinese, true)]
+		private static bool SimplifiedChineseValidate()
+		{
+			UnityEditor.Menu.SetChecked(menuPathSimplifiedChinese, GetLanguage() == Language.SimplifiedChinese);
+			return true;
+		}
+
+		[UnityEditor.MenuItem(menuPathSimplifiedChinese, false, 3)]
+		private static void SimplifiedChinese()
+		{
+			SetLanguage(Language.SimplifiedChinese);
 		}
 #endif
 	}
