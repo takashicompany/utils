@@ -51,6 +51,9 @@ namespace takashicompany.Unity
 		private TMP_FontAsset _defaultFont;
 
 		private TMP_Text _text;
+		
+		private Material _originalMaterial;
+		private Dictionary<TMP_FontAsset, Material> _materialCache = new ();
 
 		private void Awake()
 		{
@@ -63,18 +66,52 @@ namespace takashicompany.Unity
 			}
 
 			_defaultFont = _text.font;
+			_originalMaterial = _text.fontSharedMaterial;
 		}
 
 		protected override void UpdateFont()
 		{
+			TMP_FontAsset targetFont = null;
+			
 			if (_fontMap != null && _fontMap.TryGetValue(_language, out var font))
 			{
-				if (_text.font != font) _text.font = font;
+				targetFont = font;
 			}
 			else
 			{
-				if (_text.font != _defaultFont) _text.font = _defaultFont;
+				targetFont = _defaultFont;
 			}
+			
+			if (_text.font != targetFont)
+			{
+				_text.font = targetFont;
+				
+				// フォント変更時にマテリアルを設定
+				if (_originalMaterial != null)
+				{
+					if (!_materialCache.TryGetValue(targetFont, out var material))
+					{
+						// 初回の場合、マテリアルを複製してキャッシュ
+						material = new Material(_originalMaterial);
+						_materialCache[targetFont] = material;
+					}
+					
+					_text.fontSharedMaterial = material;
+				}
+			}
+		}
+		
+		private void OnDestroy()
+		{
+			// 作成したマテリアルを破棄
+			foreach (var kvp in _materialCache)
+			{
+				if (kvp.Value != null)
+				{
+					Destroy(kvp.Value);
+				}
+			}
+			_materialCache.Clear();
 		}
 	}
 }
