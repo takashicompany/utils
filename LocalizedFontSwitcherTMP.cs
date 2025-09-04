@@ -93,6 +93,8 @@ namespace takashicompany.Unity
 					{
 						// 初回の場合、マテリアルを複製してキャッシュ
 						material = new Material(_originalMaterial);
+						// フォントアトラスを設定
+						material.mainTexture = targetFont.atlasTexture;
 						_materialCache[targetFont] = material;
 					}
 					
