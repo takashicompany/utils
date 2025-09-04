@@ -48,6 +48,8 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private SerializableDictionary<Localization.Language, TMP_FontAsset> _fontMap = new ();
 
+		private TMP_FontAsset _defaultFont;
+
 		private TMP_Text _text;
 
 		private void Awake()
@@ -59,13 +61,19 @@ namespace takashicompany.Unity
 				enabled = false;
 				return;
 			}
+
+			_defaultFont = _text.font;
 		}
 
 		protected override void UpdateFont()
 		{
 			if (_fontMap != null && _fontMap.TryGetValue(_language, out var font))
 			{
-				_text.font = font;
+				if (_text.font != font) _text.font = font;
+			}
+			else
+			{
+				if (_text.font != _defaultFont) _text.font = _defaultFont;
 			}
 		}
 	}
