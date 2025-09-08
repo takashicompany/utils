@@ -113,6 +113,12 @@
 			return null;
 		}
 
+		public static bool TryGetAttribute<T, A>(this T code, out A attribute) where T : Enum where A : Attribute
+		{
+			attribute = GetAttribute<T, A>(code);
+			return attribute != null;
+		}
+
 		public static IEnumerable<A> GetAttributes<T, A>(this T code) where T : Enum where A : Attribute
 		{
 			var type = code.GetType();
