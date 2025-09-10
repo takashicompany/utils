@@ -32,7 +32,7 @@ namespace takashicompany.Unity
 			}
 		}
 
-
+		[UnityEngine.SerializeField]
 		private List<T> _list = new List<T>();
 
 		public T this[int index]
