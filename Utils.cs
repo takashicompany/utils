@@ -455,6 +455,19 @@
 
 			return self.ElementAt(Mathf.Abs(index) % self.Count());
 		}
+
+		public static int IndexOf<T>(this IEnumerable<T> source, T value)
+		{
+			int index = 0;
+			var comparer = EqualityComparer<T>.Default;
+			foreach (var item in source)
+			{
+				if (comparer.Equals(item, value)) return index;
+				index++;
+			}
+			
+			return -1; // 見つからなければ -1
+		}
 		#endregion
 
 		#region IList
@@ -4543,12 +4556,12 @@
 			LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.transform as RectTransform);
 
 			var after = new Dictionary<Transform, Vector3>();
-			
+
 			foreach (Transform t in layoutGroup.transform)
 			{
 				after.Add(t, t.position);
 			}
-			
+
 			layoutGroup.enabled = false;
 
 			foreach (Transform t in layoutGroup.transform)
