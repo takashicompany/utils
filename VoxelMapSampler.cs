@@ -125,7 +125,8 @@ namespace takashicompany.Unity
 
 		// ---- Port Settings ----
 		[Header("Port Settings")]
-		public int maxPorts = 80;
+		[Tooltip("指定する港の数")]
+		public int targetPorts = 80;
 		public int portsPerIsland = 1;
 		public int portSpacing = 6;
 
@@ -230,7 +231,7 @@ namespace takashicompany.Unity
 				var coast = coastIslands[idx]; coast.Sort((a, b) => rng.Next(-1, 2)); int ip = 0;
 				foreach (var (x, z) in coast)
 				{
-					if (placed >= maxPorts) return; if (ip >= portsPerIsland) break; if (IsFar(x, z)) { _ports[x, z] = true; placed++; ip++; }
+					if (placed >= targetPorts) return; if (ip >= portsPerIsland) break; if (IsFar(x, z)) { _ports[x, z] = true; placed++; ip++; }
 				}
 			}
 		}
