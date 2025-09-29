@@ -3434,6 +3434,25 @@
 		}
 		#endregion
 
+		#region  IReadOnltyDictionary
+
+		public static Dictionary<V, K> BuildReverse<K, V>(this IReadOnlyDictionary<K, V> self)
+		{
+			var dict = new Dictionary<V, K>();
+
+			foreach (var kvp in self)
+			{
+				if (kvp.Value != null && !dict.ContainsKey(kvp.Value))
+				{
+					dict.Add(kvp.Value, kvp.Key);
+				}
+			}
+
+			return dict;
+		}
+
+		#endregion
+
 		#region Dictionary
 		/// <summary>
 		/// Dictionary<K, V>からDictionay<V, K>を生成する。
