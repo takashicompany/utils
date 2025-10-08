@@ -475,7 +475,7 @@
 				if (comparer.Equals(item, value)) return index;
 				index++;
 			}
-			
+
 			return -1; // 見つからなければ -1
 		}
 		#endregion
@@ -4795,6 +4795,19 @@
 		public static bool IsEquals<T>(this T value, T other)
 		{
 			return EqualityComparer<T>.Default.Equals(value, other);
+		}
+		#endregion
+
+		#region X(Twitter)
+		public static void OpenXShare(string text, string url, params string[] hashtags)
+		{
+			string baseUrl = "https://x.com/intent/tweet?";
+			string qText = UnityEngine.Networking.UnityWebRequest.EscapeURL(text);
+			string qUrl = UnityEngine.Networking.UnityWebRequest.EscapeURL(url);
+			string qHashtags = UnityEngine.Networking.UnityWebRequest.EscapeURL(string.Join(",", hashtags)); // # は不要
+
+			string intentUrl = $"{baseUrl}text={qText}&url={qUrl}&hashtags={qHashtags}";
+			Application.OpenURL(intentUrl);
 		}
 		#endregion
 
