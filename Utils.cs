@@ -316,6 +316,16 @@
 			return string.Format("<size={0}>{1}</size>", size, text);
 		}
 
+		public static string ToTMPMarkTag(this string text, Color color)
+		{
+			return string.Format("<mark=#{0}>{1}</mark>", ColorUtility.ToHtmlStringRGBA(color), text);
+		}
+
+		public static string ToTMPUnderLineTag(this string text)
+		{
+			return string.Format("<u>{0}</u>", text);
+		}
+
 		public static string ToStringByItem<T>(this IEnumerable<T> items)
 		{
 			var str = "";
