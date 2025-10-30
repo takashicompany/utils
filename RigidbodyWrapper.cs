@@ -177,8 +177,8 @@ namespace takashicompany.Unity
 
 		public Vector3 velocity
 		{
-			get => Get<Vector3>(() => _a.velocity, () => _b.velocity);
-			set => Set(v => _a.velocity = v, v => _b.velocity = v, value);
+			get => Get<Vector3>(() => _a.linearVelocity, () => _b.linearVelocity);
+			set => Set(v => _a.linearVelocity = v, v => _b.linearVelocity = v, value);
 		}
 
 		public Vector3 position

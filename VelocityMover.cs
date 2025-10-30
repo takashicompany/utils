@@ -36,11 +36,11 @@ namespace takashicompany.Unity
 		{
 			if (_state == State.Stop)
 			{
-				_rigidbody.velocity = Vector3.zero;
+				_rigidbody.linearVelocity = Vector3.zero;
 				return;
 			}
 
-			var current = _rigidbody.velocity;
+			var current = _rigidbody.linearVelocity;
 			
 			switch (_state)
 			{
@@ -67,7 +67,7 @@ namespace takashicompany.Unity
 				current += force;
 			}
 
-			_rigidbody.velocity = current;
+			_rigidbody.linearVelocity = current;
 		}
 
 		public void AddForce(Vector3 force, float duration)

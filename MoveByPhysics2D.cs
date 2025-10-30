@@ -24,7 +24,7 @@ namespace takashicompany.Unity
 			if (_destination == null && _target == null) return;
 
 			Vector2 desiredVelocity = (GetDestination() - _rigidbody2D.position).normalized  * _speed;
-			Vector2 forceToAdd = desiredVelocity - _rigidbody2D.velocity;
+			Vector2 forceToAdd = desiredVelocity - _rigidbody2D.linearVelocity;
 			_rigidbody2D.AddForce(forceToAdd, ForceMode2D.Force);
 		}
 
