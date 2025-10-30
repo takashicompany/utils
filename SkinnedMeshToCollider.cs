@@ -4,6 +4,7 @@ namespace takashicompany.Unity
 	using System.Collections.Generic;
 	using System.Linq;
 	using UnityEngine;
+	using UnityEngine.PlayerLoop;
 
 	public class SkinnedMeshToCollider : MonoBehaviour
 	{
@@ -43,26 +44,14 @@ namespace takashicompany.Unity
 			_mesh = new Mesh();
 		}
 
-		private int _frameCount = -1;
-
-		public void LateUpdate()
-		{
-			if (_frameCount >= 0 && _frameCount + 2 < Time.frameCount)
-			{
-				_frameCount = -1;
-				UpdateCollider();
-			}
-		}
-
 		public void RequestUpdateCollider()
 		{
-			_frameCount = Time.frameCount;
+			UpdateCollider();
 		}
 
 		private void UpdateCollider()
 		{
 			_renderer.BakeMesh(_mesh);
-			Debug.Log("Collider Updated");
 			_collider.sharedMesh = null;	// おまじないだってサ
 			_collider.sharedMesh = _mesh;
 		}
