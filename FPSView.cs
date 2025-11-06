@@ -5,25 +5,26 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
-	public static class FPS
+	public class FPS
 	{
-		private static int _count = 0;
-		private static float _remainNextCalc = 0;
+		private int _count = 0;
+		private float _remainNextCalc = 0;
 
-		public static float seconds = 1f;
+		public float seconds { get; protected set; } = 1f;
 
-		private static int _fps = int.MaxValue;
+		private int _fps = int.MinValue;
 
-		private static int _lastUpdateFrame = int.MinValue;
+		private int _lastUpdateFrame = int.MinValue;
 
-		public static event System.Action<int> onUpdateFPS;
+		public event System.Action<int> onUpdateFPS;
 
-		static FPS()
+		public FPS(float seconds = 1f)
 		{
+			this.seconds = seconds;
 			_remainNextCalc = seconds;
 		}
 
-		public static void Update()
+		public void Update()
 		{
 			if (_lastUpdateFrame == Time.frameCount)
 			{
@@ -45,12 +46,12 @@ namespace takashicompany.Unity
 			}
 		}
 
-		public static int Current()
+		public int Current()
 		{
 			return _fps;
 		}
 
-		public static bool TryCurrent(out int fps)
+		public bool TryCurrent(out int fps)
 		{
 			if (_fps < 0)
 			{
@@ -66,16 +67,18 @@ namespace takashicompany.Unity
 
 	public class FPSWatcher
 	{
+		private FPS _fps;
 		private List<int> _fpsList = new List<int>();
 
 		private int _count;
 
 		public event System.Action<int> onWatchFPS;
 
-		public FPSWatcher(int count)
+		public FPSWatcher(float seconds, int count)
 		{
+			_fps = new FPS(seconds);
 			_count = count;
-			FPS.onUpdateFPS += OnUpdateFPS;
+			_fps.onUpdateFPS += OnUpdateFPS;
 		}
 
 		private void OnUpdateFPS(int fps)
@@ -97,15 +100,25 @@ namespace takashicompany.Unity
 	public class FPSView : MonoBehaviour
 	{
 		[SerializeField]
-		private UnityEngine.UI.Text _text;
+		private TextWrapper _text;
+
+		[SerializeField]
+		private string _format = "FPS:{0}";
+
+		private FPS _fps;
+
+		private void Awake()
+		{
+			_fps = new FPS();
+		}
 
 		private void Update()
 		{
-			FPS.Update();
+			_fps.Update();
 
-			if (FPS.TryCurrent(out var fps))
+			if (_fps.TryCurrent(out var fps))
 			{
-				_text.text = "FPS:" + fps;
+				_text.text = string.Format(_format, fps);
 			}
 			else
 			{
