@@ -3118,6 +3118,20 @@
 			return component != null;
 		}
 
+		public static bool TryGetComponentInChildren<T>(this Component self, out T component, bool includeInactive = false)
+		{
+			component = self.GetComponentInChildren<T>(includeInactive);
+
+			return component != null;
+		}
+
+		public static bool TryGetComponentInChildren<T>(this GameObject self, out T component, bool includeInactive = false)
+		{
+			component = self.GetComponentInChildren<T>(includeInactive);
+
+			return component != null;
+		}
+
 		public static IEnumerable<A> GetComponents<A, B>(this IEnumerable<B> self) where A : Component where B : IGameObject
 		{
 			return self.Select(c => c.gameObject.GetComponent<A>()).Where(c => c != null);
