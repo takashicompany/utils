@@ -10,9 +10,17 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private Vector3 _rotatePerSecond = Vector3.forward * 360;
 
+		[SerializeField]
+		private bool _isFixedUpdate = false;
+
 		private void Update()
 		{
-			transform.Rotate(_rotatePerSecond * Time.deltaTime);
+			 if (!_isFixedUpdate) transform.Rotate(_rotatePerSecond * Time.deltaTime);
+		}
+
+		private void FixedUpdate()
+		{
+			if (_isFixedUpdate) transform.Rotate(_rotatePerSecond * Time.fixedDeltaTime);
 		}
 	}
 }
