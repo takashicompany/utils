@@ -6,7 +6,7 @@ namespace takashicompany.Unity
     using DG.Tweening;
     using UnityEngine;
 
-	public class Mover : MonoBehaviour
+	public class MoveByDOTween : MonoBehaviour
 	{
 		[SerializeField]
 		private bool _isWorld;
