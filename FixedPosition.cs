@@ -10,7 +10,18 @@ namespace takashicompany.Unity
 		[SerializeField]
 		private bool _isLocal = false;
 
+		private Rigidbody _rigidbody;
+
 		private Vector3 _position;
+
+		private void Awake()
+		{
+			_rigidbody = GetComponent<Rigidbody>();
+			if (_rigidbody != null)
+			{
+				_rigidbody.isKinematic = true;
+			}
+		}
 
 		private void OnEnable()
 		{
@@ -41,6 +52,11 @@ namespace takashicompany.Unity
 			else
 			{
 				transform.position = _position;
+			}
+
+			if (_rigidbody != null)
+			{
+				_rigidbody.position = _position;
 			}
 		}
 	}
