@@ -4849,6 +4849,36 @@
 		}
 		#endregion
 
+		#region Material
+
+		public static void SetToonBaseMapColor(this Material material, Color color)
+		{
+			if (material == null) return;
+			material.SetColor("_BaseColor", color);
+		}
+
+		public static void SetToonFirstShadingMapColor(this Material material, Color color)
+		{
+			if (material == null) return;
+			material.SetColor("_1st_ShadeColor", color);
+		}
+
+		public static void SetToonSecondShadingMapColor(this Material material, Color color)
+		{
+			if (material == null) return;
+			material.SetColor("_2nd_ShadeColor", color);
+		}
+
+		public static void SetToonThreeColors(this Material material, Color baseColor, Color firstShadeColor, Color secondShadeColor)
+		{
+			if (material == null) return;
+			material.SetColor("_BaseColor", baseColor);
+			material.SetColor("_1st_ShadeColor", firstShadeColor);
+			material.SetColor("_2nd_ShadeColor", secondShadeColor);
+		}
+
+		#endregion
+
 		/// <summary>
 		/// Rayが仮想の高さの平面と交わる位置を返す
 		/// </summary>
