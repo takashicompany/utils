@@ -4877,6 +4877,12 @@
 			material.SetColor("_2nd_ShadeColor", secondShadeColor);
 		}
 
+		public static void SetToonOutlineColor(this Material material, Color outlineColor)
+		{
+			// Unity Toon Shader: Outline Color (_Outline_Color)
+			material.SetColor("_Outline_Color", outlineColor);
+		}
+
 		#endregion
 
 		/// <summary>
