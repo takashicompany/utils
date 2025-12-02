@@ -98,7 +98,7 @@ namespace takashicompany.Unity
 
 			// リストの要素であるか判定する
 			var match = System.Text.RegularExpressions.Regex.Match(property.propertyPath, "^([a-zA-Z0-9_]*).Array.data\\[([0-9]*)\\]$");
-			
+
 			if (!match.Success)
 			{
 				return -1;
@@ -109,13 +109,34 @@ namespace takashicompany.Unity
 			var regax = new System.Text.RegularExpressions.Regex(@"[^0-9]");
 			var indexText = regax.Replace(splitPath[splitPath.Length - 1], "");
 			int index = 0;
-			
+
 			if (!int.TryParse(indexText, out index))
 			{
 				return -1;
 			}
 
 			return index;
+		}
+
+		public static bool TryGetEditingPrefabOrSelecting<T>(out T result) where T : UnityEngine.Object
+		{
+			result = GetEditingPrefabOrSelecting<T>();
+			return result != null;
+		}
+
+		public static T GetEditingPrefabOrSelecting<T>() where T : UnityEngine.Object
+		{
+#if UNITY_EDITOR
+			if (EditorUtils.TryGetEditingPrefab<T>(out var editingPrefab))
+			{
+				return editingPrefab;
+			}
+			else if (Selection.activeGameObject != null && Selection.activeGameObject.TryGetComponent<T>(out var selected))
+			{
+				return selected;
+			}
+#endif
+			return null;
 		}
 	}
 #endif
