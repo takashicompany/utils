@@ -5,7 +5,7 @@ namespace takashicompany.Unity
 
 	public class RotateWithRigidbody : MonoBehaviour
 	{
-		[SerializeField]
+		[SerializeField, Header("未指定ならこのコンポーネントについているRigidbodyを使う")]
 		private Rigidbody _rigidbody;
 
 		[SerializeField, Header("1ループあたりの回転量（度）")]
