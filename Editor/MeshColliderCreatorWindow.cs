@@ -8,9 +8,10 @@ namespace takashicompany.Unity.Editor
     public class MeshColliderCreatorWindow : EditorWindow
     {
         // 設定項目
-        private Vector3Int _divisions = new Vector3Int(4, 4, 4);
+        private Vector3Int _divisions = new Vector3Int(8, 8, 8);
         private ColliderType _colliderType = ColliderType.Box;
         private bool _enableMerge = true;
+        private PlacementMode _placementMode = PlacementMode.SingleParent;
 
         // 内部状態
         private Vector2 _scrollPos;
@@ -19,6 +20,16 @@ namespace takashicompany.Unity.Editor
         {
             Box,
             SphereAndCapsules
+        }
+
+        public enum PlacementMode
+        {
+            [InspectorName("コライダー毎にGameObject生成")]
+            PerCollider,
+            [InspectorName("1つの子GameObjectにまとめる")]
+            SingleParent,
+            [InspectorName("対象オブジェクトに直接追加")]
+            DirectAttach
         }
 
         [MenuItem("TC Utils/Mesh Collider Creator")]
@@ -42,9 +53,9 @@ namespace takashicompany.Unity.Editor
             // XYZ分割数
             EditorGUILayout.LabelField("分割数");
             EditorGUI.indentLevel++;
-            _divisions.x = EditorGUILayout.IntSlider("X", _divisions.x, 1, 32);
-            _divisions.y = EditorGUILayout.IntSlider("Y", _divisions.y, 1, 32);
-            _divisions.z = EditorGUILayout.IntSlider("Z", _divisions.z, 1, 32);
+            _divisions.x = Mathf.Max(1, EditorGUILayout.IntField("X", _divisions.x));
+            _divisions.y = Mathf.Max(1, EditorGUILayout.IntField("Y", _divisions.y));
+            _divisions.z = Mathf.Max(1, EditorGUILayout.IntField("Z", _divisions.z));
             EditorGUI.indentLevel--;
 
             EditorGUILayout.Space();
@@ -56,6 +67,11 @@ namespace takashicompany.Unity.Editor
 
             // マージオプション
             _enableMerge = EditorGUILayout.Toggle("グリッドをマージする", _enableMerge);
+
+            EditorGUILayout.Space();
+
+            // 配置モード
+            _placementMode = (PlacementMode)EditorGUILayout.EnumPopup("配置モード", _placementMode);
 
             EditorGUI.indentLevel--;
             EditorGUILayout.Space();
@@ -650,10 +666,14 @@ namespace takashicompany.Unity.Editor
                 localBounds.size.z / _divisions.z
             );
 
-            // 親となるGameObjectを作成
-            var colliderParent = new GameObject("_GeneratedColliders");
-            colliderParent.transform.SetParent(parentTransform, false);
-            Undo.RegisterCreatedObjectUndo(colliderParent, "Create Collider Parent");
+            // 配置モードに応じた親オブジェクトの準備
+            GameObject colliderParent = null;
+            if (_placementMode == PlacementMode.PerCollider || _placementMode == PlacementMode.SingleParent)
+            {
+                colliderParent = new GameObject("_GeneratedColliders");
+                colliderParent.transform.SetParent(parentTransform, false);
+                Undo.RegisterCreatedObjectUndo(colliderParent, "Create Collider Parent");
+            }
 
             int colliderIndex = 0;
             foreach (var region in regions)
@@ -671,55 +691,87 @@ namespace takashicompany.Unity.Editor
                 );
                 var regionCenter = regionMin + regionSize * 0.5f;
 
-                var colliderObject = new GameObject($"Collider_{colliderIndex++}");
-                colliderObject.transform.SetParent(colliderParent.transform, false);
-                colliderObject.transform.localPosition = regionCenter;
-
-                switch (region.type)
+                // 配置モードに応じてコライダーを追加
+                switch (_placementMode)
                 {
-                    case RegionType.Box:
-                        var boxCollider = colliderObject.AddComponent<BoxCollider>();
-                        boxCollider.size = regionSize;
+                    case PlacementMode.PerCollider:
+                        // コライダー毎にGameObjectを生成
+                        var perColliderObj = new GameObject($"Collider_{colliderIndex++}");
+                        perColliderObj.transform.SetParent(colliderParent.transform, false);
+                        perColliderObj.transform.localPosition = regionCenter;
+                        AddColliderToGameObject(perColliderObj, region.type, regionSize, gridSize, Vector3.zero);
+                        Undo.RegisterCreatedObjectUndo(perColliderObj, "Create Collider");
                         break;
 
-                    case RegionType.Sphere:
-                        var sphereCollider = colliderObject.AddComponent<SphereCollider>();
-                        // 球の半径は最小の軸のサイズの半分
-                        sphereCollider.radius = Mathf.Min(gridSize.x, Mathf.Min(gridSize.y, gridSize.z)) * 0.5f;
+                    case PlacementMode.SingleParent:
+                        // 1つの子GameObjectにまとめる
+                        AddColliderToGameObject(colliderParent, region.type, regionSize, gridSize, regionCenter);
                         break;
 
-                    case RegionType.CapsuleX:
-                        var capsuleX = colliderObject.AddComponent<CapsuleCollider>();
-                        capsuleX.direction = 0; // X軸
-                        capsuleX.radius = Mathf.Min(gridSize.y, gridSize.z) * 0.5f;
-                        capsuleX.height = regionSize.x;
-                        break;
-
-                    case RegionType.CapsuleY:
-                        var capsuleY = colliderObject.AddComponent<CapsuleCollider>();
-                        capsuleY.direction = 1; // Y軸
-                        capsuleY.radius = Mathf.Min(gridSize.x, gridSize.z) * 0.5f;
-                        capsuleY.height = regionSize.y;
-                        break;
-
-                    case RegionType.CapsuleZ:
-                        var capsuleZ = colliderObject.AddComponent<CapsuleCollider>();
-                        capsuleZ.direction = 2; // Z軸
-                        capsuleZ.radius = Mathf.Min(gridSize.x, gridSize.y) * 0.5f;
-                        capsuleZ.height = regionSize.z;
+                    case PlacementMode.DirectAttach:
+                        // 対象オブジェクトに直接追加
+                        AddColliderToGameObject(parent, region.type, regionSize, gridSize, regionCenter);
                         break;
                 }
+            }
+        }
 
-                Undo.RegisterCreatedObjectUndo(colliderObject, "Create Collider");
+        private void AddColliderToGameObject(GameObject target, RegionType type, Vector3 regionSize, Vector3 gridSize, Vector3 center)
+        {
+            switch (type)
+            {
+                case RegionType.Box:
+                    var boxCollider = Undo.AddComponent<BoxCollider>(target);
+                    boxCollider.center = center;
+                    boxCollider.size = regionSize;
+                    break;
+
+                case RegionType.Sphere:
+                    var sphereCollider = Undo.AddComponent<SphereCollider>(target);
+                    sphereCollider.center = center;
+                    sphereCollider.radius = Mathf.Min(gridSize.x, Mathf.Min(gridSize.y, gridSize.z)) * 0.5f;
+                    break;
+
+                case RegionType.CapsuleX:
+                    var capsuleX = Undo.AddComponent<CapsuleCollider>(target);
+                    capsuleX.center = center;
+                    capsuleX.direction = 0;
+                    capsuleX.radius = Mathf.Min(gridSize.y, gridSize.z) * 0.5f;
+                    capsuleX.height = regionSize.x;
+                    break;
+
+                case RegionType.CapsuleY:
+                    var capsuleY = Undo.AddComponent<CapsuleCollider>(target);
+                    capsuleY.center = center;
+                    capsuleY.direction = 1;
+                    capsuleY.radius = Mathf.Min(gridSize.x, gridSize.z) * 0.5f;
+                    capsuleY.height = regionSize.y;
+                    break;
+
+                case RegionType.CapsuleZ:
+                    var capsuleZ = Undo.AddComponent<CapsuleCollider>(target);
+                    capsuleZ.center = center;
+                    capsuleZ.direction = 2;
+                    capsuleZ.radius = Mathf.Min(gridSize.x, gridSize.y) * 0.5f;
+                    capsuleZ.height = regionSize.z;
+                    break;
             }
         }
 
         private void RemoveGeneratedColliders(GameObject parent)
         {
+            // 子オブジェクトの_GeneratedCollidersを削除
             var existingColliders = parent.transform.Find("_GeneratedColliders");
             if (existingColliders != null)
             {
                 Undo.DestroyObjectImmediate(existingColliders.gameObject);
+            }
+
+            // 対象オブジェクトに直接追加されたコライダーを削除
+            var colliders = parent.GetComponents<Collider>();
+            foreach (var collider in colliders)
+            {
+                Undo.DestroyObjectImmediate(collider);
             }
         }
 
