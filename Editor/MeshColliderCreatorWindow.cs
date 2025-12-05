@@ -10,6 +10,7 @@ namespace takashicompany.Unity.Editor
         // 設定項目
         private Vector3Int _divisions = new Vector3Int(4, 4, 4);
         private ColliderType _colliderType = ColliderType.Box;
+        private bool _enableMerge = true;
 
         // 内部状態
         private Vector2 _scrollPos;
@@ -50,6 +51,11 @@ namespace takashicompany.Unity.Editor
 
             // Colliderタイプ
             _colliderType = (ColliderType)EditorGUILayout.EnumPopup("Colliderタイプ", _colliderType);
+
+            EditorGUILayout.Space();
+
+            // マージオプション
+            _enableMerge = EditorGUILayout.Toggle("グリッドをマージする", _enableMerge);
 
             EditorGUI.indentLevel--;
             EditorGUILayout.Space();
@@ -337,7 +343,12 @@ namespace takashicompany.Unity.Editor
             var regions = new List<MergedRegion>();
             var visited = new bool[_divisions.x, _divisions.y, _divisions.z];
 
-            if (_colliderType == ColliderType.Box)
+            if (!_enableMerge)
+            {
+                // マージしない場合：各グリッドを個別のコライダーとして扱う
+                regions = CreateIndividualRegions(gridData, visited);
+            }
+            else if (_colliderType == ColliderType.Box)
             {
                 // Boxコライダーの場合：直方体でマージ
                 regions = MergeAsBoxes(gridData, visited);
@@ -346,6 +357,48 @@ namespace takashicompany.Unity.Editor
             {
                 // SphereAndCapsulesの場合：Capsuleでマージ
                 regions = MergeAsCapsules(gridData, visited);
+            }
+
+            return regions;
+        }
+
+        private List<MergedRegion> CreateIndividualRegions(bool[,,] gridData, bool[,,] visited)
+        {
+            var regions = new List<MergedRegion>();
+
+            for (int x = 0; x < _divisions.x; x++)
+            {
+                for (int y = 0; y < _divisions.y; y++)
+                {
+                    for (int z = 0; z < _divisions.z; z++)
+                    {
+                        if (gridData[x, y, z] && !visited[x, y, z])
+                        {
+                            visited[x, y, z] = true;
+
+                            RegionType type;
+                            if (_colliderType == ColliderType.Box)
+                            {
+                                type = RegionType.Box;
+                            }
+                            else
+                            {
+                                type = RegionType.Sphere;
+                            }
+
+                            regions.Add(new MergedRegion
+                            {
+                                startX = x,
+                                startY = y,
+                                startZ = z,
+                                sizeX = 1,
+                                sizeY = 1,
+                                sizeZ = 1,
+                                type = type
+                            });
+                        }
+                    }
+                }
             }
 
             return regions;
