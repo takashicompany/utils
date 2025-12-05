@@ -51,7 +51,7 @@ namespace takashicompany.Unity.Editor
             AreaBased
         }
 
-        [MenuItem("TC Utils/Mesh Collider Creator")]
+        [MenuItem("TC Utils/MeshRendererからプリミティブなコライダーを生成する")]
         public static void ShowWindow()
         {
             GetWindow<MeshColliderCreatorWindow>("Mesh Collider Creator");
