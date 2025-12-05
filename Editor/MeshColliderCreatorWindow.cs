@@ -13,6 +13,13 @@ namespace takashicompany.Unity.Editor
         private bool _enableMerge = true;
         private PlacementMode _placementMode = PlacementMode.SingleParent;
 
+        // フィルター設定
+        private FilterMode _filterMode = FilterMode.None;
+        private int _minTriangleCount = 1;
+        private int _subSamplingDivisions = 2;
+        private float _minVolumeRatio = 0.1f;
+        private float _minAreaRatio = 0.1f;
+
         // 内部状態
         private Vector2 _scrollPos;
 
@@ -30,6 +37,18 @@ namespace takashicompany.Unity.Editor
             SingleParent,
             [InspectorName("対象オブジェクトに直接追加")]
             DirectAttach
+        }
+
+        public enum FilterMode
+        {
+            [InspectorName("なし")]
+            None,
+            [InspectorName("三角形数")]
+            TriangleCount,
+            [InspectorName("サブサンプリング")]
+            SubSampling,
+            [InspectorName("面積ベース")]
+            AreaBased
         }
 
         [MenuItem("TC Utils/Mesh Collider Creator")]
@@ -72,6 +91,33 @@ namespace takashicompany.Unity.Editor
 
             // 配置モード
             _placementMode = (PlacementMode)EditorGUILayout.EnumPopup("配置モード", _placementMode);
+
+            EditorGUILayout.Space();
+
+            // フィルターモード
+            _filterMode = (FilterMode)EditorGUILayout.EnumPopup("フィルターモード", _filterMode);
+
+            // フィルターモードに応じた設定を表示
+            if (_filterMode != FilterMode.None)
+            {
+                EditorGUI.indentLevel++;
+                switch (_filterMode)
+                {
+                    case FilterMode.TriangleCount:
+                        _minTriangleCount = Mathf.Max(1, EditorGUILayout.IntField("最小三角形数", _minTriangleCount));
+                        break;
+
+                    case FilterMode.SubSampling:
+                        _subSamplingDivisions = Mathf.Clamp(EditorGUILayout.IntField("分割数", _subSamplingDivisions), 2, 8);
+                        _minVolumeRatio = EditorGUILayout.Slider("最小占有率", _minVolumeRatio, 0f, 1f);
+                        break;
+
+                    case FilterMode.AreaBased:
+                        _minAreaRatio = EditorGUILayout.Slider("最小面積率", _minAreaRatio, 0f, 1f);
+                        break;
+                }
+                EditorGUI.indentLevel--;
+            }
 
             EditorGUI.indentLevel--;
             EditorGUILayout.Space();
@@ -212,8 +258,8 @@ namespace takashicompany.Unity.Editor
                         var cellCenter = cellMin + gridSize * 0.5f;
                         var cellBounds = new Bounds(cellCenter, gridSize);
 
-                        // このセルにメッシュが存在するか判定
-                        gridData[x, y, z] = DoesMeshIntersectBox(vertices, triangles, cellBounds);
+                        // このセルにメッシュが存在するか判定（フィルター適用）
+                        gridData[x, y, z] = PassesFilter(vertices, triangles, cellBounds);
                     }
                 }
             }
@@ -330,6 +376,116 @@ namespace takashicompany.Unity.Editor
                 return false;
 
             return true;
+        }
+
+        // フィルター用: 交差する三角形の数をカウント
+        private int CountIntersectingTriangles(Vector3[] vertices, int[] triangles, Bounds box)
+        {
+            int count = 0;
+            for (int i = 0; i < triangles.Length; i += 3)
+            {
+                var v0 = vertices[triangles[i]];
+                var v1 = vertices[triangles[i + 1]];
+                var v2 = vertices[triangles[i + 2]];
+
+                if (TriangleBoxIntersect(v0, v1, v2, box))
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        // フィルター用: サブサンプリングによる占有率計算
+        private float CalculateSubSamplingRatio(Vector3[] vertices, int[] triangles, Bounds box, int divisions)
+        {
+            int hitCount = 0;
+            int totalCells = divisions * divisions * divisions;
+
+            var subSize = new Vector3(
+                box.size.x / divisions,
+                box.size.y / divisions,
+                box.size.z / divisions
+            );
+
+            for (int x = 0; x < divisions; x++)
+            {
+                for (int y = 0; y < divisions; y++)
+                {
+                    for (int z = 0; z < divisions; z++)
+                    {
+                        var subMin = box.min + new Vector3(
+                            x * subSize.x,
+                            y * subSize.y,
+                            z * subSize.z
+                        );
+                        var subCenter = subMin + subSize * 0.5f;
+                        var subBounds = new Bounds(subCenter, subSize);
+
+                        if (DoesMeshIntersectBox(vertices, triangles, subBounds))
+                        {
+                            hitCount++;
+                        }
+                    }
+                }
+            }
+
+            return (float)hitCount / totalCells;
+        }
+
+        // フィルター用: 面積ベースの占有率計算
+        private float CalculateAreaRatio(Vector3[] vertices, int[] triangles, Bounds box)
+        {
+            float totalArea = 0f;
+
+            for (int i = 0; i < triangles.Length; i += 3)
+            {
+                var v0 = vertices[triangles[i]];
+                var v1 = vertices[triangles[i + 1]];
+                var v2 = vertices[triangles[i + 2]];
+
+                if (TriangleBoxIntersect(v0, v1, v2, box))
+                {
+                    // 三角形の面積を計算（クリッピングなしで近似）
+                    var edge1 = v1 - v0;
+                    var edge2 = v2 - v0;
+                    float area = Vector3.Cross(edge1, edge2).magnitude * 0.5f;
+                    totalArea += area;
+                }
+            }
+
+            // ボックスの表面積で正規化
+            var size = box.size;
+            float boxSurfaceArea = 2f * (size.x * size.y + size.y * size.z + size.z * size.x);
+
+            if (boxSurfaceArea < 0.0001f) return 0f;
+
+            return totalArea / boxSurfaceArea;
+        }
+
+        // グリッドがフィルター条件を満たすかチェック
+        private bool PassesFilter(Vector3[] vertices, int[] triangles, Bounds box)
+        {
+            switch (_filterMode)
+            {
+                case FilterMode.None:
+                    return DoesMeshIntersectBox(vertices, triangles, box);
+
+                case FilterMode.TriangleCount:
+                    int count = CountIntersectingTriangles(vertices, triangles, box);
+                    return count >= _minTriangleCount;
+
+                case FilterMode.SubSampling:
+                    float volumeRatio = CalculateSubSamplingRatio(vertices, triangles, box, _subSamplingDivisions);
+                    return volumeRatio >= _minVolumeRatio;
+
+                case FilterMode.AreaBased:
+                    float areaRatio = CalculateAreaRatio(vertices, triangles, box);
+                    return areaRatio >= _minAreaRatio;
+
+                default:
+                    return DoesMeshIntersectBox(vertices, triangles, box);
+            }
         }
 
         private List<MergedRegion> MergeGrids(bool[,,] gridData)
