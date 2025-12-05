@@ -224,33 +224,9 @@ namespace takashicompany.Unity.Editor
             return false;
         }
 
-        // 三角形とAABBの交差判定（Separating Axis Theorem）
+        // 三角形とAABBの交差判定（Separating Axis Theorem - 完全版）
         private bool TriangleBoxIntersect(Vector3 v0, Vector3 v1, Vector3 v2, Bounds box)
         {
-            // まず、三角形のバウンディングボックスとの判定
-            var triMin = Vector3.Min(Vector3.Min(v0, v1), v2);
-            var triMax = Vector3.Max(Vector3.Max(v0, v1), v2);
-
-            if (triMax.x < box.min.x || triMin.x > box.max.x) return false;
-            if (triMax.y < box.min.y || triMin.y > box.max.y) return false;
-            if (triMax.z < box.min.z || triMin.z > box.max.z) return false;
-
-            // 頂点がボックス内にあるか
-            if (box.Contains(v0) || box.Contains(v1) || box.Contains(v2))
-            {
-                return true;
-            }
-
-            // 三角形の辺がボックスと交差するか
-            if (LineIntersectsBox(v0, v1, box) ||
-                LineIntersectsBox(v1, v2, box) ||
-                LineIntersectsBox(v2, v0, box))
-            {
-                return true;
-            }
-
-            // ボックスの中心が三角形の平面上でボックス内にあるかどうか
-            // (より厳密なSAT判定)
             var center = box.center;
             var extents = box.extents;
 
@@ -264,78 +240,80 @@ namespace takashicompany.Unity.Editor
             var e1 = tv2 - tv1;
             var e2 = tv0 - tv2;
 
-            // 三角形の法線
-            var normal = Vector3.Cross(e0, e1);
+            // === 1. ボックスの軸（X, Y, Z）での判定 ===
+            // X軸
+            float min = Mathf.Min(tv0.x, Mathf.Min(tv1.x, tv2.x));
+            float max = Mathf.Max(tv0.x, Mathf.Max(tv1.x, tv2.x));
+            if (min > extents.x || max < -extents.x) return false;
 
-            // 平面との交差判定
+            // Y軸
+            min = Mathf.Min(tv0.y, Mathf.Min(tv1.y, tv2.y));
+            max = Mathf.Max(tv0.y, Mathf.Max(tv1.y, tv2.y));
+            if (min > extents.y || max < -extents.y) return false;
+
+            // Z軸
+            min = Mathf.Min(tv0.z, Mathf.Min(tv1.z, tv2.z));
+            max = Mathf.Max(tv0.z, Mathf.Max(tv1.z, tv2.z));
+            if (min > extents.z || max < -extents.z) return false;
+
+            // === 2. 三角形の法線軸での判定 ===
+            var normal = Vector3.Cross(e0, e1);
             float r = extents.x * Mathf.Abs(normal.x) +
                      extents.y * Mathf.Abs(normal.y) +
                      extents.z * Mathf.Abs(normal.z);
             float s = Vector3.Dot(normal, tv0);
+            if (Mathf.Abs(s) > r) return false;
 
-            if (Mathf.Abs(s) > r)
-            {
+            // === 3. 9つのクロス積軸での判定 ===
+            // X軸 × e0
+            if (!TestAxis(tv0, tv1, tv2, extents, 0, -e0.z, e0.y)) return false;
+            // X軸 × e1
+            if (!TestAxis(tv0, tv1, tv2, extents, 0, -e1.z, e1.y)) return false;
+            // X軸 × e2
+            if (!TestAxis(tv0, tv1, tv2, extents, 0, -e2.z, e2.y)) return false;
+
+            // Y軸 × e0
+            if (!TestAxis(tv0, tv1, tv2, extents, e0.z, 0, -e0.x)) return false;
+            // Y軸 × e1
+            if (!TestAxis(tv0, tv1, tv2, extents, e1.z, 0, -e1.x)) return false;
+            // Y軸 × e2
+            if (!TestAxis(tv0, tv1, tv2, extents, e2.z, 0, -e2.x)) return false;
+
+            // Z軸 × e0
+            if (!TestAxis(tv0, tv1, tv2, extents, -e0.y, e0.x, 0)) return false;
+            // Z軸 × e1
+            if (!TestAxis(tv0, tv1, tv2, extents, -e1.y, e1.x, 0)) return false;
+            // Z軸 × e2
+            if (!TestAxis(tv0, tv1, tv2, extents, -e2.y, e2.x, 0)) return false;
+
+            return true;
+        }
+
+        // 指定した軸での分離軸テスト
+        private bool TestAxis(Vector3 v0, Vector3 v1, Vector3 v2, Vector3 extents, float ax, float ay, float az)
+        {
+            // 軸がゼロベクトルに近い場合はスキップ（分離軸として無効）
+            if (Mathf.Abs(ax) < 0.0001f && Mathf.Abs(ay) < 0.0001f && Mathf.Abs(az) < 0.0001f)
+                return true;
+
+            // 三角形の頂点を軸に投影
+            float p0 = ax * v0.x + ay * v0.y + az * v0.z;
+            float p1 = ax * v1.x + ay * v1.y + az * v1.z;
+            float p2 = ax * v2.x + ay * v2.y + az * v2.z;
+
+            float triMin = Mathf.Min(p0, Mathf.Min(p1, p2));
+            float triMax = Mathf.Max(p0, Mathf.Max(p1, p2));
+
+            // ボックスの投影半径
+            float boxRadius = extents.x * Mathf.Abs(ax) +
+                             extents.y * Mathf.Abs(ay) +
+                             extents.z * Mathf.Abs(az);
+
+            // 分離軸テスト：投影範囲が重なっていなければ分離している
+            if (triMin > boxRadius || triMax < -boxRadius)
                 return false;
-            }
 
             return true;
-        }
-
-        private bool LineIntersectsBox(Vector3 p1, Vector3 p2, Bounds box)
-        {
-            var dir = p2 - p1;
-            var length = dir.magnitude;
-            if (length < 0.0001f) return box.Contains(p1);
-
-            dir /= length;
-
-            float tmin = 0;
-            float tmax = length;
-
-            for (int i = 0; i < 3; i++)
-            {
-                float min = GetComponent(box.min, i);
-                float max = GetComponent(box.max, i);
-                float origin = GetComponent(p1, i);
-                float direction = GetComponent(dir, i);
-
-                if (Mathf.Abs(direction) < 0.0001f)
-                {
-                    if (origin < min || origin > max)
-                        return false;
-                }
-                else
-                {
-                    float t1 = (min - origin) / direction;
-                    float t2 = (max - origin) / direction;
-
-                    if (t1 > t2)
-                    {
-                        float temp = t1;
-                        t1 = t2;
-                        t2 = temp;
-                    }
-
-                    tmin = Mathf.Max(tmin, t1);
-                    tmax = Mathf.Min(tmax, t2);
-
-                    if (tmin > tmax)
-                        return false;
-                }
-            }
-
-            return true;
-        }
-
-        private float GetComponent(Vector3 v, int index)
-        {
-            switch (index)
-            {
-                case 0: return v.x;
-                case 1: return v.y;
-                case 2: return v.z;
-                default: return 0;
-            }
         }
 
         private List<MergedRegion> MergeGrids(bool[,,] gridData)
