@@ -107,6 +107,8 @@ namespace takashicompany.Unity
 
 		private FPS _fps;
 
+		private int _lastFps = 0;
+
 		private void Awake()
 		{
 			_fps = new FPS();
@@ -118,6 +120,8 @@ namespace takashicompany.Unity
 
 			if (_fps.TryCurrent(out var fps))
 			{
+				if (_lastFps == fps) return;
+				_lastFps = fps;
 				_text.text = string.Format(_format, fps);
 			}
 			else
