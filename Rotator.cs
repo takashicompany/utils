@@ -5,7 +5,12 @@ namespace takashicompany.Unity
 	using System.Linq;
 	using UnityEngine;
 
-	public class Rotator : MonoBehaviour
+	public interface IRotator
+	{
+		bool enabled { get; set; }
+	}
+
+	public class Rotator : MonoBehaviour, IRotator
 	{
 		[SerializeField]
 		private Vector3 _rotatePerSecond = Vector3.forward * 360;

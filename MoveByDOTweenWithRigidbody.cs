@@ -4,7 +4,7 @@ namespace takashicompany.Unity
 	using DG.Tweening;
 	using UnityEngine;
 
-	public class MoveByDOTweenWithRigidbody : MonoBehaviour
+	public class MoveByDOTweenWithRigidbody : MonoBehaviour, IMove
 	{
 		[SerializeField]
 		private Rigidbody _rigidbody;

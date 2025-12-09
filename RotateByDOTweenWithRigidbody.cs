@@ -3,7 +3,7 @@ namespace takashicompany.Unity
 	using DG.Tweening;
 	using UnityEngine;
 
-	public class RotateByDOTweenWithRigidbody : MonoBehaviour
+	public class RotateByDOTweenWithRigidbody : MonoBehaviour, IRotator
 	{
 		[SerializeField]
 		private Rigidbody _rigidbody;

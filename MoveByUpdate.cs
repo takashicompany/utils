@@ -2,8 +2,13 @@ namespace takashicompany.Unity
 {
 	using System.Collections.Generic;
 	using UnityEngine;
+	
+	public interface IMove
+	{
+		bool enabled { get; set; }
+	}
 
-	public class MoveByUpdate : MonoBehaviour
+	public class MoveByUpdate : MonoBehaviour, IMove
 	{
 		private enum LoopMode
 		{

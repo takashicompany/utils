@@ -6,7 +6,7 @@ namespace takashicompany.Unity
 	using UnityEngine;
 
 	[RequireComponent(typeof(Rigidbody2D))]
-	public class MoveByPhysics2D : MonoBehaviour
+	public class MoveByPhysics2D : MonoBehaviour, IMove
 	{
 		private Rigidbody2D _rigidbody2DInternal;
 		private Rigidbody2D _rigidbody2D => _rigidbody2DInternal ? _rigidbody2DInternal : (_rigidbody2DInternal = GetComponent<Rigidbody2D>());

@@ -3,7 +3,7 @@ namespace takashicompany.Unity
 	using System.Collections;
 	using UnityEngine;
 
-	public class RotateWithRigidbody : MonoBehaviour
+	public class RotateWithRigidbody : MonoBehaviour, IRotator
 	{
 		[SerializeField, Header("未指定ならこのコンポーネントについているRigidbodyを使う")]
 		private Rigidbody _rigidbody;

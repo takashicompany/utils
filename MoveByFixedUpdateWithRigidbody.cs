@@ -4,7 +4,7 @@ namespace takashicompany.Unity
 	using UnityEngine;
 
 	[DisallowMultipleComponent]
-	public class MoveByFixedUpdateWithRigidbody : MonoBehaviour
+	public class MoveByFixedUpdateWithRigidbody : MonoBehaviour, IMove
 	{
 		private enum LoopMode
 		{
