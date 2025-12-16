@@ -9,7 +9,6 @@ namespace takashicompany.Unity
 	{
 		[SerializeField]
 		protected UpdateType _updateType = UpdateType.Update;
-		
 
 		protected void Update()
 		{
@@ -28,7 +27,7 @@ namespace takashicompany.Unity
 
 		protected virtual void OnUpdate()
 		{
-			
+
 		}
 
 		protected virtual void OnLateUpdate()
