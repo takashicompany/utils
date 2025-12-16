@@ -61,6 +61,11 @@
 			return !IsUse(obj);
 		}
 
+		public virtual int CountUsed()
+		{
+			return _pooled.Count(p => IsUse(p));
+		}
+
 		protected abstract void Use(T obj);
 
 		protected abstract T Generate();
