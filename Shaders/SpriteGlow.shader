@@ -12,6 +12,9 @@ Shader "takashicompany/SpriteGlow"
         _GlowIntensity ("Glow Intensity", Float) = 1
         _GlowDirections ("Glow Directions", Integer) = 16
         _GlowSteps ("Glow Steps", Integer) = 3
+
+        [Header(Advanced)]
+        _PixelsPerUnit ("Pixels Per Unit", Float) = 100
     }
 
     SubShader
@@ -69,6 +72,7 @@ Shader "takashicompany/SpriteGlow"
                 float _GlowIntensity;
                 float _GlowDirections;
                 float _GlowSteps;
+                float _PixelsPerUnit;
             CBUFFER_END
 
             #define TWO_PI 6.28318530718
@@ -88,12 +92,15 @@ Shader "takashicompany/SpriteGlow"
                 UNITY_TRANSFER_INSTANCE_ID(input, output);
 
                 // メッシュを GlowSize 分だけ外側に拡張して光彩の描画領域を確保
-                float2 expand = max(0, _GlowSize) * _MainTex_TexelSize.xy;
-                float2 scale = 1.0 + 2.0 * expand;
+                float2 expandUV = max(0, _GlowSize) * _MainTex_TexelSize.xy;
+                float2 scale = 1.0 + 2.0 * expandUV;
 
-                // 頂点を中心から拡張 (Pivot=Center 前提)
+                // UV中心(0.5,0.5)から外側に拡張 (Pivot位置に依存しない)
+                float2 uvDir = input.uv * 2.0 - 1.0; // UV(0,0)→(-1,-1), UV(1,1)→(1,1)
+                float expandObj = max(0, _GlowSize) / max(_PixelsPerUnit, 1.0);
+
                 float3 pos = input.positionOS.xyz;
-                pos.xy *= scale;
+                pos.xy += uvDir * expandObj;
                 output.positionCS = TransformObjectToHClip(pos);
 
                 // UV も中心から拡張 (拡張部分は [0,1] 外になる)
