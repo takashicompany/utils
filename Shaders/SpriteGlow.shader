@@ -13,6 +13,10 @@ Shader "takashicompany/SpriteGlow"
         _GlowDirections ("Glow Directions", Integer) = 16
         _GlowSteps ("Glow Steps", Integer) = 3
 
+        [Header(Additive)]
+        _AdditiveColor ("Additive Color", Color) = (1,1,1,0)
+        _AdditiveIntensity ("Additive Intensity", Range(0, 1)) = 0
+
         [Header(Advanced)]
         _PixelsPerUnit ("Pixels Per Unit", Float) = 100
     }
@@ -72,6 +76,8 @@ Shader "takashicompany/SpriteGlow"
                 float _GlowIntensity;
                 float _GlowDirections;
                 float _GlowSteps;
+                float4 _AdditiveColor;
+                float _AdditiveIntensity;
                 float _PixelsPerUnit;
             CBUFFER_END
 
@@ -120,6 +126,9 @@ Shader "takashicompany/SpriteGlow"
                 half4 spriteColor = mainTex * input.color * _Color;
                 spriteColor.a = spriteAlpha * input.color.a * _Color.a;
 
+                // 加算処理: スプライト自体を明るくする (白くする等)
+                spriteColor.rgb += _AdditiveColor.rgb * _AdditiveIntensity * spriteAlpha * input.color.a;
+
                 // GlowSize=0 or Intensity=0 なら光彩なし
                 if (_GlowSize <= 0 || _GlowIntensity <= 0)
                     return spriteColor;
@@ -128,10 +137,13 @@ Shader "takashicompany/SpriteGlow"
                 float glowAlpha = 0;
 
                 // 方向数・ステップ数をクランプ (安全上限)
-                int dirCount = clamp(_GlowDirections, 1, 64);
-                int stepCount = clamp(_GlowSteps, 1, 8);
+                int dirCount = max((int)_GlowDirections, 1);
+                int stepCount = max((int)_GlowSteps, 1);
                 float angleStep = TWO_PI / (float)dirCount;
                 float invSteps = 1.0 / (float)stepCount;
+
+                // 最も近い不透明ピクセルまでの距離を探索
+                float minDist = _GlowSize + 1.0;
 
                 [loop]
                 for (int d = 0; d < dirCount; d++)
@@ -143,18 +155,26 @@ Shader "takashicompany/SpriteGlow"
                     for (int s = 1; s <= stepCount; s++)
                     {
                         float t = (float)s * invSteps;
-                        float2 offset = dir * _GlowSize * t * pixelSize;
+                        float dist = _GlowSize * t;
+                        float2 offset = dir * dist * pixelSize;
                         half a = SafeAlpha(input.uv + offset);
-                        float softRange = max(1.0 - _GlowSoftness, 0.001);
-                        float falloff = saturate(1.0 - t / softRange);
-                        glowAlpha = max(glowAlpha, a * falloff);
+                        // 不透明サンプルなら距離を記録、透明なら無視 (分岐なし)
+                        minDist = min(minDist, lerp(_GlowSize + 1.0, dist, step(0.01, a)));
                     }
                 }
 
-                glowAlpha = saturate(glowAlpha * _GlowIntensity);
+                // 距離ベースの連続的な減衰 (バンディングなし)
+                if (minDist <= _GlowSize)
+                {
+                    float normalizedDist = minDist / _GlowSize; // 0=エッジ近く, 1=最外部
+                    // Softness: 小=ソリッドな光彩+硬い外縁, 大=エッジ付近から徐々に減衰
+                    float fadeStart = 1.0 - _GlowSoftness;
+                    glowAlpha = 1.0 - smoothstep(fadeStart, 1.0, normalizedDist);
+                    glowAlpha = saturate(glowAlpha * _GlowIntensity);
+                }
 
                 // 合成: 光彩を後ろに、スプライトを上に
-                half4 glow = half4(_GlowColor.rgb, glowAlpha * _GlowColor.a);
+                half4 glow = half4(_GlowColor.rgb, glowAlpha * _GlowColor.a * input.color.a);
 
                 half4 result;
                 result.rgb = lerp(glow.rgb, spriteColor.rgb, spriteColor.a);
