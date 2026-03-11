@@ -1,4 +1,4 @@
-Shader "takashicompany/GradientUnlit"
+Shader "takashicompany/Gradient2ColorUnlit"
 {
     Properties
     {
@@ -18,7 +18,7 @@ Shader "takashicompany/GradientUnlit"
 
         Pass
         {
-            Name "GradientUnlit"
+            Name "Gradient2ColorUnlit"
             Tags { "LightMode" = "UniversalForward" }
 
             Cull Back
